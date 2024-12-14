@@ -410,110 +410,141 @@ input[type="checkbox"] {
     </div>
 
     <script>
-        class HisDatabase {
-            constructor() {
-                this.authorizedEmails = ['toluwanioloyede@gmail.com', 'bashorunidris18@gmail.com'];
-                this.validPin = 'h1sense0';
-                this.password = 'h1sense0';
-                this.currentUser = null;
-                this.forms = [];
-                this.loadFromStorage();
-            }
+       class HisDatabase {
+    constructor() {
+        this.authorizedEmails = ['toluwanioloyede27@gmail.com', 'bashorunidris18@gmail.com'];
+        this.validPin = 'h1sense0';
+        this.password = 'h1sense0';
+        this.currentUser = null;
+        this.forms = [];
+        this.loadFromStorage();
+    }
 
-            loadFromStorage() {
-                const storedData = localStorage.getItem('hisDatabase');
-                if (storedData) {
-                    const data = JSON.parse(storedData);
-                    this.forms = data.forms || [];
-                    this.currentUser = data.currentUser;
-                }
-            }
+    loadFromStorage() {
+        const storedData = localStorage.getItem('hisDatabase');
+        if (storedData) {
+            const data = JSON.parse(storedData);
+            this.forms = data.forms || [];
+            this.currentUser = data.currentUser;
+        }
+    }
 
-            saveToStorage() {
-                localStorage.setItem('hisDatabase', JSON.stringify({
-                    forms: this.forms,
-                    currentUser: this.currentUser
-                }));
-            }
+    saveToStorage() {
+        localStorage.setItem('hisDatabase', JSON.stringify({
+            forms: this.forms,
+            currentUser: this.currentUser
+        }));
+    }
 
-            authenticate(email, password) {
-                if (this.authorizedEmails.includes(email) && password === this.password) {
-                    this.currentUser = email;
-                    this.saveToStorage();
-                    return true;
-                }
-                return false;
-            }
+    authenticate(email, password) {
+        if (this.authorizedEmails.includes(email) && password === this.password) {
+            this.currentUser = email;
+            this.saveToStorage();
+            return true;
+        }
+        return false;
+    }
 
-            createForm(pin, courseName, type, fields, autoSave) {
-                if (pin !== this.validPin) {
-                    throw new Error('Invalid PIN');
-                }
-
-                const form = {
-                    id: Date.now().toString(36),
-                    courseName,
-                    type,
-                    fields,
-                    autoSave,
-                    creator: this.currentUser,
-                    active: true,
-                    submissions: [],
-                    created: new Date().toISOString()
-                };
-
-                this.forms.push(form);
-                this.saveToStorage();
-                return form;
-            }
-
-            getFormLink(formId) {
-                return `${window.location.origin}/form/${formId}`;
-            }
-
-            submitForm(formId, data) {
-                const form = this.forms.find(f => f.id === formId);
-                if (!form || !form.active) {
-                    throw new Error('Form not accessible');
-                }
-
-                form.submissions.push({
-                    ...data,
-                    timestamp: new Date().toISOString()
-                });
-
-                this.saveToStorage();
-            }
+    createForm(pin, courseName, type, fields, autoSave) {
+        if (pin !== this.validPin) {
+            throw new Error('Invalid PIN');
         }
 
-        const db = new HisDatabase();
+        const form = {
+            id: Date.now().toString(36),
+            courseName,
+            type,
+            fields,
+            autoSave,
+            creator: this.currentUser,
+            active: true,
+            submissions: [],
+            created: new Date().toISOString()
+        };
 
-        function showToast(message, type = 'success') {
-            const toast = document.createElement('div');
-            toast.className = `toast toast-${type}`;
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
+        this.forms.push(form);
+        this.saveToStorage();
+        return form;
+    }
+
+    getFormLink(formId) {
+        const form = this.forms.find(f => f.id === formId);
+        if (!form) return '';
+        const cleanCourseName = form.courseName.toLowerCase().replace(/\s+/g, '-');
+        return `https://h1-l.vercel.app/${cleanCourseName}/${formId}`;
+    }
+
+    submitForm(formId, data) {
+        const form = this.forms.find(f => f.id === formId);
+        if (!form || !form.active) {
+            throw new Error('Form not accessible');
         }
+        form.submissions.push({
+            ...data,
+            timestamp: new Date().toISOString()
+        });
+        this.saveToStorage();
+    }
 
-        function handleAuth() {
-            const email = document.getElementById('authEmail').value;
-            const password = document.getElementById('authPassword').value;
+    deleteForm(formId) {
+        this.forms = this.forms.filter(f => f.id !== formId);
+        this.saveToStorage();
+    }
 
-            try {
-                if (db.authenticate(email, password)) {
-                    document.getElementById('authContainer').classList.add('hidden');
-                    document.getElementById('dashboardContainer').classList.remove('hidden');
-                    showToast('Login successful');
-                    refreshFormsList();
-                } else {
-                    showToast('Invalid credentials', 'error');
-                }
-            } catch (error) {
-                showToast(error.message, 'error');
-            }
+    toggleFormStatus(formId) {
+        const form = this.forms.find(f => f.id === formId);
+        if (form) {
+            form.active = !form.active;
+            this.saveToStorage();
+            return form.active;
         }
-        function createForm() {
+        return false;
+    }
+}
+
+const db = new HisDatabase();
+
+function showToast(message, type = 'success') {
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        showToast('Link copied to clipboard');
+    }).catch(() => {
+        const tempInput = document.createElement('input');
+        tempInput.value = text;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        showToast('Link copied to clipboard');
+    });
+}
+
+function handleAuth() {
+    const email = document.getElementById('authEmail').value;
+    const password = document.getElementById('authPassword').value;
+
+    try {
+        if (db.authenticate(email, password)) {
+            document.getElementById('authContainer').classList.add('hidden');
+            document.getElementById('dashboardContainer').classList.remove('hidden');
+            showToast('Login successful');
+            refreshFormsList();
+        } else {
+            showToast('Invalid credentials', 'error');
+        }
+    } catch (error) {
+        showToast(error.message, 'error');
+    }
+}
+
+function createForm() {
     const pin = document.getElementById('formPin').value;
     const courseName = document.getElementById('courseName').value;
     const type = document.getElementById('formType').value;
@@ -521,74 +552,89 @@ input[type="checkbox"] {
         .map(input => input.value);
     const autoSave = document.getElementById('autoSave').checked;
 
+    if (!courseName.trim()) {
+        showToast('Course name is required', 'error');
+        return;
+    }
+
     try {
         const form = db.createForm(pin, courseName, type, fields, autoSave);
-        const baseUrl = 'https://h1-l.vercel.app/';  // Replace with your actual domain
-        const formLink = `${baseUrl}/form/${form.id}`;
+        const formLink = db.getFormLink(form.id);
 
-        // Create sharing links
-        const whatsappLink = `https://wa.me/?text=${encodeURIComponent(`Please fill this form: ${formLink}`)}`;
+        const whatsappLink = `https://wa.me/?text=${encodeURIComponent(`Fill this form: ${formLink}`)}`;
         const telegramLink = `https://t.me/share/url?url=${encodeURIComponent(formLink)}&text=${encodeURIComponent('Please fill this form')}`;
 
-        // Create sharing buttons container
         const shareContainer = document.createElement('div');
         shareContainer.className = 'share-buttons';
         shareContainer.innerHTML = `
             <h4>Share Form:</h4>
             <div class="share-links">
-                <a href="${whatsappLink}" target="_blank" class="share-btn whatsapp">Share on WhatsApp</a>
-                <a href="${telegramLink}" target="_blank" class="share-btn telegram">Share on Telegram</a>
+                <a href="${whatsappLink}" target="_blank" rel="noopener" class="share-btn whatsapp">Share on WhatsApp</a>
+                <a href="${telegramLink}" target="_blank" rel="noopener" class="share-btn telegram">Share on Telegram</a>
                 <button onclick="copyToClipboard('${formLink}')" class="share-btn copy">Copy Link</button>
             </div>
         `;
 
-        // Add to page and show toast
+        const existingShare = document.querySelector('.share-buttons');
+        if (existingShare) {
+            existingShare.remove();
+        }
+
         document.querySelector('.form-container').appendChild(shareContainer);
         showToast('Form created successfully');
         refreshFormsList();
-
+        clearFormInputs();
     } catch (error) {
         showToast(error.message, 'error');
     }
 }
 
-function copyToClipboard(text) {
-    navigator.clipboard.writeText(text);
-    showToast('Link copied to clipboard');
+function clearFormInputs() {
+    document.getElementById('formPin').value = '';
+    document.getElementById('courseName').value = '';
+    document.getElementById('formType').selectedIndex = 0;
+    document.querySelectorAll('#fieldSelector input:checked').forEach(input => input.checked = false);
+    document.getElementById('autoSave').checked = false;
 }
 
+function refreshFormsList() {
+    const container = document.getElementById('formsContainer');
+    const forms = db.forms.filter(form => form.creator === db.currentUser);
+    
+    if (forms.length === 0) {
+        container.innerHTML = '<div class="form-container"><p>No forms created yet</p></div>';
+        return;
+    }
 
-        function refreshFormsList() {
-            const container = document.getElementById('formsContainer');
-            container.innerHTML = db.forms
-                .filter(form => form.creator === db.currentUser)
-                .map(form => `
-                    <div class="form-container">
-                        <h3>${form.courseName}</h3>
-                        <p>Type: ${form.type}</p>
-                        <p>Submissions: ${form.submissions.length}</p>
-                        <p>Status: ${form.active ? 'Active' : 'Locked'}</p>
-                        <button class="btn btn-primary" onclick="toggleForm('${form.id}')">
-                            ${form.active ? 'Lock' : 'Unlock'}
-                        </button>
-                        <button class="btn btn-primary" onclick="exportData('${form.id}')">
-                            Export Data
-                        </button>
-                    </div>
-                `).join('');
-        }
+    container.innerHTML = forms.map(form => `
+        <div class="form-container">
+            <h3>${form.courseName}</h3>
+            <p>Type: ${form.type}</p>
+            <p>Submissions: ${form.submissions.length}</p>
+            <p>Status: ${form.active ? 'Active' : 'Locked'}</p>
+            <p>Form Link: <a href="${db.getFormLink(form.id)}" target="_blank">${db.getFormLink(form.id)}</a></p>
+            <div class="form-actions">
+                <button class="btn btn-primary" onclick="toggleForm('${form.id}')">
+                    ${form.active ? 'Lock' : 'Unlock'}
+                </button>
+                <button class="btn btn-primary" onclick="exportData('${form.id}')">
+                    Export Data
+                </button>
+                <button class="btn btn-danger" onclick="deleteForm('${form.id}')">
+                    Delete Form
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
 
-        function toggleForm(formId) {
-            const form = db.forms.find(f => f.id === formId);
-            if (form) {
-                form.active = !form.active;
-                db.saveToStorage();
-                refreshFormsList();
-                showToast(`Form ${form.active ? 'unlocked' : 'locked'}`);
-            }
-        }
+function toggleForm(formId) {
+    const isActive = db.toggleFormStatus(formId);
+    refreshFormsList();
+    showToast(`Form ${isActive ? 'unlocked' : 'locked'}`);
+}
 
-        function exportData(formId) {
+function exportData(formId) {
     const form = db.forms.find(f => f.id === formId);
     if (!form) return;
 
@@ -612,45 +658,20 @@ function deleteForm(formId) {
     const form = db.forms.find(f => f.id === formId);
     if (!form) return;
 
-    // Show confirmation dialog
-    const confirmDelete = confirm(`Are you sure you want to delete "${form.courseName}"? This action cannot be undone.`);
-
-    if (confirmDelete) {
-        // Remove form from database
-        db.forms = db.forms.filter(f => f.id !== formId);
-        db.saveToStorage();
-
-        // Update UI
+    if (confirm(`Are you sure you want to delete "${form.courseName}"? This action cannot be undone.`)) {
+        db.deleteForm(formId);
         refreshFormsList();
-        showToast('Form deleted successfully', 'success');
+        showToast('Form deleted successfully');
     }
 }
 
-// Update the form container HTML to include delete button
-function refreshFormsList() {
-    const container = document.getElementById('formsContainer');
-    container.innerHTML = db.forms
-        .filter(form => form.creator === db.currentUser)
-        .map(form => `
-            <div class="form-container">
-                <h3>${form.courseName}</h3>
-                <p>Type: ${form.type}</p>
-                <p>Submissions: ${form.submissions.length}</p>
-                <p>Status: ${form.active ? 'Active' : 'Locked'}</p>
-                <div class="form-actions">
-                    <button class="btn btn-primary" onclick="toggleForm('${form.id}')">
-                        ${form.active ? 'Lock' : 'Unlock'}
-                    </button>
-                    <button class="btn btn-primary" onclick="exportData('${form.id}')">
-                        Export Data
-                    </button>
-                    <button class="btn btn-danger" onclick="deleteForm('${form.id}')">
-                        Delete Form
-                    </button>
-                </div>
-            </div>
-        `).join('');
-}
+document.addEventListener('DOMContentLoaded', () => {
+    if (db.currentUser) {
+        document.getElementById('authContainer').classList.add('hidden');
+        document.getElementById('dashboardContainer').classList.remove('hidden');
+        refreshFormsList();
+    }
+});
 
     </script>
 </body>
