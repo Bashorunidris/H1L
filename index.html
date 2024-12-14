@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HD - His Database</title>
+    <style>
+        :root {
+            --primary: #1E90FF;
+            --secondary: #32CD32;
+            --error: #FF6347;
+            --bg-light: #F5F5F5;
+            --text-dark: #333;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: var(--bg-light);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.5s ease;
+        }
+
+        .logo-circle {
+    width: 60px;
+    height: 60px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 3px solid var(--primary);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.logo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.logo-circle:hover {
+    transform: scale(1.1);
+}
+
+.logo-circle:hover .logo-image {
+    transform: scale(1.1);
+}
+
+        .auth-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin: 20px 0;
+            animation: slideUp 0.5s ease;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .signature-pad {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background: var(--bg-light);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 5px;
+            color: white;
+            animation: slideIn 0.3s ease;
+        }
+
+        .toast-success {
+            background: var(--secondary);
+        }
+
+        .toast-error {
+            background: var(--error);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .hidden {
+            display: none;
+        }
+       .share-buttons {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.share-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.share-btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 160px;
+    justify-content: center;
+}
+
+.whatsapp { background: #25D366; }
+.telegram { background: #0088cc; }
+.copy { background: #666; }
+.btn-danger { background-color: #dc3545; }
+
+@media screen and (max-width: 768px) {
+    .share-buttons {
+        padding: 12px;
+    }
+
+    .share-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+        min-width: 140px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .share-links {
+        flex-direction: column;
+    }
+
+    .share-btn {
+        width: 100%;
+        min-width: unset;
+    }
+}
+
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.form-container {
+    position: relative;
+}
+
+.form-container:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+  .input-group {
+    margin: 20px 0;
+    padding: 15px;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+#fieldSelector {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#fieldSelector label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+}
+
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.input-group label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+           <div class="logo">
+    <div class="logo-circle">
+        <img src="assets/hd-logo.png" alt="HD Logo" class="logo-image">
+
+            <h1>His </h1>
+        </div>
+        </div>
+
+        <div id="authContainer" class="auth-container">
+            <h2>Login</h2>
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="authEmail" placeholder="Enter your email">
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="authPassword" placeholder="Enter password">
+            </div>
+            <button class="btn btn-primary" onclick="handleAuth()">Login</button>
+        </div>
+
+        <div id="dashboardContainer" class="hidden">
+            <div class="form-container">
+                <h2>Create New Form</h2>
+                <div class="input-group">
+                    <label>PIN</label>
+                    <input type="text" id="formPin" placeholder="">
+                </div>
+                <div class="input-group">
+                    <label>Course Name</label>
+                    <input type="text" id="courseName">
+                </div>
+                <div class="input-group">
+                    <label>Form Type</label>
+                    <select id="formType">
+                        <option value="regular">Regular Form</option>
+                        <option value="attendance">Attendance Sheet</option>
+                    </select>
+                </div>
+                <div class="input-group field-group">
+    <h3 class="field-title">Required Fields</h3>
+    <div id="fieldSelector" class="checkbox-grid">
+        <label class="checkbox-wrapper">
+            <input type="checkbox" value="name">
+            <span class="checkbox-custom"></span>
+            <span class="label-text">Name</span>
+        </label>
+        <label class="checkbox-wrapper">
+            <input type="checkbox" value="matric">
+            <span class="checkbox-custom"></span>
+            <span class="label-text">Matriculation Number</span>
+        </label>
+        <label class="checkbox-wrapper">
+            <input type="checkbox" value="phone">
+            <span class="checkbox-custom"></span>
+            <span class="label-text">Phone Number</span>
+        </label>
+        <label class="checkbox-wrapper">
+            <input type="checkbox" value="email">
+            <span class="checkbox-custom"></span>
+            <span class="label-text">Email</span>
+        </label>
+        <label class="checkbox-wrapper">
+            <input type="checkbox" value="dob">
+            <span class="checkbox-custom"></span>
+            <span class="label-text">Date of Birth</span>
+        </label>
+    </div>
+</div>
+
+<div class="input-group autosave-group">
+    <label class="checkbox-wrapper">
+        <input type="checkbox" id="autoSave">
+        <span class="checkbox-custom"></span>
+        <span class="label-text">Enable Autosave</span>
+    </label>
+</div>
+
+                <button class="btn btn-primary" onclick="createForm()">Generate Form Link</button>
+            </div>
+
+            <div id="formsContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        class HisDatabase {
+            constructor() {
+                this.authorizedEmails = ['toluwanioloyede@gmail.com', 'bashorunidris18@gmail.com'];
+                this.validPin = 'h1sense0';
+                this.password = 'h1sense0';
+                this.currentUser = null;
+                this.forms = [];
+                this.loadFromStorage();
+            }
+
+            loadFromStorage() {
+                const storedData = localStorage.getItem('hisDatabase');
+                if (storedData) {
+                    const data = JSON.parse(storedData);
+                    this.forms = data.forms || [];
+                    this.currentUser = data.currentUser;
+                }
+            }
+
+            saveToStorage() {
+                localStorage.setItem('hisDatabase', JSON.stringify({
+                    forms: this.forms,
+                    currentUser: this.currentUser
+                }));
+            }
+
+            authenticate(email, password) {
+                if (this.authorizedEmails.includes(email) && password === this.password) {
+                    this.currentUser = email;
+                    this.saveToStorage();
+                    return true;
+                }
+                return false;
+            }
+
+            createForm(pin, courseName, type, fields, autoSave) {
+                if (pin !== this.validPin) {
+                    throw new Error('Invalid PIN');
+                }
+
+                const form = {
+                    id: Date.now().toString(36),
+                    courseName,
+                    type,
+                    fields,
+                    autoSave,
+                    creator: this.currentUser,
+                    active: true,
+                    submissions: [],
+                    created: new Date().toISOString()
+                };
+
+                this.forms.push(form);
+                this.saveToStorage();
+                return form;
+            }
+
+            getFormLink(formId) {
+                return `${window.location.origin}/form/${formId}`;
+            }
+
+            submitForm(formId, data) {
+                const form = this.forms.find(f => f.id === formId);
+                if (!form || !form.active) {
+                    throw new Error('Form not accessible');
+                }
+
+                form.submissions.push({
+                    ...data,
+                    timestamp: new Date().toISOString()
+                });
+
+                this.saveToStorage();
+            }
+        }
+
+        const db = new HisDatabase();
+
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        function handleAuth() {
+            const email = document.getElementById('authEmail').value;
+            const password = document.getElementById('authPassword').value;
+
+            try {
+                if (db.authenticate(email, password)) {
+                    document.getElementById('authContainer').classList.add('hidden');
+                    document.getElementById('dashboardContainer').classList.remove('hidden');
+                    showToast('Login successful');
+                    refreshFormsList();
+                } else {
+                    showToast('Invalid credentials', 'error');
+                }
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+        function createForm() {
+    const pin = document.getElementById('formPin').value;
+    const courseName = document.getElementById('courseName').value;
+    const type = document.getElementById('formType').value;
+    const fields = Array.from(document.querySelectorAll('#fieldSelector input:checked'))
+        .map(input => input.value);
+    const autoSave = document.getElementById('autoSave').checked;
+
+    try {
+        const form = db.createForm(pin, courseName, type, fields, autoSave);
+        const baseUrl = 'https://yourappname.com';  // Replace with your actual domain
+        const formLink = `${baseUrl}/form/${form.id}`;
+
+        // Create sharing links
+        const whatsappLink = `https://wa.me/?text=${encodeURIComponent(`Please fill this form: ${formLink}`)}`;
+        const telegramLink = `https://t.me/share/url?url=${encodeURIComponent(formLink)}&text=${encodeURIComponent('Please fill this form')}`;
+
+        // Create sharing buttons container
+        const shareContainer = document.createElement('div');
+        shareContainer.className = 'share-buttons';
+        shareContainer.innerHTML = `
+            <h4>Share Form:</h4>
+            <div class="share-links">
+                <a href="${whatsappLink}" target="_blank" class="share-btn whatsapp">Share on WhatsApp</a>
+                <a href="${telegramLink}" target="_blank" class="share-btn telegram">Share on Telegram</a>
+                <button onclick="copyToClipboard('${formLink}')" class="share-btn copy">Copy Link</button>
+            </div>
+        `;
+
+        // Add to page and show toast
+        document.querySelector('.form-container').appendChild(shareContainer);
+        showToast('Form created successfully');
+        refreshFormsList();
+
+    } catch (error) {
+        showToast(error.message, 'error');
+    }
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text);
+    showToast('Link copied to clipboard');
+}
+
+
+        function refreshFormsList() {
+            const container = document.getElementById('formsContainer');
+            container.innerHTML = db.forms
+                .filter(form => form.creator === db.currentUser)
+                .map(form => `
+                    <div class="form-container">
+                        <h3>${form.courseName}</h3>
+                        <p>Type: ${form.type}</p>
+                        <p>Submissions: ${form.submissions.length}</p>
+                        <p>Status: ${form.active ? 'Active' : 'Locked'}</p>
+                        <button class="btn btn-primary" onclick="toggleForm('${form.id}')">
+                            ${form.active ? 'Lock' : 'Unlock'}
+                        </button>
+                        <button class="btn btn-primary" onclick="exportData('${form.id}')">
+                            Export Data
+                        </button>
+                    </div>
+                `).join('');
+        }
+
+        function toggleForm(formId) {
+            const form = db.forms.find(f => f.id === formId);
+            if (form) {
+                form.active = !form.active;
+                db.saveToStorage();
+                refreshFormsList();
+                showToast(`Form ${form.active ? 'unlocked' : 'locked'}`);
+            }
+        }
+
+        function exportData(formId) {
+    const form = db.forms.find(f => f.id === formId);
+    if (!form) return;
+
+    const data = form.submissions
+        .map(sub => Object.entries(sub)
+            .map(([key, value]) => `${key}: ${value}`)
+            .join('\n'))
+        .join('\n\n');
+
+    const blob = new Blob([data], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${form.courseName}_submissions.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('Data exported successfully');
+}
+
+function deleteForm(formId) {
+    const form = db.forms.find(f => f.id === formId);
+    if (!form) return;
+
+    // Show confirmation dialog
+    const confirmDelete = confirm(`Are you sure you want to delete "${form.courseName}"? This action cannot be undone.`);
+
+    if (confirmDelete) {
+        // Remove form from database
+        db.forms = db.forms.filter(f => f.id !== formId);
+        db.saveToStorage();
+
+        // Update UI
+        refreshFormsList();
+        showToast('Form deleted successfully', 'success');
+    }
+}
+
+// Update the form container HTML to include delete button
+function refreshFormsList() {
+    const container = document.getElementById('formsContainer');
+    container.innerHTML = db.forms
+        .filter(form => form.creator === db.currentUser)
+        .map(form => `
+            <div class="form-container">
+                <h3>${form.courseName}</h3>
+                <p>Type: ${form.type}</p>
+                <p>Submissions: ${form.submissions.length}</p>
+                <p>Status: ${form.active ? 'Active' : 'Locked'}</p>
+                <div class="form-actions">
+                    <button class="btn btn-primary" onclick="toggleForm('${form.id}')">
+                        ${form.active ? 'Lock' : 'Unlock'}
+                    </button>
+                    <button class="btn btn-primary" onclick="exportData('${form.id}')">
+                        Export Data
+                    </button>
+                    <button class="btn btn-danger" onclick="deleteForm('${form.id}')">
+                        Delete Form
+                    </button>
+                </div>
+            </div>
+        `).join('');
+}
+
+    </script>
+</body>
+</html>
