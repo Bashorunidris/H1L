@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto & Music Hub</title>
+    <style>
+        /* Base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #2196F3;
+            --accent-color: #FF9800;
+            --dark-color: #333;
+            --light-color: #f4f4f4;
+        }
+
+        body {
+            background: var(--light-color);
+            line-height: 1.6;
+        }
+
+        /* Header styles */
+        .header {
+            background: var(--dark-color);
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero section */
+        .hero {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Main content sections */
+        .section {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Crypto table */
+        .crypto-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .crypto-table th,
+        .crypto-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .crypto-table tr:hover {
+            background: #f5f5f5;
+            transform: scale(1.01);
+            transition: all 0.3s;
+        }
+
+        /* Music charts */
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .music-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .music-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Calculator section */
+        .calculator {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .calculator input,
+        .calculator select {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .calculator button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .calculator button:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Ad spaces */
+        .ad-space {
+            background: #f9f9f9;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">Crypto & Music Hub</div>
+            <div class="nav-links">
+                <a href="#crypto">Crypto</a>
+                <a href="#music">Music</a>
+                <a href="#calculator">Calculator</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Track Crypto & Music Trends</h1>
+        <p>Your one-stop platform for cryptocurrency prices and music charts</p>
+    </section>
+
+    <main>
+        <section id="crypto" class="section">
+            <h2>Cryptocurrency Prices</h2>
+            <div class="ad-space">Advertisement Space</div>
+            <table class="crypto-table" id="cryptoTable">
+                <thead>
+                    <tr>
+                        <th>Coin</th>
+                        <th>Price</th>
+                        <th>24h Change</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <section id="music" class="section">
+            <h2>Music Charts</h2>
+            <div class="ad-space">Advertisement Space</div>
+            <div class="music-grid" id="musicGrid"></div>
+        </section>
+
+        <section id="calculator" class="section">
+            <h2>Payment Calculator</h2>
+            <div class="calculator">
+                <select id="platform">
+                    <option value="tiktok">TikTok</option>
+                    <option value="youtube">YouTube</option>
+                    <option value="instagram">Instagram</option>
+                </select>
+                <input type="number" id="views" placeholder="Enter number of views">
+                <button onclick="calculateEarnings()">Calculate Earnings</button>
+                <div id="result" class="fade-in"></div>
+            </div>
+        </section>
+    </main>
+     <!-- Ad placement -->
+<div class="ad-container">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890"></script>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-1234567890"
+         data-ad-slot="1234567890"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+    <script>
+   // Free APIs Configuration
+const FREE_APIS = {
+    crypto: 'https://api.coincap.io/v2/assets?limit=10',
+    exchange: 'https://open.er-api.com/v6/latest/USD',
+    music: 'https://api.deezer.com/chart/0/tracks?limit=6'
+};
+
+// Platform Rates
+const PLATFORM_RATES = {
+    youtube: { views: { min: 0.00069, max: 0.00369, avg: 0.00188 }, subscribers: { value: 4.00 } },
+    tiktok: { views: { min: 0.00022, max: 0.00124, avg: 0.00073 }, followers: { value: 2.00 } },
+    instagram: { views: { min: 0.01, max: 0.03, avg: 0.02 }, followers: { value: 3.00 } }
+};
+
+// Ad Configuration
+const AD_CONFIG = {
+    propeller: { zoneId: '5435424' },
+    infolinks: { pid: '3389741' },
+    adsense: { client: 'ca-pub-1234567890123456' }
+};
+
+// Main Application
+class App {
+    constructor() {
+        this.data = {
+            crypto: [],
+            exchange: {},
+            music: []
+        };
+        this.init();
+    }
+
+    async init() {
+        await this.loadData();
+        this.initAds();
+        this.setupListeners();
+        this.startRefresh();
+    }
+
+    async loadData() {
+        try {
+            const [cryptoRes, exchangeRes, musicRes] = await Promise.all([
+                fetch(FREE_APIS.crypto),
+                fetch(FREE_APIS.exchange),
+                fetch(FREE_APIS.music)
+            ]);
+
+            const [cryptoData, exchangeData, musicData] = await Promise.all([
+                cryptoRes.json(),
+                exchangeRes.json(),
+                musicRes.json()
+            ]);
+
+            this.data.crypto = cryptoData.data || [];
+            this.data.exchange = exchangeData.rates || {};
+            this.data.music = musicData.tracks?.data || [];
+
+            this.updateUI();
+        } catch (error) {
+            console.log('Using fallback data');
+            this.useFallbackData();
+        }
+    }
+
+    updateUI() {
+        this.updateCryptoSection();
+        this.updateMusicSection();
+    }
+
+    updateCryptoSection() {
+        const cryptoTable = document.querySelector('#cryptoTable tbody');
+        if (!cryptoTable) return;
+
+        cryptoTable.innerHTML = this.data.crypto.map(coin => `
+            <tr class="fade-in">
+                <td>${coin.name} (${coin.symbol})</td>
+                <td>$${parseFloat(coin.priceUsd).toFixed(2)}</td>
+                <td class="${parseFloat(coin.changePercent24Hr) > 0 ? 'positive' : 'negative'}">
+                    ${parseFloat(coin.changePercent24Hr).toFixed(2)}%
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    updateMusicSection() {
+        const musicGrid = document.getElementById('musicGrid');
+        if (!musicGrid) return;
+
+        musicGrid.innerHTML = this.data.music.map(track => `
+            <div class="music-card fade-in">
+                <img src="${track.album.cover_medium}" alt="${track.title}">
+                <h3>${track.title}</h3>
+                <p>${track.artist.name}</p>
+            </div>
+        `).join('');
+    }
+
+    initAds() {
+        // Propeller Ads
+        const propellerScript = document.createElement('script');
+        propellerScript.src = `https://propeller-ads.com/delivery/${AD_CONFIG.propeller.zoneId}.js`;
+        propellerScript.async = true;
+        document.body.appendChild(propellerScript);
+
+        // Infolinks
+        const infolinksScript = document.createElement('script');
+        infolinksScript.src = 'https://resources.infolinks.com/js/infolinks_main.js';
+        infolinksScript.async = true;
+        document.head.appendChild(infolinksScript);
+
+        // Google AdSense
+        const adsenseScript = document.createElement('script');
+        adsenseScript.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${AD_CONFIG.adsense.client}`;
+        adsenseScript.async = true;
+        adsenseScript.crossOrigin = 'anonymous';
+        document.head.appendChild(adsenseScript);
+    }
+
+    setupListeners() {
+        document.getElementById('platform')?.addEventListener('change', this.updateCalculator.bind(this));
+        document.querySelector('.calculator button')?.addEventListener('click', this.calculateEarnings.bind(this));
+    }
+
+    calculateEarnings() {
+        const platform = document.getElementById('platform').value;
+        const views = parseInt(document.getElementById('views').value) || 0;
+        const rates = PLATFORM_RATES[platform];
+        const earnings = views * rates.views.avg;
+
+        document.getElementById('result').innerHTML = `
+            <div class="earnings-card fade-in">
+                <h3>Estimated Earnings</h3>
+                <div class="amount">$${earnings.toFixed(2)}</div>
+                <div class="converted">
+                    <p>€${(earnings * 0.85).toFixed(2)}</p>
+                    <p>£${(earnings * 0.73).toFixed(2)}</p>
+                    <p>₦${(earnings * 411).toFixed(2)}</p>
+                </div>
+            </div>
+        `;
+    }
+
+    startRefresh() {
+        setInterval(() => this.loadData(), 60000);
+    }
+
+    useFallbackData() {
+        this.data = {
+            crypto: [
+                { name: 'Bitcoin', symbol: 'BTC', priceUsd: '45000', changePercent24Hr: '2.5' },
+                { name: 'Ethereum', symbol: 'ETH', priceUsd: '3000', changePercent24Hr: '1.8' }
+            ],
+            exchange: { EUR: 0.85, GBP: 0.73, NGN: 411 },
+            music: []
+        };
+        this.updateUI();
+    }
+}
+
+// Start the application when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    window.app = new App();
+});
+
+
+    </script>
+</body>
+</html>
