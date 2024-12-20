@@ -5,33 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HD - His Database</title>
     <style>
-        :root {
-            --primary: #2c3e50;
-            --secondary: #32CD32;
-            --error: #FF6347;
-            --bg-light: #F5F5F5;
-            --text-dark: #333;
-            --shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+       :root {
+    /* Core Colors */
+    --primary: #2c3e50;
+    --primary-light: #3a4d61;
+    --primary-dark: #1e2b3a;
+    --secondary: #32CD32;
+    --secondary-light: #47d847;
+    --secondary-dark: #28a428;
+    --error: #FF6347;
+    --success: #28a745;
+    --warning: #ffc107;
+    --info: #17a2b8;
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
+    /* Background Colors */
+    --bg-light: #F5F5F5;
+    --bg-white: #ffffff;
+    --bg-dark: #333333;
+    --bg-gradient: linear-gradient(135deg, var(--primary), var(--primary-dark));
 
-        body {
-            background: var(--bg-light);
-            color: var(--text-dark);
-            min-height: 100vh;
-        }
+    /* Text Colors */
+    --text-dark: #333;
+    --text-light: #ffffff;
+    --text-muted: #6c757d;
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow: 0 2px 10px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
+
+    /* Breakpoints */
+    --mobile: 480px;
+    --tablet: 768px;
+    --laptop: 1024px;
+    --desktop: 1200px;
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --radius-full: 9999px;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: var(--bg-light);
+    color: var(--text-dark);
+    min-height: 100vh;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    width: 100%;
+    max-width: var(--desktop);
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+}
+
+/* Responsive Container */
+@media (max-width: var(--mobile)) {
+    .container {
+        padding: var(--spacing-md);
+    }
+}
+
+@media (max-width: var(--tablet)) {
+    .container {
+        max-width: 100%;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-light: #1a1a1a;
+        --text-dark: #ffffff;
+        --shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+}
+
+/* High Contrast Mode */
+@media (forced-colors: active) {
+    :root {
+        --primary: CanvasText;
+        --secondary: Highlight;
+        --error: Mark;
+    }
+}
 
        .logo {
     display: flex;
@@ -138,14 +218,13 @@
         font-size: 12px;
     }
 }
-
-         .master-auth-container {
-    max-width: 500px;
-    margin: 40px auto;
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    overflow: hidden;
+              .master-auth-container {
+        max-width: 500px;
+        margin: 40px auto;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        overflow: hidden;
 }
 
 .master-tabs {
@@ -249,107 +328,157 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
-         /* Dashboard Layout */
-.dashboard-toggle {
-    background: var(--surface);
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    margin: 32px 0;
-    overflow: hidden;
+
+ .logout-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1rem;
 }
 
-.dashboard-toggle summary {
-    padding: 20px 32px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+.logout-btn {
+    background: linear-gradient(135deg, #ff4b4b, #ff7676);
     color: white;
-    font-size: 1.25rem;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-}
-
-.dashboard-toggle summary::before {
-    content: '→';
-    margin-right: 12px;
-    transition: transform 0.3s ease;
-}
-
-.dashboard-toggle[open] summary::before {
-    transform: rotate(90deg);
-}
-
-/* Stats Section */
-.dashboard-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px;
-    padding: 32px;
-    background: linear-gradient(to bottom, #f8fafc, #ffffff);
-}
-
-.stat-card {
-    background: white;
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.stat-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-}
-
-.stat-card h3 {
-    color: var(--text);
-    font-size: 1.125rem;
-    margin-bottom: 16px;
-    font-weight: 600;
-}
-
-.stat-card p {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 16px;
-    font-family: 'Inter', sans-serif;
-}
-
-.stat-trend {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.875rem;
-    color: #10B981;
-    padding: 8px 12px;
-    background: rgba(16, 185, 129, 0.1);
+    padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
     border-radius: 8px;
-    width: fit-content;
-}
-
-/* Form Creation Section */
-.form-container {
-    padding: 32px;
-    background: white;
-    border-radius: 16px;
-    margin: 24px 32px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-}
-
-.form-container h2 {
-    font-size: 1.5rem;
-    color: var(--text);
-    margin-bottom: 24px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: center;
+    overflow: hidden;
     font-weight: 600;
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+    text-align: center;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
+.logout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 75, 75, 0.2);
+    background: linear-gradient(135deg, #ff3b3b, #ff6666);
+}
+
+.logout-btn:active {
+    transform: translateY(0);
+}
+
+.logout-btn.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: loading 1s infinite;
+}
+
+.logout-success {
+    position: fixed;
+    top: clamp(1rem, 5vh, 2rem);
+    right: clamp(1rem, 5vw, 2rem);
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+}
+
+/* Your existing animations remain the same */
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .logout-btn {
+        width: 90%;
+        justify-content: center;
+    }
+
+    .logout-success {
+        width: 90%;
+        right: 50%;
+        transform: translateX(50%);
+    }
+}
+
+.form-container {
+     width: min(100% - var(--container-padding), var(--container-max-width));
+    margin-inline: auto;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    background: var(--bg-white, white);
+    border-radius: clamp(0.8rem, 2vw, 1.5rem);
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.04),
+        0 1px 8px rgba(0, 0, 0, 0.06);
+    display: grid;
+    gap: var(--grid-gap);
+
+    /* Responsive Width Control */
+    width: min(100% - 2rem, 800px);
+    margin-inline: auto;
+
+    /* Grid Layout for Form Elements */
+    display: grid;
+    gap: clamp(1rem, 2vw, 1.5rem);
+
+    /* Smooth Transitions */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover Effects */
+.form-container:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 6px 24px rgba(0, 0, 0, 0.08),
+        0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Layout Breakpoints */
+@media (min-width: 768px) {
+    .form-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .form-container .full-width {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Mobile Optimization */
+@media (max-width: 480px) {
+    .form-container {
+        margin: 1rem;
+        padding: 1.25rem;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .form-container {
+        box-shadow: none;
+        margin: 0;
+        padding: 1rem;
+    }
+}
+
+
+
+/* Input Groups */
 .input-group {
-    margin-bottom: 24px;
+    display: grid;
+    gap: clamp(0.5rem, 1.5vw, 1rem);
+    padding: clamp(1rem, 3vw, 1.5rem);
+    background: var(--bg-white);
+    border-radius: clamp(0.5rem, 1.5vw, 1rem);
+    transition: transform 0.3s ease;
 }
 
 .input-group label {
@@ -392,11 +521,14 @@
 }
 
 #formType {
+
     width: 100%;
-    padding: 12px;
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 16px;
+    padding: clamp(0.8rem, 2vw, 1rem);
+    border: 2px solid var(--border-color, #e2e8f0);
+    border-radius: clamp(0.4rem, 1vw, 0.8rem);
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+
+
     color: #4a5568;
     background: #fff;
     transition: all 0.3s ease;
@@ -490,7 +622,80 @@
         grid-template-columns: 1fr;
     }
 }
+    /* Responsive Tables */
+.table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: clamp(1rem, 3vw, 2rem) 0;
+}
 
+table {
+    min-width: 100%;
+    white-space: nowrap;
+}
+
+/* Responsive Buttons */
+.btn,
+.share-btn {
+    padding: clamp(0.8rem, 2vw, 1rem) clamp(1.2rem, 3vw, 2rem);
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+}
+
+/* Toast Notifications */
+.toast {
+    position: fixed;
+    bottom: clamp(1rem, 5vh, 2rem);
+    right: clamp(1rem, 5vw, 2rem);
+    width: min(calc(100% - 2rem), 400px);
+    z-index: 1000;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1200px) {
+    .form-settings {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .share-links {
+        flex-direction: column;
+    }
+
+    .feature-actions {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 480px) {
+    .input-group {
+        padding: 1rem;
+    }
+
+    .stat-card {
+        padding: 1.25rem;
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) {
+    .btn:hover,
+    .share-btn:hover {
+        transform: none;
+    }
+}
+
+/* Print Optimizations */
+@media print {
+    .form-container {
+        box-shadow: none;
+    }
+
+    .share-buttons,
+    .feature-actions {
+        display: none;
+    }
+}
         .btn {
             padding: 10px 20px;
             border: none;
@@ -922,96 +1127,7 @@
     0% { transform: translateX(-100%); }
     100% { transform: translateX(100%); }
 }
-.logout-btn {
-    background: linear-gradient(135deg, #ff4b4b, #ff7676);
-    color: white;
-    padding: 12px 24px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.logout-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 75, 75, 0.2);
-}
-
-.logout-btn.loading::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 200%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-    animation: loading 1s infinite;
-}
-
-.logging-out {
-    animation: fadeOut 0.8s ease forwards;
-}
-
-@keyframes loading {
-    to {
-        transform: translateX(100%);
-    }
-}
-
-@keyframes fadeOut {
-    to {
-        opacity: 0;
-    }
-}
-  .fade-out {
-    animation: fadeOut 0.5s ease forwards;
-}
-
-.fade-in {
-    animation: fadeIn 0.5s ease forwards;
-}
-
-.slide-out {
-    animation: slideOut 0.3s ease forwards;
-}
-
-.logout-success {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: linear-gradient(135deg, #22c55e, #16a34a);
-    color: white;
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-@keyframes fadeOut {
-    from { opacity: 1; transform: translateY(0); }
-    to { opacity: 0; transform: translateY(-10px); }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes slideOut {
-    from { transform: translateX(0); opacity: 1; }
-    to { transform: translateX(50px); opacity: 0; }
-}
-
-@keyframes slideIn {
-    from { transform: translateX(100px); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-}
-  .export-modal, .delete-modal {
+ .export-modal, .delete-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -1289,7 +1405,154 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 16px;
 }
+ /* Responsive Typography */
+html {
+    font-size: clamp(14px, 1vw + 1vh, 18px);
+}
 
+/* Fluid Container */
+.container {
+    width: min(100% - 2rem, var(--desktop));
+    margin-inline: auto;
+    padding: clamp(1rem, 3vw, 2rem);
+}
+
+/* Responsive Grid System */
+.grid {
+    display: grid;
+    gap: clamp(1rem, 2vw, 2rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+}
+
+/* Responsive Images */
+img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Responsive Tables */
+.table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Responsive Navigation */
+@media (max-width: 768px) {
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        height: 100%;
+        transition: 0.5s;
+        padding: 2rem;
+        background: var(--bg-light);
+        box-shadow: var(--shadow);
+    }
+
+    .nav-menu.active {
+        right: 0;
+    }
+}
+
+/* Responsive Forms */
+input, select, textarea {
+    width: 100%;
+    padding: clamp(0.5rem, 2vw, 1rem);
+    font-size: inherit;
+}
+
+/* Responsive Buttons */
+.btn {
+    padding: clamp(0.5rem, 2vw, 1rem) clamp(1rem, 3vw, 2rem);
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+}
+
+/* Responsive Cards */
+.card {
+    padding: clamp(1rem, 3vw, 2rem);
+    border-radius: var(--radius-md);
+    background: var(--bg-white);
+    box-shadow: var(--shadow);
+}
+
+/* Responsive Layout Classes */
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(1rem, 2vw, 2rem);
+}
+
+/* Responsive Spacing */
+.section {
+    padding: clamp(2rem, 5vw, 5rem) 0;
+}
+
+/* Responsive Typography Classes */
+.heading {
+    font-size: clamp(1.5rem, 5vw, 3rem);
+    line-height: 1.2;
+}
+
+.subheading {
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+}
+
+/* Breakpoint-specific styles */
+@media (max-width: 480px) {
+    .hide-mobile {
+        display: none;
+    }
+
+    .stack-mobile {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .hide-tablet {
+        display: none;
+    }
+
+    .stack-tablet {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 1024px) {
+    .hide-laptop {
+        display: none;
+    }
+}
+
+/* Responsive Utilities */
+.text-center-mobile {
+    @media (max-width: 480px) {
+        text-align: center;
+    }
+}
+
+.full-width-mobile {
+    @media (max-width: 480px) {
+        width: 100%;
+    }
+}
+
+/* Responsive Margins and Paddings */
+.responsive-spacing {
+    margin: clamp(1rem, 3vw, 2rem);
+    padding: clamp(1rem, 3vw, 2rem);
+}
+
+/* Container Query Support */
+@container (min-width: 40em) {
+    .container-responsive {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+    }
+}
     </style>
 
 </head>
@@ -1364,7 +1627,7 @@
 
         <div id="dashboardContainer" class="hidden">
             <div class="logout-btn">
-               <a href="login.html" class="btn btn-outline logout-btn">
+               <a href=" https://his-lvl.vercel.app" class="btn btn-outline logout-btn">
     <i class="fas fa-sign-out-alt"></i>
     Logout
 </a>
@@ -1455,7 +1718,7 @@
 
 <div class="student-portal hidden" id="studentPortal">
     <!-- Form Access Section -->
-         <a href="login.html" class="logout-btn" role="button">
+         <a href=" https://his-lvl.vercel.app" class="logout-btn" role="button">
     <i class="fas fa-sign-out-alt"></i>
     Logout
 </a>
@@ -1473,7 +1736,7 @@
 
     <!-- Active Forms Section -->
     <div class="portal-section active-forms">
-        <h2>My Active Forms</h2>
+        <h2>Pleae Click Submit Button Once ▶️ </h2>
         <div id="activeForms" class="forms-grid"></div>
     </div>
 
@@ -1723,7 +1986,7 @@ class StudentAuth {
 📅 Created: ${date}
 🔑 Form Code: ${form.uniqueCode}
 ✨ Fill your requirements here:
-🌐 app.his.edu/forms
+🌐  https://his-lvl.vercel.app
 ━━━━━━━━━━━━━━━
 Use code to access form!`;
     }
@@ -2233,96 +2496,89 @@ function toggleForm(formId) {
     });
 }
 
-function exportData(formId, submissionDate) {
+function exportData(formId) {
     const form = db.forms.find(f => f.id === formId);
-    if (!form || !form.submissions) {
-        showToast('No data available for export', 'warning');
+    if (!form || !form.submissions.length) {
+        showToast('No data available for export');
         return;
     }
 
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    // Document Header
-    addDocumentHeader(doc, form);
-
-    // Table Configuration
-   const tableConfig = {
-    headers: ['S/N', 'Name', 'Matric Number', 'Submission Date', 'Signature'],
-    data: form.submissions.map((sub, index) => [
-        index + 1,
-        sub.studentName || 'N/A',
-        sub.matricNumber || 'N/A',
-        submissionDate,
-        '' // Signature line placeholder
-    ]),
-    columnStyles: {
-        4: { cellWidth: 40 } // Width for signature column
-    }
-};
-
-    // Generate Table
-    generateTable(doc, tableConfig);
-
-    // Add Summary and Save
-    finalizePDF(doc, form);
-}
-
-function addDocumentHeader(doc, form) {
+    // Enhanced Header setup
     doc.setFontSize(16);
-    doc.text(`${form.courseName || 'Course'} - Submissions Report`, 15, 15);
-
+    doc.text(`LAGOS STATE UNIVERSITY`, 105, 15, { align: 'center' });
+    doc.setFontSize(14);
+    doc.text(`Department of History & International Relations`, 105, 25, { align: 'center' });
+    doc.text(`${form.courseName}`, 105, 35, { align: 'center' });
     doc.setFontSize(12);
-    doc.text(`Department: ${form.department || 'N/A'}`, 15, 25);
-    doc.text(`Generated: ${new Date().toLocaleDateString()}`, 15, 35);
-}
+    doc.text(`Date: ${new Date().toLocaleDateString()}`, 15, 45);
 
-function generateTable(doc, config) {
+    // Convert all submission data to table rows
+    const tableData = form.submissions.map((submission, index) => {
+        // Extract all fields from the submission
+        const submissionData = Object.entries(submission)
+            .filter(([key]) => key !== 'id' && key !== 'timestamp')
+            .reduce((acc, [key, value]) => {
+                acc[key] = value;
+                return acc;
+            }, {});
+
+        return [
+            (index + 1).toString(),
+            submissionData.studentName || submissionData.name || '',
+            submissionData.matricNumber || submissionData.matric || '',
+            '' // Space for signature
+        ];
+    });
+
+    // Table configuration with improved styling
     doc.autoTable({
-        head: [config.headers],
-        body: config.data,
-        startY: 45,
-        margin: { top: 15 },
+        startY: 50,
+        head: [['S/N', 'Student Name', 'Matric/jamb Number', 'Signature']],
+        body: tableData,
+        theme: 'grid',
         styles: {
             fontSize: 10,
             cellPadding: 5,
-            lineWidth: 0.5,
-            lineColor: [0, 0, 0],
-            textColor: [0, 0, 0]
+            halign: 'center'
         },
         headStyles: {
-            fillColor: [255, 255, 255],
-            textColor: [0, 0, 0],
+            fillColor: [400, 400, 400],
+            textColor: [90, 90, 90],
             fontStyle: 'bold',
-            lineWidth: 1
+            halign: 'center'
         },
-        bodyStyles: {
-            fillColor: [255, 255, 255]
+        columnStyles: {
+            0: { cellWidth: 20 },
+            1: { cellWidth: 60, halign: 'left'    },
+            2: { cellWidth: 50 },
+            3: { cellWidth: 50 }
         },
-        alternateRowStyles: {
-            fillColor: [255, 255, 255]
-        },
-        didDrawPage: (data) => {
-            doc.setFontSize(10);
-            const pageNumber = `Page ${data.pageNumber} of ${doc.getNumberOfPages()}`;
-            doc.text(pageNumber, data.settings.margin.left, doc.internal.pageSize.height - 10);
-        }
+        margin: { left: 15, right: 15 }
     });
-}
 
-function finalizePDF(doc, form) {
-    const finalY = doc.lastAutoTable.finalY || 50;
-    doc.text(`Total Submissions: ${form.submissions.length}`, 15, finalY + 10);
+    // Save with formatted filename
+    const currentDate = new Date().toISOString().split('T')[0];
+    const fileName = `${form.courseName}_attendance_${currentDate}.pdf`;
+    doc.save(fileName);
+    showToast('Export completed successfully');
 
-    const timestamp = new Date().toISOString().split('T')[0];
-    const fileName = `${form.courseName}_submissions_${timestamp}.pdf`;
+    // Also export raw data as text file for backup
+    const rawData = form.submissions
+        .map(sub => Object.entries(sub)
+            .map(([key, value]) => `${key}: ${value}`)
+            .join('\n'))
+        .join('\n\n');
 
-    try {
-        doc.save(fileName);
-        showExportSuccess(fileName);
-    } catch (error) {
-        showToast('Export failed. Please try again.', 'error');
-    }
+    const blob = new Blob([rawData], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${form.courseName}_raw_data_${currentDate}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
 }
 
 function createDateSelectionModal() {
