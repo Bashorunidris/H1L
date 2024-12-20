@@ -2232,97 +2232,57 @@ function toggleForm(formId) {
         dateSelectionModal.remove();
     });
 }
-
-function exportData(formId, submissionDate) {
+function exportData(formId) {
     const form = db.forms.find(f => f.id === formId);
-    if (!form || !form.submissions) {
-        showToast('No data available for export', 'warning');
+    if (!form || !form.submissions.length) {
+        showToast('No data available for export');
         return;
     }
 
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    // Document Header
-    addDocumentHeader(doc, form);
-
-    // Table Configuration
-   const tableConfig = {
-    headers: ['S/N', 'Name', 'Matric Number', 'Submission Date', 'Signature'],
-    data: form.submissions.map((sub, index) => [
-        index + 1,
-        sub.studentName || 'N/A',
-        sub.matricNumber || 'N/A',
-        submissionDate,
-        '' // Signature line placeholder
-    ]),
-    columnStyles: {
-        4: { cellWidth: 40 } // Width for signature column
-    }
-};
-
-    // Generate Table
-    generateTable(doc, tableConfig);
-
-    // Add Summary and Save
-    finalizePDF(doc, form);
-}
-
-function addDocumentHeader(doc, form) {
+    // Header setup
     doc.setFontSize(16);
-    doc.text(`${form.courseName || 'Course'} - Submissions Report`, 15, 15);
-
+    doc.text(`${form.courseName}`, 15, 20);
     doc.setFontSize(12);
-    doc.text(`Department: ${form.department || 'N/A'}`, 15, 25);
-    doc.text(`Generated: ${new Date().toLocaleDateString()}`, 15, 35);
-}
+    doc.text(`Date: _________________`, 15, 30);
 
-function generateTable(doc, config) {
+    // Table configuration
+    const tableData = form.submissions.map((sub, index) => [
+        (index + 1).toString(),
+        sub.studentName || '',
+        sub.matricNumber || '',
+        '', // Space for signature
+    ]);
+
     doc.autoTable({
-        head: [config.headers],
-        body: config.data,
-        startY: 45,
-        margin: { top: 15 },
+        startY: 40,
+        head: [['S/N', 'Student Name', 'Matric Number', 'Signature']],
+        body: tableData,
+        theme: 'grid',
         styles: {
             fontSize: 10,
-            cellPadding: 5,
-            lineWidth: 0.5,
-            lineColor: [0, 0, 0],
-            textColor: [0, 0, 0]
+            cellPadding: 5
         },
         headStyles: {
             fillColor: [255, 255, 255],
             textColor: [0, 0, 0],
-            fontStyle: 'bold',
-            lineWidth: 1
+            fontStyle: 'bold'
         },
-        bodyStyles: {
-            fillColor: [255, 255, 255]
+        columnStyles: {
+            0: { cellWidth: 20 },
+            1: { cellWidth: 70 },
+            2: { cellWidth: 50 },
+            3: { cellWidth: 50 }
         },
-        alternateRowStyles: {
-            fillColor: [255, 255, 255]
-        },
-        didDrawPage: (data) => {
-            doc.setFontSize(10);
-            const pageNumber = `Page ${data.pageNumber} of ${doc.getNumberOfPages()}`;
-            doc.text(pageNumber, data.settings.margin.left, doc.internal.pageSize.height - 10);
-        }
+        margin: { left: 15, right: 15 }
     });
-}
 
-function finalizePDF(doc, form) {
-    const finalY = doc.lastAutoTable.finalY || 50;
-    doc.text(`Total Submissions: ${form.submissions.length}`, 15, finalY + 10);
-
-    const timestamp = new Date().toISOString().split('T')[0];
-    const fileName = `${form.courseName}_submissions_${timestamp}.pdf`;
-
-    try {
-        doc.save(fileName);
-        showExportSuccess(fileName);
-    } catch (error) {
-        showToast('Export failed. Please try again.', 'error');
-    }
+    // Save the PDF
+    const fileName = `${form.courseName}_attendance_${new Date().toISOString().split('T')[0]}.pdf`;
+    doc.save(fileName);
+    showToast('Export completed successfully');
 }
 
 function createDateSelectionModal() {
