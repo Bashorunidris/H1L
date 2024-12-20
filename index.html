@@ -2248,14 +2248,15 @@ function exportData(formId) {
     doc.setFontSize(12);
     doc.text(`Date: _________________`, 15, 30);
 
-    // Table configuration
+    // Extract data from submissions
     const tableData = form.submissions.map((sub, index) => [
         (index + 1).toString(),
-        sub.studentName || '',
-        sub.matricNumber || '',
+        sub.data.studentName || sub.data.name || '',
+        sub.data.matricNumber || sub.data.matric || '',
         '', // Space for signature
     ]);
 
+    // Table configuration
     doc.autoTable({
         startY: 40,
         head: [['S/N', 'Student Name', 'Matric Number', 'Signature']],
@@ -2263,12 +2264,14 @@ function exportData(formId) {
         theme: 'grid',
         styles: {
             fontSize: 10,
-            cellPadding: 5
+            cellPadding: 5,
+            halign: 'center'
         },
         headStyles: {
             fillColor: [255, 255, 255],
-            textColor: #333,
-            fontStyle: 'bold'
+            textColor: [51, 51, 51],
+            fontStyle: 'bold',
+            halign: 'center'
         },
         columnStyles: {
             0: { cellWidth: 20 },
@@ -2279,8 +2282,9 @@ function exportData(formId) {
         margin: { left: 15, right: 15 }
     });
 
-    // Save the PDF
-    const fileName = `${form.courseName}_attendance_${new Date().toISOString().split('T')[0]}.pdf`;
+    // Save the PDF with formatted date
+    const currentDate = new Date().toISOString().split('T')[0];
+    const fileName = `${form.courseName}_attendance_${currentDate}.pdf`;
     doc.save(fileName);
     showToast('Export completed successfully');
 }
