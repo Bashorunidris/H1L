@@ -1289,6 +1289,34 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 16px;
 }
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-lock { background: #ff9800; color: white; }
+.btn-unlock { background: #4CAF50; color: white; }
+.btn-export { background: #2196F3; color: white; }
+.btn-delete { background: #f44336; color: white; }
+
+.btn i {
+    font-size: 14px;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
 
     </style>
 
@@ -1712,20 +1740,43 @@ class StudentAuth {
     }
 }
 
- class FormSharing {
+class FormSharing {
     static generateShareableMessage(form) {
         const date = new Date().toLocaleDateString();
         return `
-🎓 NEW FORM ALERT!
-━━━━━━━━━━━━━━━
+🏛️ LAGOS STATE UNIVERSITY
+History & International Studies
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📢 IMPORTANT NOTICE - 100 LEVEL (2024/2025)
+
 📚 Course: ${form.courseName}
-👨‍🏫 HOD: Tolu
-📅 Created: ${date}
-🔑 Form Code: ${form.uniqueCode}
-✨ Click the link to Fill in your requirements here:
-🌐 https://his-lvl.vercel.app/
-━━━━━━━━━━━━━━━
-Use code to access form!`;
+👨‍🏫 Hoc:  Tolu Oloyede
+📅 Posted: ${date}
+🎓 Batch: 100 Level Students
+
+🔐 Your Unique Form Code: 
+${form.uniqueCode}
+
+⚠️ Important Notes:
+• One submission per student
+• Ensure all details are accurate
+
+✨ Instructions:
+1. Visit: https://his-lvl.vercel.app
+2. Enter your form code
+3. Complete all required fields
+4. Submit before deadline
+
+
+
+🌟 Great Lasuite  - We are Great
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💡 Technical Support: Bashorun Idris , Oloyede Tolu 
+
+
+#LASU #HIS #Class2024`;
     }
 
     static copyToClipboard(text) {
@@ -1734,9 +1785,10 @@ Use code to access form!`;
                 this.showToast('Copied to clipboard!');
             })
             .catch(() => {
-                // Fallback for older browsers
                 const textarea = document.createElement('textarea');
                 textarea.value = text;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
                 document.body.appendChild(textarea);
                 textarea.select();
                 document.execCommand('copy');
@@ -1748,34 +1800,68 @@ Use code to access form!`;
     static showToast(message) {
         const toast = document.createElement('div');
         toast.className = 'share-toast';
-        toast.textContent = message;
+        toast.innerHTML = `
+            <i class="fas fa-check-circle"></i>
+            <span>${message}</span>
+        `;
         document.body.appendChild(toast);
 
-        setTimeout(() => {
-            toast.classList.add('fade-out');
-            setTimeout(() => toast.remove(), 300);
-        }, 2000);
+        requestAnimationFrame(() => {
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.add('fade-out');
+                setTimeout(() => toast.remove(), 300);
+            }, 2000);
+        });
     }
 
     static shareViaWhatsApp(form) {
         const message = encodeURIComponent(this.generateShareableMessage(form));
         window.open(`https://wa.me/?text=${message}`);
+        this.showToast('Opening WhatsApp...');
     }
 
     static shareViaTelegram(form) {
         const message = encodeURIComponent(this.generateShareableMessage(form));
         window.open(`https://t.me/share/url?url=app.his.edu/forms&text=${message}`);
+        this.showToast('Opening Telegram...');
     }
 
     static copyFormCode(form) {
         this.copyToClipboard(form.uniqueCode);
+        this.showToast('Form code copied!');
     }
 
     static copyFullMessage(form) {
         this.copyToClipboard(this.generateShareableMessage(form));
+        this.showToast('Full message copied!');
+    }
+
+    static createShareButtons(form) {
+        return `
+            <div class="share-container">
+                <div class="share-header">
+                    <h3>Share Form</h3>
+                    <p>Choose your sharing method</p>
+                </div>
+                <div class="share-buttons">
+                    <button onclick="FormSharing.shareViaWhatsApp(${JSON.stringify(form)})" class="share-btn whatsapp">
+                        <i class="fab fa-whatsapp"></i> Share to WhatsApp
+                    </button>
+                    <button onclick="FormSharing.shareViaTelegram(${JSON.stringify(form)})" class="share-btn telegram">
+                        <i class="fab fa-telegram"></i> Share to Telegram
+                    </button>
+                    <button onclick="FormSharing.copyFormCode(${JSON.stringify(form)})" class="share-btn copy-code">
+                        <i class="fas fa-key"></i> Copy Form Code
+                    </button>
+                    <button onclick="FormSharing.copyFullMessage(${JSON.stringify(form)})" class="share-btn copy-full">
+                        <i class="fas fa-copy"></i> Copy Full Message
+                    </button>
+                </div>
+            </div>
+        `;
     }
 }
-
 
 class StudentPortal {
     constructor() {
@@ -1892,6 +1978,68 @@ class HODFeatures {
     }
 }
 
+class ErrorHandler {
+    static handleError(error, context) {
+        console.error(`Error in ${context}:`, error);
+        return {
+            success: false,
+            message: error.message,
+            context: context
+        };
+    }
+}
+class FormValidator {
+    static validateFormData(formData) {
+        if (!formData.courseName || formData.courseName.trim() === '') {
+            throw new Error('Course name is required');
+        }
+        if (!formData.fields || formData.fields.length === 0) {
+            throw new Error('At least one field is required');
+        }
+        return true;
+    }
+}
+class CacheManager {
+    static setCache(key, data, expiryMinutes = 30) {
+        const item = {
+            data: data,
+            timestamp: Date.now(),
+            expiry: Date.now() + (expiryMinutes * 60 * 1000)
+        };
+        localStorage.setItem(key, JSON.stringify(item));
+    }
+
+    static getCache(key) {
+        const item = JSON.parse(localStorage.getItem(key));
+        if (!item) return null;
+        if (Date.now() > item.expiry) {
+            localStorage.removeItem(key);
+            return null;
+        }
+        return item.data;
+    }
+}
+class RateLimiter {
+    constructor(maxRequests = 100, timeWindow = 60000) {
+        this.requests = new Map();
+        this.maxRequests = maxRequests;
+        this.timeWindow = timeWindow;
+    }
+
+    checkLimit(userId) {
+        const now = Date.now();
+        const userRequests = this.requests.get(userId) || [];
+        const recentRequests = userRequests.filter(time => now - time < this.timeWindow);
+        
+        if (recentRequests.length >= this.maxRequests) {
+            return false;
+        }
+
+        recentRequests.push(now);
+        this.requests.set(userId, recentRequests);
+        return true;
+    }
+}
 
 class StudentStorage {
     constructor() {
@@ -2032,125 +2180,8 @@ function copyToClipboard(text) {
         });
 }
 
- function addFormActions(form) {
-    const actionsHtml = `
-        <div class="form-actions">
-            <button onclick="editForm(${form.id})" class="btn-edit">
-                <i class="fas fa-edit"></i> Edit
-            </button>
-            <button onclick="confirmDelete(${form.id})" class="btn-delete">
-                <i class="fas fa-trash"></i> Delete
-            </button>
-        </div>
-    `;
-    return actionsHtml;
-}
 
-function editForm(formId) {
-    const form = db.forms.find(f => f.id === formId);
-    if (!form) return;
 
-    const editModal = document.createElement('div');
-    editModal.className = 'edit-modal';
-    editModal.innerHTML = `
-        <div class="modal-content">
-            <h3>Edit Form</h3>
-            <form id="editFormForm">
-                <input type="text" id="editPin" value="${form.pin}" placeholder="PIN">
-                <input type="text" id="editCourseName" value="${form.courseName}" placeholder="Course Name">
-                <select id="editType">
-                    <option value="assignment" ${form.type === 'assignment' ? 'selected' : ''}>Assignment</option>
-                    <option value="test" ${form.type === 'test' ? 'selected' : ''}>Test</option>
-                </select>
-                <div class="field-selector">
-                    ${form.fields.map(field => `
-                        <label>
-                            <input type="checkbox" value="${field}" checked>
-                            ${field}
-                        </label>
-                    `).join('')}
-                </div>
-                <div class="modal-actions">
-                    <button type="submit" class="btn-save">Save Changes</button>
-                    <button type="button" onclick="closeModal()" class="btn-cancel">Cancel</button>
-                </div>
-            </form>
-        </div>
-    `;
-
-    document.body.appendChild(editModal);
-
-    document.getElementById('editFormForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        updateForm(formId);
-    });
-}
-
-function updateForm(formId) {
-    const updatedData = {
-        pin: document.getElementById('editPin').value,
-        courseName: document.getElementById('editCourseName').value,
-        type: document.getElementById('editType').value,
-        fields: Array.from(document.querySelectorAll('.field-selector input:checked'))
-            .map(input => input.value)
-    };
-
-    const formIndex = db.forms.findIndex(f => f.id === formId);
-    if (formIndex !== -1) {
-        db.forms[formIndex] = { ...db.forms[formIndex], ...updatedData };
-        db.saveToStorage();
-        refreshFormsList();
-        closeModal();
-        Helpers.showToast('Form updated successfully');
-    }
-}
-
-function confirmDelete(formId) {
-    const confirmModal = document.createElement('div');
-    confirmModal.className = 'confirm-modal';
-    confirmModal.innerHTML = `
-        <div class="modal-content">
-            <h3>Delete Form</h3>
-            <p>Are you sure you want to delete this form? This action cannot be undone.</p>
-            <div class="modal-actions">
-                <button onclick="deleteForm(${formId})" class="btn-delete">Delete</button>
-                <button onclick="closeModal()" class="btn-cancel">Cancel</button>
-            </div>
-        </div>
-    `;
-    document.body.appendChild(confirmModal);
-}
-
-function deleteForm(formId) {
-    db.forms = db.forms.filter(f => f.id !== formId);
-    db.saveToStorage();
-    refreshFormsList();
-    closeModal();
-    Helpers.showToast('Form deleted successfully');
-}
-
-function closeModal() {
-    const modal = document.querySelector('.edit-modal, .confirm-modal');
-    if (modal) {
-        modal.remove();
-    }
-}
-
-function refreshFormsList() {
-    const formsList = document.querySelector('.forms-list');
-    if (!formsList) return;
-
-    formsList.innerHTML = db.forms.map(form => `
-        <div class="form-card">
-            <div class="form-info">
-                <h3>${form.courseName}</h3>
-                <p>Type: ${form.type}</p>
-                <p>Code: ${form.uniqueCode}</p>
-            </div>
-            ${addFormActions(form)}
-        </div>
-    `).join('');
-}
 
 function refreshFormsList() {
     const container = document.getElementById('formsContainer');
@@ -2232,166 +2263,57 @@ function toggleForm(formId) {
         dateSelectionModal.remove();
     });
 }
-
-function exportData(formId, submissionDate) {
+function exportData(formId) {
     const form = db.forms.find(f => f.id === formId);
-    if (!form || !form.submissions) {
-        showToast('No data available for export', 'warning');
+    if (!form || !form.submissions.length) {
+        showToast('No data available for export');
         return;
     }
 
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    // Document Header
-    addDocumentHeader(doc, form);
-
-    // Table Configuration
-   const tableConfig = {
-    headers: ['S/N', 'Name', 'Matric Number', 'Submission Date', 'Signature'],
-    data: form.submissions.map((sub, index) => [
-        index + 1,
-        sub.studentName || 'N/A',
-        sub.matricNumber || 'N/A',
-        submissionDate,
-        '' // Signature line placeholder
-    ]),
-    columnStyles: {
-        4: { cellWidth: 40 } // Width for signature column
-    }
-};
-
-    // Generate Table
-    generateTable(doc, tableConfig);
-
-    // Add Summary and Save
-    finalizePDF(doc, form);
-}
-
-function addDocumentHeader(doc, form) {
+    // Header setup
     doc.setFontSize(16);
-    doc.text(`${form.courseName || 'Course'} - Submissions Report`, 15, 15);
-
+    doc.text(`${form.courseName}`, 15, 20);
     doc.setFontSize(12);
-    doc.text(`Department: ${form.department || 'N/A'}`, 15, 25);
-    doc.text(`Generated: ${new Date().toLocaleDateString()}`, 15, 35);
-}
+    doc.text(`Date: _________________`, 15, 30);
 
-function generateTable(doc, config) {
+    // Table configuration
+    const tableData = form.submissions.map((sub, index) => [
+        (index + 1).toString(),
+        sub.studentName || '',
+        sub.matricNumber || '',
+        '', // Space for signature
+    ]);
+
     doc.autoTable({
-        head: [config.headers],
-        body: config.data,
-        startY: 45,
-        margin: { top: 15 },
+        startY: 40,
+        head: [['S/N', 'Student Name', 'Matric Number', 'Signature']],
+        body: tableData,
+        theme: 'grid',
         styles: {
             fontSize: 10,
-            cellPadding: 5,
-            lineWidth: 0.5,
-            lineColor: [0, 0, 0],
-            textColor: [0, 0, 0]
+            cellPadding: 5
         },
         headStyles: {
             fillColor: [255, 255, 255],
             textColor: [0, 0, 0],
-            fontStyle: 'bold',
-            lineWidth: 1
+            fontStyle: 'bold'
         },
-        bodyStyles: {
-            fillColor: [255, 255, 255]
+        columnStyles: {
+            0: { cellWidth: 20 },
+            1: { cellWidth: 70 },
+            2: { cellWidth: 50 },
+            3: { cellWidth: 50 }
         },
-        alternateRowStyles: {
-            fillColor: [255, 255, 255]
-        },
-        didDrawPage: (data) => {
-            doc.setFontSize(10);
-            const pageNumber = `Page ${data.pageNumber} of ${doc.getNumberOfPages()}`;
-            doc.text(pageNumber, data.settings.margin.left, doc.internal.pageSize.height - 10);
-        }
+        margin: { left: 15, right: 15 }
     });
-}
 
-function finalizePDF(doc, form) {
-    const finalY = doc.lastAutoTable.finalY || 50;
-    doc.text(`Total Submissions: ${form.submissions.length}`, 15, finalY + 10);
-
-    const timestamp = new Date().toISOString().split('T')[0];
-    const fileName = `${form.courseName}_submissions_${timestamp}.pdf`;
-
-    try {
-        doc.save(fileName);
-        showExportSuccess(fileName);
-    } catch (error) {
-        showToast('Export failed. Please try again.', 'error');
-    }
-}
-
-function createDateSelectionModal() {
-    const modal = document.createElement('div');
-    modal.className = 'date-selection-modal';
-    modal.innerHTML = `
-        <div class="modal-content">
-            <h3>Select Submission Date</h3>
-            <form>
-                <div class="date-options">
-                    <label>
-                        <input type="radio" name="dateType" value="current" checked>
-                        Use Today's Date (${new Date().toLocaleDateString()})
-                    </label>
-                    <label>
-                        <input type="radio" name="dateType" value="custom">
-                        Custom Date
-                        <input type="date" id="customDate" disabled>
-                    </label>
-                </div>
-                <div class="modal-actions">
-                    <button type="submit" class="btn-export">Generate PDF</button>
-                    <button type="button" class="btn-cancel" onclick="this.closest('.date-selection-modal').remove()">
-                        Cancel
-                    </button>
-                </div>
-            </form>
-        </div>
-    `;
-    return modal;
-}
-
-function getSelectedDate() {
-    const dateType = document.querySelector('input[name="dateType"]:checked').value;
-    if (dateType === 'current') {
-        return new Date().toLocaleDateString();
-    }
-    return new Date(document.getElementById('customDate').value).toLocaleDateString();
-}
-
-function deleteSubmission(formId, submissionId) {
-    const confirmDelete = document.createElement('div');
-    confirmDelete.className = 'delete-modal';
-    confirmDelete.innerHTML = `
-        <div class="delete-confirmation">
-            <h3>Confirm Deletion</h3>
-            <p>Are you sure you want to delete this submission?</p>
-            <div class="delete-actions">
-                <button onclick="confirmDeletion('${formId}', '${submissionId}')" class="btn-delete">
-                    Delete
-                </button>
-                <button onclick="cancelDeletion()" class="btn-cancel">
-                    Cancel
-                </button>
-            </div>
-        </div>
-    `;
-    document.body.appendChild(confirmDelete);
-}
-
-function confirmDeletion(formId, submissionId) {
-    const form = db.forms.find(f => f.id === formId);
-    if (form) {
-        form.submissions = form.submissions.filter(sub => sub.id !== submissionId);
-        db.updateForm(form);
-        showToast('Submission deleted successfully', 'success');
-        refreshSubmissionsTable(formId);
-    }
-    document.querySelector('.delete-modal').remove();
+    // Save the PDF
+    const fileName = `${form.courseName}_attendance_${new Date().toISOString().split('T')[0]}.pdf`;
+    doc.save(fileName);
+    showToast('Export completed successfully');
 }
 
 function studentLogin() {
@@ -2426,16 +2348,6 @@ function showStudentPortal() {
     document.getElementById('studentPortal').classList.remove('hidden');
 }
 
-function searchForm() {
-    const formCode = document.getElementById('formCodeInput').value;
-    const form = db.forms.find(f => f.uniqueCode === formCode && f.active);
-
-    if (form) {
-        displayFormForStudent(form);
-    } else {
-        showToast('Form not found or inactive', 'error');
-    }
-}
 
 function displayFormForStudent(form) {
     const formContainer = document.createElement('div');
@@ -2505,17 +2417,50 @@ function loadStudentDashboard() {
 }
  function recoverPassword() {
     const email = document.querySelector('#recoveryForm input[type="email"]').value;
-    const answer = document.querySelector('#recoveryForm input[type="text"]').value;
+    const securityAnswer = document.querySelector('#recoveryForm input[type="text"]').value;
+    const student = studentAuth.students[email];
 
-    if (studentAuth.verifySecurityAnswer(email, answer)) {
+    if (!student) {
+        showToast('Email not found', 'error');
+        return;
+    }
+
+    // Verify security answer
+    if (student.securityAnswer === studentAuth.hashAnswer(securityAnswer)) {
+        // Generate new password
         const newPassword = generateTemporaryPassword();
-        studentAuth.resetPassword(email, newPassword);
-        showToast(`Your temporary password is: ${newPassword}`);
-        showLoginForm();
+        
+        // Update student password
+        student.password = studentAuth.hashPassword(newPassword);
+        studentAuth.saveToStorage();
+
+        // Show success message and new password
+        showToast(`Password reset successful! Your temporary password is: ${newPassword}`);
+        
+        // Clear form and switch to login
+        document.querySelector(' https://his-lvl.vercel.app').reset();
+        switchToLoginTab();
     } else {
         showToast('Invalid security answer', 'error');
     }
 }
+
+function generateTemporaryPassword() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+    let password = '';
+    for (let i = 0; i < 8; i++) {
+        password += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return password;
+}
+
+function switchToLoginTab() {
+    const loginTab = document.querySelector('[data-tab="login"]');
+    if (loginTab) {
+        loginTab.click();
+    }
+}
+
 function logout() {
     // Start logout animation
     const studentPortal = document.getElementById('studentPortal');
@@ -2596,7 +2541,7 @@ function showLogoutSuccess() {
     // Redirect to login page after showing message
     setTimeout(() => {
         successMessage.remove();
-        window.location.href = '#login'; // Add your login page URL here
+        window.location.href = ' https://his-lvl.vercel.app'; // Add your login page URL here
     }, 2000);
 
     // Alternative approach using window.location.replace
@@ -2606,127 +2551,132 @@ function showLogoutSuccess() {
     // }, 2000);
 }
 
-
 function handleFormSubmission(formId) {
     const form = document.getElementById('studentSubmissionForm');
-    const submissionTracker = {
-        submissionCount: 0,
-        editsRemaining: 3,
-        lastSubmission: null
-    };
+    const submitButton = form.querySelector('button[type="submit"]');
+    const studentId = studentAuth.currentStudent?.id;
 
-    // Load existing submission data
-    const loadExistingSubmission = () => {
-        const existingData = localStorage.getItem(`form_${formId}_${studentAuth.currentStudent?.id}`);
-        if (existingData) {
-            const parsed = JSON.parse(existingData);
-            submissionTracker.submissionCount = parsed.submissionCount;
-            submissionTracker.editsRemaining = parsed.editsRemaining;
-            submissionTracker.lastSubmission = parsed.lastSubmission;
-
-            updateSubmissionStatus();
+    // Check if student has already submitted
+    const checkPreviousSubmission = () => {
+        const submissionKey = `form_${formId}_${studentId}`;
+        const previousSubmission = localStorage.getItem(submissionKey);
+        
+        if (previousSubmission) {
+            // Hide form and show submitted message
+            form.innerHTML = `
+                <div class="submission-complete">
+                    <h3>Form Already Submitted</h3>
+                    <p>You have already completed this form on 
+                    ${new Date(JSON.parse(previousSubmission).lastSubmission).toLocaleString()}</p>
+                    <p>Multiple submissions are not allowed.</p>
+                </div>
+            `;
+            return true;
         }
+        return false;
     };
 
-    const updateSubmissionStatus = () => {
-        const statusDiv = document.getElementById('submissionStatus');
-        if (!statusDiv) return;
-
-        statusDiv.innerHTML = `
-            <div class="submission-info">
-                <span>Submissions: ${submissionTracker.submissionCount}</span>
-                <span>Edits Remaining: ${submissionTracker.editsRemaining}</span>
-                ${submissionTracker.lastSubmission ?
-                    `<span>Last Submitted: ${new Date(submissionTracker.lastSubmission).toLocaleString()}</span>`
-                    : ''}
-            </div>
-        `;
-    };
+    // If already submitted, stop here
+    if (checkPreviousSubmission()) {
+        return;
+    }
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-
-        // Check submission limits
-        if (submissionTracker.submissionCount > 0 && submissionTracker.editsRemaining === 0) {
-            Helpers.showToast('Maximum submission limit reached', 'error');
-            return;
-        }
 
         const formData = new FormData(form);
         const submission = {
             id: Date.now(),
             timestamp: new Date().toISOString(),
-            studentId: studentAuth.currentStudent?.id,
-            data: {},
-            submissionNumber: submissionTracker.submissionCount + 1
+            studentId: studentId,
+            data: Object.fromEntries(formData.entries())
         };
-
-        // Convert FormData to structured object
-        for (let [key, value] of formData.entries()) {
-            submission.data[key] = value;
-        }
-
-        // Handle file uploads
-        const fileInputs = form.querySelectorAll('input[type="file"]');
-        if (fileInputs.length) {
-            submission.files = [];
-            for (let fileInput of fileInputs) {
-                if (fileInput.files.length) {
-                    const file = fileInput.files[0];
-                    const base64 = await convertFileToBase64(file);
-                    submission.files.push({
-                        name: file.name,
-                        type: file.type,
-                        size: file.size,
-                        data: base64
-                    });
-                }
-            }
-        }
 
         try {
             // Save submission
             db.submitForm(formId, submission);
 
-            // Update submission tracker
-            submissionTracker.submissionCount++;
-            if (submissionTracker.submissionCount > 1) {
-                submissionTracker.editsRemaining--;
-            }
-            submissionTracker.lastSubmission = submission.timestamp;
-
-            // Save tracker state
+            // Save submission record
             localStorage.setItem(
-                `form_${formId}_${studentAuth.currentStudent?.id}`,
-                JSON.stringify(submissionTracker)
+                `form_${formId}_${studentId}`,
+                JSON.stringify({
+                    lastSubmission: submission.timestamp,
+                    submitted: true
+                })
             );
 
-            // Update UI
-            updateSubmissionStatus();
-            updateSubmissionCount(formId);
-            generateSubmissionReceipt(submission);
+            // Update UI to show completion
+            form.innerHTML = `
+                <div class="submission-success">
+                    <h3>Form Submitted Successfully!</h3>
+                    <p>Thank you for your submission.</p>
+                    <p>Submission Time: ${new Date(submission.timestamp).toLocaleString()}</p>
+                </div>
+            `;
 
-            // Show success message
-            Helpers.showToast(
-                `Form ${submissionTracker.submissionCount > 1 ? 'edited' : 'submitted'} successfully! ` +
-                `${submissionTracker.editsRemaining} edits remaining`,
-                'success'
-            );
-
-            // Clear form if it's the first submission
-            if (submissionTracker.submissionCount === 1) {
-                form.reset();
-            }
+            Helpers.showToast('Form submitted successfully!', 'success');
 
         } catch (error) {
             Helpers.showToast('Submission failed. Please try again.', 'error');
         }
     });
 
-    // Initialize submission tracker
-    loadExistingSubmission();
+   function searchForm() {
+    const formCode = document.getElementById('formCodeInput').value;
+    const form = db.forms.find(f => f.uniqueCode === formCode);
+    
+    if (!form) {
+        showToast('Form not found', 'error');
+        return;
+    }
+
+    if (!form.active) {
+        showToast('This form is currently locked', 'error');
+        return;
+    }
+
+    // Check for previous submission
+    const submissionKey = `form_${form.id}_${studentAuth.currentStudent?.id}`;
+    const previousSubmission = localStorage.getItem(submissionKey);
+    
+    if (previousSubmission) {
+        showToast('You have already submitted this form', 'info');
+        displayPreviousSubmission(form, JSON.parse(previousSubmission));
+        return;
+    }
+
+    displayFormForStudent(form);
 }
 
+function addFormActions(form) {
+    const actionsHtml = `
+        <div class="form-actions">
+            <button onclick="toggleForm('${form.id}')" class="btn ${form.active ? 'btn-lock' : 'btn-unlock'}">
+                <i class="fas fa-${form.active ? 'lock' : 'unlock'}"></i>
+                ${form.active ? 'Lock' : 'Unlock'}
+            </button>
+            <button onclick="exportData('${form.id}')" class="btn btn-export">
+                <i class="fas fa-file-export"></i> Export
+            </button>
+            <button onclick="deleteForm('${form.id}')" class="btn btn-delete">
+                <i class="fas fa-trash"></i> Delete
+            </button>
+        </div>
+    `;
+    return actionsHtml;
+}
+
+function deleteForm(formId) {
+    if (confirm('Are you sure you want to delete this form? This action cannot be undone.')) {
+        const formIndex = db.forms.findIndex(f => f.id === formId);
+        if (formIndex !== -1) {
+            db.forms.splice(formIndex, 1);
+            db.saveToStorage();
+            refreshFormsList();
+            showToast('Form deleted successfully');
+        }
+    }
+}
 
    </script>
 </body>
