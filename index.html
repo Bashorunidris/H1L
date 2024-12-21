@@ -2589,8 +2589,8 @@ function toggleForm(formId) {
     doc.setFontSize(16);
     doc.text(`LAGOS STATE UNIVERSITY`, 105, 15, { align: 'center' });
     doc.setFontSize(14);
-    doc.text(` History & International Studies`, 105, 25, { align: 'center' });
-    doc.text(`${form.courseName}`, 105, 35, { align: 'center' });
+    doc.text(` Attendance`, 105, 25, { align: 'center' });
+    doc.text(`Course:${form.courseName}`, 15, 45, { align: 'left' });
     doc.setFontSize(12);
     doc.text(`Date: ${new Date().toLocaleDateString()}`, 15, 45);
 
