@@ -1909,47 +1909,60 @@ class HisDatabase {
         return false;
     }
 
-    createForm(pin, courseName, type, fields, autoSave) {
-        if (pin !== this.validPin) {
-            throw new Error('Invalid PIN');
-        }
+   createForm(pin, courseName, type, fields, autoSave) {
+    if (pin !== this.validPin) {
+        throw new Error('Invalid PIN');
+    }
 
-        const form = {
+    const form = {
+        id: Date.now().toString(36),
+        uniqueCode: this.generateUniqueCode(),
+        courseName,
+        type,
+        fields,
+        autoSave,
+        creator: this.currentUser,
+        active: true,
+        submissions: [],
+        unwantedSubmissions: [], // Added unwanted submissions array
+        created: new Date().toISOString(),
+        lastModified: new Date().toISOString()
+    };
+
+    this.forms.push(form);
+    this.saveToStorage();
+    return form;
+}
+
+submitForm(formId, submission) {
+    const form = this.forms.find(f => f.id === formId);
+    if (form && form.active) {
+        const enhancedSubmission = {
+            ...submission,
             id: Date.now().toString(36),
-            uniqueCode: this.generateUniqueCode(),
-            courseName,
-            type,
-            fields,
-            autoSave,
-            creator: this.currentUser,
-            active: true,
-            submissions: [],
-            created: new Date().toISOString(),
-            lastModified: new Date().toISOString()
+            timestamp: new Date().toISOString(),
+            formCode: form.uniqueCode
         };
 
-        this.forms.push(form);
-        this.saveToStorage();
-        return form;
-    }
+        const isDuplicate = form.submissions.some(existingSubmission => 
+            (existingSubmission.studentName?.toLowerCase() === submission.studentName?.toLowerCase() ||
+             existingSubmission.name?.toLowerCase() === submission.name?.toLowerCase()) &&
+            (existingSubmission.matricNumber === submission.matricNumber ||
+             existingSubmission.matric === submission.matric)
+        );
 
-    submitForm(formId, submission) {
-        const form = this.forms.find(f => f.id === formId);
-        if (form && form.active) {
-            const enhancedSubmission = {
-                ...submission,
-                id: Date.now().toString(36),
-                timestamp: new Date().toISOString(),
-                formCode: form.uniqueCode
-            };
-
+        if (isDuplicate) {
+            form.unwantedSubmissions.push(enhancedSubmission);
+        } else {
             form.submissions.push(enhancedSubmission);
-            form.lastModified = new Date().toISOString();
-            this.saveToStorage();
-            return enhancedSubmission;
         }
-        return false;
+
+        form.lastModified = new Date().toISOString();
+        this.saveToStorage();
+        return enhancedSubmission;
     }
+    return false;
+}
 
     generateUniqueCode() {
         const timestamp = Date.now().toString(36);
