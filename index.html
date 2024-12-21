@@ -116,14 +116,16 @@ body {
        .logo {
     display: flex;
     align-items: center;
-    gap: 20px;
-    padding: 15px;
+    gap: clamp(10px, 2vw, 20px);
+    padding: clamp(10px, 2vw, 15px);
+    flex-wrap: wrap;
 }
 
 .logo-emblem {
     position: relative;
-    width: 60px;
-    height: 60px;
+    width: clamp(40px, 8vw, 60px);
+    height: clamp(40px, 8vw, 60px);
+    flex-shrink: 0;
 }
 
 .logo-circle {
@@ -141,7 +143,7 @@ body {
 
 .logo-text {
     color: #fff;
-    font-size: 24px;
+    font-size: clamp(16px, 3vw, 24px);
     font-weight: 700;
     letter-spacing: 1px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
@@ -151,7 +153,7 @@ body {
     position: absolute;
     width: 150%;
     height: 150%;
-    border: 2px dashed rgba(255,255,255,0.3);
+    border: clamp(1px, 0.3vw, 2px) dashed rgba(255,255,255,0.3);
     border-radius: 50%;
     animation: rotate 20s linear infinite;
 }
@@ -160,8 +162,8 @@ body {
     position: absolute;
     top: -5px;
     left: 50%;
-    width: 15px;
-    height: 15px;
+    width: clamp(8px, 1.5vw, 15px);
+    height: clamp(8px, 1.5vw, 15px);
     background: #e74c3c;
     border-radius: 50%;
     box-shadow: 0 0 10px #e74c3c;
@@ -171,10 +173,12 @@ body {
 .logo-title {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    min-width: 200px;
 }
 
 .logo-title h1 {
-    font-size: 28px;
+    font-size: clamp(20px, 4vw, 28px);
     font-weight: 700;
     color: #2c3e50;
     margin: 0;
@@ -184,11 +188,11 @@ body {
 }
 
 .logo-subtitle {
-    font-size: 14px;
+    font-size: clamp(12px, 2vw, 14px);
     color: #7f8c8d;
-    letter-spacing: 2px;
+    letter-spacing: clamp(1px, 0.2vw, 2px);
     text-transform: uppercase;
-    margin-top: 4px;
+    margin-top: clamp(2px, 1vw, 4px);
 }
 
 @keyframes rotate {
@@ -208,51 +212,62 @@ body {
     100% { box-shadow: 0 0 10px #e74c3c; }
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .logo-title h1 {
-        font-size: 24px;
+/* Additional breakpoints for extreme screen sizes */
+@media (max-width: 480px) {
+    .logo {
+        justify-content: center;
+        text-align: center;
     }
 
-    .logo-subtitle {
-        font-size: 12px;
+    .logo-title {
+        align-items: center;
     }
 }
-              .master-auth-container {
-        max-width: 500px;
-        margin: 40px auto;
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        overflow: hidden;
+
+@media (min-width: 2000px) {
+    .logo {
+        max-width: 1800px;
+        margin: 0 auto;
+    }
+}
+
+             .master-auth-container {
+    width: min(90%, 500px);
+    margin: clamp(20px, 5vh, 40px) auto;
+    background: white;
+    border-radius: clamp(12px, 2vw, 20px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    overflow: hidden;
+    position: relative;
 }
 
 .master-tabs {
     display: grid;
     grid-template-columns: 1fr 1fr;
     background: #f8fafc;
-    padding: 5px;
+    padding: clamp(3px, 1vw, 5px);
+    gap: clamp(5px, 1vw, 10px);
 }
 
 .master-tab {
-    padding: 15px;
+    padding: clamp(10px, 2vw, 15px);
     border: none;
     background: none;
-    font-size: 16px;
+    font-size: clamp(14px, 1.6vw, 16px);
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .master-tab.active {
-    background: #2c3e50 ;
+    background: #2c3e50;
     color: white;
-    border-radius: 10px;
+    border-radius: clamp(6px, 1vw, 10px);
 }
 
 .auth-section {
     display: none;
-    padding: 30px;
+    padding: clamp(20px, 4vw, 30px);
 }
 
 .auth-section.active {
@@ -261,50 +276,62 @@ body {
 }
 
 .student-tabs {
-
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: clamp(8px, 1.5vw, 10px);
+    margin-bottom: clamp(15px, 3vw, 20px);
 }
 
 .tab-btn {
-    padding: 12px;
-    border: 2px solid #2c3e50 ;
+    padding: clamp(10px, 1.5vw, 12px);
+    border: 2px solid #2c3e50;
     background: transparent;
-    color: #2c3e50 ;
-    border-radius: 8px;
+    color: #2c3e50;
+    border-radius: clamp(6px, 1vw, 8px);
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-size: clamp(14px, 1.6vw, 16px);
 }
 
 .tab-btn.active {
-    background: #2c3e50 ;
+    background: #2c3e50;
     color: white;
+    transform: scale(1.02);
 }
 
 .auth-form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: clamp(12px, 2vw, 15px);
 }
 
 .auth-form input,
 .auth-form select {
-    padding: 14px;
+    padding: clamp(12px, 2vw, 14px);
     border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 16px;
+    border-radius: clamp(6px, 1vw, 8px);
+    font-size: clamp(14px, 1.6vw, 16px);
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+.auth-form input:focus,
+.auth-form select:focus {
+    border-color: #4299e1;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
 }
 
 .btn {
-    padding: 14px;
+    padding: clamp(12px, 2vw, 14px);
     border: none;
-    border-radius: 8px;
+    border-radius: clamp(6px, 1vw, 8px);
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-size: clamp(14px, 1.6vw, 16px);
+    width: 100%;
 }
 
 .btn-primary {
@@ -312,57 +339,100 @@ body {
     color: white;
 }
 
+.btn-primary:hover {
+    background: #3182ce;
+    transform: translateY(-2px);
+}
+
 .btn-student {
     background: #48bb78;
     color: white;
+}
+
+.btn-student:hover {
+    background: #38a169;
+    transform: translateY(-2px);
 }
 
 .forgot-link {
     text-align: center;
     color: #4299e1;
     text-decoration: none;
+    font-size: clamp(14px, 1.6vw, 16px);
+    display: block;
+    margin-top: clamp(10px, 2vw, 15px);
+}
+
+.forgot-link:hover {
+    color: #3182ce;
+    text-decoration: underline;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(clamp(5px, 1vw, 10px));
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 480px) {
+    .master-auth-container {
+        width: 95%;
+        margin: 15px auto;
+    }
+
+    .student-tabs {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 1440px) {
+    .master-auth-container {
+        max-width: 600px;
+    }
+}
+
+/* High-DPI Screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .master-auth-container {
+        box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    }
 }
 
 
- .logout-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 1rem;
-}
 
+/* Logout Button */
 .logout-btn {
-    background: linear-gradient(135deg, #ff4b4b, #ff7676);
-    color: white;
-    padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: center;
-    overflow: hidden;
-    font-weight: 600;
-    font-size: clamp(0.875rem, 1.5vw, 1rem);
-    text-align: center;
-    margin: auto;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 2rem;
+}
+
+.logout-btn a {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
-.logout-btn:hover {
+
+.logout-btn  a :hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(255, 75, 75, 0.2);
     background: linear-gradient(135deg, #ff3b3b, #ff6666);
 }
 
-.logout-btn:active {
+.logout-btn  a :active {
     transform: translateY(0);
 }
 
@@ -409,65 +479,84 @@ body {
     }
 }
 
+
+
+
+
 .form-container {
-     width: min(100% - var(--container-padding), var(--container-max-width));
+    /* Fluid Container Width */
+    width: min(100% - clamp(1rem, 4vw, 3rem), 1200px);
     margin-inline: auto;
-    padding: clamp(1.5rem, 4vw, 3rem);
+
+    /* Dynamic Padding */
+    padding: clamp(1.5rem, calc(1rem + 2vw), 3.5rem);
+
+    /* Modern Visual Style */
     background: var(--bg-white, white);
-    border-radius: clamp(0.8rem, 2vw, 1.5rem);
+    border-radius: clamp(0.8rem, 2vw, 2rem);
     box-shadow:
         0 10px 30px rgba(0, 0, 0, 0.04),
         0 1px 8px rgba(0, 0, 0, 0.06);
-    display: grid;
-    gap: var(--grid-gap);
 
-    /* Responsive Width Control */
-    width: min(100% - 2rem, 800px);
-    margin-inline: auto;
-
-    /* Grid Layout for Form Elements */
+    /* Grid Layout */
     display: grid;
-    gap: clamp(1rem, 2vw, 1.5rem);
+    gap: clamp(1.2rem, calc(0.8rem + 2vw), 2.5rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
 
     /* Smooth Transitions */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Container Positioning */
+    position: relative;
+    z-index: 1;
+
+    /* Margin Control */
+    margin-top: clamp(2rem, 5vw, 4rem);
+    margin-bottom: clamp(2rem, 5vw, 4rem);
 }
 
 /* Hover Effects */
 .form-container:hover {
     transform: translateY(-2px);
     box-shadow:
-        0 6px 24px rgba(0, 0, 0, 0.08),
-        0 2px 8px rgba(0, 0, 0, 0.1);
+        0 20px 40px rgba(0, 0, 0, 0.08),
+        0 8px 16px rgba(0, 0, 0, 0.08);
 }
 
-/* Form Layout Breakpoints */
-@media (min-width: 768px) {
+/* Responsive Breakpoints */
+@media (max-width: 1400px) {
     .form-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .form-container .full-width {
-        grid-column: 1 / -1;
+        width: min(100% - clamp(1rem, 3vw, 2rem), 1000px);
     }
 }
 
-/* Mobile Optimization */
+@media (max-width: 768px) {
+    .form-container {
+        width: min(100% - 1rem, 600px);
+        padding: clamp(1rem, 3vw, 2rem);
+        gap: 1rem;
+    }
+}
+
 @media (max-width: 480px) {
     .form-container {
-        margin: 1rem;
-        padding: 1.25rem;
+        width: 100%;
+        border-radius: clamp(0.5rem, 1.5vw, 1rem);
+        margin-top: 1rem;
+        margin-bottom: 1rem;
     }
 }
 
-/* Print Styles */
+/* Print Media Optimization */
 @media print {
     .form-container {
         box-shadow: none;
-        margin: 0;
+        width: 100%;
         padding: 1rem;
     }
 }
+
+
 
 
 
@@ -907,58 +996,45 @@ table {
     transform: translateY(-5px);
     box-shadow: 0 15px 40px rgba(0,0,0,0.15);
 }
-
-/* Form Search */
+  /* Form Search */
 .form-search {
     display: flex;
-    gap: 1rem;
-    margin: 1.5rem 0;
+    gap: clamp(0.5rem, 1vw, 1rem);
+    margin: clamp(1rem, 2vw, 1.5rem) 0;
+    flex-wrap: wrap;
 }
 
 .form-input {
     flex: 1;
-    padding: 1rem 1.5rem;
+    min-width: min(100%, 250px);
+    padding: clamp(0.75rem, 1.5vw, 1rem) clamp(1rem, 2vw, 1.5rem);
     border: 2px solid #e2e8f0;
-    border-radius: 1rem;
-    font-size: 1rem;
+    border-radius: clamp(0.5rem, 1vw, 1rem);
+    font-size: clamp(0.875rem, 1vw, 1rem);
     transition: all 0.3s ease;
     background: var(--light);
 }
 
 .form-input:focus {
     border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    box-shadow: 0 0 0 clamp(2px, 0.5vw, 4px) rgba(79, 70, 229, 0.1);
     transform: scale(1.02);
 }
 
 .btn {
-    padding: 1rem 2rem;
+    padding: clamp(0.75rem, 1.5vw, 1rem) clamp(1.5rem, 2.5vw, 2rem);
     border: none;
-    border-radius: 1rem;
+    border-radius: clamp(0.5rem, 1vw, 1rem);
     font-weight: 600;
+    font-size: clamp(0.875rem, 1vw, 1rem);
     cursor: pointer;
     transition: all 0.3s ease;
     background: var(--gradient);
     color: white;
     position: relative;
     overflow: hidden;
+    white-space: nowrap;
 }
-
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: 0.5s;
-}
-
-.btn:hover::before {
-    left: 100%;
-}
-
 /* Storage Options */
 .storage-options {
     display: grid;
@@ -1320,29 +1396,7 @@ table {
     from { transform: translateY(20px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
-  .logout-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    border: 2px solid #104;
-    border-radius: 8px;
-    color: #edd;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
 
-.logout-btn:hover {
-    background: #ef4;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
-}
-
-.logout-btn i {
-    font-size: 1.1em;
-}
 .form-actions {
     display: flex;
     gap: 8px;
@@ -1631,9 +1685,7 @@ input, select, textarea {
     <i class="fas fa-sign-out-alt"></i>
     Logout
 </a>
-
-                </div>
-
+   </div>
             <!-- Form Creation Section -->
             <div class="form-container">
                 <h2>Create New Form</h2>
@@ -1647,7 +1699,7 @@ input, select, textarea {
                 <h2>Create New Form</h2>
                 <div class="input-group">
                     <label>PIN</label>
-                    <input type="text" id="formPin" placeholder="Enter @His2024">
+                    <input type="text" id="formPin" placeholder="Enter h1sense0">
                 </div>
                 <div class="input-group">
                     <label>Course Name</label>
@@ -1736,7 +1788,7 @@ input, select, textarea {
 
     <!-- Active Forms Section -->
     <div class="portal-section active-forms">
-        <h2>Pleae Click Submit Button Once ▶️ </h2>
+        <h2> "Click the Submit button just once."</h2>
         <div id="activeForms" class="forms-grid"></div>
     </div>
 
@@ -1982,7 +2034,7 @@ class StudentAuth {
 🎓 NEW FORM ALERT!
 ━━━━━━━━━━━━━━━
 📚 Course: ${form.courseName}
-👨‍🏫 HOD: Tolu
+👨‍🏫 HOC: Oloyede Toluwani
 📅 Created: ${date}
 🔑 Form Code: ${form.uniqueCode}
 ✨ Fill your requirements here:
@@ -2495,29 +2547,42 @@ function toggleForm(formId) {
         dateSelectionModal.remove();
     });
 }
-
-function exportData(formId) {
+  function exportData(formId) {
     const form = db.forms.find(f => f.id === formId);
     if (!form || !form.submissions.length) {
         showToast('No data available for export');
         return;
     }
 
+    // Remove duplicates while preserving the first occurrence
+    const uniqueSubmissions = form.submissions.reduce((acc, current, idx) => {
+        const isDuplicate = acc.some(item =>
+            (item.studentName?.toLowerCase() === current.studentName?.toLowerCase() ||
+             item.name?.toLowerCase() === current.name?.toLowerCase()) &&
+            (item.matricNumber === current.matricNumber ||
+             item.matric === current.matric)
+        );
+
+        if (!isDuplicate) {
+            acc.push(current);
+        }
+        return acc;
+    }, []);
+
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    // Enhanced Header setup
+    // Header setup
     doc.setFontSize(16);
     doc.text(`LAGOS STATE UNIVERSITY`, 105, 15, { align: 'center' });
     doc.setFontSize(14);
-    doc.text(`Department of History & International Relations`, 105, 25, { align: 'center' });
+    doc.text(` History & International Studies`, 105, 25, { align: 'center' });
     doc.text(`${form.courseName}`, 105, 35, { align: 'center' });
     doc.setFontSize(12);
     doc.text(`Date: ${new Date().toLocaleDateString()}`, 15, 45);
 
-    // Convert all submission data to table rows
-    const tableData = form.submissions.map((submission, index) => {
-        // Extract all fields from the submission
+    // Convert unique submissions to table rows with proper serial numbering
+    const tableData = uniqueSubmissions.map((submission, index) => {
         const submissionData = Object.entries(submission)
             .filter(([key]) => key !== 'id' && key !== 'timestamp')
             .reduce((acc, [key, value]) => {
@@ -2529,11 +2594,11 @@ function exportData(formId) {
             (index + 1).toString(),
             submissionData.studentName || submissionData.name || '',
             submissionData.matricNumber || submissionData.matric || '',
-            '' // Space for signature
+            ''
         ];
     });
 
-    // Table configuration with improved styling
+    // Table configuration
     doc.autoTable({
         startY: 50,
         head: [['S/N', 'Student Name', 'Matric/jamb Number', 'Signature']],
@@ -2545,31 +2610,32 @@ function exportData(formId) {
             halign: 'center'
         },
         headStyles: {
-            fillColor: [400, 400, 400],
+            fillColor: [255, 255, 255],
             textColor: [90, 90, 90],
             fontStyle: 'bold',
             halign: 'center'
         },
         columnStyles: {
             0: { cellWidth: 20 },
-            1: { cellWidth: 60, halign: 'left'    },
+            1: { cellWidth: 60, halign: 'left' },
             2: { cellWidth: 50 },
             3: { cellWidth: 50 }
         },
         margin: { left: 15, right: 15 }
     });
 
-    // Save with formatted filename
+    // Save files
     const currentDate = new Date().toISOString().split('T')[0];
     const fileName = `${form.courseName}_attendance_${currentDate}.pdf`;
     doc.save(fileName);
     showToast('Export completed successfully');
 
-    // Also export raw data as text file for backup
-    const rawData = form.submissions
-        .map(sub => Object.entries(sub)
-            .map(([key, value]) => `${key}: ${value}`)
-            .join('\n'))
+    // Export raw data of unique submissions
+    const rawData = uniqueSubmissions
+        .map((sub, index) => `Entry ${index + 1}\n` +
+            Object.entries(sub)
+                .map(([key, value]) => `${key}: ${value}`)
+                .join('\n'))
         .join('\n\n');
 
     const blob = new Blob([rawData], { type: 'text/plain' });
