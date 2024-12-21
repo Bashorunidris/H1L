@@ -2590,7 +2590,7 @@ function toggleForm(formId) {
     doc.text(`LAGOS STATE UNIVERSITY`, 105, 15, { align: 'center' });
     doc.setFontSize(14);
     doc.text(` Attendance`, 105, 25, { align: 'center' });
-    doc.text(`Course:${form.courseName}`, 15, 45, { align: 'left' });
+    doc.text(`Course:${form.courseName}`, 105, 35, { align: 'left' });
     doc.setFontSize(12);
     doc.text(`Date: ${new Date().toLocaleDateString()}`, 15, 45);
 
@@ -2623,7 +2623,7 @@ function toggleForm(formId) {
             halign: 'center'
         },
         headStyles: {
-            fillColor: [255, 255, 255],
+            fillColor: [315, 255, 255],
             textColor: [90, 90, 90],
             fontStyle: 'bold',
             halign: 'center'
