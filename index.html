@@ -1803,6 +1803,8 @@ input, select, textarea {
   <!-- Firebase Setup -->
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<!-- Add this with your other Firebase scripts -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 
 <script>
 const firebaseConfig = {
@@ -1950,7 +1952,14 @@ class HisDatabase {
         this.currentUser = email;
         this.saveToStorage();
 
-        // Add Firebase sync for cross-device access
+        // Firebase Authentication
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .catch(() => {
+                // Create user if doesn't exist
+                firebase.auth().createUserWithEmailAndPassword(email, password);
+            });
+
+        // Firebase Firestore sync for cross-device access
         this.firestore.collection('hod_sessions')
             .doc(email)
             .set({
@@ -1963,7 +1972,6 @@ class HisDatabase {
     }
     return false;
 }
-
 
     createForm(pin, courseName, type, fields, autoSave) {
         if (pin !== this.validPin) {
