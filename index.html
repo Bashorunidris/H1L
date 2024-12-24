@@ -1800,48 +1800,8 @@ input, select, textarea {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
 
 
-  <!-- Firebase Setup -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-<!-- Add this with your other Firebase scripts -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
- <script>
-const firebaseConfig = {
-    apiKey: "AIzaSyBudtF-qE8XnrkoYDgiC1zptyQnJs9C96s",
-    authDomain: "hisdatabase-1cdd8.firebaseapp.com",
-    projectId: "hisdatabase-1cdd8",
-    storageBucket: "hisdatabase-1cdd8.firebasestorage.app",
-    messagingSenderId: "612083839754",
-    appId: "1:612083839754:web:b75f5210479183999a40f3",
-    measurementId: "G-T3QXBC57WJ"
-};
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-const auth = firebase.auth();
-
-// Configure Firebase Auth settings
-auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-
-// Enable offline persistence for Firestore
-db.enablePersistence()
-    .then(() => console.log("Persistence enabled"))
-    .catch((err) => console.log("Persistence error:", err));
-
-// Monitor auth state changes
-auth.onAuthStateChanged((user) => {
-    if (user) {
-        console.log('User is signed in:', user.email);
-    } else {
-        console.log('User is signed out');
-    }
-});
-</script>
-
-<!-- Your Original Code with Firebase Integration -->
-<script>
-const CONFIG = {
+   <script>
+ const CONFIG = {
     AUTH: {
         VALID_EMAILS: ['toluwaoloyede27@gmail.com','toluwanioloyede27@gmail.com', 'bashorunidris18@gmail.com'],
         VALID_PIN: 'h1sense0',
@@ -1865,7 +1825,6 @@ class HisDatabase {
         this.password = CONFIG.AUTH.DEFAULT_PASSWORD;
         this.currentUser = null;
         this.forms = [];
-        this.firestore = db;
         this.initializeStorage();
         this.loadFromStorage();
     }
@@ -1882,21 +1841,8 @@ class HisDatabase {
         }
     }
 
-    async loadFromStorage() {
+    loadFromStorage() {
         try {
-            if (this.currentUser) {
-                const doc = await this.firestore.collection('forms')
-                    .doc(this.currentUser)
-                    .get();
-
-                if (doc.exists) {
-                    const data = doc.data();
-                    this.forms = data.forms || [];
-                    this.createBackup(data);
-                    return;
-                }
-            }
-
             const storedData = localStorage.getItem(CONFIG.STORAGE_KEYS.DATABASE);
             if (storedData) {
                 const data = JSON.parse(storedData);
@@ -1919,12 +1865,6 @@ class HisDatabase {
         };
 
         try {
-            if (this.currentUser) {
-                this.firestore.collection('forms')
-                    .doc(this.currentUser)
-                    .set(storageData);
-            }
-
             localStorage.setItem(CONFIG.STORAGE_KEYS.DATABASE, JSON.stringify(storageData));
             this.createBackup(storageData);
         } catch (error) {
@@ -1952,103 +1892,77 @@ class HisDatabase {
     }
 
     handleStorageLimit() {
+        // Remove old submissions
         this.forms = this.forms.map(form => ({
             ...form,
-            submissions: form.submissions.slice(-10000)
+            submissions: form.submissions.slice(-10000) // Keep last 100 submissions
         }));
         this.saveToStorage();
     }
 
     authenticate(email, password) {
-    if (this.authorizedEmails.includes(email) && password === this.password) {
-        this.currentUser = email;
-        this.saveToStorage();
-
-        // Firebase Authentication
-        firebase.auth().signInWithEmailAndPassword(email, password)
-            .catch(() => {
-                // Create user if doesn't exist
-                firebase.auth().createUserWithEmailAndPassword(email, password);
-            });
-
-        // Firebase Firestore sync for cross-device access
-        this.firestore.collection('hod_sessions')
-            .doc(email)
-            .set({
-                lastLogin: new Date().toISOString(),
-                active: true,
-                email: email
-            });
-
-        return true;
-    }
-    return false;
-}
-
-    createForm(pin, courseName, type, fields, autoSave) {
-        if (pin !== this.validPin) {
-            throw new Error('Invalid PIN');
-        }
-
-        const form = {
-            id: Date.now().toString(36),
-            uniqueCode: this.generateUniqueCode(),
-            courseName,
-            type,
-            fields,
-            autoSave,
-            creator: this.currentUser,
-            active: true,
-            submissions: [],
-            unwantedSubmissions: [],
-            created: new Date().toISOString(),
-            lastModified: new Date().toISOString()
-        };
-
-        this.forms.push(form);
-
-        // Save to both localStorage and Firebase
-        this.saveToStorage();
-
-        // Save individual form for cross-device access
-        if (this.currentUser) {
-            this.firestore.collection('individualForms')
-                .doc(form.uniqueCode)
-                .set(form);
-        }
-
-        return form;
-    }
-
-    submitForm(formId, submission) {
-        const form = this.forms.find(f => f.id === formId);
-        if (form && form.active) {
-            const enhancedSubmission = {
-                ...submission,
-                id: Date.now().toString(36),
-                timestamp: new Date().toISOString(),
-                formCode: form.uniqueCode
-            };
-
-            const isDuplicate = form.submissions.some(existingSubmission =>
-                (existingSubmission.studentName?.toLowerCase() === submission.studentName?.toLowerCase() ||
-                 existingSubmission.name?.toLowerCase() === submission.name?.toLowerCase()) &&
-                (existingSubmission.matricNumber === submission.matricNumber ||
-                 existingSubmission.matric === submission.matric)
-            );
-
-            if (isDuplicate) {
-                form.unwantedSubmissions.push(enhancedSubmission);
-            } else {
-                form.submissions.push(enhancedSubmission);
-            }
-
-            form.lastModified = new Date().toISOString();
+        if (this.authorizedEmails.includes(email) && password === this.password) {
+            this.currentUser = email;
             this.saveToStorage();
-            return enhancedSubmission;
+            return true;
         }
         return false;
     }
+
+   createForm(pin, courseName, type, fields, autoSave) {
+    if (pin !== this.validPin) {
+        throw new Error('Invalid PIN');
+    }
+
+    const form = {
+        id: Date.now().toString(36),
+        uniqueCode: this.generateUniqueCode(),
+        courseName,
+        type,
+        fields,
+        autoSave,
+        creator: this.currentUser,
+        active: true,
+        submissions: [],
+        unwantedSubmissions: [], // Added unwanted submissions array
+        created: new Date().toISOString(),
+        lastModified: new Date().toISOString()
+    };
+
+    this.forms.push(form);
+    this.saveToStorage();
+    return form;
+}
+
+submitForm(formId, submission) {
+    const form = this.forms.find(f => f.id === formId);
+    if (form && form.active) {
+        const enhancedSubmission = {
+            ...submission,
+            id: Date.now().toString(36),
+            timestamp: new Date().toISOString(),
+            formCode: form.uniqueCode
+        };
+
+        const isDuplicate = form.submissions.some(existingSubmission =>
+            (existingSubmission.studentName?.toLowerCase() === submission.studentName?.toLowerCase() ||
+             existingSubmission.name?.toLowerCase() === submission.name?.toLowerCase()) &&
+            (existingSubmission.matricNumber === submission.matricNumber ||
+             existingSubmission.matric === submission.matric)
+        );
+
+        if (isDuplicate) {
+            form.unwantedSubmissions.push(enhancedSubmission);
+        } else {
+            form.submissions.push(enhancedSubmission);
+        }
+
+        form.lastModified = new Date().toISOString();
+        this.saveToStorage();
+        return enhancedSubmission;
+    }
+    return false;
+}
 
     generateUniqueCode() {
         const timestamp = Date.now().toString(36);
@@ -2075,8 +1989,6 @@ class HisDatabase {
         this.saveToStorage();
     }
 }
-
-
 
 // Student Authentication Class
 class StudentAuth {
