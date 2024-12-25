@@ -1785,17 +1785,7 @@ input, select, textarea {
         </div>
         <div id="formStatusIndicator" class="status-indicator"></div>
     </div>
-      <div class="submission-search">
-    <input
-        type="text"
-        id="submissionCodeInput"
-        placeholder="Enter submission code to edit"
-        class="form-control"
-    >
-    <button onclick="searchSubmission()" class="btn btn-primary">
-        Search Submission
-    </button>
-</div>
+
     <!-- Active Forms Section -->
     <div class="portal-section active-forms">
         <h2> "Click the Submit button just once."</h2>
@@ -1806,28 +1796,22 @@ input, select, textarea {
 </div>
 
 
-
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
 
 
    <script>
  const CONFIG = {
+    STORAGE_KEYS: {
+        DATABASE: 'his_database',
+        BACKUP: 'his_backup'
+    },
+    STORAGE_VERSION: '1.0',
     AUTH: {
-        VALID_EMAILS: ['toluwaoloyede27@gmail.com','toluwanioloyede27@gmail.com', 'bashorunidris18@gmail.com'],
+        VALID_EMAILS: ['toluwaoloyede27@gmail.com', 'toluwanioloyede27@gmail.com', 'bashorunidris18@gmail.com'],
         VALID_PIN: 'h1sense0',
         DEFAULT_PASSWORD: 'h1sense0'
-    },
-    STORAGE_KEYS: {
-        DATABASE: 'hisDatabase',
-        STUDENTS: 'students',
-        DOCUMENTS: 'studentDocs',
-        FORMS: 'hisForms',
-        SUBMISSIONS: 'hisSubmissions',
-        BACKUP: 'hisBackup',
-        GLOBAL_FORMS: 'HIS_GLOBAL_FORMS'  // Added new global forms key
-    },
-    STORAGE_VERSION: '1.0'
+    }
 };
 
 class HisDatabase {
@@ -1837,8 +1821,7 @@ class HisDatabase {
         this.password = CONFIG.AUTH.DEFAULT_PASSWORD;
         this.currentUser = null;
         this.forms = [];
-        this.GLOBAL_STORAGE_KEY = 'HIS_GLOBAL_FORMS_DATA';
-        this.SUBMISSIONS_KEY = 'HIS_STUDENT_SUBMISSIONS';
+        this.storageUrl = 'https://jsonstorage.net/api/items/';
         this.initializeStorage();
         this.loadFromStorage();
     }
@@ -1853,50 +1836,21 @@ class HisDatabase {
             };
             this.saveToStorage(initialData);
         }
-
-        // Initialize global forms and submissions storage
-        if (!localStorage.getItem(this.GLOBAL_STORAGE_KEY)) {
-            localStorage.setItem(this.GLOBAL_STORAGE_KEY, JSON.stringify({
-                forms: [],
-                lastUpdate: new Date().toISOString()
-            }));
-        }
-
-        if (!localStorage.getItem(this.SUBMISSIONS_KEY)) {
-            localStorage.setItem(this.SUBMISSIONS_KEY, JSON.stringify({}));
-        }
     }
 
     loadFromStorage() {
         try {
             const storedData = localStorage.getItem(CONFIG.STORAGE_KEYS.DATABASE);
-            const globalData = localStorage.getItem(this.GLOBAL_STORAGE_KEY);
-
             if (storedData) {
                 const data = JSON.parse(storedData);
                 this.forms = data.forms || [];
                 this.currentUser = data.currentUser;
                 this.createBackup(data);
             }
-
-            if (globalData) {
-                const { forms: globalForms } = JSON.parse(globalData);
-                this.forms = this.mergeForms(this.forms, globalForms);
-            }
         } catch (error) {
             console.error('Storage load error:', error);
             this.restoreFromBackup();
         }
-    }
-
-    mergeForms(localForms, globalForms) {
-        const mergedForms = [...localForms];
-        globalForms.forEach(globalForm => {
-            if (!mergedForms.find(f => f.uniqueCode === globalForm.uniqueCode)) {
-                mergedForms.push(globalForm);
-            }
-        });
-        return mergedForms;
     }
 
     saveToStorage(data = null) {
@@ -1906,16 +1860,8 @@ class HisDatabase {
             currentUser: this.currentUser,
             lastUpdate: new Date().toISOString()
         };
-
         try {
             localStorage.setItem(CONFIG.STORAGE_KEYS.DATABASE, JSON.stringify(storageData));
-
-            // Update global forms
-            localStorage.setItem(this.GLOBAL_STORAGE_KEY, JSON.stringify({
-                forms: this.forms,
-                lastUpdate: new Date().toISOString()
-            }));
-
             this.createBackup(storageData);
         } catch (error) {
             if (error.name === 'QuotaExceededError') {
@@ -1924,100 +1870,7 @@ class HisDatabase {
         }
     }
 
-    createForm(pin, courseName, type, fields, autoSave) {
-        if (pin !== this.validPin) {
-            throw new Error('Invalid PIN');
-        }
-
-        const form = {
-            id: Date.now().toString(36),
-            uniqueCode: this.generateUniqueCode(),
-            courseName,
-            type,
-            fields,
-            autoSave,
-            creator: this.currentUser,
-            active: true,
-            submissions: [],
-            unwantedSubmissions: [],
-            created: new Date().toISOString(),
-            lastModified: new Date().toISOString()
-        };
-
-        this.forms.push(form);
-        this.saveToStorage();
-        return form;
-    }
-
-    submitForm(formCode, submission) {
-        const form = this.getFormByCode(formCode);
-        if (form && form.active) {
-            const studentCode = this.generateStudentCode(formCode, submission.matricNumber || submission.matric);
-
-            const enhancedSubmission = {
-                ...submission,
-                id: Date.now().toString(36),
-                timestamp: new Date().toISOString(),
-                formCode: form.uniqueCode,
-                studentCode: studentCode,
-                submissionCount: 1
-            };
-
-            // Check submission history
-            const submissions = JSON.parse(localStorage.getItem(this.SUBMISSIONS_KEY) || '{}');
-            const existingSubmission = submissions[studentCode];
-
-            if (existingSubmission) {
-                if (existingSubmission.submissionCount >= 3) {
-                    return { error: 'Maximum edit limit reached' };
-                }
-                enhancedSubmission.submissionCount = existingSubmission.submissionCount + 1;
-            }
-
-            const isDuplicate = form.submissions.some(existing =>
-                (existing.studentName?.toLowerCase() === submission.studentName?.toLowerCase() ||
-                 existing.name?.toLowerCase() === submission.name?.toLowerCase()) &&
-                (existing.matricNumber === submission.matricNumber ||
-                 existing.matric === submission.matric)
-            );
-
-            if (isDuplicate) {
-                form.unwantedSubmissions.push(enhancedSubmission);
-            } else {
-                form.submissions.push(enhancedSubmission);
-            }
-
-            // Update submission history
-            submissions[studentCode] = enhancedSubmission;
-            localStorage.setItem(this.SUBMISSIONS_KEY, JSON.stringify(submissions));
-
-            form.lastModified = new Date().toISOString();
-            this.saveToStorage();
-            return enhancedSubmission;
-        }
-        return false;
-    }
-
-    generateStudentCode(formCode, studentNumber) {
-        return `${formCode}-${studentNumber}-${Date.now().toString(36)}`.toUpperCase();
-    }
-
-    getFormByCode(formCode) {
-        // Check both local and global storage
-        const form = this.forms.find(f => f.uniqueCode === formCode && f.active);
-        if (!form) {
-            const globalData = JSON.parse(localStorage.getItem(this.GLOBAL_STORAGE_KEY) || '{}');
-            return globalData.forms?.find(f => f.uniqueCode === formCode && f.active);
-        }
-        return form;
-    }
-
-    getSubmissionByCode(studentCode) {
-        const submissions = JSON.parse(localStorage.getItem(this.SUBMISSIONS_KEY) || '{}');
-        return submissions[studentCode];
-    }
-
-        createBackup(data) {
+    createBackup(data) {
         localStorage.setItem(CONFIG.STORAGE_KEYS.BACKUP, JSON.stringify({
             timestamp: new Date().toISOString(),
             data: data
@@ -2051,10 +1904,108 @@ class HisDatabase {
         return false;
     }
 
+    async createForm(pin, courseName, type, fields, autoSave) {
+        if (pin !== this.validPin) {
+            throw new Error('Invalid PIN');
+        }
+
+        const form = {
+            id: Date.now().toString(36),
+            uniqueCode: this.generateUniqueCode(),
+            courseName,
+            type,
+            fields,
+            autoSave,
+            creator: this.currentUser,
+            active: true,
+            submissions: [],
+            unwantedSubmissions: [],
+            created: new Date().toISOString(),
+            lastModified: new Date().toISOString()
+        };
+
+        // Save locally
+        this.forms.push(form);
+        this.saveToStorage();
+
+        // Save to JSONStorage.net
+        try {
+            const response = await fetch(this.storageUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(form)
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                form.storageId = data.id;
+                this.saveToStorage();
+            }
+        } catch (error) {
+            console.error('Remote storage error:', error);
+        }
+
+        return form;
+    }
+
+    async submitForm(formId, submission) {
+        const form = this.forms.find(f => f.id === formId);
+        if (!form || !form.active) return false;
+
+        const enhancedSubmission = {
+            ...submission,
+            id: Date.now().toString(36),
+            timestamp: new Date().toISOString(),
+            formCode: form.uniqueCode
+        };
+
+        const isDuplicate = this.checkDuplicate(form, submission);
+        const submissionArray = isDuplicate ? 'unwantedSubmissions' : 'submissions';
+        form[submissionArray].push(enhancedSubmission);
+        form.lastModified = new Date().toISOString();
+
+        // Save locally
+        this.saveToStorage();
+
+        // Update remote storage
+        if (form.storageId) {
+            try {
+                await fetch(`${this.storageUrl}/${form.storageId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(form)
+                });
+            } catch (error) {
+                console.error('Remote submission error:', error);
+            }
+        }
+
+        return enhancedSubmission;
+    }
+
+    checkDuplicate(form, submission) {
+        return form.submissions.some(existing =>
+            (existing.studentName?.toLowerCase() === submission.studentName?.toLowerCase() ||
+             existing.name?.toLowerCase() === submission.name?.toLowerCase()) &&
+            (existing.matricNumber === submission.matricNumber ||
+             existing.matric === submission.matric)
+        );
+    }
+
     generateUniqueCode() {
         const timestamp = Date.now().toString(36);
         const random = Math.random().toString(36).substring(2, 8);
         return `HIS-${timestamp}-${random}`.toUpperCase();
+    }
+
+    async getFormByCode(formCode) {
+        try {
+            const response = await fetch(`${this.storageUrl}/search?uniqueCode=${formCode}`);
+            const data = await response.json();
+            return data.find(form => form.uniqueCode === formCode && form.active);
+        } catch {
+            return this.forms.find(f => f.uniqueCode === formCode && f.active);
+        }
     }
 
     getForm(formId) {
@@ -2070,16 +2021,19 @@ class HisDatabase {
         return form ? form.submissions : [];
     }
 
+
+
     clearStorage() {
         this.forms = [];
         this.currentUser = null;
         this.saveToStorage();
-        localStorage.removeItem(this.GLOBAL_STORAGE_KEY);
-        localStorage.removeItem(this.SUBMISSIONS_KEY);
     }
+}
+
+// Initialize database
+const hisDB = new HisDatabase();
 
 
-    }
 // Student Authentication Class
 class StudentAuth {
     constructor() {
@@ -2639,7 +2593,7 @@ function toggleForm(formId) {
         showToast(`Form ${form.active ? 'unlocked' : 'locked'}`);
     }
 }
-function initiateExport(formId) {
+ function initiateExport(formId) {
     const dateSelectionModal = createDateSelectionModal();
     document.body.appendChild(dateSelectionModal);
 
@@ -2650,16 +2604,15 @@ function initiateExport(formId) {
         dateSelectionModal.remove();
     });
 }
-
-function exportData(formId) {
+  function exportData(formId) {
     const form = db.forms.find(f => f.id === formId);
     if (!form || !form.submissions.length) {
         showToast('No data available for export');
         return;
     }
 
-    // Remove duplicates and sort alphabetically by student name
-    const uniqueSubmissions = form.submissions.reduce((acc, current) => {
+    // Remove duplicates while preserving the first occurrence
+    const uniqueSubmissions = form.submissions.reduce((acc, current, idx) => {
         const isDuplicate = acc.some(item =>
             (item.studentName?.toLowerCase() === current.studentName?.toLowerCase() ||
              item.name?.toLowerCase() === current.name?.toLowerCase()) &&
@@ -2673,13 +2626,6 @@ function exportData(formId) {
         return acc;
     }, []);
 
-    // Sort submissions alphabetically
-    uniqueSubmissions.sort((a, b) => {
-        const nameA = (a.studentName || a.name || '').toLowerCase();
-        const nameB = (b.studentName || b.name || '').toLowerCase();
-        return nameA.localeCompare(nameB);
-    });
-
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
@@ -2688,11 +2634,11 @@ function exportData(formId) {
     doc.text(`LAGOS STATE UNIVERSITY`, 105, 15, { align: 'center' });
     doc.setFontSize(14);
     doc.text(` Attendance`, 105, 25, { align: 'center' });
-    doc.text(`Course:${form.courseName}`, 15, 35);
+    doc.text(`Course:${form.courseName}`, 15, 35, );
     doc.setFontSize(12);
     doc.text(`Date: ${new Date().toLocaleDateString()}`, 15, 45);
 
-    // Convert sorted submissions to table rows
+    // Convert unique submissions to table rows with proper serial numbering
     const tableData = uniqueSubmissions.map((submission, index) => {
         const submissionData = Object.entries(submission)
             .filter(([key]) => key !== 'id' && key !== 'timestamp')
@@ -2741,7 +2687,7 @@ function exportData(formId) {
     doc.save(fileName);
     showToast('Export completed successfully');
 
-    // Export sorted raw data
+    // Export raw data of unique submissions
     const rawData = uniqueSubmissions
         .map((sub, index) => `Entry ${index + 1}\n` +
             Object.entries(sub)
@@ -2859,96 +2805,84 @@ function showStudentPortal() {
     document.getElementById('studentPortal').classList.remove('hidden');
 }
 
- function searchForm() {
+async function searchForm() {
     const formCode = document.getElementById('formCodeInput').value.trim().toUpperCase();
-    const globalData = JSON.parse(localStorage.getItem('HIS_GLOBAL_FORMS_DATA') || '{}');
-    const form = globalData.forms?.find(f => f.uniqueCode === formCode && f.active) ||
-                db.getFormByCode(formCode);
+    const statusIndicator = document.getElementById('formStatusIndicator');
 
-    if (form) {
-        clearExistingForm();
-        displayFormForStudent(form);
-        showToast('Form loaded successfully!', 'success');
-    } else {
-        showToast('Form not found or inactive', 'error');
+    if (!formCode) {
+        showToast('Please enter a form code', 'error');
+        return;
+    }
+
+    try {
+        const response = await fetch(`https://jsonstorage.net/api/items/search?uniqueCode=${formCode}`);
+        const data = await response.json();
+        const form = data.find(f => f.uniqueCode === formCode && f.active);
+
+        if (form) {
+            displayFormForStudent(form);
+            statusIndicator.innerHTML = `
+                <div class="status-success">
+                    <i class="fas fa-check-circle"></i>
+                    Form found: ${form.courseName}
+                </div>`;
+            showToast('Form loaded successfully');
+        } else {
+            statusIndicator.innerHTML = `
+                <div class="status-error">
+                    <i class="fas fa-times-circle"></i>
+                    Invalid or expired form code
+                </div>`;
+            showToast('Form not found', 'error');
+        }
+    } catch (error) {
+        // Fallback to local search if remote fails
+        const localForm = db.forms.find(f => f.uniqueCode === formCode && f.active);
+        if (localForm) {
+            displayFormForStudent(localForm);
+            showToast('Form loaded from local storage');
+        } else {
+            showToast('Form not found', 'error');
+        }
     }
 }
 
-function clearExistingForm() {
-    const existingForm = document.querySelector('.student-form-container');
-    if (existingForm) {
-        existingForm.remove();
-    }
-}
 
 function displayFormForStudent(form) {
     const formContainer = document.createElement('div');
     formContainer.className = 'student-form-container';
     formContainer.innerHTML = `
-        <div class="form-header">
-            <h3>${form.courseName}</h3>
-            <p class="form-code">Form Code: ${form.uniqueCode}</p>
-            <p class="form-info">Note: You can edit your submission up to 3 times using your submission code</p>
-        </div>
-        <form id="studentSubmissionForm" class="submission-form">
+        <h3>${form.courseName}</h3>
+        <form id="studentSubmissionForm">
             ${generateFormFields(form.fields)}
-            <div class="submission-code-section">
-                <input
-                    type="text"
-                    id="submissionCodeInput"
-                    placeholder="Enter submission code to edit previous submission"
-                    class="form-control mb-2"
-                >
-                <button type="button" onclick="loadPreviousSubmission()" class="btn btn-info mb-3">
-                    Load Previous Submission
-                </button>
-            </div>
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary">Submit Form</button>
-                <button type="reset" class="btn btn-secondary">Clear Form</button>
-            </div>
+            <button type="submit" class="btn btn-primary">Submit Form</button>
         </form>
     `;
 
     document.getElementById('studentPortal').appendChild(formContainer);
-    setupFormSubmission(form.uniqueCode);
+    setupFormSubmission(form.id);
 }
 
 function generateFormFields(fields) {
     return fields.map(field => `
-        <div class="form-group">
-            <label for="${field}">${field.charAt(0).toUpperCase() + field.slice(1)}</label>
-            <input
-                type="text"
-                id="${field}"
-                name="${field}"
-                class="form-control"
-                placeholder="Enter ${field.toLowerCase()}"
-                required
-                autocomplete="off"
-            >
+        <div class="input-group">
+            <label>${field.charAt(0).toUpperCase() + field.slice(1)}</label>
+            <input type="text" name="${field}" required>
         </div>
     `).join('');
 }
 
-function loadPreviousSubmission() {
-    const submissionCode = document.getElementById('submissionCodeInput').value.trim().toUpperCase();
-    const submission = db.getSubmissionByCode(submissionCode);
+function setupFormSubmission(formId) {
+    document.getElementById('studentSubmissionForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const submission = Object.fromEntries(formData.entries());
 
-    if (submission) {
-        const form = document.getElementById('studentSubmissionForm');
-        Object.entries(submission).forEach(([key, value]) => {
-            const input = form.querySelector(`input[name="${key}"]`);
-            if (input) {
-                input.value = value;
-            }
-        });
-        showToast('Previous submission loaded', 'success');
-    } else {
-        showToast('Submission not found', 'error');
-    }
+        db.submitForm(formId, submission);
+        showToast('Form submitted successfully');
+        e.target.reset();
+    });
 }
-
 
 function loadStudentDashboard() {
     // Show student portal and hide login form
