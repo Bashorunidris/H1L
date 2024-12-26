@@ -158,7 +158,7 @@ body {
     animation: rotate 20s linear infinite;
 }
 
-.globe {
+  .globe {
     position: absolute;
     top: -5px;
     left: 50%;
@@ -168,6 +168,41 @@ body {
     border-radius: 50%;
     box-shadow: 0 0 10px #e74c3c;
     animation: glow 2s ease-in-out infinite;
+    transform: translateX(-50%);
+}
+
+.hat {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid #e74c3c;
+    transform: translateX(-50%);
+}
+
+.hat-pom {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: #fff;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 5px #fff;
+    animation: glow 1.5s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 10px #e74c3c;
+    }
+    50% {
+        box-shadow: 0 0 20px #e74c3c;
+    }
 }
 
 .logo-title {
@@ -284,7 +319,7 @@ input {
 }
 
 input:focus {
-    border-color: #4a90e2;
+    border-color: #2c3e50;
     box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.1);
     outline: none;
     transform: scale(1.01);
@@ -293,7 +328,7 @@ input:focus {
 /* Enhanced Button Design */
 button {
     padding: 1rem 1.5rem;
-    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    background: linear-gradient(135deg, #2c3e50 0%, #2c3e50 100%);
     color: white;
     border: none;
     border-radius: 12px;
@@ -306,7 +341,7 @@ button {
 }
 
 button:hover {
-    background: linear-gradient(135deg, #357abd 0%, #2868a9 100%);
+    background: linear-gradient(135deg, #357abd 0%, #2c3e50 100%);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(53, 122, 189, 0.3);
 }
@@ -336,7 +371,52 @@ button:active {
     background: rgba(255, 255, 255, 1);
     transform: translateX(4px);
 }
+ .button {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+}
 
+/* Ripple effect */
+.button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: width 0.4s ease, height 0.4s ease, opacity 0.6s ease;
+}
+
+.button:hover::before {
+    width: 200%;
+    height: 200%;
+    opacity: 0;
+}
+
+.button:hover {
+    background-color: #0b3;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
 /* Modern Controls Layout */
 .box-controls {
     display: flex;
@@ -380,9 +460,12 @@ button:active {
             <span class="logo-text">HD</span>
             <div class="orbit">
                 <span class="globe"></span>
+                <span class="hat"></span>
+                <span class="hat-pom"></span>
             </div>
         </div>
     </div>
+
     <div class="logo-title">
         <h1>History Database</h1>
         <span class="logo-subtitle">International Relations Portal</span>
@@ -394,6 +477,16 @@ button:active {
 
 
     <div id="auth-container">
+        <script type="text/javascript">
+ atOptions = {
+  'key' : '81a59aabcd19384514b4262c4bc340b7',
+  'format' : 'iframe',
+  'height' : 60,
+  'width' : 468,
+  'params' : {}
+ };
+</script>
+<script type="text/javascript" src="//causingparameterfavour.com/81a59aabcd19384514b4262c4bc340b7/invoke.js"></script>
         <h2></h2>
         <form id="auth-form">
             <input type="email" id="email" placeholder="Email" required>
@@ -402,7 +495,16 @@ button:active {
             <button type="button" id="signup">Sign Up</button>
         </form>
     </div>
-
+     <script type="text/javascript">
+ atOptions = {
+  'key' : '81a59aabcd19384514b4262c4bc340b7',
+  'format' : 'iframe',
+  'height' : 60,
+  'width' : 468,
+  'params' : {}
+ };
+</script>
+<script type="text/javascript" src="//causingparameterfavour.com/81a59aabcd19384514b4262c4bc340b7/invoke.js"></script>
     <div id="dashboard" class="hidden">
         <div class="submission-form">
             <h2>Submit Entry</h2>
@@ -413,7 +515,11 @@ button:active {
                 <button type="submit">Submit</button>
             </form>
         </div>
+          <div class="button-container">
 
+    <a href="https://causingparameterfavour.com/nkb6ipfi?key=3631b4c085cc900213f25d194204219c" class="button">Click to confirm submission </a>
+
+    </div>
         <div class="box-container">
             <h2>Submission Box 📦</h2>
             <div class="box-controls">
@@ -423,7 +529,16 @@ button:active {
             <div id="submissions-list"></div>
         </div>
     </div>
-
+     <script type="text/javascript">
+ atOptions = {
+  'key' : '81a59aabcd19384514b4262c4bc340b7',
+  'format' : 'iframe',
+  'height' : 60,
+  'width' : 468,
+  'params' : {}
+ };
+</script>
+<script type="text/javascript" src="//causingparameterfavour.com/81a59aabcd19384514b4262c4bc340b7/invoke.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
      <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
@@ -689,6 +804,6 @@ db.collection('boxStatus').doc('status').get().then(doc => {
 });
 
     </script>
+    <script type='text/javascript' src='//causingparameterfavour.com/ef/59/2c/ef592c624e85163b7c81c344b9169c64.js'></script>
 </body>
 </html>
-
