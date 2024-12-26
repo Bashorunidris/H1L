@@ -1,1 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Submission System</title>
+    <style>
+    root {
+    /* Core Colors */
+    --primary: #2c3e50;
+    --primary-light: #3a4d61;
+    --primary-dark: #1e2b3a;
+    --secondary: #32CD32;
+    --secondary-light: #47d847;
+    --secondary-dark: #28a428;
+    --error: #FF6347;
+    --success: #28a745;
+    --warning: #ffc107;
+    --info: #17a2b8;
+
+    /* Background Colors */
+    --bg-light: #F5F5F5;
+    --bg-white: #ffffff;
+    --bg-dark: #333333;
+    --bg-gradient: linear-gradient(135deg, var(--primary), var(--primary-dark));
+
+    /* Text Colors */
+    --text-dark: #333;
+    --text-light: #ffffff;
+    --text-muted: #6c757d;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow: 0 2px 10px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
+
+    /* Breakpoints */
+    --mobile: 480px;
+    --tablet: 768px;
+    --laptop: 1024px;
+    --desktop: 1200px;
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --radius-full: 9999px;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: var(--bg-light);
+    color: var(--text-dark);
+    min-height: 100vh;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    width: 100%;
+    max-width: var(--desktop);
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+}
+
+/* Responsive Container */
+@media (max-width: var(--mobile)) {
+    .container {
+        padding: var(--spacing-md);
+    }
+}
+
+@media (max-width: var(--tablet)) {
+    .container {
+        max-width: 100%;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-light: #1a1a1a;
+        --text-dark: #ffffff;
+        --shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+}
+
+/* High Contrast Mode */
+@media (forced-colors: active) {
+    :root {
+        --primary: CanvasText;
+        --secondary: Highlight;
+        --error: Mark;
+    }
+}
+
+       .logo {
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 2vw, 20px);
+    padding: clamp(10px, 2vw, 15px);
+    flex-wrap: wrap;
+}
+
+.logo-emblem {
+    position: relative;
+    width: clamp(40px, 8vw, 60px);
+    height: clamp(40px, 8vw, 60px);
+    flex-shrink: 0;
+}
+
+.logo-circle {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    animation: pulse 2s infinite;
+}
+
+.logo-text {
+    color: #fff;
+    font-size: clamp(16px, 3vw, 24px);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.orbit {
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    border: clamp(1px, 0.3vw, 2px) dashed rgba(255,255,255,0.3);
+    border-radius: 50%;
+    animation: rotate 20s linear infinite;
+}
+
+.globe {
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    width: clamp(8px, 1.5vw, 15px);
+    height: clamp(8px, 1.5vw, 15px);
+    background: #e74c3c;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #e74c3c;
+    animation: glow 2s ease-in-out infinite;
+}
+
+.logo-title {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 200px;
+}
+
+.logo-title h1 {
+    font-size: clamp(20px, 4vw, 28px);
+    font-weight: 700;
+    color: #2c3e50;
+    margin: 0;
+    background: linear-gradient(45deg, #2c3e50, #3498db);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo-subtitle {
+    font-size: clamp(12px, 2vw, 14px);
+    color: #7f8c8d;
+    letter-spacing: clamp(1px, 0.2vw, 2px);
+    text-transform: uppercase;
+    margin-top: clamp(2px, 1vw, 4px);
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 10px #e74c3c; }
+    50% { box-shadow: 0 0 20px #e74c3c; }
+    100% { box-shadow: 0 0 10px #e74c3c; }
+}
+
+/* Additional breakpoints for extreme screen sizes */
+@media (max-width: 480px) {
+    .logo {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .logo-title {
+        align-items: center;
+    }
+}
+
+@media (min-width: 2000px) {
+    .logo {
+        max-width: 1800px;
+        margin: 0 auto;
+    }
+}
+
+
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.hidden {
+    display: none;
+}
+ /* Modern Container Styles */
+#auth-container, .submission-form, .box-container {
+    background: linear-gradient(to right bottom, #ffffff, #f8f9fa);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(8px);
+}
+
+#auth-container:hover, .submission-form:hover, .box-container:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
+}
+
+/* Enhanced Form Layout */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+/* Modern Input Styling */
+input {
+    padding: 1rem 1.25rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+input:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.1);
+    outline: none;
+    transform: scale(1.01);
+}
+
+/* Enhanced Button Design */
+button {
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #357abd 0%, #2868a9 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(53, 122, 189, 0.3);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Submissions List Enhancement */
+#submissions-list {
+    margin-top: 2rem;
+    display: grid;
+    gap: 1rem;
+}
+
+.submission-item {
+    background: rgba(248, 249, 250, 0.9);
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    animation: slideIn 0.5s ease-out;
+}
+
+.submission-item:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateX(4px);
+}
+
+/* Modern Controls Layout */
+.box-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #auth-container, .submission-form, .box-container {
+        padding: 1.5rem;
+        border-radius: 12px;
+    }
+
+    input, button {
+        padding: 0.875rem 1rem;
+    }
+}
+
+    </style>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+     <div class="container">
+       <div class="logo">
+    <div class="logo-emblem">
+        <div class="logo-circle">
+            <span class="logo-text">HD</span>
+            <div class="orbit">
+                <span class="globe"></span>
+            </div>
+        </div>
+    </div>
+    <div class="logo-title">
+        <h1>History Database</h1>
+        <span class="logo-subtitle">International Relations Portal</span>
+    </div>
+</div>
+ </div>
+
+
+
+
+    <div id="auth-container">
+        <h2></h2>
+        <form id="auth-form">
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit" id="signin">Sign In</button>
+            <button type="button" id="signup">Sign Up</button>
+        </form>
+    </div>
+
+    <div id="dashboard" class="hidden">
+        <div class="submission-form">
+            <h2>Submit Entry</h2>
+            <form id="submission-form">
+                <input type="text" id="pin" placeholder="Enter PIN" required>
+                <input type="text" id="name" placeholder="Full Name" required>
+                <input type="text" id="matric" placeholder="Matriculation Number" required>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <div class="box-container">
+            <h2>Submission Box 📦</h2>
+            <div class="box-controls">
+                <button id="lockBtn">Lock/Unlock Box</button>
+                <button id="exportBtn">Export Data</button>
+            </div>
+            <div id="submissions-list"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+
+      <script>
+// Firebase Configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyBudtF-qE8XnrkoYDgiC1zptyQnJs9C96s",
+    authDomain: "hisdatabase-1cdd8.firebaseapp.com",
+    projectId: "hisdatabase-1cdd8",
+    storageBucket: "hisdatabase-1cdd8.firebasestorage.app",
+    messagingSenderId: "612083839754",
+    appId: "1:612083839754:web:b75f5210479183999a40f3",
+    measurementId: "G-T3QXBC57WJ"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const auth = firebase.auth();
+
+// Constants
+const VALID_PIN = "HIS-M4WI15WC-93UZCO";
+const ADMIN_PASSWORD = "h1sense0";
+let isBoxLocked = false;
+
+// Auth form submit prevention
+document.getElementById('auth-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+});
+
+// Sign Up Handler
+document.getElementById('signup').addEventListener('click', () => {
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    if (!email || !password) {
+        alert('Please enter both email and password');
+        return;
+    }
+
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            console.log('User created successfully');
+            showDashboard();
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
+});
+
+// Sign In Handler
+document.getElementById('signin').addEventListener('click', () => {
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    if (!email || !password) {
+        alert('Please enter both email and password');
+        return;
+    }
+
+    firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            console.log('User signed in successfully');
+            showDashboard();
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
+});
+
+// Auth State Observer
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        showDashboard();
+    } else {
+        hideAllSections();
+        document.getElementById('auth-container').classList.remove('hidden');
+    }
+});
+
+// Submission Form Handler
+document.getElementById('submission-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    if (isBoxLocked) {
+        alert('The submission box is currently locked!');
+        return;
+    }
+
+    const pin = document.getElementById('pin').value;
+    if (pin !== VALID_PIN) {
+        alert('Invalid PIN!');
+        return;
+    }
+
+    const submission = {
+        name: document.getElementById('name').value,
+        matricNumber: document.getElementById('matric').value,
+        timestamp: new Date().toISOString(),
+        userId: firebase.auth().currentUser.uid
+    };
+
+    db.collection('submissions').add(submission)
+        .then(() => {
+            alert('Submission successful!');
+            document.getElementById('submission-form').reset();
+            loadSubmissions();
+        })
+        .catch(error => alert(error.message));
+});
+
+// Lock/Unlock Box Handler
+document.getElementById('lockBtn').addEventListener('click', () => {
+    const password = prompt('Enter admin password:');
+    if (password === ADMIN_PASSWORD) {
+        isBoxLocked = !isBoxLocked;
+        alert(`Box is now ${isBoxLocked ? 'locked' : 'unlocked'}`);
+        updateBoxStatus();
+    } else {
+        alert('Invalid password!');
+    }
+});
+
+// Export Data Handler
+document.getElementById('exportBtn').addEventListener('click', () => {
+    const password = prompt('Enter admin password:');
+    if (password === ADMIN_PASSWORD) {
+        exportData();
+    } else {
+        alert('Invalid password!');
+    }
+});
+
+// Helper Functions
+function hideAllSections() {
+    document.getElementById('auth-container').classList.add('hidden');
+    document.getElementById('dashboard').classList.add('hidden');
+}
+
+function showDashboard() {
+    hideAllSections();
+    document.getElementById('dashboard').classList.remove('hidden');
+    loadSubmissions();
+}
+
+function loadSubmissions() {
+    db.collection('submissions')
+        .orderBy('timestamp', 'desc')
+        .onSnapshot(snapshot => {
+            const submissionsList = document.getElementById('submissions-list');
+            submissionsList.innerHTML = '';
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                const div = document.createElement('div');
+                div.className = 'submission-item';
+                div.innerHTML = `
+                    <strong>${data.name}</strong>
+                    <p>Matric Number: ${data.matricNumber}</p>
+                    <small>Submitted: ${new Date(data.timestamp).toLocaleString()}</small>
+                `;
+                submissionsList.appendChild(div);
+            });
+        });
+}
+
+function updateBoxStatus() {
+    db.collection('boxStatus').doc('status').set({
+        isLocked: isBoxLocked,
+        updatedAt: new Date().toISOString()
+    });
+}
+
+function exportData() {
+    db.collection('submissions').get().then(snapshot => {
+        const submissions = [];
+        snapshot.forEach(doc => {
+            submissions.push(doc.data());
+        });
+
+        const uniqueSubmissions = submissions.reduce((acc, current) => {
+            const isDuplicate = acc.some(item =>
+                item.name.toLowerCase() === current.name.toLowerCase() &&
+                item.matricNumber === current.matricNumber
+            );
+            if (!isDuplicate) {
+                acc.push(current);
+            }
+            return acc;
+        }, []);
+
+        // PDF Export
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        doc.setFontSize(16);
+        doc.text('LAGOS STATE UNIVERSITY', 105, 15, { align: 'center' });
+        doc.setFontSize(14);
+        doc.text('Attendance', 105, 25, { align: 'center' });
+        doc.setFontSize(12);
+        doc.text(`Date: ${new Date().toLocaleDateString()}`, 15, 45);
+
+        const tableData = uniqueSubmissions.map((sub, index) => [
+            (index + 1).toString(),
+            sub.name,
+            sub.matricNumber,
+            ''
+        ]);
+
+        doc.autoTable({
+            startY: 50,
+            head: [['S/N', 'Student Name', 'Matric Number', 'Signature']],
+            body: tableData,
+            theme: 'grid',
+            styles: {
+                fontSize: 10,
+                cellPadding: 5,
+                halign: 'center'
+            },
+            headStyles: {
+                fillColor: [255, 255, 255],
+                textColor: [0, 0, 0],
+                fontStyle: 'bold'
+            },
+            columnStyles: {
+                0: { cellWidth: 20 },
+                1: { cellWidth: 60, halign: 'left' },
+                2: { cellWidth: 50 },
+                3: { cellWidth: 50 }
+            }
+        });
+
+        const fileName = `attendance_${new Date().toISOString().split('T')[0]}.pdf`;
+        doc.save(fileName);
+
+        // Text Export
+        const rawData = uniqueSubmissions
+            .map((sub, index) => `Entry ${index + 1}\n${Object.entries(sub)
+                .map(([key, value]) => `${key}: ${value}`)
+                .join('\n')}`)
+            .join('\n\n');
+
+        const blob = new Blob([rawData], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `raw_data_${new Date().toISOString().split('T')[0]}.txt`;
+        a.click();
+        URL.revokeObjectURL(url);
+
+        alert('Export completed successfully!');
+    }).catch(error => alert('Export failed: ' + error.message));
+}
+
+// Initialize box status
+db.collection('boxStatus').doc('status').get().then(doc => {
+    if (doc.exists) {
+        isBoxLocked = doc.data().isLocked;
+    }
+});
+
+    </script>
+</body>
+</html>
 
