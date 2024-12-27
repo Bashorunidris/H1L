@@ -451,6 +451,7 @@ button:active {
 
     </style>
     <link rel="stylesheet" href="styles.css">
+   <script async src="https://js.onclckmn.com/static/onclicka.js" data-admpid="274419"></script>
 </head>
 <body>
      <div class="container">
@@ -538,6 +539,7 @@ button:active {
   'params' : {}
  };
 </script>
+
 <script type="text/javascript" src="//causingparameterfavour.com/81a59aabcd19384514b4262c4bc340b7/invoke.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
@@ -716,25 +718,39 @@ function updateBoxStatus() {
 }
  function exportData() {
     db.collection('submissions').get().then(snapshot => {
-        const submissions = [];
+        let submissions = [];
         snapshot.forEach(doc => {
-            submissions.push(doc.data());
+            submissions.push({...doc.data(), id: doc.id});
         });
 
-        // Filter out names containing @ and create unique submissions
-        const uniqueSubmissions = submissions.reduce((acc, current) => {
-            const isDuplicate = acc.some(item =>
-                item.name.toLowerCase() === current.name.toLowerCase() &&
-                item.matricNumber === current.matricNumber
-            );
-            if (!isDuplicate && !current.name.includes('@')) {
-                acc.push(current);
+        // Filter out entries with '@' symbol
+        submissions = submissions.filter(sub => !sub.name.includes('@'));
+
+        // Group by matric number to handle duplicates
+        const submissionsByMatric = submissions.reduce((acc, current) => {
+            if (!acc[current.matricNumber]) {
+                acc[current.matricNumber] = [];
             }
+            acc[current.matricNumber].push(current);
             return acc;
-        }, []);
+        }, {});
+
+        // Keep only the latest submission for each matric number
+        let uniqueSubmissions = Object.values(submissionsByMatric).map(group => {
+            return group.reduce((latest, current) => {
+                if (!latest.timestamp || current.timestamp > latest.timestamp) {
+                    return current;
+                }
+                return latest;
+            });
+        });
 
         // Sort alphabetically by name
-        uniqueSubmissions.sort((a, b) => a.name.localeCompare(b.name));
+        uniqueSubmissions.sort((a, b) => {
+            const nameA = a.name.toLowerCase().trim();
+            const nameB = b.name.toLowerCase().trim();
+            return nameA.localeCompare(nameB);
+        });
 
         // PDF Export
         const { jsPDF } = window.jspdf;
@@ -747,9 +763,10 @@ function updateBoxStatus() {
         doc.setFontSize(12);
         doc.text(`Date: ${new Date().toLocaleDateString()}`, 15, 45);
 
+        // Add spacing at the beginning and number entries
         const tableData = uniqueSubmissions.map((sub, index) => [
             (index + 1).toString(),
-            sub.name,
+            '  ' + sub.name, // Added spacing before name
             sub.matricNumber,
             ''
         ]);
@@ -780,9 +797,10 @@ function updateBoxStatus() {
         const fileName = `attendance_${new Date().toISOString().split('T')[0]}.pdf`;
         doc.save(fileName);
 
-        // Text Export
+        // Text Export with same sorting and filtering
         const rawData = uniqueSubmissions
             .map((sub, index) => `Entry ${index + 1}\n${Object.entries(sub)
+                .filter(([key]) => key !== 'id') // Exclude document ID
                 .map(([key, value]) => `${key}: ${value}`)
                 .join('\n')}`)
             .join('\n\n');
