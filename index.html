@@ -714,24 +714,27 @@ function updateBoxStatus() {
         updatedAt: new Date().toISOString()
     });
 }
-
-function exportData() {
+ function exportData() {
     db.collection('submissions').get().then(snapshot => {
         const submissions = [];
         snapshot.forEach(doc => {
             submissions.push(doc.data());
         });
 
+        // Filter out names containing @ and create unique submissions
         const uniqueSubmissions = submissions.reduce((acc, current) => {
             const isDuplicate = acc.some(item =>
                 item.name.toLowerCase() === current.name.toLowerCase() &&
                 item.matricNumber === current.matricNumber
             );
-            if (!isDuplicate) {
+            if (!isDuplicate && !current.name.includes('@')) {
                 acc.push(current);
             }
             return acc;
         }, []);
+
+        // Sort alphabetically by name
+        uniqueSubmissions.sort((a, b) => a.name.localeCompare(b.name));
 
         // PDF Export
         const { jsPDF } = window.jspdf;
