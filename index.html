@@ -761,7 +761,9 @@ function updateBoxStatus() {
         doc.setFontSize(14);
         doc.text('Attendance', 105, 25, { align: 'center' });
         doc.setFontSize(12);
+        doc.text(`Date: ${new Date().toLocaleDateString()}`, 15, 35);
         doc.text(`Date: ${new Date().toLocaleDateString()}`, 15, 45);
+        
 
         // Add spacing at the beginning and number entries
         const tableData = uniqueSubmissions.map((sub, index) => [
