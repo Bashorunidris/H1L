@@ -353,3 +353,1293 @@
     </div>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication - Student Registration System</title>
+    <style>
+   :root {
+  --primary-color: #4a90e2;
+  --secondary-color: #f5f6fa;
+  --text-color: #2d3436;
+  --error-color: #e74c3c;
+  --success-color: #2ecc71;
+  --border-radius: 8px;
+  --transition: all 0.3s ease;
+}
+
+.auth-container {
+  max-width: 480px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Auth Navigation */
+.auth-nav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--secondary-color);
+}
+
+.auth-tab {
+  padding: 1rem 2rem;
+  border: none;
+  background: none;
+  color: var(--text-color);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.auth-tab.active {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+/* Forms */
+.auth-form {
+  display: none;
+}
+
+.auth-form.active {
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper i {
+  position: absolute;
+  left: 1rem;
+  color: #95a5a6;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.8rem 1rem 0.8rem 2.5rem;
+  border: 2px solid var(--secondary-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+/* Password Toggle */
+.toggle-password {
+  position: absolute;
+  right: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #95a5a6;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.forgot-password {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+/* Auth Button */
+.auth-button {
+  width: 100%;
+  padding: 1rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.auth-button:hover {
+  background: #357abd;
+  transform: translateY(-1px);
+}
+
+/* Photo Upload */
+.photo-upload-wrapper {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.photo-preview {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--secondary-color);
+}
+
+.photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.upload-btn {
+  background: var(--secondary-color);
+  color: var(--text-color);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 auto;
+}
+
+/* Role Toggle */
+.role-toggle {
+  display: flex;
+  gap: 1rem;
+  background: var(--secondary-color);
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+}
+
+.role-toggle input[type="radio"] {
+  display: none;
+}
+
+.role-toggle label {
+  flex: 1;
+  text-align: center;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}
+
+.role-toggle input[type="radio"]:checked + label {
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Password Strength Meter */
+.password-strength {
+  margin-top: 0.5rem;
+}
+
+.strength-meter {
+  height: 4px;
+  background: var(--secondary-color);
+  border-radius: 2px;
+  margin-bottom: 0.25rem;
+}
+
+.strength-text {
+  font-size: 0.875rem;
+  color: #95a5a6;
+}
+
+/* Notifications */
+#notificationContainer {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+}
+
+.notification {
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: var(--border-radius);
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.notification.success {
+  border-left: 4px solid var(--success-color);
+}
+
+.notification.error {
+  border-left: 4px solid var(--error-color);
+}
+
+/* Responsive Design */
+@media (max-width: 576px) {
+  .auth-container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .auth-tab {
+    padding: 0.75rem 1rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+}
+/* Initial Dashboard State */
+.dashboard-container {
+  display: none;
+}
+
+.dashboard-container.hoc-active {
+  display: block;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+/* Dashboard Navigation */
+.dashboard-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-brand img {
+  height: 40px;
+  width: auto;
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-tab {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  background: none;
+  color: #64748b;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-tab.active {
+  background: #4f46e5;
+  color: white;
+}
+
+.nav-profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.profile-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Create Space Form */
+.create-space-form {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.create-space-form h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  color: #1e293b;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+/* Course Inputs */
+.course-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.course-input-wrapper {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.course-input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+}
+
+/* Timer Settings */
+.timer-settings {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: white;
+}
+
+/* Color Picker */
+.color-picker {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.color-preview {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  border: 2px solid #e2e8f0;
+}
+
+/* Auto-Sign Toggle */
+.auto-sign-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Create Space Button */
+.create-space-btn {
+  width: 100%;
+  padding: 1rem;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.create-space-btn:hover {
+  background: #4338ca;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-nav {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .nav-tabs {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  .timer-settings {
+    grid-template-columns: 1fr;
+  }
+}
+.student-dashboard {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+/* Dashboard Header */
+.student-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.student-profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.student-avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #4f46e5;
+}
+
+.student-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.student-name {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.student-email {
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+/* Search Section */
+.search-section {
+  padding: 2rem;
+  background: white;
+  margin: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.search-bar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #4f46e5;
+  outline: none;
+}
+
+/* Spaces Grid */
+.spaces-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.space-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.space-card:hover {
+  transform: translateY(-4px);
+}
+
+.space-header {
+  padding: 1.5rem;
+  background: var(--space-color, #4f46e5);
+  color: white;
+}
+
+.space-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.space-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.space-content {
+  padding: 1.5rem;
+}
+
+.course-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.course-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: #f8fafc;
+  border-radius: 6px;
+}
+
+.course-name {
+  font-weight: 500;
+}
+
+.course-status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+}
+
+.status-pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-completed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* Action Buttons */
+.space-actions {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.action-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: #4f46e5;
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: #4338ca;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .student-nav {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .search-section {
+    margin: 1rem;
+  }
+
+  .spaces-grid {
+    padding: 1rem;
+    grid-template-columns: 1fr;
+  }
+}
+/* Dashboard Layout */
+.dashboard-container2 {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+/* Navigation Styles */
+.dashboard-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-brand img {
+  height: 40px;
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-tab {
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-tab.active {
+  background: #4f46e5;
+  color: white;
+}
+
+/* Profile Section */
+.nav-profile {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profile-info img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.student-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.student-name {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.matric-number {
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+/* Space Search */
+.space-search {
+  display: flex;
+  gap: 1rem;
+  padding: 2rem;
+  background: white;
+  margin: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.search-wrapper {
+  flex: 1;
+  position: relative;
+}
+
+.search-wrapper i {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+}
+
+#spaceSearch {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+/* Voucher Cards */
+.voucher-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.voucher-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.voucher-card:hover {
+  transform: translateY(-5px);
+}
+
+.voucher-header {
+  margin-bottom: 1.5rem;
+}
+
+.voucher-features ul {
+  list-style: none;
+  padding: 0;
+}
+
+.voucher-features li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.voucher-price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #4f46e5;
+  margin: 1.5rem 0;
+}
+
+/* Auto Sign Section */
+.subscription-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.subscription-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Buttons */
+.purchase-btn, .subscribe-btn {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #4f46e5;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.purchase-btn:hover, .subscribe-btn:hover {
+  background: #4338ca;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  width: 90%;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 12px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-nav {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  
+  .nav-tabs {
+    width: 100%;
+    overflow-x: auto;
+    padding: 0.5rem;
+  }
+  
+  .space-search {
+    flex-direction: column;
+    margin: 1rem;
+  }
+}
+
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="auth-container">
+        <!-- Auth Navigation -->
+        <div class="auth-nav">
+            <button class="auth-tab active" data-tab="signin">Sign In</button>
+            <button class="auth-tab" data-tab="signup">Sign Up</button>
+        </div>
+
+        <!-- Sign In Form -->
+        <form id="signinForm" class="auth-form active">
+            <h2>Welcome Back!</h2>
+            
+            <div class="form-group">
+                <label for="signInEmail">Email</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="signInEmail" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="signInPassword">Password</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="signInPassword" required>
+                    <button type="button" class="toggle-password">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <label class="remember-me">
+                    <input type="checkbox" id="rememberMe">
+                    <span>Remember me</span>
+                </label>
+                <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="auth-button">
+                <i class="fas fa-sign-in-alt"></i>
+                Sign In
+            </button>
+        </form>
+
+        <!-- Sign Up Form -->
+        <form id="signupForm" class="auth-form">
+            <h2>Create Account</h2>
+
+            
+            <div class="form-group">
+                <label for="surname">Username </label>
+                <div class="input-wrapper">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="surname" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="profilePhoto">Profile Photo</label>
+                <div class="photo-upload-wrapper">
+                    <input type="file" id="profilePhoto" accept="image/*" required>
+                    <div class="photo-preview">
+                        <img id="photoPreview" src="placeholder.jpg" alt="Profile Preview">
+                    </div>
+                    <button type="button" class="upload-btn">
+                        <i class="fas fa-camera"></i>
+                        Upload Photo
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="signUpEmail">Email</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="signUpEmail" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="signUpPassword">Password</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="signUpPassword" required>
+                    <button type="button" class="toggle-password">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <div class="password-strength">
+                    <div class="strength-meter"></div>
+                    <span class="strength-text"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Role Selection</label>
+                <div class="role-toggle">
+                    <input type="radio" id="roleStudent" name="role" value="student" checked>
+                    <label for="roleStudent">Student</label>
+                    <input type="radio" id="roleHOC" name="role" value="hoc">
+                    <label for="roleHOC">HOC</label>
+                </div>
+            </div>
+
+            <button type="submit" class="auth-button">
+                <i class="fas fa-user-plus"></i>
+                Create Account
+            </button>
+        </form>
+
+        
+    </div>
+
+   
+    <!-- Notification Container -->
+    <div id="notificationContainer"></div>
+    <div class="dashboard-container">
+        <!-- HOC Dashboard -->
+        <div class="hoc-dashboard" id="hocDashboard">
+            <nav class="dashboard-nav">
+                <div class="nav-brand">
+                    <img src="assets/images/lasu-logo.png" alt="LASU Logo">
+                    <span>LASU Attendance System</span>
+                </div>
+                <div class="nav-tabs">
+                    <button class="nav-tab active" data-tab="create">
+                        <i class="fas fa-plus-circle"></i> Create
+                    </button>
+                    <button class="nav-tab" data-tab="created">
+                        <i class="fas fa-list"></i> Created
+                    </button>
+                    <button class="nav-tab" data-tab="verify">
+                        <i class="fas fa-check-circle"></i> Verify Transactions
+                    </button>
+                </div>
+                <div class="nav-profile">
+                    <div class="profile-info">
+                        <img src="" alt="HOC Profile" id="hocProfileImage">
+                        <span class="hoc-name" id="hocName"></span>
+                    </div>
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </nav>
+    
+            <!-- Create Tab Content -->
+            <div class="tab-content active" id="createTab">
+                <div class="create-space-form">
+                    <h2><i class="fas fa-plus-circle"></i> Create New Attendance Space</h2>
+                    <form id="spaceCreationForm">
+                        <div class="form-group">
+                            <label>Space Name</label>
+                            <input type="text" id="spaceName" required placeholder="e.g., History 101 - Semester 1">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Space Password (Optional)</label>
+                            <div class="password-input-wrapper">
+                                <input type="password" id="spacePassword" placeholder="Set access password">
+                                <button type="button" class="toggle-password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Courses (Minimum 2)</label>
+                            <div class="course-inputs" id="courseInputs">
+                                <div class="course-input-wrapper">
+                                    <input type="text" class="course-input" placeholder="Course 1" required>
+                                    <button type="button" class="remove-course-btn" disabled>
+                                        <i class="fas fa-minus-circle"></i>
+                                    </button>
+                                </div>
+                                <div class="course-input-wrapper">
+                                    <input type="text" class="course-input" placeholder="Course 2" required>
+                                    <button type="button" class="remove-course-btn" disabled>
+                                        <i class="fas fa-minus-circle"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button type="button" class="add-course-btn" id="addCourseBtn">
+                                <i class="fas fa-plus"></i> Add Course
+                            </button>
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Space Color</label>
+                            <div class="color-picker">
+                                <input type="color" id="spaceColor" value="#4f46e5">
+                                <span class="color-preview"></span>
+                            </div>
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Timers</label>
+                            <div class="timer-settings">
+                                <select class="course-timer" id="courseTimer" required>
+                                    <option value="">Select Course Timer</option>
+                                    <option value="24">24 hours</option>
+                                    <option value="48">48 hours</option>
+                                    <option value="72">72 hours</option>
+                                </select>
+                                <select class="space-timer" id="spaceTimer" required>
+                                    <option value="">Select Space Timer</option>
+                                    <option value="24">24 hours</option>
+                                    <option value="48">48 hours</option>
+                                    <option value="96">4 days</option>
+                                </select>
+                            </div>
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Auto-Sign Feature</label>
+                            <div class="auto-sign-toggle">
+                                <input type="checkbox" id="autoSignToggle">
+                                <label for="autoSignToggle">Enable Auto-Sign for Students</label>
+                            </div>
+                        </div>
+    
+                        <button type="submit" class="create-space-btn">
+                            <i class="fas fa-plus-circle"></i> Create Space
+                        </button>
+                    </form>
+                </div>
+            </div>
+    
+            [Rest of the HTML remains the same but with added icons and IDs for JavaScript functionality]
+        </div>
+    </div>
+    <div class="dashboard-container2">
+        <div class="student-dashboard" id="studentDashboard">
+            <nav class="dashboard-nav">
+                <div class="nav-brand">
+                    <img src="assets/images/lasu-logo.png" alt="LASU Logo">
+                    <span>LASU Attendance System</span>
+                </div>
+                <div class="nav-tabs">
+                    <button class="nav-tab active" data-tab="spaces">
+                        <i class="fas fa-th-large"></i> Spaces
+                    </button>
+                    <button class="nav-tab" data-tab="vouchers">
+                        <i class="fas fa-ticket-alt"></i> Vouchers
+                    </button>
+                    <button class="nav-tab" data-tab="pinned">
+                        <i class="fas fa-thumbtack"></i> Pinned
+                    </button>
+                    <button class="nav-tab" data-tab="auto-sign">
+                        <i class="fas fa-signature"></i> Auto Sign
+                    </button>
+                </div>
+                <div class="nav-profile">
+                    <div class="profile-info">
+                        <img src="" alt="Student Profile" id="studentProfileImage">
+                        <div class="student-details">
+                            <span class="student-name" id="studentName"></span>
+                            <span class="matric-number" id="matricNumber"></span>
+                        </div>
+                    </div>
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </nav>
+    
+            <!-- Spaces Tab -->
+            <div class="tab-content active" id="spacesTab">
+                <div class="space-search">
+                    <div class="search-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input type="search" id="spaceSearch" placeholder="Search spaces or courses...">
+                    </div>
+                    <div class="filter-wrapper">
+                        <select id="spaceFilter">
+                            <option value="all">All Spaces</option>
+                            <option value="active">Active</option>
+                            <option value="upcoming">Upcoming</option>
+                            <option value="expired">Expired</option>
+                        </select>
+                    </div>
+                </div>
+    
+                <div class="available-spaces" id="spacesList"></div>
+            </div>
+    
+            <!-- Vouchers Tab -->
+            <div class="tab-content" id="vouchersTab">
+                <div class="voucher-types">
+                    <h2><i class="fas fa-ticket-alt"></i> Purchase Vouchers</h2>
+                    <div class="voucher-cards">
+                        <div class="voucher-card regular">
+                            <div class="voucher-header">
+                                <h3>Regular Voucher</h3>
+                                <span class="validity">48 Hours</span>
+                            </div>
+                            <div class="voucher-features">
+                                <ul>
+                                    <li><i class="fas fa-check"></i> Fill up to 2 forms daily</li>
+                                    <li><i class="fas fa-check"></i> 6 edits per form</li>
+                                    <li><i class="fas fa-check"></i> Valid for 48 hours</li>
+                                </ul>
+                            </div>
+                            <div class="voucher-price">
+                                <span class="price">₦25</span>
+                            </div>
+                            <button class="purchase-btn" data-type="regular">
+                                <i class="fas fa-shopping-cart"></i> Purchase
+                            </button>
+                        </div>
+    
+                        <div class="voucher-card monthly">
+                            <div class="voucher-header">
+                                <h3>30-Day Voucher</h3>
+                                <span class="validity">30 Days</span>
+                            </div>
+                            <div class="voucher-features">
+                                <ul>
+                                    <li><i class="fas fa-check"></i> Fill up to 7 forms daily</li>
+                                    <li><i class="fas fa-check"></i> Unlimited edits</li>
+                                    <li><i class="fas fa-check"></i> Valid for 30 days</li>
+                                </ul>
+                            </div>
+                            <div class="voucher-price">
+                                <span class="price">₦150</span>
+                            </div>
+                            <button class="purchase-btn" data-type="monthly">
+                                <i class="fas fa-shopping-cart"></i> Purchase
+                            </button>
+                        </div>
+    
+                        <div class="voucher-card premium">
+                            <div class="voucher-header">
+                                <h3>6-Month Voucher</h3>
+                                <span class="validity">180 Days</span>
+                            </div>
+                            <div class="voucher-features">
+                                <ul>
+                                    <li><i class="fas fa-check"></i> Fill up to 7 forms daily</li>
+                                    <li><i class="fas fa-check"></i> Unlimited edits</li>
+                                    <li><i class="fas fa-check"></i> Valid for 6 months</li>
+                                </ul>
+                            </div>
+                            <div class="voucher-price">
+                                <span class="price">₦700</span>
+                            </div>
+                            <button class="purchase-btn" data-type="premium">
+                                <i class="fas fa-shopping-cart"></i> Purchase
+                            </button>
+                        </div>
+                    </div>
+    
+                    <div class="my-vouchers">
+                        <h3><i class="fas fa-wallet"></i> My Vouchers</h3>
+                        <div class="voucher-list" id="voucherList"></div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Pinned Tab -->
+            <div class="tab-content" id="pinnedTab">
+                <div class="pinned-spaces" id="pinnedSpacesList"></div>
+            </div>
+    
+            <!-- Auto Sign Tab -->
+            <div class="tab-content" id="autoSignTab">
+                <div class="auto-sign-wrapper">
+                    <h2><i class="fas fa-signature"></i> Auto Sign Subscription</h2>
+                    <div class="subscription-cards">
+                        <div class="subscription-card">
+                            <h3>5 Days Auto-Sign</h3>
+                            <span class="price">₦600</span>
+                            <button class="subscribe-btn" data-duration="5">Subscribe</button>
+                        </div>
+                        <div class="subscription-card">
+                            <h3>20 Days Auto-Sign</h3>
+                            <span class="price">₦3100</span>
+                            <button class="subscribe-btn" data-duration="20">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Attendance Form Modal -->
+    <div class="modal" id="attendanceFormModal">
+        <div class="modal-content">
+            <!-- Form content will be dynamically inserted -->
+        </div>
+    </div>
+    
+    
+    </body>
+    </html>
