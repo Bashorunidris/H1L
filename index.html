@@ -3,91 +3,1991 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pose Content Demo</title>
+    <title>Rewarder </title>
     <style>
-        body { font-family: Arial, sans-serif; background: #000; margin: 0; padding: 0; overflow: hidden; }
-        .pose-container { width: 100%; max-width: 400px; margin: auto; overflow-y: scroll; height: 100vh; position: relative; }
-        .post { position: relative; width: 100%; height: 100vh; display: flex; align-items: center; justify-content: center; }
-        .post video, .post img { width: 100%; height: 100%; object-fit: cover; }
-        .interaction { position: absolute; right: 10px; bottom: 100px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        .interaction button { cursor: pointer; border: none; background: rgba(255, 255, 255, 0.3); color: #fff; font-size: 18px; padding: 8px; border-radius: 50%; }
-        .interaction span { color: white; font-size: 14px; }
-        .ad-banner { width: 350px; height: 50px; background: #ffcc00; text-align: center; padding: 10px; position: fixed; top: 0; left: 50%; transform: translateX(-50%); z-index: 1000; }
-        .close-ad { background: red; color: white; border: none; padding: 5px; cursor: pointer; position: absolute; right: 10px; top: 5px; }
-        .profile { position: absolute; top: 10px; left: 10px; color: white; font-size: 16px; font-weight: bold; }
-        .caption { position: absolute; bottom: 50px; left: 10px; color: white; font-size: 14px; }
-        .tabs { display: flex; justify-content: space-around; background: #111; color: white; padding: 10px; position: fixed; bottom: 0; width: 100%; }
-        .tab { cursor: pointer; padding: 10px; }
-        .tab.active { border-bottom: 2px solid white; }
-        .post-form { position: fixed; bottom: 60px; width: 100%; display: flex; justify-content: center; background: #222; padding: 10px; }
+
+        /* Base Styles */
+:root {
+    /* Color Palette */
+    --primary-color: #6c5ce7;
+    --primary-dark: #5649c0;
+    --primary-light: #a29bfe;
+    --secondary-color: #00b894;
+    --accent-color: #fd79a8;
+    --text-dark: #2d3436;
+    --text-light: #636e72;
+    --text-white: #ffffff;
+    --bg-light: #f9f9f9;
+    --bg-white: #ffffff;
+    --bg-dark: #2d3436;
+    --border-color: #dfe6e9;
+    --success-color: #00b894;
+    --warning-color: #fdcb6e;
+    --error-color: #ff7675;
+    --info-color: #0984e3;
+    
+    /* Category Colors */
+    --singing-color: #e84393;
+    --dancing-color: #6c5ce7;
+    --photo-color: #00cec9;
+    --sports-color: #e17055;
+    --pitch-color: #00b894;
+    
+    /* Typography */
+    --font-family: 'Poppins', sans-serif;
+    --h1-size: 3rem;
+    --h2-size: 2.25rem;
+    --h3-size: 1.5rem;
+    --h4-size: 1.25rem;
+    --body-size: 1rem;
+    --small-size: 0.875rem;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-xxl: 3rem;
+    
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.15);
+    
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    color: var(--text-dark);
+    background-color: var(--bg-light);
+    line-height: 1.6;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: var(--spacing-md);
+}
+
+h1 {
+    font-size: var(--h1-size);
+}
+
+h2 {
+    font-size: var(--h2-size);
+}
+
+h3 {
+    font-size: var(--h3-size);
+}
+
+h4 {
+    font-size: var(--h4-size);
+}
+
+p {
+    margin-bottom: var(--spacing-md);
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--primary-dark);
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    font-size: var(--body-size);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: none;
+    outline: none;
+}
+
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: var(--small-size);
+}
+
+.btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--text-white);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: var(--text-white);
+}
+
+.btn-secondary:hover {
+    background-color: #009b7d;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-outline:hover {
+    background-color: var(--primary-color);
+    color: var(--text-white);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Header */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem var(--spacing-xl);
+    background-color: var(--bg-white);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo h1 {
+    font-size: 1.75rem;
+    margin-bottom: 0;
+    color: var(--primary-color);
+}
+
+.tagline {
+    font-size: var(--small-size);
+    color: var(--text-light);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-lg);
+}
+
+.nav-links a {
+    color: var(--text-dark);
+    font-weight: 500;
+    padding: 0.5rem;
+    position: relative;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+.nav-links a.active {
+    color: var(--primary-color);
+}
+
+.nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+.auth-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-dark);
+    margin: 5px 0;
+    transition: var(--transition-fast);
+}
+
+.user-profile {
+    position: relative;
+    cursor: pointer;
+}
+
+.user-profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--bg-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    width: 200px;
+    padding: var(--spacing-md);
+    margin-top: var(--spacing-sm);
+    display: none;
+    z-index: 10;
+}
+
+.user-profile:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu a {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--text-dark);
+    border-radius: var(--radius-sm);
+}
+
+.dropdown-menu a:hover {
+    background-color: var(--bg-light);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-xxl) var(--spacing-xl);
+    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+    color: var(--text-white);
+    min-height: 600px;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 600px;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.2;
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-xl);
+    opacity: 0.9;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.hero-stats {
+    display: flex;
+    gap: var(--spacing-xl);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.stat-label {
+    font-size: var(--small-size);
+    opacity: 0.8;
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Competition Cards */
+.competition-card {
+    background-color: var(--bg-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.competition-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.competition-card.featured {
+    position: relative;
+    max-width: 400px;
+    width: 100%;
+}
+
+.card-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: var(--small-size);
+    font-weight: 600;
+    z-index: 1;
+}
+
+.card-header {
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+    color: white;
+}
+
+.card-header h3 {
+    margin-bottom: 0.5rem;
+}
+
+.prize-pool {
+    font-weight: 600;
+}
+
+.card-timer {
+    padding: 1rem 1.5rem;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.timer-label {
+    font-size: var(--small-size);
+    margin-bottom: 0.5rem;
+}
+
+.countdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.time-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.time-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.time-label {
+    font-size: 0.75rem;
+}
+
+.time-separator {
+    margin: 0 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.card-contestants {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contestant-avatars {
+    display: flex;
+    align-items: center;
+}
+
+.contestant-avatars img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid white;
+    margin-right: -10px;
+}
+
+.more-contestants {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--bg-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.card-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-normal);
+}
+
+.competition-card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+.card-category {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: var(--small-size);
+    font-weight: 600;
+    color: white;
+}
+
+.card-category.dance {
+    background-color: var(--dancing-color);
+}
+
+.card-category.singing {
+    background-color: var(--singing-color);
+}
+
+.card-category.photo {
+    background-color: var(--photo-color);
+}
+
+.card-category.pitch {
+    background-color: var(--pitch-color);
+}
+
+.card-category.sports {
+    background-color: var(--sports-color);
+}
+
+.card-content {
+    padding: 1.5rem;
+}
+
+.card-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-size: var(--small-size);
+}
+
+.prize {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.contestants {
+    color: var(--text-light);
+}
+
+.progress-container {
+    margin-bottom: 1.5rem;
+}
+
+.progress-bar {
+    height: 8px;
+    background-color: var(--border-color);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-light) 100%);
+}
+
+.progress-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--small-size);
+    color: var(--text-light);
+}
+
+/* Competitions Section */
+.competitions-section {
+    padding: var(--spacing-xxl) var(--spacing-xl);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.section-header.centered {
+    flex-direction: column;
+    text-align: center;
+}
+
+.section-header.centered p {
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto var(--spacing-lg);
+}
+
+.view-all {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+}
+
+.competition-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-xl);
+}
+
+/* How It Works Section */
+.how-it-works {
+    padding: var(--spacing-xxl) var(--spacing-xl);
+    background-color: var(--bg-white);
+}
+
+.steps-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: var(--spacing-xl) 0;
+    flex-wrap: wrap;
+}
+
+.step {
+    flex: 1;
+    min-width: 200px;
+    text-align: center;
+    padding: var(--spacing-md);
+}
+
+.step-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--spacing-md);
+    font-size: 2rem;
+}
+
+.step h3 {
+    margin-bottom: var(--spacing-sm);
+}
+
+.step p {
+    color: var(--text-light);
+}
+
+.step-connector {
+    flex: 0 0 5%;
+    height: 2px;
+    background-color: var(--border-color);
+    margin-top: 40px;
+}
+
+.cta-container {
+    text-align: center;
+    margin-top: var(--spacing-xl);
+}
+
+/* Testimonials Section */
+.testimonials {
+    padding: var(--spacing-xxl) var(--spacing-xl);
+    background-color: var(--bg-light);
+}
+
+.testimonial-slider {
+    display: flex;
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+    overflow-x: hidden;
+}
+
+.testimonial-card {
+    flex: 0 0 calc(50% - var(--spacing-lg));
+    display: flex;
+    background-color: var(--bg-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.testimonial-image {
+    flex: 0 0 120px;
+}
+
+.testimonial-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.testimonial-content {
+    flex: 1;
+    padding: var(--spacing-lg);
+}
+
+.testimonial-rating {
+    color: #fdcb6e;
+    margin-bottom: var(--spacing-sm);
+}
+
+.testimonial-text {
+    font-style: italic;
+    margin-bottom: var(--spacing-md);
+}
+
+.testimonial-author h4 {
+    margin-bottom: 0;
+}
+
+.testimonial-author p {
+    color: var(--text-light);
+    margin-bottom: 0;
+}
+
+.slider-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.slider-arrow {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--bg-white);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-fast);
+}
+
+.slider-arrow:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+/* Auth Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: var(--bg-white);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-xl);
+    position: relative;
+    animation: scaleIn 0.3s ease;
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: color var(--transition-fast);
+    z-index: 10;
+}
+
+.close-modal:hover {
+    color: var(--text-dark);
+}
+
+/* Auth Tabs */
+.auth-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 1rem;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+/* Auth Forms */
+.auth-form {
+    padding: 2rem;
+    display: none;
+}
+
+.auth-form.active {
+    display: block;
+}
+
+.auth-form h2 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.form-subtitle {
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+}
+
+.social-auth {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-white);
+}
+
+.google-btn:hover {
+    background-color: #f2f2f2;
+}
+
+.facebook-btn {
+    background-color: #4267B2;
+    color: white;
+    border: none;
+}
+
+.facebook-btn:hover {
+    background-color: #365899;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 1.5rem 0;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: var(--border-color);
+}
+
+.divider span {
+    padding: 0 1rem;
+    color: var(--text-light);
+    font-size: var(--small-size);
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    transition: border-color var(--transition-fast);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.password-input {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--text-light);
+}
+
+.forgot-password {
+    display: block;
+    text-align: right;
+    font-size: var(--small-size);
+    margin-top: 0.5rem;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.checkbox-group input {
+    width: auto;
+}
+
+.checkbox-group label {
+    margin-bottom: 0;
+    font-weight: normal;
+    font-size: var(--small-size);
+}
+
+.password-strength {
+    margin-top: 0.5rem;
+    font-size: var(--small-size);
+}
+
+.strength-label {
+    color: var(--text-light);
+}
+
+.strength-meter {
+    display: flex;
+    gap: 5px;
+    margin: 5px 0;
+}
+
+.strength-segment {
+    height: 4px;
+    flex: 1;
+    background-color: var(--border-color);
+    border-radius: var(--radius-full);
+}
+
+.strength-segment.weak {
+    background-color: var(--error-color);
+}
+
+.strength-segment.medium {
+    background-color: var(--warning-color);
+}
+
+.strength-segment.strong {
+    background-color: var(--success-color);
+}
+
+.strength-text {
+    color: var(--text-light);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 600px) {
+    .modal-content {
+        width: 90%;
+    }
+    
+    .auth-form {
+        padding: 1.5rem;
+    }
+}
+
+
+
     </style>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="ad-banner" id="adBanner">
-        <span>Advertisement</span>
-        <button class="close-ad" onclick="closeAd()">X</button>
-    </div>
-    <div class="pose-container" id="poseFeed"></div>
-    <div class="post-form">
-        <input type="file" id="fileInput" accept="image/*,video/*">
-        <input type="text" id="captionInput" placeholder="Add a caption...">
-        <button onclick="createPost()">Post</button>
-    </div>
-    <div class="tabs">
-        <div class="tab active" onclick="switchTab('pose')">Pose</div>
-        <div class="tab" onclick="switchTab('bus')">Bus</div>
-        <div class="tab" onclick="switchTab('tweet')">Tweet</div>
-    </div>
-    <script>
-        let posts = [];
-
-        function loadPosts() {
-            const container = document.getElementById("poseFeed");
-            container.innerHTML = "";
-            posts.forEach(post => {
-                const postElement = document.createElement("div");
-                postElement.classList.add("post");
-                postElement.innerHTML = `
-                    <div class="profile">@${post.username}</div>
-                    ${post.type === 'image' ? `<img src="${post.media}" alt="Post image">` : `<video controls><source src="${post.media}" type="video/mp4"></video>`}
-                    <div class="caption">${post.caption}</div>
-                    <div class="interaction">
-                        <button onclick="likePost('${post.id}')">❤️</button>
-                        <span id="like-count-${post.id}">${post.likes}</span>
-                        <button onclick="commentPost('${post.id}')">💬</button>
-                        <button onclick="sharePost('${post.id}')">🔄</button>
-                        <button onclick="savePost('${post.id}')">📌</button>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header>
+            <div class="logo">
+                <h1>Rewarder</h1>
+                <span class="tagline">Discover. Vote. Earn.</span>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">Competitions</a></li>
+                    <li><a href="#">Leaderboard</a></li>
+                    <li><a href="#">How It Works</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button id="loginBtn" class="btn btn-outline">Log In</button>
+                <button id="signupBtn" class="btn btn-primary">Sign Up</button>
+                <div id="userProfileMenu" class="user-profile hidden">
+                    <img src="assets/images/default-avatar.png" alt="Profile" id="userAvatar">
+                    <div class="dropdown-menu">
+                        <a href="#" id="profileLink"><i class="fas fa-user"></i> My Profile</a>
+                        <a href="#" id="dashboardLink"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </div>
-                `;
-                container.appendChild(postElement);
+                </div>
+            </div>
+            <button class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </header>
+
+        <!-- Auth Modal -->
+        <div id="authModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                
+                <!-- Auth Tabs -->
+                <div class="auth-tabs">
+                    <button class="tab-btn active" data-tab="login">Login</button>
+                    <button class="tab-btn" data-tab="signup">Sign Up</button>
+                </div>
+                
+                <!-- Login Form -->
+                <div id="loginForm" class="auth-form active">
+                    <h2>Welcome Back!</h2>
+                    <p class="form-subtitle">Login to continue your talent journey</p>
+                    
+                    <div class="social-auth">
+                        <button class="social-btn google-btn">
+                            <i class="fab fa-google"></i> Continue with Google
+                        </button>
+                        <button class="social-btn facebook-btn">
+                            <i class="fab fa-facebook-f"></i> Continue with Facebook
+                        </button>
+                    </div>
+                    
+                    <div class="divider">
+                        <span>or login with email</span>
+                    </div>
+                    
+                    <form id="emailLoginForm">
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" placeholder="Your email address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <div class="password-input">
+                                <input type="password" id="loginPassword" placeholder="Your password" required>
+                                <i class="fas fa-eye-slash toggle-password"></i>
+                            </div>
+                            <a href="#" class="forgot-password">Forgot password?</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                    </form>
+                </div>
+                
+                <!-- Signup Form -->
+                <div id="signupForm" class="auth-form">
+                    <h2>Join Rewarder</h2>
+                    <p class="form-subtitle">Create an account to showcase your talent or support others</p>
+                    
+                    <div class="social-auth">
+                        <button class="social-btn google-btn">
+                            <i class="fab fa-google"></i> Continue with Google
+                        </button>
+                        <button class="social-btn facebook-btn">
+                            <i class="fab fa-facebook-f"></i> Continue with Facebook
+                        </button>
+                    </div>
+                    
+                    <div class="divider">
+                        <span>or sign up with email</span>
+                    </div>
+                    
+                    <form id="emailSignupForm">
+                        <div class="form-group">
+                            <label for="signupName">Full Name</label>
+                            <input type="text" id="signupName" placeholder="Your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupEmail">Email</label>
+                            <input type="email" id="signupEmail" placeholder="Your email address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPhone">Phone Number</label>
+                            <input type="tel" id="signupPhone" placeholder="Your phone number">
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword">Password</label>
+                            <div class="password-input">
+                                <input type="password" id="signupPassword" placeholder="Create a password" required>
+                                <i class="fas fa-eye-slash toggle-password"></i>
+                            </div>
+                            <div class="password-strength">
+                                <span class="strength-label">Password strength:</span>
+                                <div class="strength-meter">
+                                    <div class="strength-segment"></div>
+                                    <div class="strength-segment"></div>
+                                    <div class="strength-segment"></div>
+                                    <div class="strength-segment"></div>
+                                </div>
+                                <span class="strength-text">Weak</span>
+                            </div>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="termsAgree" required>
+                            <label for="termsAgree">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Showcase Your Talent, Get Rewarded</h1>
+                <p>Join Rewarder, the platform where talent meets opportunity. Compete, vote, and earn real rewards.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary btn-lg">Join as Contestant</button>
+                    <button class="btn btn-secondary btn-lg">Start Voting</button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">10K+</span>
+                        <span class="stat-label">Contestants</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">₦50M+</span>
+                        <span class="stat-label">Rewards Paid</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100K+</span>
+                        <span class="stat-label">Active Voters</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="competition-card featured">
+                    <div class="card-badge">FEATURED</div>
+                    <div class="card-header">
+                        <h3>Singing Challenge</h3>
+                        <div class="prize-pool">₦500,000 Prize Pool</div>
+                    </div>
+                    <div class="card-timer">
+                        <div class="timer-label">Ends in:</div>
+                        <div class="countdown">
+                            <div class="time-unit">
+                                <span class="time-value">02</span>
+                                <span class="time-label">Days</span>
+                            </div>
+                            <div class="time-separator">:</div>
+                            <div class="time-unit">
+                                <span class="time-value">18</span>
+                                <span class="time-label">Hours</span>
+                            </div>
+                            <div class="time-separator">:</div>
+                            <div class="time-unit">
+                                <span class="time-value">45</span>
+                                <span class="time-label">Mins</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-contestants">
+                        <div class="contestant-avatars">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Contestant">
+                            <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Contestant">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Contestant">
+                            <span class="more-contestants">+42</span>
+                        </div>
+                        <button class="btn btn-outline btn-sm">View Competition</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Active Competitions Section -->
+        <section class="competitions-section">
+            <div class="section-header">
+                <h2>Active Competitions</h2>
+                <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="competition-grid">
+                <!-- Competition Card 1 -->
+                <div class="competition-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81" alt="Dancing Competition">
+                        <div class="card-category dance">Dancing</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Street Dance Battle</h3>
+                        <div class="card-meta">
+                            <div class="prize">₦250,000 Prize</div>
+                            <div class="contestants"><i class="fas fa-users"></i> 28 Contestants</div>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 75%"></div>
+                            </div>
+                            <div class="progress-text">
+                                <span>₦187,500 raised</span>
+                                <span>3 days left</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-block">Vote Now</button>
+                    </div>
+                </div>
+                
+                <!-- Competition Card 2 -->
+                <div class="competition-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4" alt="Photography Competition">
+                        <div class="card-category photo">Photography</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Urban Photography</h3>
+                        <div class="card-meta">
+                            <div class="prize">₦150,000 Prize</div>
+                            <div class="contestants"><i class="fas fa-users"></i> 42 Contestants</div>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 60%"></div>
+                            </div>
+                            <div class="progress-text">
+                                <span>₦90,000 raised</span>
+                                <span>5 days left</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-block">Vote Now</button>
+                    </div>
+                </div>
+                
+                <!-- Competition Card 3 -->
+                <div class="competition-card">
+                    <div class="card-image">
+                               <!-- Competition Card 3 -->
+                               <div class="competition-card">
+                                <div class="card-image">
+                                    <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76" alt="Singing Competition">
+                                    <div class="card-category singing">Singing</div>
+                                </div>
+                                <div class="card-content">
+                                    <h3>Voice of the Nation</h3>
+                                    <div class="card-meta">
+                                        <div class="prize">₦350,000 Prize</div>
+                                        <div class="contestants"><i class="fas fa-users"></i> 36 Contestants</div>
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-bar">
+                                            <div class="progress" style="width: 85%"></div>
+                                        </div>
+                                        <div class="progress-text">
+                                            <span>₦297,500 raised</span>
+                                            <span>2 days left</span>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary btn-block">Vote Now</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Competition Card 4 -->
+                            <div class="competition-card">
+                                <div class="card-image">
+                                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c" alt="Idea Pitch">
+                                    <div class="card-category pitch">Idea Pitch</div>
+                                </div>
+                                <div class="card-content">
+                                    <h3>Tech Startup Pitch</h3>
+                                    <div class="card-meta">
+                                        <div class="prize">₦500,000 Prize</div>
+                                        <div class="contestants"><i class="fas fa-users"></i> 18 Contestants</div>
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-bar">
+                                            <div class="progress" style="width: 40%"></div>
+                                        </div>
+                                        <div class="progress-text">
+                                            <span>₦200,000 raised</span>
+                                            <span>7 days left</span>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary btn-block">Vote Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+            
+                    <!-- How It Works Section -->
+                    <section class="how-it-works">
+                        <div class="section-header centered">
+                            <h2>How Rewarder Works</h2>
+                            <p>A simple process to showcase talent and earn rewards</p>
+                        </div>
+                        <div class="steps-container">
+                            <div class="step">
+                                <div class="step-icon">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <h3>Sign Up</h3>
+                                <p>Create your account as a contestant or voter in just a few clicks</p>
+                            </div>
+                            <div class="step-connector"></div>
+                            <div class="step">
+                                <div class="step-icon">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <h3>Join Competitions</h3>
+                                <p>Enter competitions or discover amazing talents to support</p>
+                            </div>
+                            <div class="step-connector"></div>
+                            <div class="step">
+                                <div class="step-icon">
+                                    <i class="fas fa-vote-yea"></i>
+                                </div>
+                                <h3>Vote & Earn</h3>
+                                <p>Pay to vote for your favorites and earn through referrals</p>
+                            </div>
+                            <div class="step-connector"></div>
+                            <div class="step">
+                                <div class="step-icon">
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                </div>
+                                <h3>Get Rewarded</h3>
+                                <p>Winners receive cash prizes based on voting results</p>
+                            </div>
+                        </div>
+                        <div class="cta-container">
+                            <button class="btn btn-primary btn-lg">Get Started Now</button>
+                        </div>
+                    </section>
+            
+                    <!-- Testimonials Section -->
+                    <section class="testimonials">
+                        <div class="section-header centered">
+                            <h2>Success Stories</h2>
+                            <p>Hear from our contestants and voters</p>
+                        </div>
+                        <div class="testimonial-slider">
+                            <div class="testimonial-card">
+                                <div class="testimonial-image">
+                                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Testimonial">
+                                </div>
+                                <div class="testimonial-content">
+                                    <div class="testimonial-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <p class="testimonial-text">"Rewarder changed my life! I won the singing competition and used the prize money to record my first EP. Now I have a growing fanbase!"</p>
+                                    <div class="testimonial-author">
+                                        <h4>Amara Johnson</h4>
+                                        <p>Singing Competition Winner</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="testimonial-card">
+                                <div class="testimonial-image">
+                                    <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Testimonial">
+                                </div>
+                                <div class="testimonial-content">
+                                    <div class="testimonial-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <p class="testimonial-text">"I've earned over ₦25,000 just by voting and referring friends to the platform. It's amazing to support talent and earn at the same time!"</p>
+                                    <div class="testimonial-author">
+                                        <h4>David Okafor</h4>
+                                        <p>Active Voter</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slider-controls">
+                            <button class="slider-arrow prev"><i class="fas fa-chevron-left"></i></button>
+                            <div class="slider-dots">
+                                <span class="dot active"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                            <button class="slider-arrow next"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </section>
+            
+                    <!-- Footer -->
+                    <footer>
+                        <div class="footer-content">
+                            <div class="footer-logo">
+                                <h2>Rewarder</h2>
+                                <p>Discover. Vote. Earn.</p>
+                            </div>
+                            <div class="footer-links">
+                                <div class="footer-column">
+                                    <h3>Platform</h3>
+                                    <ul>
+                                        <li><a href="#">How It Works</a></li>
+                                        <li><a href="#">Competitions</a></li>
+                                        <li><a href="#">Leaderboard</a></li>
+                                        <li><a href="#">Rewards</a></li>
+                                    </ul>
+                                </div>
+                                <div class="footer-column">
+                                    <h3>Support</h3>
+                                    <ul>
+                                        <li><a href="#">Help Center</a></li>
+                                        <li><a href="#">Contact Us</a></li>
+                                        <li><a href="#">FAQs</a></li>
+                                        <li><a href="#">Community</a></li>
+                                    </ul>
+                                </div>
+                                <div class="footer-column">
+                                    <h3>Legal</h3>
+                                    <ul>
+                                        <li><a href="#">Terms of Service</a></li>
+                                        <li><a href="#">Privacy Policy</a></li>
+                                        <li><a href="#">Contest Rules</a></li>
+                                        <li><a href="#">Payout Policy</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="footer-newsletter">
+                                <h3>Stay Updated</h3>
+                                <p>Subscribe to our newsletter for the latest competitions and updates.</p>
+                                <form class="newsletter-form">
+                                    <input type="email" placeholder="Your email address">
+                                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                                </form>
+                                <div class="social-links">
+                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-youtube"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer-bottom">
+                            <p>&copy; 2023 Rewarder. All rights reserved.</p>
+                            <div class="payment-methods">
+                                <span>Payment Methods:</span>
+                                <img src="assets/images/payment-paystack.svg" alt="Paystack">
+                                <img src="assets/images/payment-flutterwave.svg" alt="Flutterwave">
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            
+                <!-- Toast Notifications -->
+                <div id="toastContainer" class="toast-container"></div>
+            
+                <script>
+import { auth, db } from './firebase-config.js';
+import { 
+    createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword,
+    signOut,
+    GoogleAuthProvider,
+    FacebookAuthProvider,
+    signInWithPopup,
+    sendPasswordResetEmail,
+    updateProfile
+} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+import { doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+// DOM Elements
+const loginBtn = document.getElementById('loginBtn');
+const signupBtn = document.getElementById('signupBtn');
+const authModal = document.getElementById('authModal');
+const closeModal = document.querySelector('.close-modal');
+const tabBtns = document.querySelectorAll('.tab-btn');
+const authForms = document.querySelectorAll('.auth-form');
+const emailLoginForm = document.getElementById('emailLoginForm');
+const emailSignupForm = document.getElementById('emailSignupForm');
+const googleAuthBtns = document.querySelectorAll('.google-btn');
+const facebookAuthBtns = document.querySelectorAll('.facebook-btn');
+const logoutBtn = document.getElementById('logoutBtn');
+const userProfileMenu = document.getElementById('userProfileMenu');
+const authButtons = document.querySelector('.auth-buttons');
+const passwordInputs = document.querySelectorAll('.password-input input');
+const togglePasswordBtns = document.querySelectorAll('.toggle-password');
+const passwordStrengthMeter = document.querySelector('.strength-meter');
+const passwordStrengthText = document.querySelector('.strength-text');
+const signupPassword = document.getElementById('signupPassword');
+
+// Initialize auth state
+document.addEventListener('DOMContentLoaded', () => {
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            // User is signed in
+            updateUIForAuthenticatedUser(user);
+        } else {
+            // User is signed out
+            updateUIForUnauthenticatedUser();
+        }
+    });
+});
+
+// Event Listeners
+loginBtn.addEventListener('click', () => {
+    openModal('login');
+});
+
+signupBtn.addEventListener('click', () => {
+    openModal('signup');
+});
+
+closeModal.addEventListener('click', () => {
+    authModal.classList.remove('active');
+});
+
+// Close modal when clicking outside
+authModal.addEventListener('click', (e) => {
+    if (e.target === authModal) {
+        authModal.classList.remove('active');
+    }
+});
+
+// Tab switching
+tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const tabName = btn.dataset.tab;
+        switchTab(tabName);
+    });
+});
+
+// Form submissions
+emailLoginForm.addEventListener('submit', handleLogin);
+emailSignupForm.addEventListener('submit', handleSignup);
+
+// Social auth
+googleAuthBtns.forEach(btn => {
+    btn.addEventListener('click', signInWithGoogle);
+});
+
+facebookAuthBtns.forEach(btn => {
+    btn.addEventListener('click', signInWithFacebook);
+});
+
+// Logout
+logoutBtn?.addEventListener('click', handleLogout);
+
+// Password visibility toggle
+togglePasswordBtns.forEach(btn => {
+    btn.addEventListener('click', togglePasswordVisibility);
+});
+
+// Password strength meter
+signupPassword?.addEventListener('input', updatePasswordStrength);
+
+// Functions
+function openModal(tab) {
+    authModal.classList.add('active');
+    switchTab(tab);
+}
+
+function switchTab(tabName) {
+    // Update tab buttons
+    tabBtns.forEach(btn => {
+        if (btn.dataset.tab === tabName) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+    
+    // Update form visibility
+    authForms.forEach(form => {
+        if (form.id === `${tabName}Form`) {
+            form.classList.add('active');
+        } else {
+            form.classList.remove('active');
+        }
+    });
+}
+
+async function handleLogin(e) {
+    e.preventDefault();
+    
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    
+    try {
+        showLoadingState(emailLoginForm);
+        await signInWithEmailAndPassword(auth, email, password);
+        authModal.classList.remove('active');
+        showToast('Success', 'You have successfully logged in!', 'success');
+    } catch (error) {
+        console.error('Login error:', error);
+        showToast('Login Failed', getErrorMessage(error), 'error');
+    } finally {
+        hideLoadingState(emailLoginForm);
+    }
+}
+
+async function handleSignup(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('signupName').value;
+    const email = document.getElementById('signupEmail').value;
+    const phone = document.getElementById('signupPhone').value;
+    const password = document.getElementById('signupPassword').value;
+    
+    try {
+        showLoadingState(emailSignupForm);
+        
+        // Create user in Firebase Auth
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        
+        // Update profile with display name
+        await updateProfile(user, {
+            displayName: name
+        });
+        
+        // Store additional user data in Firestore
+        await setDoc(doc(db, "users", user.uid), {
+            name: name,
+            email: email,
+            phone: phone || null,
+            createdAt: serverTimestamp(),
+            role: 'voter', // Default role
+            walletBalance: 0,
+            votesCount: 0,
+            referralCode: generateReferralCode(name),
+            referredBy: null
+        });
+        
+        authModal.classList.remove('active');
+        showToast('Success', 'Your account has been created successfully!', 'success');
+    } catch (error) {
+        console.error('Signup error:', error);
+        showToast('Signup Failed', getErrorMessage(error), 'error');
+    } finally {
+        hideLoadingState(emailSignupForm);
+    }
+}
+
+async function signInWithGoogle() {
+    try {
+        const provider = new GoogleAuthProvider();
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        
+        // Check if this is a new user
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        
+        if (!userDoc.exists()) {
+            // Create new user document in Firestore
+            await setDoc(doc(db, "users", user.uid), {
+                name: user.displayName,
+                email: user.email,
+                phone: user.phoneNumber || null,
+                createdAt: serverTimestamp(),
+                role: 'voter', // Default role
+                walletBalance: 0,
+                votesCount: 0,
+                referralCode: generateReferralCode(user.displayName),
+                referredBy: null
             });
         }
+        
+        authModal.classList.remove('active');
+        showToast('Success', 'You have successfully logged in with Google!', 'success');
+    } catch (error) {
+        console.error('Google sign-in error:', error);
+        showToast('Login Failed', getErrorMessage(error), 'error');
+    }
+}
 
-        function createPost() {
-            const fileInput = document.getElementById("fileInput");
-            const captionInput = document.getElementById("captionInput");
-            if (fileInput.files.length > 0) {
-                const file = fileInput.files[0];
-                const postId = `post${posts.length + 1}`;
-                const mediaURL = URL.createObjectURL(file);
-                const fileType = file.type.startsWith('image') ? 'image' : 'video';
-                posts.push({ id: postId, username: 'newUser', likes: 0, media: mediaURL, type: fileType, caption: captionInput.value });
-                loadPosts();
+async function signInWithFacebook() {
+    try {
+        const provider = new FacebookAuthProvider();
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        
+        // Check if this is a new user
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        
+        if (!userDoc.exists()) {
+            // Create new user document in Firestore
+            await setDoc(doc(db, "users", user.uid), {
+                name: user.displayName,
+                email: user.email,
+                phone: user.phoneNumber || null,
+                createdAt: serverTimestamp(),
+                role: 'voter', // Default role
+                walletBalance: 0,
+                votesCount: 0,
+                referralCode: generateReferralCode(user.displayName),
+                referredBy: null
+            });
+        }
+        
+        authModal.classList.remove('active');
+        showToast('Success', 'You have successfully logged in with Facebook!', 'success');
+    } catch (error) {
+        console.error('Facebook sign-in error:', error);
+        showToast('Login Failed', getErrorMessage(error), 'error');
+    }
+}
+
+async function handleLogout() {
+    try {
+        await signOut(auth);
+        showToast('Success', 'You have been logged out successfully!', 'success');
+    } catch (error) {
+        console.error('Logout error:', error);
+        showToast('Error', 'Failed to log out. Please try again.', 'error');
+    }
+}
+
+function updateUIForAuthenticatedUser(user) {
+    // Hide login/signup buttons
+    loginBtn.style.display = 'none';
+    signupBtn.style.display = 'none';
+    
+    // Show user profile menu
+    userProfileMenu.classList.remove('hidden');
+    
+    // Update user avatar if available
+    const userAvatar = document.getElementById('userAvatar');
+    if (user.photoURL) {
+        userAvatar.src = user.photoURL;
+    }
+    
+    // Update any user-specific UI elements
+    const userSpecificElements = document.querySelectorAll('[data-auth-required]');
+    userSpecificElements.forEach(el => {
+        el.classList.remove('hidden');
+    });
+}
+
+function updateUIForUnauthenticatedUser() {
+    // Show login/signup buttons
+    loginBtn.style.display = 'block';
+    signupBtn.style.display = 'block';
+    
+    // Hide user profile menu
+    userProfileMenu.classList.add('hidden');
+    
+    // Hide any user-specific UI elements
+    const userSpecificElements = document.querySelectorAll('[data-auth-required]');
+    userSpecificElements.forEach(el => {
+        el.classList.add('hidden');
+    });
+}
+
+function togglePasswordVisibility(e) {
+    const passwordInput = e.target.previousElementSibling;
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+    
+    // Toggle icon
+    e.target.classList.toggle('fa-eye');
+    e.target.classList.toggle('fa-eye-slash');
+}
+
+function updatePasswordStrength() {
+    const password = signupPassword.value;
+    let strength = 0;
+    
+    // Check password length
+    if (password.length >= 8) {
+        strength += 1;
+    }
+    
+    // Check for mixed case
+    if (password.match(/[a-z]/) && password.match(/[A-Z]/)) {
+        strength += 1;
+    }
+    
+    // Check for numbers
+    if (password.match(/\d/)) {
+        strength += 1;
+    }
+    
+    // Check for special characters
+    if (password.match(/[^a-zA-Z\d]/)) {
+        strength += 1;
+    }
+    
+    // Update UI based on strength
+    const segments = passwordStrengthMeter.querySelectorAll('.strength-segment');
+    
+    segments.forEach((segment, index) => {
+        segment.className = 'strength-segment';
+        if (index < strength) {
+            if (strength === 1) {
+                segment.classList.add('weak');
+            } else if (strength === 2 || strength === 3) {
+                segment.classList.add('medium');
+            } else {
+                segment.classList.add('strong');
             }
         }
+    });
+    
+    // Update text
+    if (strength === 0) {
+        passwordStrengthText.textContent = 'Weak';
+        passwordStrengthText.style.color = '#ff7675';
+    } else if (strength === 1) {
+        passwordStrengthText.textContent = 'Weak';
+        passwordStrengthText.style.color = '#ff7675';
+    } else if (strength === 2) {
+        passwordStrengthText.textContent = 'Medium';
+        passwordStrengthText.style.color = '#fdcb6e';
+    } else if (strength === 3) {
+        passwordStrengthText.textContent = 'Good';
+        passwordStrengthText.style.color = '#00b894';
+    } else {
+        passwordStrengthText.textContent = 'Strong';
+        passwordStrengthText.style.color = '#00b894';
+    }
+}
 
-        function closeAd() {
-            document.getElementById("adBanner").style.display = "none";
+function generateReferralCode(name) {
+    // Generate a referral code based on name and random characters
+    const namePrefix = name.replace(/[^a-zA-Z]/g, '').substring(0, 3).toUpperCase();
+    const randomChars = Math.random().toString(36).substring(2, 6).toUpperCase();
+    return `${namePrefix}${randomChars}`;
+}
+
+function showLoadingState(form) {
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+}
+
+function hideLoadingState(form) {
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = form.id === 'emailLoginForm' ? 'Login' : 'Create Account';
+}
+
+function getErrorMessage(error) {
+    switch (error.code) {
+        case 'auth/email-already-in-use':
+            return 'This email is already registered. Please log in instead.';
+        case 'auth/invalid-email':
+            return 'Please enter a valid email address.';
+        case 'auth/user-not-found':
+        case 'auth/wrong-password':
+            return 'Invalid email or password. Please try again.';
+        case 'auth/weak-password':
+            return 'Password should be at least 6 characters.';
+        case 'auth/popup-closed-by-user':
+            return 'Sign-in popup was closed before completing the sign in.';
+        default:
+            return error.message || 'An unexpected error occurred. Please try again.';
+    }
+}
+
+// Toast notification system
+function showToast(title, message, type = 'info') {
+    const toastContainer = document.getElementById('toastContainer');
+    
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    
+    let iconClass = 'fa-info-circle';
+    if (type === 'success') iconClass = 'fa-check-circle';
+    if (type === 'error') iconClass = 'fa-exclamation-circle';
+    if (type === 'warning') iconClass = 'fa-exclamation-triangle';
+    
+    toast.innerHTML = `
+        <div class="toast-icon">
+            <i class="fas ${iconClass}"></i>
+        </div>
+        <div class="toast-content">
+            <div class="toast-title">${title}</div>
+            <div class="toast-message">${message}</div>
+        </div>
+        <button class="toast-close">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+    
+    toastContainer.appendChild(toast);
+    
+    // Add close functionality
+    const closeBtn = toast.querySelector('.toast-close');
+    closeBtn.addEventListener('click', () => {
+        toast.style.animation = 'slideOut 0.3s ease forwards';
+        setTimeout(() => {
+            toast.remove();
+        }, 300);
+    });
+    
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+        if (toast.parentNode) {
+            toast.style.animation = 'slideOut 0.3s ease forwards';
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
         }
+    }, 5000);
+}
 
-        function switchTab(tab) {
-            document.querySelectorAll('.tab').forEach(tabEl => tabEl.classList.remove('active'));
-            document.querySelector(`.tab[onclick="switchTab('${tab}')"]`).classList.add('active');
-            alert(`Switched to ${tab} tab`);
-        }
+export { auth, showToast };
 
-        setTimeout(closeAd, 5000);
-        loadPosts();
-    </script>
-</body>
-</html>
+
+                </script>
+            </body>
+            </html>
+                    
