@@ -1,78 +1,1812 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rewarder - Monetized Talent Competition</title>
+  
   <style>
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(5px);
-      display: none;
-      z-index: 999;
-    }
-    
-    .popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: white;
-      padding: 20px;
-      border-radius: 5px;
-      z-index: 1000;
-      display: none;
-    }
-    
-    .show {
-      display: block;
-    }
+   
+  /* Base styles for the page */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  color: #333;
+  scroll-behavior: smooth;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Button styles */
+.see-more-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 15px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.see-more-btn i {
+  margin-right: 8px;
+}
+
+.see-more-btn:hover {
+  background-color: #2980b9;
+}
+
+/* Modal styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* Hidden by default */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  
+  /* Transition for smooth appearance */
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Show modal when targeted */
+.modal:target {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  
+  /* Animation for modal content */
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.modal:target .modal-content {
+  transform: scale(1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.close-btn {
+  font-size: 24px;
+  color: #777;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  color: #e74c3c;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+/* Form styles */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.form-col {
+  flex: 1;
+}
+
+/* Background options */
+.background-options {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.background-option {
+  width: 60px;
+  height: 60px;
+  border-radius: 4px;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.background-option.selected {
+  border-color: #3498db;
+}
+
+/* Category options */
+.category-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.category-option {
+  padding: 8px 15px;
+  background-color: #f1f1f1;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.category-option:hover {
+  background-color: #e0e0e0;
+}
+
+.category-option.selected {
+  background-color: #3498db;
+  color: white;
+}
+
+/* Switch styles */
+.switch-container {
+  display: flex;
+  align-items: center;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #3498db;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+/* Rules and judges containers */
+.rules-container, .judges-container {
+  margin-bottom: 10px;
+}
+
+.rule-item, .judge-item {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.rule-input, .judge-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.remove-rule-btn, .remove-judge-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  width: 30px;
+  border-radius: 4px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.add-rule-btn, .add-judge-btn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.add-rule-btn i, .add-judge-btn i {
+  margin-right: 8px;
+}
+
+/* Form actions */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.cancel-btn {
+  padding: 10px 20px;
+  background-color: #95a5a6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.create-btn {
+  padding: 10px 20px;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Competition grid */
+.all-competitions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* Rules modal */
+.rules-modal-content {
+  padding: 20px;
+}
+
+.rules-list {
+  padding-left: 20px;
+}
+
+.rules-list li {
+  margin-bottom: 10px;
+}
+
+/* Tab styles */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.tab.active {
+  border-bottom-color: #3498db;
+  color: #3498db;
+}
+
+.tab-contents {
+  position: relative;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #95a5a6;
+}
+
+.empty-state i {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+/* Fix for the rules modal close button */
+#rulesModal .close-btn {
+  font-size: 24px;
+  color: #777;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  line-height: 1;
+}
+
+/* Make sure the rules modal close button works with the target approach */
+#rulesModal .close-btn {
+  display: inline-block;
+}
+
+
   </style>
 </head>
 <body>
-  <button id="openPopup">Open Popup</button>
-  
-  <div class="overlay" id="overlay"></div>
-  <div class="popup" id="popup">
-    <h2>Popup Content</h2>
-    <p>This is a test popup</p>
-    <button id="closePopup">Close</button>
+  <div class="container">
+    <!-- Main Competitions Page -->
+<div class="competitions-container">
+  <div class="competitions-header">
+    <h1>Competitions</h1>
+    <button id="createCompetitionBtn" class="create-btn">
+      <i class="fas fa-plus"></i> Create Competition
+    </button>
   </div>
   
+  <div class="competitions-tabs">
+    <div class="competition-tab active" data-tab="pending">
+      <i class="fas fa-hourglass-start"></i> Pending
+    </div>
+    <div class="competition-tab" data-tab="live">
+      <i class="fas fa-broadcast-tower"></i> Live
+    </div>
+  </div>
+  
+  <div id="pendingCompetitionsTab" class="competition-tab-content active">
+    <div class="tab-header">
+      <h2>Pending Competitions</h2>
+      <button id="seeMorePendingBtn" class="see-more-btn">
+        See All <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+    
+    <div id="pendingCompetitions" class="competitions-carousel">
+      <!-- Pending competitions will be loaded here -->
+      <div id="pendingEmptyState" class="empty-state">
+        <i class="fas fa-hourglass-start"></i>
+        <h3>No Pending Competitions</h3>
+        <p>Create a new competition to get started!</p>
+      </div>
+    </div>
+  </div>
+  
+  <div id="liveCompetitionsTab" class="competition-tab-content">
+    <div class="tab-header">
+      <h2>Live Competitions</h2>
+      <button id="seeMoreLiveBtn" class="see-more-btn">
+        See All <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+    
+    <div id="liveCompetitions" class="competitions-carousel">
+      <!-- Live competitions will be loaded here -->
+      <div id="liveEmptyState" class="empty-state">
+        <i class="fas fa-trophy"></i>
+        <h3>No Live Competitions</h3>
+        <p>Start a pending competition to make it live!</p>
+      </div>
+    </div>
+  </div>
+</div>
+     
+   <!-- Create Competition Page -->
+<div class="create-competition-container">
+  <div class="create-competition-header">
+    <h1>Create New Competition</h1>
+  </div>
+  
+  <form id="createCompetitionForm" class="create-competition-form">
+    <div class="form-section">
+      <h2>Basic Information</h2>
+      
+      <div class="form-group">
+        <label for="competitionTitle">Competition Title</label>
+        <input type="text" id="competitionTitle" placeholder="Enter a catchy title" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Background</label>
+        <div class="background-options">
+          <div class="background-type">
+            <input type="radio" id="bgImage" name="backgroundType" value="image" checked>
+            <label for="bgImage">Choose Image</label>
+            
+            <div class="background-selection">
+              <div class="background-option selected" data-bg="https://images.unsplash.com/photo-1542038784456-1ea8e935640e">
+                <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=100&h=100&fit=crop" alt="Background 1">
+              </div>
+              <div class="background-option" data-bg="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4">
+                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=100&h=100&fit=crop" alt="Background 2">
+              </div>
+              <div class="background-option" data-bg="https://images.unsplash.com/photo-1560419015-7c427e8ae5ba">
+                <img src="https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?w=100&h=100&fit=crop" alt="Background 3">
+              </div>
+              <div class="background-option" data-bg="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4">
+                <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=100&h=100&fit=crop" alt="Background 4">
+              </div>
+            </div>
+          </div>
+          
+          <div class="background-type">
+            <input type="radio" id="bgColor" name="backgroundType" value="color">
+            <label for="bgColor">Choose Color</label>
+            <input type="color" id="backgroundColor" value="#3498db">
+          </div>
+          
+          <div class="background-type">
+            <input type="radio" id="bgCustom" name="backgroundType" value="custom">
+            <label for="bgCustom">Custom URL</label>
+            <input type="url" id="customBackgroundUrl" placeholder="Enter image URL">
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>Categories (Select up to 3)</label>
+        <div class="categories-selection">
+          <div class="category-option" data-category="Art">
+            <i class="fas fa-palette"></i> Art
+          </div>
+          <div class="category-option" data-category="Music">
+            <i class="fas fa-music"></i> Music
+          </div>
+          <div class="category-option" data-category="Dance">
+            <i class="fas fa-running"></i> Dance
+          </div>
+          <div class="category-option" data-category="Photography">
+            <i class="fas fa-camera"></i> Photography
+          </div>
+          <div class="category-option" data-category="Design">
+            <i class="fas fa-pencil-ruler"></i> Design
+          </div>
+          <div class="category-option" data-category="Cooking">
+            <i class="fas fa-utensils"></i> Cooking
+          </div>
+          <div class="category-option" data-category="Writing">
+            <i class="fas fa-pen-fancy"></i> Writing
+          </div>
+          <div class="category-option" data-category="Fashion">
+            <i class="fas fa-tshirt"></i> Fashion
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-section">
+      <h2>Competition Settings</h2>
+      
+      <div class="form-group">
+        <label for="maxContestants">Maximum Contestants</label>
+        <input type="number" id="maxContestants" min="5" max="100" value="20" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="votingType">Voting Type</label>
+        <select id="votingType" required>
+          <option value="free">Free Voting</option>
+          <option value="paid">Paid Voting (Talent Coins)</option>
+        </select>
+        
+        <div id="paidVotingOptions" style="display: none;">
+          <label for="talentCoinsPerVote">Talent Coins per Vote</label>
+          <input type="number" id="talentCoinsPerVote" min="1" value="10">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="startDate">Start Date</label>
+        <input type="datetime-local" id="startDate" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="endDate">End Date</label>
+        <input type="datetime-local" id="endDate" required>
+      </div>
+      
+      <div class="form-group checkbox-group">
+        <input type="checkbox" id="autoStart">
+        <label for="autoStart">Auto-start on start date</label>
+      </div>
+    </div>
+    
+    <div class="form-section">
+      <h2>Rules</h2>
+      <p class="form-hint">Add at least 3 rules for your competition</p>
+      
+      <div id="rulesContainer" class="rules-container">
+        <div class="rule-item">
+          <input type="text" class="rule-input" placeholder="Enter rule" value="All submissions must be original work" required>
+          <button type="button" class="remove-rule-btn">×</button>
+        </div>
+        <div class="rule-item">
+          <input type="text" class="rule-input" placeholder="Enter rule" value="Submissions must be made before the deadline" required>
+          <button type="button" class="remove-rule-btn">×</button>
+        </div>
+        <div class="rule-item">
+          <input type="text" class="rule-input" placeholder="Enter rule" value="Respect all participants and judges" required>
+          <button type="button" class="remove-rule-btn">×</button>
+        </div>
+      </div>
+      
+      <button type="button" id="addRuleBtn" class="add-btn">
+        <i class="fas fa-plus"></i> Add Rule
+      </button>
+    </div>
+    
+    <div class="form-section">
+      <h2>Judges (Optional)</h2>
+      <p class="form-hint">Add up to 5 judges for your competition</p>
+      
+      <div id="judgesContainer" class="judges-container">
+        <!-- Judges will be added here -->
+      </div>
+      
+      <button type="button" id="addJudgeBtn" class="add-btn">
+        <i class="fas fa-plus"></i> Add Judge
+      </button>
+    </div>
+    
+    <div class="form-actions">
+      <button type="submit" class="submit-btn">Create Competition</button>
+      <button type="button" id="cancelCreateBtn" class="cancel-btn">Cancel</button>
+    </div>
+  </form>
+</div>
+<!-- All Pending Competitions Page -->
+<div class="all-competitions-container">
+  <div class="all-competitions-header">
+    <h1>All Pending Competitions</h1>
+    <a href="competitions.html" class="back-btn">
+      <i class="fas fa-arrow-left"></i> Back to Competitions
+    </a>
+  </div>
+  
+  <div id="allPendingGrid" class="competitions-grid">
+    <!-- Pending competitions will be loaded here -->
+  </div>
+</div>
+<!-- All Live Competitions Page -->
+<div class="all-competitions-container">
+  <div class="all-competitions-header">
+    <h1>All Live Competitions</h1>
+    <a href="competitions.html" class="back-btn">
+      <i class="fas fa-arrow-left"></i> Back to Competitions
+    </a>
+  </div>
+  
+  <div id="allLiveGrid" class="competitions-grid">
+    <!-- Live competitions will be loaded here -->
+  </div>
+</div>
+<!-- Competition Details Page -->
+<div id="competitionDetails" class="competition-details-container">
+  <!-- Competition details will be loaded here -->
+</div>
+<!-- Competition Rules Page -->
+<div class="competition-rules-container">
+  <div class="competition-rules-header">
+    <h1 id="rulesTitle">Competition Rules</h1>
+  </div>
+  
+  <div id="rulesContainer" class="rules-container">
+    <!-- Rules will be loaded here -->
+  </div>
+</div>
+<!-- View Live Competition Page -->
+<div class="competition-view-container">
+  <div id="liveCompetitionHeader" class="competition-view-header">
+    <!-- Competition header will be loaded here -->
+  </div>
+  
+  <div class="competition-view-tabs">
+    <div class="view-tab active" data-tab="entries">
+      <i class="fas fa-images"></i> Entries
+    </div>
+    <div class="view-tab" data-tab="leaderboard">
+      <i class="fas fa-trophy"></i> Leaderboard
+    </div>
+    <div class="view-tab" data-tab="info">
+      <i class="fas fa-info-circle"></i> Info
+    </div>
+  </div>
+  
+  <div id="entriesTab" class="view-tab-content active">
+    <div id="entriesContainer" class="entries-container">
+      <!-- Entries will be loaded here -->
+    </div>
+  </div>
+  
+  <div id="leaderboardTab" class="view-tab-content">
+    <div id="leaderboardContainer" class="leaderboard-container">
+      <!-- Leaderboard will be loaded here -->
+    </div>
+  </div>
+  
+  <div id="infoTab" class="view-tab-content">
+    <div id="infoContainer" class="info-container">
+      <!-- Competition info will be loaded here -->
+    </div>
+  </div>
+</div>
+<!-- Enter Competition Page -->
+<div class="competition-enter-container">
+  <div id="enterCompetitionHeader" class="competition-enter-header">
+    <!-- Competition header will be loaded here -->
+  </div>
+  
+  <div class="competition-enter-content">
+    <h2>Submit Your Entry</h2>
+    
+    <form id="entryForm" class="entry-form">
+      <div class="form-group">
+        <label for="entryTitle">Entry Title</label>
+        <input type="text" id="entryTitle" placeholder="Give your entry a title" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="entryDescription">Description</label>
+        <textarea id="entryDescription" placeholder="Describe your entry" rows="4" required></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label>Upload Media</label>
+        <div class="upload-container">
+          <div id="uploadPreview" class="upload-preview">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p>No file selected</p>
+          </div>
+          
+          <div class="upload-controls">
+            <button type="button" id="uploadBtn" class="upload-btn">
+              <i class="fas fa-upload"></i> Choose File
+            </button>
+            <input type="file" id="entryMedia" accept="image/*,video/*" style="display: none;">
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <button type="submit" class="submit-btn">Submit Entry</button>
+        <a href="competition-details.html" id="cancelEntryBtn" class="cancel-btn">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+  
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+  
   <script>
-    const openBtn = document.getElementById('openPopup');
-    const closeBtn = document.getElementById('closePopup');
-    const popup = document.getElementById('popup');
-    const overlay = document.getElementById('overlay');
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBm9PmWgTKGKlzZ1xrJwhUXd93bCClSrEE",
+      authDomain: "billsandmallng.firebaseapp.com",
+      projectId: "billsandmallng",
+      storageBucket: "billsandmallng.firebasestorage.app",
+      messagingSenderId: "242278413301",
+      appId: "1:242278413301:web:fad95e8c553a18b8e2a6bc",
+      measurementId: "G-8GEQEC5SXQ"
+    };
     
-    openBtn.addEventListener('click', function(e) {
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const analytics = firebase.analytics();
+    const db = firebase.firestore();
+    const storage = firebase.storage();
+    // Competition System Module
+const CompetitionSystem = (function() {
+  // Private variables
+  let currentUser = null;
+  let pendingCompetitions = [];
+  let liveCompetitions = [];
+  let selectedBackground = null;
+  let selectedCategories = [];
+  
+  // Initialize the competition system
+  function init(user) {
+    currentUser = user;
+    
+    // Set up event listeners
+    setupEventListeners();
+    
+    // Load competitions
+    loadCompetitions();
+    
+    // Set default background if available
+    const defaultBg = document.querySelector('.background-option');
+    if (defaultBg) {
+      selectedBackground = defaultBg.getAttribute('data-bg');
+    }
+    
+    // Check if we're on a specific page and initialize accordingly
+    initializeCurrentPage();
+    
+    console.log('Competition System initialized');
+  }
+  
+  // Initialize the current page based on URL
+  function initializeCurrentPage() {
+    const currentPath = window.location.pathname;
+    
+    if (currentPath.includes('create-competition')) {
+      setupCreateCompetitionPage();
+    } else if (currentPath.includes('competition-details')) {
+      const competitionId = new URLSearchParams(window.location.search).get('id');
+      if (competitionId) {
+        loadCompetitionDetails(competitionId);
+      }
+    } else if (currentPath.includes('all-pending-competitions')) {
+      renderAllPendingCompetitions();
+    } else if (currentPath.includes('all-live-competitions')) {
+      renderAllLiveCompetitions();
+    } else if (currentPath.includes('competition-rules')) {
+      const competitionId = new URLSearchParams(window.location.search).get('id');
+      if (competitionId) {
+        showCompetitionRules(competitionId);
+      }
+    }
+  }
+  
+  // Set up all event listeners
+  function setupEventListeners() {
+    // Tab switching
+    const tabs = document.querySelectorAll('.competition-tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        const tabName = tab.getAttribute('data-tab');
+        document.querySelectorAll('.competition-tab-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        document.getElementById(`${tabName}CompetitionsTab`).classList.add('active');
+      });
+    });
+    
+    // Create competition button
+    const createBtn = document.getElementById('createCompetitionBtn');
+    if (createBtn) {
+      createBtn.addEventListener('click', () => {
+        window.location.href = 'create-competition.html';
+      });
+    }
+    
+    // See all buttons
+    const seeAllPendingBtn = document.getElementById('seeMorePendingBtn');
+    const seeAllLiveBtn = document.getElementById('seeMoreLiveBtn');
+    
+    if (seeAllPendingBtn) {
+      seeAllPendingBtn.addEventListener('click', () => {
+        window.location.href = 'all-pending-competitions.html';
+      });
+    }
+    
+    if (seeAllLiveBtn) {
+      seeAllLiveBtn.addEventListener('click', () => {
+        window.location.href = 'all-live-competitions.html';
+      });
+    }
+    
+    // Delegate for competition card actions
+    document.addEventListener('click', handleCompetitionCardActions);
+  }
+  
+  // Set up create competition page
+  function setupCreateCompetitionPage() {
+    // Set default dates
+    const now = new Date();
+    const startDate = new Date(now.getTime() + 24 * 60 * 60 * 1000); // Tomorrow
+    const endDate = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000); // One week from now
+    
+    const startDateInput = document.getElementById('startDate');
+    const endDateInput = document.getElementById('endDate');
+    
+    if (startDateInput && endDateInput) {
+      startDateInput.value = formatDateForInput(startDate);
+      endDateInput.value = formatDateForInput(endDate);
+    }
+    
+    // Background selection
+    const backgroundOptions = document.querySelectorAll('.background-option');
+    backgroundOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        backgroundOptions.forEach(opt => opt.classList.remove('selected'));
+        option.classList.add('selected');
+        selectedBackground = option.getAttribute('data-bg');
+        
+        // Select the image radio button
+        const bgImageRadio = document.getElementById('bgImage');
+        if (bgImageRadio) bgImageRadio.checked = true;
+      });
+    });
+    
+    // Category selection
+    const categoryOptions = document.querySelectorAll('.category-option');
+    categoryOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        const category = option.getAttribute('data-category');
+        
+        if (option.classList.contains('selected')) {
+          // Deselect category
+          option.classList.remove('selected');
+          selectedCategories = selectedCategories.filter(cat => cat !== category);
+        } else {
+          // Select category if less than 3 are selected
+          if (selectedCategories.length < 3) {
+            option.classList.add('selected');
+            selectedCategories.push(category);
+          }
+        }
+      });
+    });
+    
+    // Voting type change
+    const votingTypeSelect = document.getElementById('votingType');
+    const paidVotingOptions = document.getElementById('paidVotingOptions');
+    
+    if (votingTypeSelect && paidVotingOptions) {
+      votingTypeSelect.addEventListener('change', () => {
+        if (votingTypeSelect.value === 'paid') {
+          paidVotingOptions.style.display = 'block';
+        } else {
+          paidVotingOptions.style.display = 'none';
+        }
+      });
+    }
+    
+    // Add rule button
+    const addRuleBtn = document.getElementById('addRuleBtn');
+    const rulesContainer = document.getElementById('rulesContainer');
+    
+    if (addRuleBtn && rulesContainer) {
+      addRuleBtn.addEventListener('click', () => {
+        const ruleItems = rulesContainer.querySelectorAll('.rule-item');
+        
+        if (ruleItems.length < 9) {
+          const newRule = document.createElement('div');
+          newRule.className = 'rule-item';
+          newRule.innerHTML = `
+            <input type="text" class="rule-input" placeholder="Enter rule" required>
+            <button type="button" class="remove-rule-btn">×</button>
+          `;
+          
+          rulesContainer.appendChild(newRule);
+          
+          // Add event listener to the new remove button
+          const removeBtn = newRule.querySelector('.remove-rule-btn');
+          removeBtn.addEventListener('click', () => {
+            if (rulesContainer.querySelectorAll('.rule-item').length > 3) {
+              rulesContainer.removeChild(newRule);
+            } else {
+              alert('You must have at least 3 rules');
+            }
+          });
+        } else {
+          alert('You can add a maximum of 9 rules');
+        }
+      });
+      
+      // Initial remove rule buttons
+      document.querySelectorAll('.remove-rule-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (rulesContainer.querySelectorAll('.rule-item').length > 3) {
+            rulesContainer.removeChild(btn.parentElement);
+          } else {
+            alert('You must have at least 3 rules');
+          }
+        });
+      });
+    }
+    
+    // Add judge button
+    const addJudgeBtn = document.getElementById('addJudgeBtn');
+    const judgesContainer = document.getElementById('judgesContainer');
+    
+    if (addJudgeBtn && judgesContainer) {
+      addJudgeBtn.addEventListener('click', () => {
+        const judgeItems = judgesContainer.querySelectorAll('.judge-item');
+        
+        if (judgeItems.length < 5) {
+          const newJudge = document.createElement('div');
+          newJudge.className = 'judge-item';
+          newJudge.innerHTML = `
+            <input type="text" class="judge-input" placeholder="Enter judge name">
+            <button type="button" class="remove-judge-btn">×</button>
+          `;
+          
+          judgesContainer.appendChild(newJudge);
+          
+          // Add event listener to the new remove button
+          const removeBtn = newJudge.querySelector('.remove-judge-btn');
+          removeBtn.addEventListener('click', () => {
+            judgesContainer.removeChild(newJudge);
+          });
+        } else {
+          alert('You can add a maximum of 5 judges');
+        }
+      });
+      
+      // Initial remove judge buttons
+      document.querySelectorAll('.remove-judge-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          judgesContainer.removeChild(btn.parentElement);
+        });
+      });
+    }
+    
+    // Form submission
+    const createCompetitionForm = document.getElementById('createCompetitionForm');
+    if (createCompetitionForm) {
+      createCompetitionForm.addEventListener('submit', handleFormSubmit);
+    }
+    
+    // Cancel button
+    const cancelCreateBtn = document.getElementById('cancelCreateBtn');
+    if (cancelCreateBtn) {
+      cancelCreateBtn.addEventListener('click', () => {
+        window.location.href = 'competitions.html'; // Go back to main competitions page
+      });
+    }
+  }
+  
+  // Format date for datetime-local input
+  function formatDateForInput(date) {
+    return date.toISOString().slice(0, 16);
+  }
+  
+  // Handle competition card actions (delegate pattern)
+  function handleCompetitionCardActions(e) {
+    // Rules button
+    if (e.target.closest('.rules-btn')) {
       e.stopPropagation();
-      popup.classList.add('show');
-      overlay.classList.add('show');
-    });
+      const btn = e.target.closest('.rules-btn');
+      const competitionId = btn.getAttribute('data-id');
+      window.location.href = `competition-rules.html?id=${competitionId}`;
+    }
     
-    closeBtn.addEventListener('click', function() {
-      popup.classList.remove('show');
-      overlay.classList.remove('show');
-    });
-    
-    // Prevent clicks inside popup from closing it
-    popup.addEventListener('click', function(e) {
+    // Join button
+    if (e.target.closest('.join-btn:not([disabled])')) {
       e.stopPropagation();
+      const btn = e.target.closest('.join-btn');
+      const competitionId = btn.getAttribute('data-id');
+      joinCompetition(competitionId);
+    }
+    
+    // Start button
+    if (e.target.closest('.start-btn')) {
+      e.stopPropagation();
+      const btn = e.target.closest('.start-btn');
+      const competitionId = btn.getAttribute('data-id');
+      startCompetition(competitionId);
+    }
+    
+    // View button
+    if (e.target.closest('.view-btn')) {
+      e.stopPropagation();
+      const btn = e.target.closest('.view-btn');
+      const competitionId = btn.getAttribute('data-id');
+      window.location.href = `competition-view.html?id=${competitionId}`;
+    }
+    
+    // Enter button
+    if (e.target.closest('.enter-btn')) {
+      e.stopPropagation();
+      const btn = e.target.closest('.enter-btn');
+      const competitionId = btn.getAttribute('data-id');
+      window.location.href = `competition-enter.html?id=${competitionId}`;
+    }
+    
+    // Competition card click (view details)
+    if (e.target.closest('.competition-card')) {
+      const card = e.target.closest('.competition-card');
+      // Only trigger if we didn't click a button inside the card
+      if (!e.target.closest('button')) {
+        const competitionId = card.getAttribute('data-id');
+        window.location.href = `competition-details.html?id=${competitionId}`;
+      }
+    }
+  }
+  
+  // Handle form submission
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    
+    // Validate form
+    if (selectedCategories.length === 0) {
+      alert('Please select at least one category');
+      return;
+    }
+    
+    // Get form values
+    const title = document.getElementById('competitionTitle').value;
+    const maxContestants = parseInt(document.getElementById('maxContestants').value);
+    const votingType = document.getElementById('votingType').value;
+    const talentCoinsPerVote = votingType === 'paid' ? parseInt(document.getElementById('talentCoinsPerVote').value) : 0;
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const autoStart = document.getElementById('autoStart').checked;
+    
+    // Get background
+    let backgroundType, backgroundUrl, backgroundColor;
+    if (document.getElementById('bgImage').checked) {
+      backgroundType = 'image';
+      backgroundUrl = selectedBackground;
+    } else if (document.getElementById('bgColor').checked) {
+      backgroundType = 'color';
+      backgroundColor = document.getElementById('backgroundColor').value;
+    } else if (document.getElementById('bgCustom').checked) {
+      backgroundType = 'image';
+      backgroundUrl = document.getElementById('customBackgroundUrl').value;
+    }
+    
+    // Get rules
+    const rules = [];
+    document.querySelectorAll('.rule-input').forEach(input => {
+      if (input.value.trim()) {
+        rules.push(input.value.trim());
+      }
     });
     
-    // Optional: close when clicking outside
-    overlay.addEventListener('click', function() {
-      popup.classList.remove('show');
-      overlay.classList.remove('show');
+    if (rules.length < 3) {
+      alert('Please add at least 3 rules');
+      return;
+    }
+    
+    // Get judges
+    const judges = [];
+    document.querySelectorAll('.judge-input').forEach(input => {
+      if (input.value.trim()) {
+        judges.push(input.value.trim());
+      }
     });
-  </script>
-  <script type="text/javascript">
-    aclib.runAutoTag({
-        zoneId: 'wq2s6bqii8',
+    
+    // Create competition object
+    const newCompetition = {
+      title,
+      backgroundType,
+      backgroundUrl: backgroundType === 'image' ? backgroundUrl : null,
+      backgroundColor: backgroundType === 'color' ? backgroundColor : null,
+      categories: selectedCategories,
+      maxContestants,
+      votingType,
+      talentCoinsPerVote,
+      startDate,
+      endDate,
+      autoStart,
+      rules,
+      judges,
+      creatorId: currentUser.uid,
+      creatorName: currentUser.displayName || 'Anonymous',
+      contestants: [currentUser.uid], // Creator is automatically a contestant
+      status: 'pending',
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+    
+    // Save to Firestore
+    db.collection('competitions').add(newCompetition)
+      .then(docRef => {
+        // Redirect to the main competitions page
+        window.location.href = 'competitions.html';
+      })
+      .catch(error => {
+        console.error("Error creating competition:", error);
+        alert('Error creating competition. Please try again.');
+      });
+  }
+  
+  // Load competitions from Firestore
+  function loadCompetitions() {
+    // Clear existing competitions
+    pendingCompetitions = [];
+    liveCompetitions = [];
+    
+    // Query pending competitions
+    db.collection('competitions')
+      .where('status', '==', 'pending')
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          pendingCompetitions.push({
+            id: doc.id,
+            ...doc.data()
+          });
+        });
+        renderPendingCompetitions();
+      })
+      .catch(error => {
+        console.error("Error loading pending competitions:", error);
+      });
+    
+    // Query live competitions
+    db.collection('competitions')
+      .where('status', '==', 'live')
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          liveCompetitions.push({
+            id: doc.id,
+            ...doc.data()
+          });
+        });
+        renderLiveCompetitions();
+      })
+      .catch(error => {
+        console.error("Error loading live competitions:", error);
+      });
+  }
+  
+  // Render pending competitions
+  function renderPendingCompetitions() {
+    const pendingContainer = document.getElementById('pendingCompetitions');
+    const pendingEmptyState = document.getElementById('pendingEmptyState');
+    
+    if (!pendingContainer) return;
+    
+    // Clear existing content
+    pendingContainer.innerHTML = '';
+    
+    if (pendingCompetitions.length === 0) {
+      if (pendingEmptyState) {
+        pendingContainer.appendChild(pendingEmptyState);
+      } else {
+        pendingContainer.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-hourglass-start"></i>
+            <h3>No Pending Competitions</h3>
+            <p>Create a new competition to get started!</p>
+          </div>
+        `;
+      }
+      return;
+    }
+    
+    // Render each pending competition
+    pendingCompetitions.forEach(competition => {
+      const card = createCompetitionCard(competition);
+      pendingContainer.appendChild(card);
     });
-</script>
-</body>
-</html>
+    
+    // Set up auto-scrolling if there are more than 3 competitions
+    if (pendingCompetitions.length > 3) {
+      setupAutoScroll('pendingCompetitions', 30000);
+    }
+  }
+  
+  // Render all pending competitions (for the all pending page)
+  function renderAllPendingCompetitions() {
+    const allPendingGrid = document.getElementById('allPendingGrid');
+    
+    if (!allPendingGrid) return;
+    
+    // Clear existing content
+    allPendingGrid.innerHTML = '';
+    
+    if (pendingCompetitions.length === 0) {
+      allPendingGrid.innerHTML = `
+        <div class="empty-state">
+          <i class="fas fa-hourglass-start"></i>
+          <h3>No Pending Competitions</h3>
+          <p>Create a new competition to get started!</p>
+        </div>
+      `;
+      return;
+    }
+    
+    // Render each pending competition
+    pendingCompetitions.forEach(competition => {
+      const card = createCompetitionCard(competition);
+      allPendingGrid.appendChild(card);
+    });
+  }
+  
+  // Render live competitions
+  function renderLiveCompetitions() {
+    const liveContainer = document.getElementById('liveCompetitions');
+    const liveEmptyState = document.getElementById('liveEmptyState');
+    
+    if (!liveContainer) return;
+    
+    // Clear existing content
+    liveContainer.innerHTML = '';
+    
+    if (liveCompetitions.length === 0) {
+      if (liveEmptyState) {
+        liveContainer.appendChild(liveEmptyState);
+      } else {
+        liveContainer.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-trophy"></i>
+            <h3>No Live Competitions</h3>
+            <p>Start a pending competition to make it live!</p>
+          </div>
+        `;
+      }
+      return;
+    }
+    
+    // Render each live competition
+    liveCompetitions.forEach(competition => {
+      const card = createCompetitionCard(competition);
+      liveContainer.appendChild(card);
+    });
+    
+    // Set up auto-scrolling if there are more than 3 competitions
+    if (liveCompetitions.length > 3) {
+      setupAutoScroll('liveCompetitions', 30000);
+    }
+  }
+  
+  // Render all live competitions (for the all live page)
+  function renderAllLiveCompetitions() {
+    const allLiveGrid = document.getElementById('allLiveGrid');
+    
+    if (!allLiveGrid) return;
+    
+    // Clear existing content
+    allLiveGrid.innerHTML = '';
+    
+    if (liveCompetitions.length === 0) {
+      allLiveGrid.innerHTML = `
+        <div class="empty-state">
+          <i class="fas fa-trophy"></i>
+          <h3>No Live Competitions</h3>
+          <p>Start a pending competition to make it live!</p>
+        </div>
+      `;
+      return;
+    }
+    
+    // Render each live competition
+    liveCompetitions.forEach(competition => {
+      const card = createCompetitionCard(competition);
+      allLiveGrid.appendChild(card);
+    });
+  }
+  
+  // Create a competition card element
+  function createCompetitionCard(competition) {
+    const card = document.createElement('div');
+    card.className = 'competition-card';
+    card.setAttribute('data-id', competition.id);
+    
+    // Set background image or color
+    if (competition.backgroundType === 'color') {
+      card.style.backgroundColor = competition.backgroundColor;
+    } else {
+      card.style.backgroundImage = `url('${competition.backgroundUrl}')`;
+    }
+    
+    // Add creator or joined class if applicable
+    if (competition.creatorId === currentUser.uid) {
+      card.classList.add('creator');
+    } else if (competition.contestants && competition.contestants.includes(currentUser.uid)) {
+      card.classList.add('joined');
+    }
+    
+    // Create card content
+    let cardContent = `
+      <div class="card-overlay">
+        <div>
+          <h3 class="card-title">${competition.title}</h3>
+    `;
+    
+    // Add countdown
+    const now = new Date();
+    const startDate = new Date(competition.startDate);
+    const endDate = new Date(competition.endDate);
+    
+    if (competition.status === 'pending') {
+      const timeUntilStart = Math.max(0, startDate - now);
+      const days = Math.floor(timeUntilStart / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeUntilStart % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      cardContent += `<div class="countdown">Registration ends in: ${days}d ${hours}h</div>`;
+    } else {
+      const timeUntilEnd = Math.max(0, endDate - now);
+      const days = Math.floor(timeUntilEnd / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeUntilEnd % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      cardContent += `<div class="countdown">Ends in: ${days}d ${hours}h</div>`;
+    }
+    
+    // Add contestants badge
+    const contestantCount = competition.contestants ? competition.contestants.length : 0;
+    cardContent += `
+      <div class="contestants-badge">
+        <i class="fas fa-users"></i> ${contestantCount}/${competition.maxContestants}
+      </div>
+    `;
+    
+    // Add creator or joined badge
+    if (competition.creatorId === currentUser.uid) {
+      cardContent += `<div class="creator-badge">Creator</div>`;
+    } else if (competition.contestants && competition.contestants.includes(currentUser.uid)) {
+      cardContent += `<div class="joined-badge">Joined</div>`;
+    }
+    
+    // Add live badge if applicable
+    if (competition.status === 'live') {
+      cardContent += `<div class="status-badge status-live">Live</div>`;
+    }
+    
+    // Add categories and action buttons
+    cardContent += `
+        </div>
+        <div class="card-info">
+          <div class="categories">
+    `;
+    
+    // Add category tags
+    competition.categories.forEach(category => {
+      cardContent += `<span class="category-tag">${category}</span>`;
+    });
+    
+    cardContent += `
+          </div>
+          <div class="card-actions">
+            <button class="card-btn rules-btn" data-id="${competition.id}">
+              <i class="fas fa-scroll"></i> Rules
+            </button>
+    `;
+    
+    // Add appropriate action button based on status and user role
+    if (competition.status === 'pending') {
+      if (competition.creatorId === currentUser.uid) {
+        cardContent += `
+          <button class="card-btn start-btn" data-id="${competition.id}">
+            <i class="fas fa-play"></i> Start
+          </button>
+        `;
+      } else if (competition.contestants && competition.contestants.includes(currentUser.uid)) {
+        cardContent += `
+          <button class="card-btn enter-btn" data-id="${competition.id}">
+            <i class="fas fa-door-open"></i> Enter
+          </button>
+        `;
+      } else if (contestantCount >= competition.maxContestants) {
+        cardContent += `
+          <button class="card-btn join-btn" disabled>
+            <i class="fas fa-user-plus"></i> Full
+          </button>
+        `;
+      } else {
+        cardContent += `
+          <button class="card-btn join-btn" data-id="${competition.id}">
+            <i class="fas fa-user-plus"></i> Join
+          </button>
+        `;
+      }
+    } else if (competition.status === 'live') {
+      cardContent += `
+        <button class="card-btn view-btn" data-id="${competition.id}">
+          <i class="fas fa-eye"></i> View
+        </button>
+      `;
+    }
+    
+    cardContent += `
+          </div>
+        </div>
+      </div>
+    `;
+    
+    card.innerHTML = cardContent;
+    return card;
+  }
+  
+  // Auto-scrolling functionality for carousels
+  function setupAutoScroll(carouselId, delay = 30000) {
+    const carousel = document.getElementById(carouselId);
+    const cards = carousel.querySelectorAll('.competition-card');
+    
+    if (cards.length <= 3) return; // Don't auto-scroll if there are few cards
+    
+    let scrollPosition = 0;
+    const cardWidth = cards[0].offsetWidth + 24; // Card width + gap
+    
+    setInterval(() => {
+      scrollPosition += cardWidth;
+      
+      // Reset scroll position if we've reached the end
+      if (scrollPosition >= carousel.scrollWidth - carousel.clientWidth) {
+        scrollPosition = 0;
+      }
+      
+      carousel.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth'
+      });
+    }, delay);
+  }
+  
+  // Load competition details for the details page
+  function loadCompetitionDetails(competitionId) {
+    db.collection('competitions').doc(competitionId).get()
+      .then(doc => {
+        if (doc.exists) {
+          const competition = {
+            id: doc.id,
+            ...doc.data()
+          };
+          
+          // Render competition details
+          renderCompetitionDetails(competition);
+        } else {
+          console.error("Competition not found");
+          // Redirect to main competitions page
+          window.location.href = 'competitions.html';
+        }
+      })
+      .catch(error => {
+        console.error("Error loading competition details:", error);
+      });
+  }
+  
+  // Render competition details on the details page
+  function renderCompetitionDetails(competition) {
+    const detailsContainer = document.getElementById('competitionDetails');
+    if (!detailsContainer) return;
+    
+    // Set page title
+    document.title = `${competition.title} - Competition Details`;
+    
+    // Create details HTML
+    let detailsHTML = `
+      <div class="competition-header" style="${competition.backgroundType === 'color' ? 
+        `background-color: ${competition.backgroundColor}` : 
+        `background-image: url('${competition.backgroundUrl}')`}">
+        <div class="header-overlay">
+          <h1>${competition.title}</h1>
+          
+          <div class="competition-meta">
+            <div class="meta-item">
+              <i class="fas fa-users"></i>
+              <span>${competition.contestants ? competition.contestants.length : 0}/${competition.maxContestants} Contestants</span>
+            </div>
+            
+            <div class="meta-item">
+              <i class="fas fa-calendar-alt"></i>
+              <span>Start: ${new Date(competition.startDate).toLocaleDateString()}</span>
+            </div>
+            
+            <div class="meta-item">
+              <i class="fas fa-calendar-check"></i>
+              <span>End: ${new Date(competition.endDate).toLocaleDateString()}</span>
+            </div>
+            
+            <div class="meta-item">
+              <i class="fas fa-vote-yea"></i>
+              <span>Voting: ${competition.votingType === 'free' ? 'Free' : 
+                `Paid (${competition.talentCoinsPerVote} Talent Coins per vote)`}</span>
+            </div>
+          </div>
+          
+          <div class="categories-container">
+    `;
+    
+    // Add categories
+    competition.categories.forEach(category => {
+      detailsHTML += `<span class="category-tag">${category}</span>`;
+    });
+    
+    detailsHTML += `
+          </div>
+        </div>
+      </div>
+      
+      <div class="competition-body">
+        <div class="competition-section">
+          <h2>Rules</h2>
+          <ol class="rules-list">
+    `;
+    
+    // Add rules
+    competition.rules.forEach(rule => {
+      detailsHTML += `<li>${rule}</li>`;
+    });
+    
+    detailsHTML += `
+          </ol>
+        </div>
+    `;
+    
+    // Add judges section if there are judges
+    if (competition.judges && competition.judges.length > 0) {
+      detailsHTML += `
+        <div class="competition-section">
+          <h2>Judges</h2>
+          <ul class="judges-list">
+      `;
+      
+      competition.judges.forEach(judge => {
+        detailsHTML += `<li>${judge}</li>`;
+      });
+      
+      detailsHTML += `
+          </ul>
+        </div>
+      `;
+    }
+    
+    // Add action buttons based on status and user role
+    detailsHTML += `
+        <div class="competition-actions">
+    `;
+    
+    if (competition.status === 'pending') {
+      if (competition.creatorId === currentUser.uid) {
+        detailsHTML += `
+          <button class="action-btn start-btn" data-id="${competition.id}">
+            <i class="fas fa-play"></i> Start Competition
+          </button>
+        `;
+      } else if (competition.contestants && competition.contestants.includes(currentUser.uid)) {
+        detailsHTML += `
+          <button class="action-btn enter-btn" data-id="${competition.id}">
+                        <i class="fas fa-door-open"></i> Enter Competition
+          </button>
+        `;
+      } else if (competition.contestants && competition.contestants.length >= competition.maxContestants) {
+        detailsHTML += `
+          <button class="action-btn join-btn" disabled>
+            <i class="fas fa-user-plus"></i> Competition Full
+          </button>
+        `;
+      } else {
+        detailsHTML += `
+          <button class="action-btn join-btn" data-id="${competition.id}">
+            <i class="fas fa-user-plus"></i> Join Competition
+          </button>
+        `;
+      }
+    } else if (competition.status === 'live') {
+      detailsHTML += `
+        <button class="action-btn view-btn" data-id="${competition.id}">
+          <i class="fas fa-eye"></i> View Competition
+        </button>
+      `;
+    }
+    
+    detailsHTML += `
+          <a href="competitions.html" class="action-btn back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Competitions
+          </a>
+        </div>
+      </div>
+    `;
+    
+    // Set the HTML
+    detailsContainer.innerHTML = detailsHTML;
+    
+    // Add event listeners to the buttons
+    const startBtn = detailsContainer.querySelector('.start-btn');
+    if (startBtn) {
+      startBtn.addEventListener('click', () => {
+        startCompetition(competition.id);
+      });
+    }
+    
+    const joinBtn = detailsContainer.querySelector('.join-btn:not([disabled])');
+    if (joinBtn) {
+      joinBtn.addEventListener('click', () => {
+        joinCompetition(competition.id);
+      });
+    }
+    
+    const enterBtn = detailsContainer.querySelector('.enter-btn');
+    if (enterBtn) {
+      enterBtn.addEventListener('click', () => {
+        window.location.href = `competition-enter.html?id=${competition.id}`;
+      });
+    }
+    
+    const viewBtn = detailsContainer.querySelector('.view-btn');
+    if (viewBtn) {
+      viewBtn.addEventListener('click', () => {
+        window.location.href = `competition-view.html?id=${competition.id}`;
+      });
+    }
+  }
+  
+  // Show competition rules on the rules page
+  function showCompetitionRules(competitionId) {
+    db.collection('competitions').doc(competitionId).get()
+      .then(doc => {
+        if (doc.exists) {
+          const competition = {
+            id: doc.id,
+            ...doc.data()
+          };
+          
+          // Render rules
+          const rulesContainer = document.getElementById('rulesContainer');
+          const rulesTitle = document.getElementById('rulesTitle');
+          
+          if (rulesContainer && rulesTitle) {
+            rulesTitle.textContent = `Rules for ${competition.title}`;
+            
+            // Create rules list
+            const rulesList = document.createElement('ol');
+            rulesList.className = 'rules-list';
+            
+            competition.rules.forEach(rule => {
+              const li = document.createElement('li');
+              li.textContent = rule;
+              rulesList.appendChild(li);
+            });
+            
+            rulesContainer.innerHTML = '';
+            rulesContainer.appendChild(rulesList);
+            
+            // Add back button
+            const backBtn = document.createElement('a');
+            backBtn.href = `competition-details.html?id=${competitionId}`;
+            backBtn.className = 'action-btn back-btn';
+            backBtn.innerHTML = '<i class="fas fa-arrow-left"></i> Back to Competition';
+            rulesContainer.appendChild(backBtn);
+          }
+        } else {
+          console.error("Competition not found");
+          // Redirect to main competitions page
+          window.location.href = 'competitions.html';
+        }
+      })
+      .catch(error => {
+        console.error("Error loading competition rules:", error);
+      });
+  }
+  
+  // Join a competition
+  function joinCompetition(competitionId) {
+    // Update Firestore
+    db.collection('competitions').doc(competitionId).update({
+      contestants: firebase.firestore.FieldValue.arrayUnion(currentUser.uid)
+    })
+    .then(() => {
+      // Update local data
+      const competition = pendingCompetitions.find(comp => comp.id === competitionId);
+      if (competition) {
+        if (!competition.contestants) {
+          competition.contestants = [];
+        }
+        competition.contestants.push(currentUser.uid);
+        
+        // Refresh the current page to show updated state
+        window.location.reload();
+      }
+    })
+    .catch(error => {
+      console.error("Error joining competition:", error);
+      alert('Error joining competition. Please try again.');
+    });
+  }
+  
+  // Start a competition (move from pending to live)
+  function startCompetition(competitionId) {
+    const competition = pendingCompetitions.find(comp => comp.id === competitionId);
+    
+    if (competition && competition.creatorId === currentUser.uid) {
+      // Confirm start
+      if (confirm(`Are you sure you want to start ${competition.title} now? This will move it to the Live tab.`)) {
+        // Update Firestore
+        db.collection('competitions').doc(competitionId).update({
+          status: 'live',
+          startedAt: firebase.firestore.FieldValue.serverTimestamp()
+        })
+        .then(() => {
+          // Redirect to the live competition view
+          window.location.href = `competition-view.html?id=${competitionId}`;
+        })
+        .catch(error => {
+          console.error("Error starting competition:", error);
+          alert('Error starting competition. Please try again.');
+        });
+      }
+    }
+  }
+  
+  // Public API
+  return {
+    init,
+    loadCompetitions,
+    renderPendingCompetitions,
+    renderLiveCompetitions
+  };
+})();
+
+// Initialize when the DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  // Check if the user is logged in
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      CompetitionSystem.init(user);
+    } else {
+      // Redirect to login page if not logged in
+      // window.location.href = 'login.html';
+      
+      // For development, you can use a mock user
+      const mockUser = {
+        uid: 'mockUser123',
+        displayName: 'Mock User'
+      };
+      CompetitionSystem.init(mockUser);
+    }
+  });
+});
+    </script>
