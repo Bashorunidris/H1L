@@ -3788,73 +3788,54 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Function to load buy coin requests
-    function loadBuyCoinRequests() {
-        // Show loading state
-        buyRequestCards.innerHTML = `
-            <div class="loading-state">
-                <i class="fas fa-spinner fa-spin"></i>
-                <p>Loading buy requests...</p>
-            </div>
-        `;
-        
-        // Get data from Firebase
-        const db = firebase.firestore();
-        db.collection('buyRequests')
-            .orderBy('timestamp', 'desc')
-            .get()
-            .then(snapshot => {
-                // Process the data
-                if (snapshot.empty) {
-                    showEmptyState();
-                    updateCounters(0, 0);
-                    return;
-                }
-                
-                const requests = [];
-                let pendingCount = 0;
-                let todayCount = 0;
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
-                
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    const request = {
-                        id: doc.id,
-                        ...data,
-                        timestamp: data.timestamp ? data.timestamp.toDate() : new Date()
-                    };
-                    
-                    requests.push(request);
-                    
-                    // Count pending requests
-                    if (data.status === 'pending') {
-                        pendingCount++;
-                    }
-                    
-                    // Count today's requests
-                    if (request.timestamp >= today) {
-                        todayCount++;
-                    }
-                });
-                
-                // Update counters
-                updateCounters(pendingCount, todayCount);
-                
-                // Render the requests
-                renderBuyRequests(requests);
-                
-                // Apply current filter
-                const currentFilter = getCurrentFilter();
-                if (currentFilter !== 'all') {
-                    filterBuyRequests('', currentFilter);
-                }
-            })
-            .catch(error => {
-                console.error("Error loading buy requests:", error);
-                showErrorState();
-            });
+         // In the support app - loadBuyCoinRequests function
+function loadBuyCoinRequests(statusFilter = 'all') {
+    const requestsContainer = document.getElementById('buyRequestsContainer');
+    if (!requestsContainer) {
+        console.error("Container element not found");
+        return;
     }
+    
+    // Show loading state
+    requestsContainer.innerHTML = '<div class="loading-spinner"></div>';
+    
+    const db = firebase.firestore();
+    
+    // Log the query we're about to make for debugging
+    console.log("Querying buyRequests collection with filter:", statusFilter);
+    
+    let query = db.collection('buyRequests').orderBy('timestamp', 'desc');
+    
+    // Apply status filter if not 'all'
+    if (statusFilter !== 'all') {
+        query = query.where('status', '==', statusFilter);
+    }
+    
+    // Add a console log to see if we're getting data
+    query.get().then(snapshot => {
+        console.log(`Retrieved ${snapshot.size} buy requests`);
+        
+        if (snapshot.empty) {
+            requestsContainer.innerHTML = '<div class="no-requests">No buy requests found</div>';
+            return;
+        }
+        
+        let requestsHTML = '';
+        snapshot.forEach(doc => {
+            const request = doc.data();
+            const requestId = doc.id;
+            console.log("Request data:", request);
+            
+            // Rest of your code to build the HTML...
+        });
+        
+        requestsContainer.innerHTML = requestsHTML;
+    }).catch(error => {
+        console.error('Error loading buy requests:', error);
+        requestsContainer.innerHTML = '<div class="error-message">Error loading requests: ' + error.message + '</div>';
+    });
+}
+
     
     // Function to render buy requests
     function renderBuyRequests(requests) {
@@ -4621,7 +4602,116 @@ function showToast(message, type = 'success') {
 
 
 
+// Add this to your support app
+function testFirebaseAccess() {
+    const db = firebase.firestore();
+    
+    console.log("Testing Firebase access...");
+    
+    // Test reading from buyRequests collection
+    db.collection('buyRequests').limit(1).get()
+        .then(snapshot => {
+            console.log(`Access test: Retrieved ${snapshot.size} documents`);
+            if (!snapshot.empty) {
+                console.log("Sample document:", snapshot.docs[0].data());
+            }
+        })
+        .catch(error => {
+            console.error("Access test failed:", error);
+        });
+}
 
+// Call this function on page load
+document.addEventListener('DOMContentLoaded', function() {
+    testFirebaseAccess();
+});
+
+// In the support app - set up real-time listener
+function setupRealTimeUpdates() {
+    const db = firebase.firestore();
+    
+    console.log("Setting up real-time listener for buy requests");
+    
+    // Listen for changes to buy requests
+    return db.collection('buyRequests')
+        .orderBy('timestamp', 'desc')
+        .onSnapshot(snapshot => {
+            console.log(`Real-time update: ${snapshot.docChanges().length} changes`);
+            
+            // Check if we need to refresh the list
+            let shouldRefresh = false;
+            
+            snapshot.docChanges().forEach(change => {
+                console.log(`Document ${change.doc.id} ${change.type}`);
+                if (change.type === 'added' || change.type === 'modified' || change.type === 'removed') {
+                    shouldRefresh = true;
+                }
+            });
+            
+            if (shouldRefresh) {
+                console.log("Refreshing buy requests list");
+                // Get current filter value
+                const statusFilter = document.getElementById('statusFilter');
+                const currentFilter = statusFilter ? statusFilter.value : 'all';
+                
+                // Reload the requests with current filter
+                loadBuyCoinRequests(currentFilter);
+                
+                // Show notification for new requests
+                if (snapshot.docChanges().some(change => change.type === 'added')) {
+                    showToast('New buy request received', 'info');
+                }
+            }
+        }, error => {
+            console.error('Error in real-time updates:', error);
+        });
+}
+
+// Call this function when admin is authenticated
+document.addEventListener('DOMContentLoaded', function() {
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            const db = firebase.firestore();
+            db.collection('admins').doc(user.uid).get()
+                .then(doc => {
+                    if (doc.exists && doc.data().role === 'admin') {
+                        setupRealTimeUpdates();
+                    }
+                });
+        }
+    });
+});
+
+function manualRefresh() {
+    console.log("Manual refresh triggered");
+    const db = firebase.firestore();
+    
+    db.collection('buyRequests').get()
+        .then(snapshot => {
+            console.log(`Found ${snapshot.size} buy requests`);
+            snapshot.forEach(doc => {
+                console.log(`Request ID: ${doc.id}, Data:`, doc.data());
+            });
+            
+            loadBuyCoinRequests();
+        })
+        .catch(error => {
+            console.error("Error in manual refresh:", error);
+        });
+}
+// Add this to the support app
+window.addEventListener('error', function(event) {
+    console.error('Global error:', event.error);
+});
+// Check this in both apps
+document.addEventListener('DOMContentLoaded', function() {
+    // Log Firebase initialization status
+    if (firebase.apps.length) {
+        console.log("Firebase initialized successfully");
+    } else {
+        console.error("Firebase not initialized");
+    }
+});
 
 </script>
 </body>
