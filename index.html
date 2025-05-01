@@ -3,1810 +3,4626 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rewarder - Monetized Talent Competition</title>
-  
-  <style>
-   
-  /* Base styles for the page */
+    <title>Moderator Support App</title>
+
+<style>
+
+  /* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --primary-color: #4a6cf7;
+    --primary-dark: #3a5bd9;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --background-color: #f5f7fb;
+    --card-color: #ffffff;
+    --text-color: #333333;
+    --text-muted: #6c757d;
+    --border-color: #e0e0e0;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
+}
+
 body {
-  font-family: 'Roboto', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f5f5f5;
-  color: #333;
-  scroll-behavior: smooth;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+.hidden {
+    display: none !important;
 }
 
-/* Button styles */
-.see-more-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 15px;
-  background-color: #3498db;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  text-decoration: none;
-  transition: background-color 0.3s;
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
 }
 
-.see-more-btn i {
-  margin-right: 8px;
+h1 {
+    font-size: 1.8rem;
 }
 
-.see-more-btn:hover {
-  background-color: #2980b9;
+h2 {
+    font-size: 1.5rem;
 }
 
-/* Modal styles */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 1000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-  /* Hidden by default */
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  
-  /* Transition for smooth appearance */
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+h3 {
+    font-size: 1.2rem;
 }
 
-/* Show modal when targeted */
-.modal:target {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
+p {
+    margin-bottom: 1rem;
 }
 
-.modal-content {
-  background-color: #fff;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 800px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  
-  /* Animation for modal content */
-  transform: scale(0.9);
-  transition: transform 0.3s ease;
+/* Buttons */
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: var(--transition);
 }
 
-.modal:target .modal-content {
-  transform: scale(1);
+.primary-btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    transition: var(--transition);
+    width: 100%;
 }
 
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  border-bottom: 1px solid #eee;
+.primary-btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
 }
 
-.modal-header h2 {
-  margin: 0;
-  font-size: 20px;
-  color: #333;
+.secondary-btn {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    transition: var(--transition);
 }
 
-.close-btn {
-  font-size: 24px;
-  color: #777;
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  line-height: 1;
+.secondary-btn:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
 }
 
-.close-btn:hover {
-  color: #e74c3c;
+.icon-btn {
+    background-color: transparent;
+    color: var(--text-color);
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
 }
 
-.modal-body {
-  padding: 20px;
+.icon-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
-/* Form styles */
+.text-btn {
+    background-color: transparent;
+    color: var(--primary-color);
+    padding: 5px 10px;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.text-btn:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+.back-btn {
+    background-color: transparent;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.back-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Forms */
+.input-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: white;
+    transition: var(--transition);
+    font-size: 14px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.2);
+    outline: none;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.password-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    background: transparent;
+    border: none;
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+
+.error-message {
+    color: var(--danger-color);
+    font-size: 14px;
+    margin-top: 5px;
+    min-height: 20px;
+}
+
+.radio-group {
+    display: flex;
+    gap: 20px;
+    margin-top: 5px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.radio-label input {
+    margin-right: 8px;
+}
+
+
+/* Login Screen Styles */
+.login-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.login-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    padding: 2rem;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.app-logo {
+    width: 80px;
+    height: 80px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 1rem;
+}
+
+.app-logo i {
+    font-size: 40px;
+    color: white;
+}
+
+.login-header h1 {
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
 .form-group {
-  margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
 }
 
-.form-control {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
+.input-group {
+    position: relative;
 }
 
-.form-row {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 15px;
+.input-group input {
+    width: 100%;
+    padding: 12px 16px;
+    padding-right: 40px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.form-col {
-  flex: 1;
+.input-group input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.2);
+    outline: none;
 }
 
-/* Background options */
-.background-options {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-  flex-wrap: wrap;
+.input-group i {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
 }
 
-.background-option {
-  width: 60px;
-  height: 60px;
-  border-radius: 4px;
-  background-size: cover;
-  background-position: center;
-  cursor: pointer;
-  border: 2px solid transparent;
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.background-option.selected {
-  border-color: #3498db;
+.toggle-password:hover {
+    color: var(--primary-color);
 }
 
-/* Category options */
-.category-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 10px;
+.error-message {
+    color: var(--error-color);
+    font-size: 0.9rem;
+    min-height: 20px;
+    text-align: center;
 }
 
-.category-option {
-  padding: 8px 15px;
-  background-color: #f1f1f1;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+.login-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
 }
 
-.category-option:hover {
-  background-color: #e0e0e0;
+.login-btn:hover {
+    background-color: var(--primary-dark);
 }
 
-.category-option.selected {
-  background-color: #3498db;
-  color: white;
+.login-btn:disabled {
+    background-color: var(--disabled-color);
+    cursor: not-allowed;
 }
 
-/* Switch styles */
-.switch-container {
-  display: flex;
-  align-items: center;
+.login-footer {
+    margin-top: 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
 }
 
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 24px;
-  margin-right: 10px;
+.version {
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    opacity: 0.7;
 }
 
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+/* Toast notification */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 1100;
 }
 
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: .4s;
-  border-radius: 24px;
+.toast.show {
+    transform: translateY(0);
+    opacity: 1;
 }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 16px;
-  width: 16px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: .4s;
-  border-radius: 50%;
+.toast.success .toast-icon {
+    color: var(--success-color);
 }
 
-input:checked + .slider {
-  background-color: #3498db;
+.toast.error .toast-icon {
+    color: var(--error-color);
 }
 
-input:checked + .slider:before {
-  transform: translateX(26px);
+.toast.info .toast-icon {
+    color: var(--info-color);
 }
 
-/* Rules and judges containers */
-.rules-container, .judges-container {
-  margin-bottom: 10px;
+.toast.warning .toast-icon {
+    color: var(--warning-color);
 }
 
-.rule-item, .judge-item {
-  display: flex;
-  margin-bottom: 10px;
+.toast-icon i {
+    font-size: 20px;
 }
 
-.rule-input, .judge-input {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+.toast-message {
+    font-size: 0.95rem;
+    color: var(--text-color);
 }
 
-.remove-rule-btn, .remove-judge-btn {
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  width: 30px;
-  border-radius: 4px;
-  margin-left: 10px;
-  cursor: pointer;
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    .login-container {
+        background-color: var(--card-bg-dark);
+    }
+    
+    .input-group input {
+        background-color: var(--input-bg-dark);
+        color: var(--text-color-dark);
+        border-color: var(--border-color-dark);
+    }
+    
+    .toast {
+        background-color: var(--card-bg-dark);
+    }
+    
+    .toast-message {
+        color: var(--text-color-dark);
+    }
 }
 
-.add-rule-btn, .add-judge-btn {
-  background-color: #3498db;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 4px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
+
+
+.app-header {
+    background-color: var(--card-color);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-.add-rule-btn i, .add-judge-btn i {
-  margin-right: 8px;
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-/* Form actions */
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 15px;
-  margin-top: 20px;
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
-.cancel-btn {
-  padding: 10px 20px;
-  background-color: #95a5a6;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.moderator-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
-.create-btn {
-  padding: 10px 20px;
-  background-color: #2ecc71;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.moderator-name {
+    font-weight: 600;
 }
 
-/* Competition grid */
-.all-competitions-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
+.status-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
 }
 
-/* Rules modal */
-.rules-modal-content {
-  padding: 20px;
+.status-badge.online {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: var(--success-color);
 }
 
-.rules-list {
-  padding-left: 20px;
+.status-badge.pending {
+    background-color: rgba(255, 193, 7, 0.1);
+    color: var(--warning-color);
 }
 
-.rules-list li {
-  margin-bottom: 10px;
+.status-badge.completed {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: var(--success-color);
 }
 
-/* Tab styles */
-.tabs {
-  display: flex;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 20px;
+.status-badge.rejected {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: var(--danger-color);
+}
+
+.status-badge.failed {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: var(--danger-color);
+}
+
+.dashboard-content {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Action Cards */
+.action-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.action-card {
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: var(--transition);
+    cursor: pointer;
+    position: relative;
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-icon {
+    background-color: rgba(74, 108, 247, 0.1);
+    color: var(--primary-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.card-content {
+    flex: 1;
+}
+
+.card-content h3 {
+    margin-bottom: 5px;
+}
+
+.card-content p {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--danger-color);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Activity Summary */
+.activity-summary {
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.summary-card {
+    background-color: rgba(74, 108, 247, 0.05);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    text-align: center;
+}
+
+.summary-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.summary-label {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* Recent Activity */
+.recent-activity {
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+}
+
+.activity-list {
+    margin-top: 15px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    color: var(--primary-color);
+    font-size: 12px;
+}
+
+.activity-details {
+    flex: 1;
+}
+
+.activity-title {
+    font-weight: 500;
+}
+
+.activity-time {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+/* Feature Sections */
+.feature-section {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    background-color: var(--card-color);
+    padding: 15px 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: auto;
+}
+
+.filter-dropdown {
+    position: relative;
+}
+
+.filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: rgba(74, 108, 247, 0.1);
+    color: var(--primary-color);
+    padding: 8px 15px;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    min-width: 150px;
+    z-index: 10;
+    display: none;
+}
+
+.filter-dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 15px;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.dropdown-menu a:hover {
+    background-color: rgba(74, 108, 247, 0.05);
+}
+
+.dropdown-menu a.active {
+    background-color: rgba(74, 108, 247, 0.1);
+    color: var(--primary-color);
+}
+
+.search-box {
+    position: relative;
+    width: 250px;
+}
+
+.search-box input {
+    padding-right: 35px;
+}
+
+.search-box i {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+}
+
+/* Request Cards */
+.request-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.request-card {
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 15px;
+    transition: var(--transition);
+    cursor: pointer;
+}
+.request-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.request-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.user-info .username {
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.request-id {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.request-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.detail-item {
+    font-size: 14px;
+}
+
+.detail-label {
+    color: var(--text-muted);
+    margin-right: 5px;
+}
+
+.detail-value {
+    font-weight: 500;
+}
+
+/* Transfer Tabs and Lists */
+.transfer-tabs {
+    display: flex;
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    overflow-x: auto;
 }
 
 .tab {
-  padding: 10px 20px;
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
+    padding: 15px 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
 }
 
 .tab.active {
-  border-bottom-color: #3498db;
-  color: #3498db;
-}
-
-.tab-contents {
-  position: relative;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
 }
 
 .tab-content {
-  display: none;
+    display: none;
 }
 
 .tab-content.active {
-  display: block;
+    display: block;
 }
 
-/* Empty state */
+.transfer-list, .report-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.transfer-item, .report-item {
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 15px;
+    transition: var(--transition);
+}
+
+.transfer-item:hover, .report-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.transfer-header, .report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.transfer-title, .report-title {
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.transfer-id, .report-id {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.transfer-details, .report-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.report-message {
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: var(--border-radius);
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.report-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Talent Coin Dispenser */
+.dispenser-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 992px) {
+    .dispenser-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.dispenser-form {
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+}
+
+.user-info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.refresh-btn {
+    cursor: pointer;
+    color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.refresh-btn:hover {
+    transform: rotate(180deg);
+}
+
+.user-info-content {
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.user-info-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.info-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-label {
+    color: var(--text-muted);
+}
+
+.info-value {
+    font-weight: 500;
+}
+
+.recent-transactions {
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+}
+
+.transaction-list {
+    margin-top: 15px;
+}
+
+.transaction-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.transaction-item:last-child {
+    border-bottom: none;
+}
+
+.transaction-icon {
+    background-color: rgba(74, 108, 247, 0.1);
+    color: var(--primary-color);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.transaction-details {
+    flex: 1;
+}
+
+.transaction-title {
+    font-weight: 500;
+}
+
+.transaction-time {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.transaction-amount {
+    font-weight: 600;
+}
+
+.transaction-amount.credit {
+    color: var(--success-color);
+}
+
+.transaction-amount.debit {
+    color: var(--danger-color);
+}
+
+/* Modals */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: translateY(-20px);
+    transition: var(--transition);
+}
+
+.modal.active .modal-content {
+    transform: translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.close-modal {
+    background-color: transparent;
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.close-modal:hover {
+    color: var(--danger-color);
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    padding: 15px 20px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Request Details Modal */
+.request-details-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(74, 108, 247, 0.1);
+    color: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.details-section {
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: var(--border-radius);
+    padding: 15px;
+}
+
+.details-section h4 {
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.detail-row {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.screenshot-container {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.screenshot-container img {
+    max-width: 100%;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.action-notes {
+    margin-bottom: 15px;
+}
+
+.wallet-copy-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(74, 108, 247, 0.05);
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    margin-bottom: 5px;
+}
+
+.copy-btn {
+    background-color: transparent;
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.copy-message {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.transfer-confirmation {
+    margin-bottom: 15px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.checkbox-label input {
+    margin-top: 3px;
+}
+
+/* Toast Notifications */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--success-color);
+    color: white;
+    padding: 15px 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: var(--transition);
+}
+
+.toast.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.toast.error {
+    background-color: var(--danger-color);
+}
+
+.toast-icon {
+    font-size: 1.2rem;
+}
+
+/* Empty States */
 .empty-state {
-  text-align: center;
-  padding: 40px 20px;
-  color: #95a5a6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+    text-align: center;
 }
 
 .empty-state i {
-  font-size: 48px;
-  margin-bottom: 15px;
+    font-size: 3rem;
+    margin-bottom: 15px;
+    opacity: 0.5;
 }
 
-/* Fix for the rules modal close button */
-#rulesModal .close-btn {
-  font-size: 24px;
-  color: #777;
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  line-height: 1;
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .action-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .summary-cards {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .request-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .header-actions {
+        width: 100%;
+        margin-top: 15px;
+        margin-left: 0;
+    }
+    
+    .search-box {
+        width: 100%;
+    }
+    
+    .transfer-tabs {
+        overflow-x: auto;
+    }
 }
 
-/* Make sure the rules modal close button works with the target approach */
-#rulesModal .close-btn {
-  display: inline-block;
+@media (max-width: 576px) {
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .app-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .header-left, .header-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .modal-content {
+        width: 95%;
+    }
 }
 
 
-  </style>
+
+/* Fees Reporter Specific Styles */
+
+/* Fee Summary Cards */
+.fee-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.summary-card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.summary-card:hover {
+    transform: translateY(-5px);
+}
+
+.summary-card h3 {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.summary-card .amount {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+}
+
+.summary-card .card-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    opacity: 0.2;
+}
+
+.summary-card.total {
+    border-left: 4px solid #4CAF50;
+}
+
+.summary-card.total .card-icon {
+    color: #4CAF50;
+}
+
+.summary-card.today {
+    border-left: 4px solid #2196F3;
+}
+
+.summary-card.today .card-icon {
+    color: #2196F3;
+}
+
+.summary-card.week {
+    border-left: 4px solid #FF9800;
+}
+
+.summary-card.week .card-icon {
+    color: #FF9800;
+}
+
+.summary-card.month {
+    border-left: 4px solid #9C27B0;
+}
+
+.summary-card.month .card-icon {
+    color: #9C27B0;
+}
+
+/* Charts Container */
+.charts-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.chart-card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.chart-card h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Transactions Section */
+.transactions-section {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    font-size: 20px;
+    color: #333;
+}
+
+.actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.search-container {
+    position: relative;
+}
+
+.search-container input {
+    padding: 8px 15px 8px 35px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 200px;
+}
+
+.search-container i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+.filter-container select {
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+.custom-date-range {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.custom-date-range input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.custom-date-range button {
+    padding: 8px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.export-btn {
+    padding: 8px 15px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s;
+}
+
+.export-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* Table Styles */
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead th {
+    background-color: #f5f5f5;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 2px solid #ddd;
+    position: relative;
+    cursor: pointer;
+}
+
+thead th i {
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+tbody td {
+    padding: 12px 15px;
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    color: #555;
+}
+
+tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.fee-amount {
+    font-weight: 600;
+    color: #4CAF50;
+}
+
+.view-details-btn {
+    padding: 6px 12px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.3s;
+}
+
+.view-details-btn:hover {
+    background-color: #0b7dda;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pagination button {
+    width: 36px;
+    height: 36px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.pagination button:hover {
+    background-color: #f5f5f5;
+}
+
+.pagination button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+#pageNumbers {
+    display: flex;
+    gap: 5px;
+}
+
+#pageNumbers span {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#pageNumbers span:hover {
+    background-color: #f5f5f5;
+}
+
+#pageNumbers span.active {
+    background-color: #2196F3;
+    color: white;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+.modal h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 22px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.transaction-details {
+    margin-bottom: 25px;
+}
+
+.detail-row {
+    display: flex;
+    margin-bottom: 12px;
+}
+
+.detail-row .label {
+    width: 40%;
+    font-weight: 600;
+    color: #555;
+}
+
+.detail-row .value {
+    width: 60%;
+    color: #333;
+}
+
+.related-transaction {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.related-transaction h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.view-related-btn {
+    padding: 8px 15px;
+    background-color: #FF9800;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.view-related-btn:hover {
+    background-color: #e68a00;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    .fee-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .charts-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .actions {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    
+    .search-container input {
+        width: 100%;
+    }
+    
+    .fee-summary {
+        grid-template-columns: 1fr;
+    }
+    
+    .detail-row {
+        flex-direction: column;
+    }
+    
+    .detail-row .label,
+    .detail-row .value {
+        width: 100%;
+    }
+    
+    .detail-row .label {
+        margin-bottom: 5px;
+    }
+}
+
+/* Animation for cards */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.summary-card {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.summary-card:nth-child(1) { animation-delay: 0.1s; }
+.summary-card:nth-child(2) { animation-delay: 0.2s; }
+.summary-card:nth-child(3) { animation-delay: 0.3s; }
+.summary-card:nth-child(4) { animation-delay: 0.4s; }
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #888;
+}
+
+.empty-state i {
+    font-size: 48px;
+    margin-bottom: 15px;
+    opacity: 0.3;
+}
+
+.empty-state p {
+    font-size: 16px;
+    margin: 0;
+}
+
+/* Buy Coin Support Styles */
+
+/* Request Cards */
+.request-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.request-card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.request-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.user-info {
+    flex: 1;
+}
+
+.username {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.request-id {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    display: block;
+    margin-top: 0.25rem;
+}
+
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.status-badge.pending {
+    background-color: var(--warning-light);
+    color: var(--warning-color);
+}
+
+.status-badge.completed {
+    background-color: var(--success-light);
+    color: var(--success-color);
+}
+
+.status-badge.rejected {
+    background-color: var(--error-light);
+    color: var(--error-color);
+}
+
+.card-details {
+    padding: 1rem;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.detail-row:last-child {
+    margin-bottom: 0;
+}
+
+.detail-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.detail-value {
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* Empty and Loading States */
+.empty-state, .loading-state, .error-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    text-align: center;
+    grid-column: 1 / -1;
+}
+
+.empty-state i, .loading-state i, .error-state i {
+    font-size: 3rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.empty-state p, .loading-state p, .error-state p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin: 0;
+}
+
+.error-state i {
+    color: var(--error-color);
+}
+
+.retry-btn {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.retry-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Request Details Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    margin: 2rem auto;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--text-color);
+}
+
+.close-modal {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-modal:hover {
+    color: var(--text-color);
+}
+
+.modal-body {
+    padding: 1.5rem;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+/* Request Details */
+.request-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.user-header {
+    margin-bottom: 0.5rem;
+}
+
+.user-header .username {
+    font-size: 1.3rem;
+    margin-bottom: 0.25rem;
+}
+
+.user-header .wallet-id {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.details-section {
+    background-color: var(--bg-color);
+    border-radius: 8px;
+    padding: 1.25rem;
+}
+
+.details-section h4 {
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+.screenshot-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.screenshot-container img {
+    max-width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.view-full-btn {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.view-full-btn:hover {
+    text-decoration: underline;
+}
+
+.wallet-copy {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    font-family: monospace;
+    font-size: 0.9rem;
+    word-break: break-all;
+}
+
+.copy-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+.copy-btn:hover {
+    color: var(--primary-dark);
+}
+
+#moderatorNotes {
+    width: 100%;
+    min-height: 100px;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 0.95rem;
+    resize: vertical;
+}
+
+#moderatorNotes:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* Buttons */
+.btn {
+    padding: 0.75rem 1.25rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    border: none;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.btn-secondary {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--border-color);
+}
+
+.btn-success {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: var(--success-dark);
+}
+
+.btn-danger {
+    background-color: var(--error-color);
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: var(--error-dark);
+}
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 0;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 1100;
+    overflow: hidden;
+}
+
+.toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.toast-content {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    gap: 12px;
+}
+
+.toast.success {
+    border-left: 4px solid var(--success-color);
+}
+
+.toast.error {
+    border-left: 4px solid var(--error-color);
+}
+
+.toast.info {
+    border-left: 4px solid var(--info-color);
+}
+
+.toast.warning {
+    border-left: 4px solid var(--warning-color);
+}
+
+.toast.success .toast-icon {
+    color: var(--success-color);
+}
+
+.toast.error .toast-icon {
+    color: var(--error-color);
+}
+
+.toast.info .toast-icon {
+    color: var(--info-color);
+}
+
+.toast.warning .toast-icon {
+    color: var(--warning-color);
+}
+
+.toast-icon i {
+    font-size: 20px;
+}
+
+.toast-message {
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    .request-card {
+        background-color: var(--card-bg-dark);
+    }
+    
+    .modal-content {
+        background-color: var(--card-bg-dark);
+    }
+    
+    .details-section {
+        background-color: var(--bg-color-dark);
+    }
+    
+    .wallet-copy {
+        background-color: var(--input-bg-dark);
+        border-color: var(--border-color-dark);
+    }
+    
+    #moderatorNotes {
+        background-color: var(--input-bg-dark);
+        border-color: var(--border-color-dark);
+    }
+    
+    .btn-secondary {
+        background-color: var(--bg-color-dark);
+        border-color: var(--border-color-dark);
+    }
+    
+    .toast {
+        background-color: var(--card-bg-dark);
+    }
+    
+    .toast-message {
+        color: var(--text-color-dark);
+    }
+}
+
+</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <!-- Main Competitions Page -->
-<div class="competitions-container">
-  <div class="competitions-header">
-    <h1>Competitions</h1>
-    <button id="createCompetitionBtn" class="create-btn">
-      <i class="fas fa-plus"></i> Create Competition
-    </button>
-  </div>
-  
-  <div class="competitions-tabs">
-    <div class="competition-tab active" data-tab="pending">
-      <i class="fas fa-hourglass-start"></i> Pending
-    </div>
-    <div class="competition-tab" data-tab="live">
-      <i class="fas fa-broadcast-tower"></i> Live
-    </div>
-  </div>
-  
-  <div id="pendingCompetitionsTab" class="competition-tab-content active">
-    <div class="tab-header">
-      <h2>Pending Competitions</h2>
-      <button id="seeMorePendingBtn" class="see-more-btn">
-        See All <i class="fas fa-chevron-right"></i>
-      </button>
-    </div>
-    
-    <div id="pendingCompetitions" class="competitions-carousel">
-      <!-- Pending competitions will be loaded here -->
-      <div id="pendingEmptyState" class="empty-state">
-        <i class="fas fa-hourglass-start"></i>
-        <h3>No Pending Competitions</h3>
-        <p>Create a new competition to get started!</p>
-      </div>
-    </div>
-  </div>
-  
-  <div id="liveCompetitionsTab" class="competition-tab-content">
-    <div class="tab-header">
-      <h2>Live Competitions</h2>
-      <button id="seeMoreLiveBtn" class="see-more-btn">
-        See All <i class="fas fa-chevron-right"></i>
-      </button>
-    </div>
-    
-    <div id="liveCompetitions" class="competitions-carousel">
-      <!-- Live competitions will be loaded here -->
-      <div id="liveEmptyState" class="empty-state">
-        <i class="fas fa-trophy"></i>
-        <h3>No Live Competitions</h3>
-        <p>Start a pending competition to make it live!</p>
-      </div>
-    </div>
-  </div>
-</div>
-     
-   <!-- Create Competition Page -->
-<div class="create-competition-container">
-  <div class="create-competition-header">
-    <h1>Create New Competition</h1>
-  </div>
-  
-  <form id="createCompetitionForm" class="create-competition-form">
-    <div class="form-section">
-      <h2>Basic Information</h2>
-      
-      <div class="form-group">
-        <label for="competitionTitle">Competition Title</label>
-        <input type="text" id="competitionTitle" placeholder="Enter a catchy title" required>
-      </div>
-      
-      <div class="form-group">
-        <label>Background</label>
-        <div class="background-options">
-          <div class="background-type">
-            <input type="radio" id="bgImage" name="backgroundType" value="image" checked>
-            <label for="bgImage">Choose Image</label>
-            
-            <div class="background-selection">
-              <div class="background-option selected" data-bg="https://images.unsplash.com/photo-1542038784456-1ea8e935640e">
-                <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=100&h=100&fit=crop" alt="Background 1">
-              </div>
-              <div class="background-option" data-bg="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4">
-                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=100&h=100&fit=crop" alt="Background 2">
-              </div>
-              <div class="background-option" data-bg="https://images.unsplash.com/photo-1560419015-7c427e8ae5ba">
-                <img src="https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?w=100&h=100&fit=crop" alt="Background 3">
-              </div>
-              <div class="background-option" data-bg="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4">
-                <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=100&h=100&fit=crop" alt="Background 4">
-              </div>
+   
+    <div class="login-screen" id="loginScreen">
+        <div class="login-container">
+            <div class="login-header">
+                <div class="app-logo">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h1>Support Admin</h1>
             </div>
-          </div>
-          
-          <div class="background-type">
-            <input type="radio" id="bgColor" name="backgroundType" value="color">
-            <label for="bgColor">Choose Color</label>
-            <input type="color" id="backgroundColor" value="#3498db">
-          </div>
-          
-          <div class="background-type">
-            <input type="radio" id="bgCustom" name="backgroundType" value="custom">
-            <label for="bgCustom">Custom URL</label>
-            <input type="url" id="customBackgroundUrl" placeholder="Enter image URL">
-          </div>
+            
+            <div class="login-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <div class="input-group">
+                        <input type="email" id="email" placeholder="Enter your email" autocomplete="email">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-group">
+                        <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password">
+                        <button type="button" id="togglePassword" class="toggle-password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="error-message" id="loginError"></div>
+                
+                <button type="button" id="loginBtn" class="login-btn">Login</button>
+                
+                <div class="login-footer">
+                    <p>Talent Coin Support Admin Panel</p>
+                    <p class="version">Version 1.0.0</p>
+                </div>
+            </div>
         </div>
-      </div>
-      
-      <div class="form-group">
-        <label>Categories (Select up to 3)</label>
-        <div class="categories-selection">
-          <div class="category-option" data-category="Art">
-            <i class="fas fa-palette"></i> Art
-          </div>
-          <div class="category-option" data-category="Music">
-            <i class="fas fa-music"></i> Music
-          </div>
-          <div class="category-option" data-category="Dance">
-            <i class="fas fa-running"></i> Dance
-          </div>
-          <div class="category-option" data-category="Photography">
-            <i class="fas fa-camera"></i> Photography
-          </div>
-          <div class="category-option" data-category="Design">
-            <i class="fas fa-pencil-ruler"></i> Design
-          </div>
-          <div class="category-option" data-category="Cooking">
-            <i class="fas fa-utensils"></i> Cooking
-          </div>
-          <div class="category-option" data-category="Writing">
-            <i class="fas fa-pen-fancy"></i> Writing
-          </div>
-          <div class="category-option" data-category="Fashion">
-            <i class="fas fa-tshirt"></i> Fashion
-          </div>
-        </div>
-      </div>
     </div>
     
-    <div class="form-section">
-      <h2>Competition Settings</h2>
-      
-      <div class="form-group">
-        <label for="maxContestants">Maximum Contestants</label>
-        <input type="number" id="maxContestants" min="5" max="100" value="20" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="votingType">Voting Type</label>
-        <select id="votingType" required>
-          <option value="free">Free Voting</option>
-          <option value="paid">Paid Voting (Talent Coins)</option>
-        </select>
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <div class="toast-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="toast-message">Operation successful</div>
+    </div>
+    
+    <!-- Main Dashboard -->
+    <div class="dashboard hidden" id="dashboard">
+        <header class="app-header">
+            <div class="header-left">
+                <div class="app-logo">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h1>Support Dashboard</h1>
+            </div>
+            
+            <div class="header-right">
+                <div class="moderator-info">
+                    <span class="moderator-name">Moderator</span>
+                    <span class="status-badge online">Online</span>
+                </div>
+                <button class="icon-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </header>
         
-        <div id="paidVotingOptions" style="display: none;">
-          <label for="talentCoinsPerVote">Talent Coins per Vote</label>
-          <input type="number" id="talentCoinsPerVote" min="1" value="10">
-        </div>
-      </div>
-      
-      <div class="form-group">
-        <label for="startDate">Start Date</label>
-        <input type="datetime-local" id="startDate" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="endDate">End Date</label>
-        <input type="datetime-local" id="endDate" required>
-      </div>
-      
-      <div class="form-group checkbox-group">
-        <input type="checkbox" id="autoStart">
-        <label for="autoStart">Auto-start on start date</label>
-      </div>
+        <main class="dashboard-content">
+            <div class="action-cards">
+                <div class="action-card" id="buyCoinSupportBtn">
+                    <div class="card-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Buy Coin Support</h3>
+                        <p>Manage user coin purchase requests</p>
+                        <div class="badge" id="buyRequestsBadge">0</div>
+                    </div>
+                </div>
+                
+                <div class="action-card" id="withdrawSupportBtn">
+                    <div class="card-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Withdraw Support</h3>
+                        <p>Process user withdrawal requests</p>
+                        <div class="badge" id="withdrawRequestsBadge">0</div>
+                    </div>
+                </div>
+                
+                <div class="action-card" id="transferSupportBtn">
+                    <div class="card-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Transfer Support</h3>
+                        <p>Monitor and manage user transfers</p>
+                        <div class="badge" id="transferIssuesBadge">0</div>
+                    </div>
+                </div>
+                
+                <div class="action-card" id="talentCoinDispenserBtn">
+                    <div class="card-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Talent Coin Dispenser</h3>
+                        <p>Credit or debit user wallets</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="activity-summary">
+                <h2>Today's Activity</h2>
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <div class="summary-value" id="todayBuyRequests">0</div>
+                        <div class="summary-label">Buy Requests</div>
+                    </div>
+                    
+                    <div class="summary-card">
+                        <div class="summary-value" id="todayWithdrawals">0</div>
+                        <div class="summary-label">Withdrawals</div>
+                    </div>
+                    
+                    <div class="summary-card">
+                        <div class="summary-value" id="todayTransfers">0</div>
+                        <div class="summary-label">Transfers</div>
+                    </div>
+                    
+                    <div class="summary-card">
+                        <div class="summary-value" id="todayIssues">0</div>
+                        <div class="summary-label">Issues</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="recent-activity">
+                <h2>Recent Activity</h2>
+                <div class="activity-list" id="recentActivityList">
+                    <!-- Activity items will be loaded here -->
+                    <div class="empty-state">
+                        <i class="fas fa-history"></i>
+                        <p>No recent activity</p>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
     
-    <div class="form-section">
-      <h2>Rules</h2>
-      <p class="form-hint">Add at least 3 rules for your competition</p>
-      
-      <div id="rulesContainer" class="rules-container">
-        <div class="rule-item">
-          <input type="text" class="rule-input" placeholder="Enter rule" value="All submissions must be original work" required>
-          <button type="button" class="remove-rule-btn">×</button>
-        </div>
-        <div class="rule-item">
-          <input type="text" class="rule-input" placeholder="Enter rule" value="Submissions must be made before the deadline" required>
-          <button type="button" class="remove-rule-btn">×</button>
-        </div>
-        <div class="rule-item">
-          <input type="text" class="rule-input" placeholder="Enter rule" value="Respect all participants and judges" required>
-          <button type="button" class="remove-rule-btn">×</button>
-        </div>
-      </div>
-      
-      <button type="button" id="addRuleBtn" class="add-btn">
-        <i class="fas fa-plus"></i> Add Rule
-      </button>
-    </div>
-    
-    <div class="form-section">
-      <h2>Judges (Optional)</h2>
-      <p class="form-hint">Add up to 5 judges for your competition</p>
-      
-      <div id="judgesContainer" class="judges-container">
-        <!-- Judges will be added here -->
-      </div>
-      
-      <button type="button" id="addJudgeBtn" class="add-btn">
-        <i class="fas fa-plus"></i> Add Judge
-      </button>
-    </div>
-    
-    <div class="form-actions">
-      <button type="submit" class="submit-btn">Create Competition</button>
-      <button type="button" id="cancelCreateBtn" class="cancel-btn">Cancel</button>
-    </div>
-  </form>
-</div>
-<!-- All Pending Competitions Page -->
-<div class="all-competitions-container">
-  <div class="all-competitions-header">
-    <h1>All Pending Competitions</h1>
-    <a href="competitions.html" class="back-btn">
-      <i class="fas fa-arrow-left"></i> Back to Competitions
-    </a>
-  </div>
-  
-  <div id="allPendingGrid" class="competitions-grid">
-    <!-- Pending competitions will be loaded here -->
-  </div>
-</div>
-<!-- All Live Competitions Page -->
-<div class="all-competitions-container">
-  <div class="all-competitions-header">
-    <h1>All Live Competitions</h1>
-    <a href="competitions.html" class="back-btn">
-      <i class="fas fa-arrow-left"></i> Back to Competitions
-    </a>
-  </div>
-  
-  <div id="allLiveGrid" class="competitions-grid">
-    <!-- Live competitions will be loaded here -->
-  </div>
-</div>
-<!-- Competition Details Page -->
-<div id="competitionDetails" class="competition-details-container">
-  <!-- Competition details will be loaded here -->
-</div>
-<!-- Competition Rules Page -->
-<div class="competition-rules-container">
-  <div class="competition-rules-header">
-    <h1 id="rulesTitle">Competition Rules</h1>
-  </div>
-  
-  <div id="rulesContainer" class="rules-container">
-    <!-- Rules will be loaded here -->
-  </div>
-</div>
-<!-- View Live Competition Page -->
-<div class="competition-view-container">
-  <div id="liveCompetitionHeader" class="competition-view-header">
-    <!-- Competition header will be loaded here -->
-  </div>
-  
-  <div class="competition-view-tabs">
-    <div class="view-tab active" data-tab="entries">
-      <i class="fas fa-images"></i> Entries
-    </div>
-    <div class="view-tab" data-tab="leaderboard">
-      <i class="fas fa-trophy"></i> Leaderboard
-    </div>
-    <div class="view-tab" data-tab="info">
-      <i class="fas fa-info-circle"></i> Info
-    </div>
-  </div>
-  
-  <div id="entriesTab" class="view-tab-content active">
-    <div id="entriesContainer" class="entries-container">
-      <!-- Entries will be loaded here -->
-    </div>
-  </div>
-  
-  <div id="leaderboardTab" class="view-tab-content">
-    <div id="leaderboardContainer" class="leaderboard-container">
-      <!-- Leaderboard will be loaded here -->
-    </div>
-  </div>
-  
-  <div id="infoTab" class="view-tab-content">
-    <div id="infoContainer" class="info-container">
-      <!-- Competition info will be loaded here -->
-    </div>
-  </div>
-</div>
-<!-- Enter Competition Page -->
-<div class="competition-enter-container">
-  <div id="enterCompetitionHeader" class="competition-enter-header">
-    <!-- Competition header will be loaded here -->
-  </div>
-  
-  <div class="competition-enter-content">
-    <h2>Submit Your Entry</h2>
-    
-    <form id="entryForm" class="entry-form">
-      <div class="form-group">
-        <label for="entryTitle">Entry Title</label>
-        <input type="text" id="entryTitle" placeholder="Give your entry a title" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="entryDescription">Description</label>
-        <textarea id="entryDescription" placeholder="Describe your entry" rows="4" required></textarea>
-      </div>
-      
-      <div class="form-group">
-        <label>Upload Media</label>
-        <div class="upload-container">
-          <div id="uploadPreview" class="upload-preview">
-            <i class="fas fa-cloud-upload-alt"></i>
-            <p>No file selected</p>
-          </div>
-          
-          <div class="upload-controls">
-            <button type="button" id="uploadBtn" class="upload-btn">
-              <i class="fas fa-upload"></i> Choose File
+    <!-- Buy Coin Support Section -->
+    <div class="feature-section hidden" id="buyCoinSupport">
+        <header class="section-header">
+            <button class="back-btn" data-target="dashboard">
+                <i class="fas fa-arrow-left"></i>
             </button>
-            <input type="file" id="entryMedia" accept="image/*,video/*" style="display: none;">
-          </div>
+            <h2>Buy Coin Support</h2>
+            <div class="header-actions">
+                <div class="filter-dropdown">
+                    <button class="filter-btn">
+                        <i class="fas fa-filter"></i>
+                        <span>Filter</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" data-filter="all" class="active">All Requests</a>
+                        <a href="#" data-filter="pending">Pending</a>
+                        <a href="#" data-filter="completed">Completed</a>
+                        <a href="#" data-filter="rejected">Rejected</a>
+                    </div>
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="Search by username or wallet ID">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+        </header>
+        
+        <div class="request-cards" id="buyRequestCards">
+            <!-- Request cards will be loaded here -->
+            <div class="empty-state">
+                <i class="fas fa-coins"></i>
+                <p>No buy requests available</p>
+            </div>
         </div>
-      </div>
-      
-      <div class="form-actions">
-        <button type="submit" class="submit-btn">Submit Entry</button>
-        <a href="competition-details.html" id="cancelEntryBtn" class="cancel-btn">Cancel</a>
-      </div>
-    </form>
-  </div>
+    </div>
+    
+    <!-- Withdraw Support Section -->
+    <div class="feature-section hidden" id="withdrawSupport">
+        <header class="section-header">
+            <button class="back-btn" data-target="dashboard">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h2>Withdraw Support</h2>
+            <div class="header-actions">
+                <div class="filter-dropdown">
+                    <button class="filter-btn">
+                        <i class="fas fa-filter"></i>
+                        <span>Filter</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" data-filter="all" class="active">All Requests</a>
+                        <a href="#" data-filter="pending">Pending</a>
+                        <a href="#" data-filter="completed">Completed</a>
+                        <a href="#" data-filter="rejected">Rejected</a>
+                    </div>
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="Search by username or wallet ID">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+        </header>
+        
+        <div class="request-cards" id="withdrawRequestCards">
+            <!-- Request cards will be loaded here -->
+            <div class="empty-state">
+                <i class="fas fa-money-bill-wave"></i>
+                <p>No withdrawal requests available</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Transfer Support Section -->
+    <div class="feature-section hidden" id="transferSupport">
+        <header class="section-header">
+            <button class="back-btn" data-target="dashboard">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h2>Transfer Support</h2>
+            <div class="header-actions">
+                <div class="filter-dropdown">
+                    <button class="filter-btn">
+                        <i class="fas fa-filter"></i>
+                        <span>Filter</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" data-filter="all" class="active">All Transfers</a>
+                        <a href="#" data-filter="successful">Successful</a>
+                        <a href="#" data-filter="failed">Failed</a>
+                        <a href="#" data-filter="pending">Pending</a>
+                    </div>
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="Search by username or wallet ID">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+        </header>
+        
+        <div class="transfer-tabs">
+            <div class="tab active" data-tab="allTransfers">All Transfers</div>
+            <div class="tab" data-tab="successfulTransfers">Successful</div>
+            <div class="tab" data-tab="failedTransfers">Failed</div>
+            <div class="tab" data-tab="pendingTransfers">Pending</div>
+            <div class="tab" data-tab="reportRoom">Report Room</div>
+        </div>
+        
+        <div class="tab-content active" id="allTransfersTab">
+            <div class="transfer-list" id="allTransfersList">
+                <!-- Transfer items will be loaded here -->
+                <div class="empty-state">
+                    <i class="fas fa-exchange-alt"></i>
+                    <p>No transfers available</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="successfulTransfersTab">
+            <div class="transfer-list" id="successfulTransfersList">
+                <!-- Successful transfers will be loaded here -->
+                <div class="empty-state">
+                    <i class="fas fa-check-circle"></i>
+                    <p>No successful transfers</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="failedTransfersTab">
+            <div class="transfer-list" id="failedTransfersList">
+                <!-- Failed transfers will be loaded here -->
+                <div class="empty-state">
+                    <i class="fas fa-times-circle"></i>
+                    <p>No failed transfers</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="pendingTransfersTab">
+            <div class="transfer-list" id="pendingTransfersList">
+                <!-- Pending transfers will be loaded here -->
+                <div class="empty-state">
+                    <i class="fas fa-clock"></i>
+                    <p>No pending transfers</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="reportRoomTab">
+            <div class="report-list" id="reportList">
+                <!-- Reports will be loaded here -->
+                <div class="empty-state">
+                    <i class="fas fa-flag"></i>
+                    <p>No reports available</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Talent Coin Dispenser Section -->
+    <div class="feature-section hidden" id="talentCoinDispenser">
+        <header class="section-header">
+            <button class="back-btn" data-target="dashboard">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h2>Talent Coin Dispenser</h2>
+        </header>
+        
+        <div class="dispenser-container">
+            <div class="dispenser-form">
+                <div class="input-group">
+                    <label for="walletId">User Wallet ID</label>
+                    <input type="text" id="walletId" placeholder="Enter user's wallet ID">
+                </div>
+                
+                <div class="input-group">
+                    <label for="transactionType">Transaction Type</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="transactionType" value="credit" checked>
+                            <span>Credit (Add Coins)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="transactionType" value="debit">
+                            <span>Debit (Remove Coins)</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="coinAmount">Amount (Talent Coins)</label>
+                    <input type="number" id="coinAmount" placeholder="Enter amount">
+                </div>
+                
+                <div class="input-group">
+                    <label for="transactionReason">Reason</label>
+                    <select id="transactionReason">
+                        <option value="">Select reason</option>
+                        <option value="buy">Buy Coin Verification</option>
+                        <option value="withdraw">Withdrawal Processing</option>
+                        <option value="refund">Refund</option>
+                        <option value="bonus">Bonus</option>
+                        <option value="correction">Balance Correction</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="input-group" id="otherReasonGroup" style="display: none;">
+                    <label for="otherReason">Specify Reason</label>
+                    <input type="text" id="otherReason" placeholder="Enter specific reason">
+                </div>
+                
+                <div class="input-group">
+                    <label for="transactionNotes">Notes (Optional)</label>
+                    <textarea id="transactionNotes" placeholder="Add any additional notes"></textarea>
+                </div>
+                
+                <button class="primary-btn" id="processTransactionBtn">Process Transaction</button>
+            </div>
+            
+            <div class="user-info-header">
+                <h3>User Information</h3>
+                <div class="refresh-btn" id="refreshUserInfo">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+            </div>
+            
+            <div class="user-info-content" id="userInfoContent">
+                <div class="empty-state">
+                    <i class="fas fa-user"></i>
+                    <p>Enter a wallet ID to view user information</p>
+                </div>
+            </div>
+            
+            <div class="user-info-details hidden" id="userInfoDetails">
+                <div class="info-group">
+                    <span class="info-label">Username:</span>
+                    <span class="info-value" id="userUsername">-</span>
+                </div>
+                
+                <div class="info-group">
+                    <span class="info-label">Wallet ID:</span>
+                    <span class="info-value" id="userWalletId">-</span>
+                </div>
+                
+                <div class="info-group">
+                    <span class="info-label">Current Balance:</span>
+                    <span class="info-value" id="userBalance">-</span>
+                </div>
+                
+                <div class="info-group">
+                    <span class="info-label">Commission Balance:</span>
+                    <span class="info-value" id="userCommission">-</span>
+                </div>
+                
+                <div class="info-group">
+                    <span class="info-label">Account Status:</span>
+                    <span class="info-value status-badge" id="userStatus">-</span>
+                </div>
+                
+                <div class="info-group">
+                    <span class="info-label">Last Transaction:</span>
+                    <span class="info-value" id="userLastTransaction">-</span>
+                </div>
+            </div>
+            
+            <div class="recent-transactions">
+                <h3>Recent Transactions</h3>
+                <div class="transaction-list" id="userTransactionList">
+                    <div class="empty-state">
+                        <i class="fas fa-history"></i>
+                        <p>No transactions to display</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-  
-  <!-- Firebase Scripts -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
-  
-  <script>
+<!-- Request Details Modal -->
+<div class="modal" id="requestDetailsModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalTitle">Request Details</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        
+        <div class="modal-body" id="requestDetailsContent">
+            <!-- Request details will be loaded here -->
+        </div>
+        
+        <div class="modal-footer">
+            <div class="action-buttons" id="requestActionButtons">
+                <button class="secondary-btn" id="rejectRequestBtn">Reject</button>
+                <button class="primary-btn" id="approveRequestBtn">Approve</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal" id="confirmationModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="confirmationTitle">Confirmation</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        
+        <div class="modal-body">
+            <div class="confirmation-message" id="confirmationMessage">
+                Are you sure you want to proceed with this action?
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+            <button class="secondary-btn" id="cancelConfirmationBtn">Cancel</button>
+            <button class="primary-btn" id="confirmActionBtn">Confirm</button>
+        </div>
+    </div>
+</div>
+
+<!-- Success/Error Toast -->
+<div class="toast" id="toast">
+    <div class="toast-icon">
+        <i class="fas fa-check-circle"></i>
+    </div>
+    <div class="toast-message">Operation completed successfully</div>
+</div>
+
+<!-- Templates for dynamic content -->
+<template id="activityItemTemplate">
+    <div class="activity-item">
+        <div class="activity-icon">
+            <i class="fas fa-circle"></i>
+        </div>
+        <div class="activity-details">
+            <div class="activity-title">Activity Title</div>
+            <div class="activity-time">Time</div>
+        </div>
+    </div>
+</template>
+
+<template id="requestCardTemplate">
+    <div class="request-card">
+        <div class="request-header">
+            <div class="user-info">
+                <div class="username">Username</div>
+                <div class="request-id">ID: REQ12345</div>
+            </div>
+            <div class="request-status">
+                <span class="status-badge">Status</span>
+            </div>
+        </div>
+        <div class="request-details">
+            <div class="detail-item">
+                <span class="detail-label">Amount:</span>
+                <span class="detail-value">100 Talent Coins</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Date:</span>
+                <span class="detail-value">2023-08-15 14:30</span>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="transferItemTemplate">
+    <div class="transfer-item">
+        <div class="transfer-header">
+            <div class="transfer-info">
+                <div class="transfer-title">Transfer Title</div>
+                <div class="transfer-id">ID: TRX12345</div>
+            </div>
+            <div class="transfer-status">
+                <span class="status-badge">Status</span>
+            </div>
+        </div>
+        <div class="transfer-details">
+            <div class="detail-item">
+                <span class="detail-label">From:</span>
+                <span class="detail-value">WL123456</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">To:</span>
+                <span class="detail-value">WL789012</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Amount:</span>
+                <span class="detail-value">50 Talent Coins</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Date:</span>
+                <span class="detail-value">2023-08-15 14:30</span>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="reportItemTemplate">
+    <div class="report-item">
+        <div class="report-header">
+            <div class="report-info">
+                <div class="report-title">Report Title</div>
+                <div class="report-id">ID: RPT12345</div>
+            </div>
+            <div class="report-status">
+                <span class="status-badge">Status</span>
+            </div>
+        </div>
+        <div class="report-details">
+            <div class="detail-item">
+                <span class="detail-label">Reported by:</span>
+                <span class="detail-value">Username</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Transaction:</span>
+                <span class="detail-value">TRX12345</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Date:</span>
+                <span class="detail-value">2023-08-15 14:30</span>
+            </div>
+        </div>
+        <div class="report-message">
+            Report message goes here...
+        </div>
+        <div class="report-actions">
+            <button class="text-btn">View Details</button>
+            <button class="text-btn">Mark as Resolved</button>
+        </div>
+    </div>
+</template>
+
+<template id="transactionItemTemplate">
+    <div class="transaction-item">
+        <div class="transaction-icon">
+            <i class="fas fa-exchange-alt"></i>
+        </div>
+        <div class="transaction-details">
+            <div class="transaction-title">Transaction Title</div>
+            <div class="transaction-time">Time</div>
+        </div>
+        <div class="transaction-amount">
+            <span class="amount-value">0</span>
+        </div>
+    </div>
+</template>
+
+<template id="buyRequestDetailsTemplate">
+    <div class="request-details-container">
+        <div class="user-profile">
+            <div class="user-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="user-info">
+                <div class="username">Username</div>
+                <div class="wallet-id">Wallet ID: WL123456</div>
+            </div>
+        </div>
+        
+        <div class="details-section">
+            <h4>Request Information</h4>
+            <div class="details-grid">
+                <div class="detail-row">
+                    <div class="detail-label">Request ID:</div>
+                    <div class="detail-value" id="requestId">REQ12345</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Amount:</div>
+                    <div class="detail-value" id="requestAmount">100 Talent Coins</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Naira Equivalent:</div>
+                    <div class="detail-value" id="nairaAmount">₦1,000</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Date Requested:</div>
+                    <div class="detail-value" id="requestDate">2023-08-15 14:30</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Status:</div>
+                    <div class="detail-value">
+                        <span class="status-badge" id="requestStatus">Pending</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="details-section">
+            <h4>Payment Information</h4>
+            <div class="details-grid">
+                <div class="detail-row">
+                    <div class="detail-label">Transfer Reference:</div>
+                    <div class="detail-value" id="transferReference">TR123456789</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Transfer Date:</div>
+                    <div class="detail-value" id="transferDate">2023-08-15</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Transfer Amount:</div>
+                    <div class="detail-value" id="transferAmount">₦1,000</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="details-section" id="screenshotSection">
+            <h4>Payment Screenshot</h4>
+            <div class="screenshot-container">
+                <img src="" alt="Payment Screenshot" id="paymentScreenshot">
+            </div>
+        </div>
+        
+        <div class="details-section">
+            <h4>Moderator Actions</h4>
+            <div class="action-notes">
+                <label for="moderatorNotes">Notes (Optional):</label>
+                <textarea id="moderatorNotes" placeholder="Add notes about this request"></textarea>
+            </div>
+            
+            <div class="copy-wallet-section">
+                <div class="wallet-copy-field">
+                    <span id="walletIdToCopy">WL123456</span>
+                    <button class="copy-btn" id="copyWalletIdBtn">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+                <div class="copy-message">Copy wallet ID to use in Talent Coin Dispenser</div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="withdrawRequestDetailsTemplate">
+    <div class="request-details-container">
+        <div class="user-profile">
+            <div class="user-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="user-info">
+                <div class="username">Username</div>
+                <div class="wallet-id">Wallet ID: WL123456</div>
+            </div>
+        </div>
+        
+        <div class="details-section">
+            <h4>Request Information</h4>
+            <div class="details-grid">
+                <div class="detail-row">
+                    <div class="detail-label">Request ID:</div>
+                    <div class="detail-value" id="withdrawRequestId">REQ12345</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Amount:</div>
+                    <div class="detail-value" id="withdrawRequestAmount">100 Talent Coins</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Naira Equivalent:</div>
+                    <div class="detail-value" id="withdrawNairaAmount">₦1,000</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Date Requested:</div>
+                    <div class="detail-value" id="withdrawRequestDate">2023-08-15 14:30</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Status:</div>
+                    <div class="detail-value">
+                        <span class="status-badge" id="withdrawRequestStatus">Pending</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="details-section">
+            <h4>Bank Information</h4>
+            <div class="details-grid">
+                <div class="detail-row">
+                    <div class="detail-label">Bank Name:</div>
+                    <div class="detail-value" id="bankName">Bank Name</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Account Number:</div>
+                    <div class="detail-value" id="accountNumber">1234567890</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Account Name:</div>
+                    <div class="detail-value" id="accountName">Account Holder Name</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="details-section">
+            <h4>Moderator Actions</h4>
+            <div class="action-notes">
+                <label for="withdrawModeratorNotes">Notes (Optional):</label>
+                <textarea id="withdrawModeratorNotes" placeholder="Add notes about this withdrawal"></textarea>
+            </div>
+            
+            <div class="transfer-confirmation">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="transferConfirmation">
+                    <span>I confirm that I have transferred ₦<span id="confirmAmount">1,000</span> to the user's bank account</span>
+                </label>
+            </div>
+            
+            <div class="copy-wallet-section">
+                <div class="wallet-copy-field">
+                    <span id="withdrawWalletIdToCopy">WL123456</span>
+                    <button class="copy-btn" id="copyWithdrawWalletIdBtn">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+                <div class="copy-message">Copy wallet ID to use in Talent Coin Dispenser</div>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<li class="active"><a href="fees-reporter.html"><i class="fas fa-chart-pie"></i> Fees Reporter</a></li>
+             
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h1>Fees Reporter</h1>
+                <div class="user-info">
+                    <span>Admin</span>
+                    <img src="assets/admin-avatar.png" alt="Admin">
+                </div>
+            </div>
+
+            <!-- Fee Summary Cards -->
+            <div class="fee-summary">
+                <div class="summary-card total">
+                    <h3>Total Fees Collected</h3>
+                    <p class="amount"><span id="totalFees">0</span> TC</p>
+                    <i class="fas fa-coins card-icon"></i>
+                </div>
+                <div class="summary-card today">
+                    <h3>Today's Fees</h3>
+                    <p class="amount"><span id="todayFees">0</span> TC</p>
+                    <i class="fas fa-calendar-day card-icon"></i>
+                </div>
+                <div class="summary-card week">
+                    <h3>This Week's Fees</h3>
+                    <p class="amount"><span id="weekFees">0</span> TC</p>
+                    <i class="fas fa-calendar-week card-icon"></i>
+                </div>
+                <div class="summary-card month">
+                    <h3>This Month's Fees</h3>
+                    <p class="amount"><span id="monthFees">0</span> TC</p>
+                    <i class="fas fa-calendar-alt card-icon"></i>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-container">
+                <div class="chart-card">
+                    <h3>Fee Collection Trend</h3>
+                    <canvas id="feesTrendChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Fee Sources</h3>
+                    <canvas id="feesSourceChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Fee Transactions Table -->
+            <div class="transactions-section">
+                <div class="section-header">
+                    <h2>Fee Transactions</h2>
+                    <div class="actions">
+                        <div class="search-container">
+                            <input type="text" id="searchInput" placeholder="Search by User ID...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="filter-container">
+                            <select id="dateFilter">
+                                <option value="all">All Time</option>
+                                <option value="today">Today</option>
+                                <option value="week">This Week</option>
+                                <option value="month">This Month</option>
+                                <option value="custom">Custom Range</option>
+                            </select>
+                            <div class="custom-date-range" id="customDateRange" style="display: none;">
+                                <input type="date" id="startDate">
+                                <span>to</span>
+                                <input type="date" id="endDate">
+                                <button id="applyDateRange">Apply</button>
+                            </div>
+                        </div>
+                        <button class="export-btn" id="exportCSV">
+                            <i class="fas fa-file-csv"></i> Export CSV
+                        </button>
+                        <button class="export-btn" id="exportPDF">
+                            <i class="fas fa-file-pdf"></i> Export PDF
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table id="feeTransactionsTable">
+                        <thead>
+                            <tr>
+                                <th>Date & Time <i class="fas fa-sort"></i></th>
+                                <th>Fee Amount <i class="fas fa-sort"></i></th>
+                                <th>User ID <i class="fas fa-sort"></i></th>
+                                <th>Transaction Amount <i class="fas fa-sort"></i></th>
+                                <th>Calculation</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="feeTransactionsBody">
+                            <!-- Fee transactions will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <button id="prevPage"><i class="fas fa-chevron-left"></i></button>
+                    <div id="pageNumbers">
+                        <span class="active">1</span>
+                    </div>
+                    <button id="nextPage"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transaction Details Modal -->
+    <div class="modal" id="transactionModal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Fee Transaction Details</h2>
+            <div class="transaction-details">
+                <div class="detail-row">
+                    <span class="label">Transaction ID:</span>
+                    <span class="value" id="modalTransactionId"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Date & Time:</span>
+                    <span class="value" id="modalDateTime"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Fee Amount:</span>
+                    <span class="value" id="modalFeeAmount"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">User ID:</span>
+                    <span class="value" id="modalUserId"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">User Name:</span>
+                    <span class="value" id="modalUserName"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Original Transaction:</span>
+                    <span class="value" id="modalOriginalAmount"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Fee Calculation:</span>
+                    <span class="value" id="modalCalculation"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Source Transaction ID:</span>
+                    <span class="value" id="modalSourceId"></span>
+                </div>
+            </div>
+            <div class="related-transaction">
+                <h3>Related Transfer Transaction</h3>
+                <button id="viewRelatedTransaction" class="view-related-btn">
+                    View in Transfer Support
+                </button>
+            </div>
+        </div>
+    </div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+<script>
+   // Initialize Firebase
+document.addEventListener('DOMContentLoaded', function() {
     // Firebase configuration
     const firebaseConfig = {
-      apiKey: "AIzaSyBm9PmWgTKGKlzZ1xrJwhUXd93bCClSrEE",
-      authDomain: "billsandmallng.firebaseapp.com",
-      projectId: "billsandmallng",
-      storageBucket: "billsandmallng.firebasestorage.app",
-      messagingSenderId: "242278413301",
-      appId: "1:242278413301:web:fad95e8c553a18b8e2a6bc",
-      measurementId: "G-8GEQEC5SXQ"
+        apiKey: "AIzaSyAGJ6EoBub9uL-R7q8N-_r85-VhuSiSlFo",
+        authDomain: "billsandmal.firebaseapp.com",
+        projectId: "billsandmal",
+        storageBucket: "billsandmal.firebasestorage.app",
+        messagingSenderId: "663259820123",
+        appId: "1:663259820123:web:078be226314c5a74444f7e",
+        measurementId: "G-DSJ2FS4VRV"
     };
     
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    // Initialize Firebase if not already initialized
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+    
+    // Initialize services
     const auth = firebase.auth();
-    const analytics = firebase.analytics();
     const db = firebase.firestore();
-    const storage = firebase.storage();
-    // Competition System Module
-const CompetitionSystem = (function() {
-  // Private variables
-  let currentUser = null;
-  let pendingCompetitions = [];
-  let liveCompetitions = [];
-  let selectedBackground = null;
-  let selectedCategories = [];
-  
-  // Initialize the competition system
-  function init(user) {
-    currentUser = user;
+    const analytics = firebase.analytics();
+    
+    console.log("Firebase initialized successfully");
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Get DOM elements
+    const loginScreen = document.getElementById('loginScreen');
+    const dashboard = document.getElementById('dashboard');
+    const emailInput = document.getElementById('email'); // Assuming you'll add this field
+    const passwordInput = document.getElementById('password');
+    const togglePasswordBtn = document.getElementById('togglePassword');
+    const loginBtn = document.getElementById('loginBtn');
+    const loginError = document.getElementById('loginError'); // General error message element
+    const logoutBtn = document.getElementById('logoutBtn');
+    
+    // Check if user is already logged in
+    checkLoginStatus();
+    
+    // Toggle password visibility
+    togglePasswordBtn.addEventListener('click', function() {
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            togglePasswordBtn.innerHTML = '<i class="fas fa-eye-slash"></i>';
+        } else {
+            passwordInput.type = 'password';
+            togglePasswordBtn.innerHTML = '<i class="fas fa-eye"></i>';
+        }
+    });
+    
+    // Login button click event
+    loginBtn.addEventListener('click', function() {
+        attemptLogin();
+    });
+    
+    // Logout button click event
+    logoutBtn.addEventListener('click', function() {
+        logout();
+    });
+    
+    // Allow login with Enter key
+    passwordInput.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            attemptLogin();
+        }
+    });
+    
+    if (emailInput) {
+        emailInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                attemptLogin();
+            }
+        });
+    }
+    
+    // Login function
+    function attemptLogin() {
+        // Clear previous error
+        loginError.textContent = '';
+        
+        // Get email and password
+        const email = emailInput ? emailInput.value.trim() : 'admin@talentcoin.com'; // Default email if no input field
+        const password = passwordInput.value.trim();
+        
+        // Validate inputs
+        if (!email) {
+            loginError.textContent = 'Please enter your email';
+            return;
+        }
+        
+        if (!password) {
+            loginError.textContent = 'Please enter your password';
+            return;
+        }
+        
+        // Show loading state
+        loginBtn.disabled = true;
+        loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+        
+        // Authenticate with Firebase
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                // Check if user is an admin
+                return checkAdminRole(userCredential.user);
+            })
+            .then((isAdmin) => {
+                if (isAdmin) {
+                    // Store login time
+                    localStorage.setItem('loginTime', new Date().getTime());
+                    
+                    // Show dashboard and hide login screen
+                    loginScreen.classList.add('hidden');
+                    dashboard.classList.remove('hidden');
+                    
+                    // Clear password field for security
+                    passwordInput.value = '';
+                    if (emailInput) emailInput.value = '';
+                    
+                    // Load dashboard data
+                    loadDashboardData();
+                } else {
+                    // Not an admin, log them out
+                    firebase.auth().signOut();
+                    throw new Error('You do not have admin privileges');
+                }
+            })
+            .catch((error) => {
+                console.error("Login error:", error);
+                
+                // Handle specific error codes
+                let errorMessage = 'Login failed. Please check your credentials.';
+                
+                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                    errorMessage = 'Invalid email or password';
+                } else if (error.code === 'auth/too-many-requests') {
+                    errorMessage = 'Too many failed login attempts. Please try again later.';
+                } else if (error.message) {
+                    errorMessage = error.message;
+                }
+                
+                // Show error message
+                loginError.textContent = errorMessage;
+                
+                // Shake the login form to indicate error
+                const loginForm = document.querySelector('.login-form');
+                loginForm.classList.add('shake');
+                
+                // Remove shake class after animation completes
+                setTimeout(() => {
+                    loginForm.classList.remove('shake');
+                }, 500);
+            })
+            .finally(() => {
+                // Reset login button
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = 'Login';
+            });
+    }
+    
+    // Check if user has admin role
+    function checkAdminRole(user) {
+        // For simplicity, we'll check if the email is admin@talentcoin.com
+        // In a real app, you'd check a custom claim or a database entry
+        if (user.email === 'admin@talentcoin.com') {
+            return Promise.resolve(true);
+        }
+        
+        // Alternative: check Firestore for admin role
+        return db.collection('admins').doc(user.uid).get()
+            .then(doc => {
+                return doc.exists && doc.data().role === 'admin';
+            })
+            .catch(error => {
+                console.error("Error checking admin role:", error);
+                return false;
+            });
+    }
+    
+    // Check if user is already logged in
+    function checkLoginStatus() {
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                // User is signed in
+                checkAdminRole(user).then(isAdmin => {
+                    if (isAdmin) {
+                        // Check session time
+                        const loginTime = localStorage.getItem('loginTime');
+                        if (loginTime) {
+                            const currentTime = new Date().getTime();
+                            const loginDuration = currentTime - parseInt(loginTime);
+                            
+                            // 24 hours in milliseconds = 86400000
+                            if (loginDuration < 86400000) {
+                                // Show dashboard and hide login screen
+                                loginScreen.classList.add('hidden');
+                                dashboard.classList.remove('hidden');
+                                
+                                // Load dashboard data
+                                loadDashboardData();
+                                return;
+                            }
+                        }
+                    }
+                    
+                    // If not admin or session expired, log out
+                    firebase.auth().signOut();
+                });
+            }
+        });
+    }
+    
+    // Logout function
+    function logout() {
+        // Sign out from Firebase
+        firebase.auth().signOut()
+            .then(() => {
+                // Clear login data
+                localStorage.removeItem('loginTime');
+                
+                // Show login screen and hide dashboard
+                dashboard.classList.add('hidden');
+                loginScreen.classList.remove('hidden');
+                
+                // Clear any sensitive data from the dashboard
+                clearDashboardData();
+            })
+            .catch((error) => {
+                console.error("Logout error:", error);
+                showToast('Failed to log out. Please try again.', 'error');
+            });
+    }
+    
+    // Load dashboard data
+    function loadDashboardData() {
+        console.log('Loading dashboard data...');
+        
+        // Load buy requests count
+        db.collection('buyRequests')
+            .where('status', '==', 'pending')
+            .get()
+            .then(snapshot => {
+                document.getElementById('buyRequestsBadge').textContent = snapshot.size;
+                if (snapshot.size > 0) {
+                    document.getElementById('buyRequestsBadge').style.display = 'flex';
+                } else {
+                    document.getElementById('buyRequestsBadge').style.display = 'none';
+                }
+            })
+            .catch(error => {
+                console.error("Error loading buy requests count:", error);
+            });
+        
+        // Load today's buy requests
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        db.collection('buyRequests')
+            .where('timestamp', '>=', today)
+            .get()
+            .then(snapshot => {
+                document.getElementById('todayBuyRequests').textContent = snapshot.size;
+            })
+            .catch(error => {
+                console.error("Error loading today's buy requests:", error);
+            });
+        
+        // Load other dashboard data similarly...
+        // For withdraw requests, transfers, etc.
+        
+        // Load recent activity
+        loadRecentActivity();
+    }
+    
+    // Load recent activity
+    function loadRecentActivity() {
+        const recentActivityList = document.getElementById('recentActivityList');
+        
+        // Show loading state
+        recentActivityList.innerHTML = `
+            <div class="loading-state">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Loading activity...</p>
+            </div>
+        `;
+        
+        // Get recent activity from Firestore
+        db.collection('activity')
+            .orderBy('timestamp', 'desc')
+            .limit(10)
+            .get()
+            .then(snapshot => {
+                if (snapshot.empty) {
+                    recentActivityList.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-history"></i>
+                            <p>No recent activity</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Clear container
+                recentActivityList.innerHTML = '';
+                
+                // Get activity item template
+                const template = document.getElementById('activityItemTemplate');
+                
+                // Create and append activity items
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const item = template.content.cloneNode(true);
+                    
+                    // Set item data
+                    item.querySelector('.activity-title').textContent = data.title || 'Activity';
+                    item.querySelector('.activity-time').textContent = formatDate(data.timestamp);
+                    
+                    // Set icon based on activity type
+                    const icon = item.querySelector('.activity-icon i');
+                    switch (data.type) {
+                        case 'buy':
+                            icon.className = 'fas fa-coins';
+                            break;
+                        case 'withdraw':
+                            icon.className = 'fas fa-money-bill-wave';
+                            break;
+                        case 'transfer':
+                            icon.className = 'fas fa-exchange-alt';
+                            break;
+                        default:
+                            icon.className = 'fas fa-circle';
+                    }
+                    
+                    // Append to container
+                    recentActivityList.appendChild(item);
+                });
+            })
+            .catch(error => {
+                console.error("Error loading recent activity:", error);
+                recentActivityList.innerHTML = `
+                    <div class="error-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Failed to load activity</p>
+                    </div>
+                `;
+            });
+    }
+    
+    // Clear dashboard data
+    function clearDashboardData() {
+        console.log('Clearing dashboard data...');
+        
+        // Reset counters
+        document.getElementById('buyRequestsBadge').textContent = '0';
+        document.getElementById('withdrawRequestsBadge').textContent = '0';
+        document.getElementById('transferIssuesBadge').textContent = '0';
+        
+        document.getElementById('todayBuyRequests').textContent = '0';
+        document.getElementById('todayWithdrawals').textContent = '0';
+        document.getElementById('todayTransfers').textContent = '0';
+        document.getElementById('todayIssues').textContent = '0';
+        
+        // Clear the recent activity list
+        const recentActivityList = document.getElementById('recentActivityList');
+        recentActivityList.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-history"></i>
+                <p>No recent activity</p>
+            </div>
+        `;
+    }
+    
+    // Helper function to format date
+    function formatDate(timestamp) {
+        if (!timestamp) return 'N/A';
+        
+        const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+        
+        // If today, show time only
+        const today = new Date();
+        if (date.toDateString() === today.toDateString()) {
+            return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+        
+        // If this year, show month and day
+        if (date.getFullYear() === today.getFullYear()) {
+            return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
+        }
+        
+        // Otherwise show full date
+        return date.toLocaleDateString([], { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+    
+    // Function to show toast message
+    function showToast(message, type = 'success') {
+        const toast = document.getElementById('toast');
+        const toastIcon = toast.querySelector('.toast-icon i');
+        const toastMessage = toast.querySelector('.toast-message');
+        
+        // Set message
+        toastMessage.textContent = message;
+        
+        // Set icon and color based on type
+        toast.className = 'toast';
+        toast.classList.add(type);
+        
+        switch (type) {
+            case 'success':
+                toastIcon.className = 'fas fa-check-circle';
+                break;
+            case 'error':
+                toastIcon.className = 'fas fa-times-circle';
+                break;
+            case 'info':
+                toastIcon.className = 'fas fa-info-circle';
+                break;
+            case 'warning':
+                toastIcon.className = 'fas fa-exclamation-triangle';
+                break;
+        }
+        
+        // Show toast
+        toast.classList.add('show');
+        
+        // Hide after 3 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+});
+
+// Add this CSS for the shake animation
+document.head.insertAdjacentHTML('beforeend', `
+<style>
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.shake {
+    animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+</style>
+`);
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Get DOM elements for navigation
+    const dashboard = document.getElementById('dashboard');
+    const buyCoinSupport = document.getElementById('buyCoinSupport');
+    const buyCoinSupportBtn = document.getElementById('buyCoinSupportBtn');
+    const backButtons = document.querySelectorAll('.back-btn');
+    
+    // Set up event listeners for navigation
+    setupNavigationListeners();
+    
+    // Function to set up navigation listeners
+    function setupNavigationListeners() {
+        // Buy Coin Support button click
+        buyCoinSupportBtn.addEventListener('click', function() {
+            showSection('buyCoinSupport');
+            loadBuyCoinRequests(); // Load buy coin requests data
+        });
+        
+        // Back buttons
+        backButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const targetSection = this.getAttribute('data-target');
+                showSection(targetSection);
+            });
+        });
+    }
+    
+    // Function to show a specific section and hide others
+    function showSection(sectionId) {
+        // Hide all feature sections
+        const allSections = document.querySelectorAll('.dashboard, .feature-section');
+        allSections.forEach(section => {
+            section.classList.add('hidden');
+        });
+        
+        // Show the requested section
+        document.getElementById(sectionId).classList.remove('hidden');
+    }
+});
+document.addEventListener('DOMContentLoaded', function() {
+    // Get DOM elements
+    const buyRequestCards = document.getElementById('buyRequestCards');
+    const buyRequestsBadge = document.getElementById('buyRequestsBadge');
+    const todayBuyRequests = document.getElementById('todayBuyRequests');
+    const searchInput = document.querySelector('#buyCoinSupport .search-box input');
+    const filterLinks = document.querySelectorAll('#buyCoinSupport .dropdown-menu a');
+    const filterBtn = document.querySelector('#buyCoinSupport .filter-btn');
     
     // Set up event listeners
-    setupEventListeners();
+    setupBuyCoinSupportListeners();
     
-    // Load competitions
-    loadCompetitions();
-    
-    // Set default background if available
-    const defaultBg = document.querySelector('.background-option');
-    if (defaultBg) {
-      selectedBackground = defaultBg.getAttribute('data-bg');
-    }
-    
-    // Check if we're on a specific page and initialize accordingly
-    initializeCurrentPage();
-    
-    console.log('Competition System initialized');
-  }
-  
-  // Initialize the current page based on URL
-  function initializeCurrentPage() {
-    const currentPath = window.location.pathname;
-    
-    if (currentPath.includes('create-competition')) {
-      setupCreateCompetitionPage();
-    } else if (currentPath.includes('competition-details')) {
-      const competitionId = new URLSearchParams(window.location.search).get('id');
-      if (competitionId) {
-        loadCompetitionDetails(competitionId);
-      }
-    } else if (currentPath.includes('all-pending-competitions')) {
-      renderAllPendingCompetitions();
-    } else if (currentPath.includes('all-live-competitions')) {
-      renderAllLiveCompetitions();
-    } else if (currentPath.includes('competition-rules')) {
-      const competitionId = new URLSearchParams(window.location.search).get('id');
-      if (competitionId) {
-        showCompetitionRules(competitionId);
-      }
-    }
-  }
-  
-  // Set up all event listeners
-  function setupEventListeners() {
-    // Tab switching
-    const tabs = document.querySelectorAll('.competition-tab');
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        
-        const tabName = tab.getAttribute('data-tab');
-        document.querySelectorAll('.competition-tab-content').forEach(content => {
-          content.classList.remove('active');
+    // Function to set up Buy Coin Support listeners
+    function setupBuyCoinSupportListeners() {
+        // Search functionality
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            filterBuyRequests(searchTerm, getCurrentFilter());
         });
-        document.getElementById(`${tabName}CompetitionsTab`).classList.add('active');
-      });
-    });
-    
-    // Create competition button
-    const createBtn = document.getElementById('createCompetitionBtn');
-    if (createBtn) {
-      createBtn.addEventListener('click', () => {
-        window.location.href = 'create-competition.html';
-      });
-    }
-    
-    // See all buttons
-    const seeAllPendingBtn = document.getElementById('seeMorePendingBtn');
-    const seeAllLiveBtn = document.getElementById('seeMoreLiveBtn');
-    
-    if (seeAllPendingBtn) {
-      seeAllPendingBtn.addEventListener('click', () => {
-        window.location.href = 'all-pending-competitions.html';
-      });
-    }
-    
-    if (seeAllLiveBtn) {
-      seeAllLiveBtn.addEventListener('click', () => {
-        window.location.href = 'all-live-competitions.html';
-      });
-    }
-    
-    // Delegate for competition card actions
-    document.addEventListener('click', handleCompetitionCardActions);
-  }
-  
-  // Set up create competition page
-  function setupCreateCompetitionPage() {
-    // Set default dates
-    const now = new Date();
-    const startDate = new Date(now.getTime() + 24 * 60 * 60 * 1000); // Tomorrow
-    const endDate = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000); // One week from now
-    
-    const startDateInput = document.getElementById('startDate');
-    const endDateInput = document.getElementById('endDate');
-    
-    if (startDateInput && endDateInput) {
-      startDateInput.value = formatDateForInput(startDate);
-      endDateInput.value = formatDateForInput(endDate);
-    }
-    
-    // Background selection
-    const backgroundOptions = document.querySelectorAll('.background-option');
-    backgroundOptions.forEach(option => {
-      option.addEventListener('click', () => {
-        backgroundOptions.forEach(opt => opt.classList.remove('selected'));
-        option.classList.add('selected');
-        selectedBackground = option.getAttribute('data-bg');
         
-        // Select the image radio button
-        const bgImageRadio = document.getElementById('bgImage');
-        if (bgImageRadio) bgImageRadio.checked = true;
-      });
-    });
-    
-    // Category selection
-    const categoryOptions = document.querySelectorAll('.category-option');
-    categoryOptions.forEach(option => {
-      option.addEventListener('click', () => {
-        const category = option.getAttribute('data-category');
+        // Filter dropdown toggle
+        filterBtn.addEventListener('click', function() {
+            const dropdownMenu = this.nextElementSibling;
+            dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+        });
         
-        if (option.classList.contains('selected')) {
-          // Deselect category
-          option.classList.remove('selected');
-          selectedCategories = selectedCategories.filter(cat => cat !== category);
-        } else {
-          // Select category if less than 3 are selected
-          if (selectedCategories.length < 3) {
-            option.classList.add('selected');
-            selectedCategories.push(category);
-          }
-        }
-      });
-    });
-    
-    // Voting type change
-    const votingTypeSelect = document.getElementById('votingType');
-    const paidVotingOptions = document.getElementById('paidVotingOptions');
-    
-    if (votingTypeSelect && paidVotingOptions) {
-      votingTypeSelect.addEventListener('change', () => {
-        if (votingTypeSelect.value === 'paid') {
-          paidVotingOptions.style.display = 'block';
-        } else {
-          paidVotingOptions.style.display = 'none';
-        }
-      });
-    }
-    
-    // Add rule button
-    const addRuleBtn = document.getElementById('addRuleBtn');
-    const rulesContainer = document.getElementById('rulesContainer');
-    
-    if (addRuleBtn && rulesContainer) {
-      addRuleBtn.addEventListener('click', () => {
-        const ruleItems = rulesContainer.querySelectorAll('.rule-item');
-        
-        if (ruleItems.length < 9) {
-          const newRule = document.createElement('div');
-          newRule.className = 'rule-item';
-          newRule.innerHTML = `
-            <input type="text" class="rule-input" placeholder="Enter rule" required>
-            <button type="button" class="remove-rule-btn">×</button>
-          `;
-          
-          rulesContainer.appendChild(newRule);
-          
-          // Add event listener to the new remove button
-          const removeBtn = newRule.querySelector('.remove-rule-btn');
-          removeBtn.addEventListener('click', () => {
-            if (rulesContainer.querySelectorAll('.rule-item').length > 3) {
-              rulesContainer.removeChild(newRule);
-            } else {
-              alert('You must have at least 3 rules');
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.filter-dropdown')) {
+                const dropdownMenu = document.querySelector('#buyCoinSupport .dropdown-menu');
+                if (dropdownMenu) {
+                    dropdownMenu.style.display = 'none';
+                }
             }
-          });
-        } else {
-          alert('You can add a maximum of 9 rules');
-        }
-      });
-      
-      // Initial remove rule buttons
-      document.querySelectorAll('.remove-rule-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          if (rulesContainer.querySelectorAll('.rule-item').length > 3) {
-            rulesContainer.removeChild(btn.parentElement);
-          } else {
-            alert('You must have at least 3 rules');
-          }
         });
-      });
-    }
-    
-    // Add judge button
-    const addJudgeBtn = document.getElementById('addJudgeBtn');
-    const judgesContainer = document.getElementById('judgesContainer');
-    
-    if (addJudgeBtn && judgesContainer) {
-      addJudgeBtn.addEventListener('click', () => {
-        const judgeItems = judgesContainer.querySelectorAll('.judge-item');
         
-        if (judgeItems.length < 5) {
-          const newJudge = document.createElement('div');
-          newJudge.className = 'judge-item';
-          newJudge.innerHTML = `
-            <input type="text" class="judge-input" placeholder="Enter judge name">
-            <button type="button" class="remove-judge-btn">×</button>
-          `;
-          
-          judgesContainer.appendChild(newJudge);
-          
-          // Add event listener to the new remove button
-          const removeBtn = newJudge.querySelector('.remove-judge-btn');
-          removeBtn.addEventListener('click', () => {
-            judgesContainer.removeChild(newJudge);
-          });
-        } else {
-          alert('You can add a maximum of 5 judges');
+        // Filter options
+        filterLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Update active class
+                filterLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Close dropdown
+                this.closest('.dropdown-menu').style.display = 'none';
+                
+                // Update filter button text
+                const filterText = this.textContent;
+                filterBtn.querySelector('span').textContent = filterText;
+                
+                // Apply filter
+                const filter = this.getAttribute('data-filter');
+                filterBuyRequests(searchInput.value.toLowerCase().trim(), filter);
+            });
+        });
+    }
+    
+    // Function to load buy coin requests
+    function loadBuyCoinRequests() {
+        // Show loading state
+        buyRequestCards.innerHTML = `
+            <div class="loading-state">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Loading buy requests...</p>
+            </div>
+        `;
+        
+        // Get data from Firebase
+        const db = firebase.firestore();
+        db.collection('buyRequests')
+            .orderBy('timestamp', 'desc')
+            .get()
+            .then(snapshot => {
+                // Process the data
+                if (snapshot.empty) {
+                    showEmptyState();
+                    updateCounters(0, 0);
+                    return;
+                }
+                
+                const requests = [];
+                let pendingCount = 0;
+                let todayCount = 0;
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const request = {
+                        id: doc.id,
+                        ...data,
+                        timestamp: data.timestamp ? data.timestamp.toDate() : new Date()
+                    };
+                    
+                    requests.push(request);
+                    
+                    // Count pending requests
+                    if (data.status === 'pending') {
+                        pendingCount++;
+                    }
+                    
+                    // Count today's requests
+                    if (request.timestamp >= today) {
+                        todayCount++;
+                    }
+                });
+                
+                // Update counters
+                updateCounters(pendingCount, todayCount);
+                
+                // Render the requests
+                renderBuyRequests(requests);
+                
+                // Apply current filter
+                const currentFilter = getCurrentFilter();
+                if (currentFilter !== 'all') {
+                    filterBuyRequests('', currentFilter);
+                }
+            })
+            .catch(error => {
+                console.error("Error loading buy requests:", error);
+                showErrorState();
+            });
+    }
+    
+    // Function to render buy requests
+    function renderBuyRequests(requests) {
+        if (requests.length === 0) {
+            showEmptyState();
+            return;
         }
-      });
-      
-      // Initial remove judge buttons
-      document.querySelectorAll('.remove-judge-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          judgesContainer.removeChild(btn.parentElement);
-        });
-      });
-    }
-    
-    // Form submission
-    const createCompetitionForm = document.getElementById('createCompetitionForm');
-    if (createCompetitionForm) {
-      createCompetitionForm.addEventListener('submit', handleFormSubmit);
-    }
-    
-    // Cancel button
-    const cancelCreateBtn = document.getElementById('cancelCreateBtn');
-    if (cancelCreateBtn) {
-      cancelCreateBtn.addEventListener('click', () => {
-        window.location.href = 'competitions.html'; // Go back to main competitions page
-      });
-    }
-  }
-  
-  // Format date for datetime-local input
-  function formatDateForInput(date) {
-    return date.toISOString().slice(0, 16);
-  }
-  
-  // Handle competition card actions (delegate pattern)
-  function handleCompetitionCardActions(e) {
-    // Rules button
-    if (e.target.closest('.rules-btn')) {
-      e.stopPropagation();
-      const btn = e.target.closest('.rules-btn');
-      const competitionId = btn.getAttribute('data-id');
-      window.location.href = `competition-rules.html?id=${competitionId}`;
-    }
-    
-    // Join button
-    if (e.target.closest('.join-btn:not([disabled])')) {
-      e.stopPropagation();
-      const btn = e.target.closest('.join-btn');
-      const competitionId = btn.getAttribute('data-id');
-      joinCompetition(competitionId);
-    }
-    
-    // Start button
-    if (e.target.closest('.start-btn')) {
-      e.stopPropagation();
-      const btn = e.target.closest('.start-btn');
-      const competitionId = btn.getAttribute('data-id');
-      startCompetition(competitionId);
-    }
-    
-    // View button
-    if (e.target.closest('.view-btn')) {
-      e.stopPropagation();
-      const btn = e.target.closest('.view-btn');
-      const competitionId = btn.getAttribute('data-id');
-      window.location.href = `competition-view.html?id=${competitionId}`;
-    }
-    
-    // Enter button
-    if (e.target.closest('.enter-btn')) {
-      e.stopPropagation();
-      const btn = e.target.closest('.enter-btn');
-      const competitionId = btn.getAttribute('data-id');
-      window.location.href = `competition-enter.html?id=${competitionId}`;
-    }
-    
-    // Competition card click (view details)
-    if (e.target.closest('.competition-card')) {
-      const card = e.target.closest('.competition-card');
-      // Only trigger if we didn't click a button inside the card
-      if (!e.target.closest('button')) {
-        const competitionId = card.getAttribute('data-id');
-        window.location.href = `competition-details.html?id=${competitionId}`;
-      }
-    }
-  }
-  
-  // Handle form submission
-  function handleFormSubmit(e) {
-    e.preventDefault();
-    
-    // Validate form
-    if (selectedCategories.length === 0) {
-      alert('Please select at least one category');
-      return;
-    }
-    
-    // Get form values
-    const title = document.getElementById('competitionTitle').value;
-    const maxContestants = parseInt(document.getElementById('maxContestants').value);
-    const votingType = document.getElementById('votingType').value;
-    const talentCoinsPerVote = votingType === 'paid' ? parseInt(document.getElementById('talentCoinsPerVote').value) : 0;
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
-    const autoStart = document.getElementById('autoStart').checked;
-    
-    // Get background
-    let backgroundType, backgroundUrl, backgroundColor;
-    if (document.getElementById('bgImage').checked) {
-      backgroundType = 'image';
-      backgroundUrl = selectedBackground;
-    } else if (document.getElementById('bgColor').checked) {
-      backgroundType = 'color';
-      backgroundColor = document.getElementById('backgroundColor').value;
-    } else if (document.getElementById('bgCustom').checked) {
-      backgroundType = 'image';
-      backgroundUrl = document.getElementById('customBackgroundUrl').value;
-    }
-    
-    // Get rules
-    const rules = [];
-    document.querySelectorAll('.rule-input').forEach(input => {
-      if (input.value.trim()) {
-        rules.push(input.value.trim());
-      }
-    });
-    
-    if (rules.length < 3) {
-      alert('Please add at least 3 rules');
-      return;
-    }
-    
-    // Get judges
-    const judges = [];
-    document.querySelectorAll('.judge-input').forEach(input => {
-      if (input.value.trim()) {
-        judges.push(input.value.trim());
-      }
-    });
-    
-    // Create competition object
-    const newCompetition = {
-      title,
-      backgroundType,
-      backgroundUrl: backgroundType === 'image' ? backgroundUrl : null,
-      backgroundColor: backgroundType === 'color' ? backgroundColor : null,
-      categories: selectedCategories,
-      maxContestants,
-      votingType,
-      talentCoinsPerVote,
-      startDate,
-      endDate,
-      autoStart,
-      rules,
-      judges,
-      creatorId: currentUser.uid,
-      creatorName: currentUser.displayName || 'Anonymous',
-      contestants: [currentUser.uid], // Creator is automatically a contestant
-      status: 'pending',
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    };
-    
-    // Save to Firestore
-    db.collection('competitions').add(newCompetition)
-      .then(docRef => {
-        // Redirect to the main competitions page
-        window.location.href = 'competitions.html';
-      })
-      .catch(error => {
-        console.error("Error creating competition:", error);
-        alert('Error creating competition. Please try again.');
-      });
-  }
-  
-  // Load competitions from Firestore
-  function loadCompetitions() {
-    // Clear existing competitions
-    pendingCompetitions = [];
-    liveCompetitions = [];
-    
-    // Query pending competitions
-    db.collection('competitions')
-      .where('status', '==', 'pending')
-      .get()
-      .then(snapshot => {
-        snapshot.forEach(doc => {
-          pendingCompetitions.push({
-            id: doc.id,
-            ...doc.data()
-          });
-        });
-        renderPendingCompetitions();
-      })
-      .catch(error => {
-        console.error("Error loading pending competitions:", error);
-      });
-    
-    // Query live competitions
-    db.collection('competitions')
-      .where('status', '==', 'live')
-      .get()
-      .then(snapshot => {
-        snapshot.forEach(doc => {
-          liveCompetitions.push({
-            id: doc.id,
-            ...doc.data()
-          });
-        });
-        renderLiveCompetitions();
-      })
-      .catch(error => {
-        console.error("Error loading live competitions:", error);
-      });
-  }
-  
-  // Render pending competitions
-  function renderPendingCompetitions() {
-    const pendingContainer = document.getElementById('pendingCompetitions');
-    const pendingEmptyState = document.getElementById('pendingEmptyState');
-    
-    if (!pendingContainer) return;
-    
-    // Clear existing content
-    pendingContainer.innerHTML = '';
-    
-    if (pendingCompetitions.length === 0) {
-      if (pendingEmptyState) {
-        pendingContainer.appendChild(pendingEmptyState);
-      } else {
-        pendingContainer.innerHTML = `
-          <div class="empty-state">
-            <i class="fas fa-hourglass-start"></i>
-            <h3>No Pending Competitions</h3>
-            <p>Create a new competition to get started!</p>
-          </div>
-        `;
-      }
-      return;
-    }
-    
-    // Render each pending competition
-    pendingCompetitions.forEach(competition => {
-      const card = createCompetitionCard(competition);
-      pendingContainer.appendChild(card);
-    });
-    
-    // Set up auto-scrolling if there are more than 3 competitions
-    if (pendingCompetitions.length > 3) {
-      setupAutoScroll('pendingCompetitions', 30000);
-    }
-  }
-  
-  // Render all pending competitions (for the all pending page)
-  function renderAllPendingCompetitions() {
-    const allPendingGrid = document.getElementById('allPendingGrid');
-    
-    if (!allPendingGrid) return;
-    
-    // Clear existing content
-    allPendingGrid.innerHTML = '';
-    
-    if (pendingCompetitions.length === 0) {
-      allPendingGrid.innerHTML = `
-        <div class="empty-state">
-          <i class="fas fa-hourglass-start"></i>
-          <h3>No Pending Competitions</h3>
-          <p>Create a new competition to get started!</p>
-        </div>
-      `;
-      return;
-    }
-    
-    // Render each pending competition
-    pendingCompetitions.forEach(competition => {
-      const card = createCompetitionCard(competition);
-      allPendingGrid.appendChild(card);
-    });
-  }
-  
-  // Render live competitions
-  function renderLiveCompetitions() {
-    const liveContainer = document.getElementById('liveCompetitions');
-    const liveEmptyState = document.getElementById('liveEmptyState');
-    
-    if (!liveContainer) return;
-    
-    // Clear existing content
-    liveContainer.innerHTML = '';
-    
-    if (liveCompetitions.length === 0) {
-      if (liveEmptyState) {
-        liveContainer.appendChild(liveEmptyState);
-      } else {
-        liveContainer.innerHTML = `
-          <div class="empty-state">
-            <i class="fas fa-trophy"></i>
-            <h3>No Live Competitions</h3>
-            <p>Start a pending competition to make it live!</p>
-          </div>
-        `;
-      }
-      return;
-    }
-    
-    // Render each live competition
-    liveCompetitions.forEach(competition => {
-      const card = createCompetitionCard(competition);
-      liveContainer.appendChild(card);
-    });
-    
-    // Set up auto-scrolling if there are more than 3 competitions
-    if (liveCompetitions.length > 3) {
-      setupAutoScroll('liveCompetitions', 30000);
-    }
-  }
-  
-  // Render all live competitions (for the all live page)
-  function renderAllLiveCompetitions() {
-    const allLiveGrid = document.getElementById('allLiveGrid');
-    
-    if (!allLiveGrid) return;
-    
-    // Clear existing content
-    allLiveGrid.innerHTML = '';
-    
-    if (liveCompetitions.length === 0) {
-      allLiveGrid.innerHTML = `
-        <div class="empty-state">
-          <i class="fas fa-trophy"></i>
-          <h3>No Live Competitions</h3>
-          <p>Start a pending competition to make it live!</p>
-        </div>
-      `;
-      return;
-    }
-    
-    // Render each live competition
-    liveCompetitions.forEach(competition => {
-      const card = createCompetitionCard(competition);
-      allLiveGrid.appendChild(card);
-    });
-  }
-  
-  // Create a competition card element
-  function createCompetitionCard(competition) {
-    const card = document.createElement('div');
-    card.className = 'competition-card';
-    card.setAttribute('data-id', competition.id);
-    
-    // Set background image or color
-    if (competition.backgroundType === 'color') {
-      card.style.backgroundColor = competition.backgroundColor;
-    } else {
-      card.style.backgroundImage = `url('${competition.backgroundUrl}')`;
-    }
-    
-    // Add creator or joined class if applicable
-    if (competition.creatorId === currentUser.uid) {
-      card.classList.add('creator');
-    } else if (competition.contestants && competition.contestants.includes(currentUser.uid)) {
-      card.classList.add('joined');
-    }
-    
-    // Create card content
-    let cardContent = `
-      <div class="card-overlay">
-        <div>
-          <h3 class="card-title">${competition.title}</h3>
-    `;
-    
-    // Add countdown
-    const now = new Date();
-    const startDate = new Date(competition.startDate);
-    const endDate = new Date(competition.endDate);
-    
-    if (competition.status === 'pending') {
-      const timeUntilStart = Math.max(0, startDate - now);
-      const days = Math.floor(timeUntilStart / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeUntilStart % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      cardContent += `<div class="countdown">Registration ends in: ${days}d ${hours}h</div>`;
-    } else {
-      const timeUntilEnd = Math.max(0, endDate - now);
-      const days = Math.floor(timeUntilEnd / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeUntilEnd % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      cardContent += `<div class="countdown">Ends in: ${days}d ${hours}h</div>`;
-    }
-    
-    // Add contestants badge
-    const contestantCount = competition.contestants ? competition.contestants.length : 0;
-    cardContent += `
-      <div class="contestants-badge">
-        <i class="fas fa-users"></i> ${contestantCount}/${competition.maxContestants}
-      </div>
-    `;
-    
-    // Add creator or joined badge
-    if (competition.creatorId === currentUser.uid) {
-      cardContent += `<div class="creator-badge">Creator</div>`;
-    } else if (competition.contestants && competition.contestants.includes(currentUser.uid)) {
-      cardContent += `<div class="joined-badge">Joined</div>`;
-    }
-    
-    // Add live badge if applicable
-    if (competition.status === 'live') {
-      cardContent += `<div class="status-badge status-live">Live</div>`;
-    }
-    
-    // Add categories and action buttons
-    cardContent += `
-        </div>
-        <div class="card-info">
-          <div class="categories">
-    `;
-    
-    // Add category tags
-    competition.categories.forEach(category => {
-      cardContent += `<span class="category-tag">${category}</span>`;
-    });
-    
-    cardContent += `
-          </div>
-          <div class="card-actions">
-            <button class="card-btn rules-btn" data-id="${competition.id}">
-              <i class="fas fa-scroll"></i> Rules
-            </button>
-    `;
-    
-    // Add appropriate action button based on status and user role
-    if (competition.status === 'pending') {
-      if (competition.creatorId === currentUser.uid) {
-        cardContent += `
-          <button class="card-btn start-btn" data-id="${competition.id}">
-            <i class="fas fa-play"></i> Start
-          </button>
-        `;
-      } else if (competition.contestants && competition.contestants.includes(currentUser.uid)) {
-        cardContent += `
-          <button class="card-btn enter-btn" data-id="${competition.id}">
-            <i class="fas fa-door-open"></i> Enter
-          </button>
-        `;
-      } else if (contestantCount >= competition.maxContestants) {
-        cardContent += `
-          <button class="card-btn join-btn" disabled>
-            <i class="fas fa-user-plus"></i> Full
-          </button>
-        `;
-      } else {
-        cardContent += `
-          <button class="card-btn join-btn" data-id="${competition.id}">
-            <i class="fas fa-user-plus"></i> Join
-          </button>
-        `;
-      }
-    } else if (competition.status === 'live') {
-      cardContent += `
-        <button class="card-btn view-btn" data-id="${competition.id}">
-          <i class="fas fa-eye"></i> View
-        </button>
-      `;
-    }
-    
-    cardContent += `
-          </div>
-        </div>
-      </div>
-    `;
-    
-    card.innerHTML = cardContent;
-    return card;
-  }
-  
-  // Auto-scrolling functionality for carousels
-  function setupAutoScroll(carouselId, delay = 30000) {
-    const carousel = document.getElementById(carouselId);
-    const cards = carousel.querySelectorAll('.competition-card');
-    
-    if (cards.length <= 3) return; // Don't auto-scroll if there are few cards
-    
-    let scrollPosition = 0;
-    const cardWidth = cards[0].offsetWidth + 24; // Card width + gap
-    
-    setInterval(() => {
-      scrollPosition += cardWidth;
-      
-      // Reset scroll position if we've reached the end
-      if (scrollPosition >= carousel.scrollWidth - carousel.clientWidth) {
-        scrollPosition = 0;
-      }
-      
-      carousel.scrollTo({
-        left: scrollPosition,
-        behavior: 'smooth'
-      });
-    }, delay);
-  }
-  
-  // Load competition details for the details page
-  function loadCompetitionDetails(competitionId) {
-    db.collection('competitions').doc(competitionId).get()
-      .then(doc => {
-        if (doc.exists) {
-          const competition = {
-            id: doc.id,
-            ...doc.data()
-          };
-          
-          // Render competition details
-          renderCompetitionDetails(competition);
-        } else {
-          console.error("Competition not found");
-          // Redirect to main competitions page
-          window.location.href = 'competitions.html';
-        }
-      })
-      .catch(error => {
-        console.error("Error loading competition details:", error);
-      });
-  }
-  
-  // Render competition details on the details page
-  function renderCompetitionDetails(competition) {
-    const detailsContainer = document.getElementById('competitionDetails');
-    if (!detailsContainer) return;
-    
-    // Set page title
-    document.title = `${competition.title} - Competition Details`;
-    
-    // Create details HTML
-    let detailsHTML = `
-      <div class="competition-header" style="${competition.backgroundType === 'color' ? 
-        `background-color: ${competition.backgroundColor}` : 
-        `background-image: url('${competition.backgroundUrl}')`}">
-        <div class="header-overlay">
-          <h1>${competition.title}</h1>
-          
-          <div class="competition-meta">
-            <div class="meta-item">
-              <i class="fas fa-users"></i>
-              <span>${competition.contestants ? competition.contestants.length : 0}/${competition.maxContestants} Contestants</span>
-            </div>
+        
+        // Clear container
+        buyRequestCards.innerHTML = '';
+        
+        // Get request card template
+        const template = document.getElementById('requestCardTemplate');
+        
+        // Create and append request cards
+        requests.forEach(request => {
+            const card = template.content.cloneNode(true);
             
-            <div class="meta-item">
-              <i class="fas fa-calendar-alt"></i>
-              <span>Start: ${new Date(competition.startDate).toLocaleDateString()}</span>
-            </div>
+            // Set card data
+            card.querySelector('.username').textContent = request.username || 'Unknown User';
+            card.querySelector('.request-id').textContent = `ID: ${request.id.substring(0, 8)}`;
             
-            <div class="meta-item">
-              <i class="fas fa-calendar-check"></i>
-              <span>End: ${new Date(competition.endDate).toLocaleDateString()}</span>
-            </div>
+            const statusBadge = card.querySelector('.status-badge');
+            statusBadge.textContent = capitalizeFirstLetter(request.status || 'pending');
+            statusBadge.className = `status-badge ${request.status || 'pending'}`;
             
-            <div class="meta-item">
-              <i class="fas fa-vote-yea"></i>
-              <span>Voting: ${competition.votingType === 'free' ? 'Free' : 
-                `Paid (${competition.talentCoinsPerVote} Talent Coins per vote)`}</span>
-            </div>
-          </div>
-          
-          <div class="categories-container">
-    `;
-    
-    // Add categories
-    competition.categories.forEach(category => {
-      detailsHTML += `<span class="category-tag">${category}</span>`;
-    });
-    
-    detailsHTML += `
-          </div>
-        </div>
-      </div>
-      
-      <div class="competition-body">
-        <div class="competition-section">
-          <h2>Rules</h2>
-          <ol class="rules-list">
-    `;
-    
-    // Add rules
-    competition.rules.forEach(rule => {
-      detailsHTML += `<li>${rule}</li>`;
-    });
-    
-    detailsHTML += `
-          </ol>
-        </div>
-    `;
-    
-    // Add judges section if there are judges
-    if (competition.judges && competition.judges.length > 0) {
-      detailsHTML += `
-        <div class="competition-section">
-          <h2>Judges</h2>
-          <ul class="judges-list">
-      `;
-      
-      competition.judges.forEach(judge => {
-        detailsHTML += `<li>${judge}</li>`;
-      });
-      
-      detailsHTML += `
-          </ul>
-        </div>
-      `;
-    }
-    
-    // Add action buttons based on status and user role
-    detailsHTML += `
-        <div class="competition-actions">
-    `;
-    
-    if (competition.status === 'pending') {
-      if (competition.creatorId === currentUser.uid) {
-        detailsHTML += `
-          <button class="action-btn start-btn" data-id="${competition.id}">
-            <i class="fas fa-play"></i> Start Competition
-          </button>
-        `;
-      } else if (competition.contestants && competition.contestants.includes(currentUser.uid)) {
-        detailsHTML += `
-          <button class="action-btn enter-btn" data-id="${competition.id}">
-                        <i class="fas fa-door-open"></i> Enter Competition
-          </button>
-        `;
-      } else if (competition.contestants && competition.contestants.length >= competition.maxContestants) {
-        detailsHTML += `
-          <button class="action-btn join-btn" disabled>
-            <i class="fas fa-user-plus"></i> Competition Full
-          </button>
-        `;
-      } else {
-        detailsHTML += `
-          <button class="action-btn join-btn" data-id="${competition.id}">
-            <i class="fas fa-user-plus"></i> Join Competition
-          </button>
-        `;
-      }
-    } else if (competition.status === 'live') {
-      detailsHTML += `
-        <button class="action-btn view-btn" data-id="${competition.id}">
-          <i class="fas fa-eye"></i> View Competition
-        </button>
-      `;
-    }
-    
-    detailsHTML += `
-          <a href="competitions.html" class="action-btn back-btn">
-            <i class="fas fa-arrow-left"></i> Back to Competitions
-          </a>
-        </div>
-      </div>
-    `;
-    
-    // Set the HTML
-    detailsContainer.innerHTML = detailsHTML;
-    
-    // Add event listeners to the buttons
-    const startBtn = detailsContainer.querySelector('.start-btn');
-    if (startBtn) {
-      startBtn.addEventListener('click', () => {
-        startCompetition(competition.id);
-      });
-    }
-    
-    const joinBtn = detailsContainer.querySelector('.join-btn:not([disabled])');
-    if (joinBtn) {
-      joinBtn.addEventListener('click', () => {
-        joinCompetition(competition.id);
-      });
-    }
-    
-    const enterBtn = detailsContainer.querySelector('.enter-btn');
-    if (enterBtn) {
-      enterBtn.addEventListener('click', () => {
-        window.location.href = `competition-enter.html?id=${competition.id}`;
-      });
-    }
-    
-    const viewBtn = detailsContainer.querySelector('.view-btn');
-    if (viewBtn) {
-      viewBtn.addEventListener('click', () => {
-        window.location.href = `competition-view.html?id=${competition.id}`;
-      });
-    }
-  }
-  
-  // Show competition rules on the rules page
-  function showCompetitionRules(competitionId) {
-    db.collection('competitions').doc(competitionId).get()
-      .then(doc => {
-        if (doc.exists) {
-          const competition = {
-            id: doc.id,
-            ...doc.data()
-          };
-          
-          // Render rules
-          const rulesContainer = document.getElementById('rulesContainer');
-          const rulesTitle = document.getElementById('rulesTitle');
-          
-          if (rulesContainer && rulesTitle) {
-            rulesTitle.textContent = `Rules for ${competition.title}`;
+            // Format amount
+            const amount = card.querySelector('.detail-value');
+            amount.textContent = `${request.amount || 0} Talent Coins`;
             
-            // Create rules list
-            const rulesList = document.createElement('ol');
-            rulesList.className = 'rules-list';
+            // Format date
+            const date = card.querySelector('.detail-value:last-child');
+            date.textContent = formatDate(request.timestamp);
             
-            competition.rules.forEach(rule => {
-              const li = document.createElement('li');
-              li.textContent = rule;
-              rulesList.appendChild(li);
+            // Add data attributes for filtering
+            const cardElement = card.querySelector('.request-card');
+            cardElement.setAttribute('data-id', request.id);
+            cardElement.setAttribute('data-username', request.username || '');
+            cardElement.setAttribute('data-wallet', request.walletId || '');
+            cardElement.setAttribute('data-status', request.status || 'pending');
+            
+            // Add click event to view details
+            cardElement.addEventListener('click', function() {
+                showRequestDetails(request);
             });
             
-            rulesContainer.innerHTML = '';
-            rulesContainer.appendChild(rulesList);
-            
-            // Add back button
-            const backBtn = document.createElement('a');
-            backBtn.href = `competition-details.html?id=${competitionId}`;
-            backBtn.className = 'action-btn back-btn';
-            backBtn.innerHTML = '<i class="fas fa-arrow-left"></i> Back to Competition';
-            rulesContainer.appendChild(backBtn);
-          }
-        } else {
-          console.error("Competition not found");
-          // Redirect to main competitions page
-          window.location.href = 'competitions.html';
-        }
-      })
-      .catch(error => {
-        console.error("Error loading competition rules:", error);
-      });
-  }
-  
-  // Join a competition
-  function joinCompetition(competitionId) {
-    // Update Firestore
-    db.collection('competitions').doc(competitionId).update({
-      contestants: firebase.firestore.FieldValue.arrayUnion(currentUser.uid)
-    })
-    .then(() => {
-      // Update local data
-      const competition = pendingCompetitions.find(comp => comp.id === competitionId);
-      if (competition) {
-        if (!competition.contestants) {
-          competition.contestants = [];
-        }
-        competition.contestants.push(currentUser.uid);
-        
-        // Refresh the current page to show updated state
-        window.location.reload();
-      }
-    })
-    .catch(error => {
-      console.error("Error joining competition:", error);
-      alert('Error joining competition. Please try again.');
-    });
-  }
-  
-  // Start a competition (move from pending to live)
-  function startCompetition(competitionId) {
-    const competition = pendingCompetitions.find(comp => comp.id === competitionId);
-    
-    if (competition && competition.creatorId === currentUser.uid) {
-      // Confirm start
-      if (confirm(`Are you sure you want to start ${competition.title} now? This will move it to the Live tab.`)) {
-        // Update Firestore
-        db.collection('competitions').doc(competitionId).update({
-          status: 'live',
-          startedAt: firebase.firestore.FieldValue.serverTimestamp()
-        })
-        .then(() => {
-          // Redirect to the live competition view
-          window.location.href = `competition-view.html?id=${competitionId}`;
-        })
-        .catch(error => {
-          console.error("Error starting competition:", error);
-          alert('Error starting competition. Please try again.');
+            // Append to container
+            buyRequestCards.appendChild(card);
         });
-      }
     }
-  }
-  
-  // Public API
-  return {
-    init,
-    loadCompetitions,
-    renderPendingCompetitions,
-    renderLiveCompetitions
-  };
-})();
-
-// Initialize when the DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-  // Check if the user is logged in
-  firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-      CompetitionSystem.init(user);
-    } else {
-      // Redirect to login page if not logged in
-      // window.location.href = 'login.html';
-      
-      // For development, you can use a mock user
-      const mockUser = {
-        uid: 'mockUser123',
-        displayName: 'Mock User'
-      };
-      CompetitionSystem.init(mockUser);
+    
+    // Function to show request details in modal
+    function showRequestDetails(request) {
+        // Get modal elements
+        const modal = document.getElementById('requestDetailsModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalContent = document.getElementById('requestDetailsContent');
+        const approveBtn = document.getElementById('approveRequestBtn');
+        const rejectBtn = document.getElementById('rejectRequestBtn');
+        
+        // Set modal title
+        modalTitle.textContent = 'Buy Coin Request Details';
+        
+        // Get template and clone it
+        const template = document.getElementById('buyRequestDetailsTemplate');
+        const content = template.content.cloneNode(true);
+        
+        // Fill in the details
+        content.querySelector('.username').textContent = request.username || 'Unknown User';
+        content.querySelector('.wallet-id').textContent = `Wallet ID: ${request.walletId || 'N/A'}`;
+        content.querySelector('#requestId').textContent = request.id;
+        content.querySelector('#requestAmount').textContent = `${request.amount || 0} Talent Coins`;
+        content.querySelector('#nairaAmount').textContent = `₦${formatNumber(request.nairaAmount || 0)}`;
+        content.querySelector('#requestDate').textContent = formatDate(request.timestamp);
+        
+        const statusBadge = content.querySelector('#requestStatus');
+        statusBadge.textContent = capitalizeFirstLetter(request.status || 'pending');
+        statusBadge.className = `status-badge ${request.status || 'pending'}`;
+        
+        content.querySelector('#transferReference').textContent = request.transferReference || 'N/A';
+        content.querySelector('#transferDate').textContent = request.transferDate || 'N/A';
+        content.querySelector('#transferAmount').textContent = `₦${formatNumber(request.nairaAmount || 0)}`;
+        
+        // Set payment screenshot if available
+        const screenshotSection = content.querySelector('#screenshotSection');
+        const paymentScreenshot = content.querySelector('#paymentScreenshot');
+        
+        if (request.paymentScreenshot) {
+            paymentScreenshot.src = request.paymentScreenshot;
+            screenshotSection.style.display = 'block';
+        } else {
+            screenshotSection.style.display = 'none';
+        }
+        
+        // Set wallet ID for copy functionality
+        content.querySelector('#walletIdToCopy').textContent = request.walletId || 'N/A';
+        
+        // Clear the modal content and add the new content
+        modalContent.innerHTML = '';
+        modalContent.appendChild(content);
+        
+        // Set up copy wallet ID button
+        const copyWalletBtn = document.getElementById('copyWalletIdBtn');
+        copyWalletBtn.addEventListener('click', function() {
+            const walletId = document.getElementById('walletIdToCopy').textContent;
+            navigator.clipboard.writeText(walletId)
+                .then(() => {
+                    showToast('Wallet ID copied to clipboard', 'success');
+                })
+                .catch(err => {
+                    console.error('Could not copy text: ', err);
+                    showToast('Failed to copy wallet ID', 'error');
+                });
+        });
+        
+        // Set up approve/reject buttons based on status
+        if (request.status === 'pending') {
+            approveBtn.style.display = 'block';
+            rejectBtn.style.display = 'block';
+            
+            // Set up approve button
+            approveBtn.onclick = function() {
+                const notes = document.getElementById('moderatorNotes').value;
+                approveRequest(request.id, notes);
+            };
+            
+            // Set up reject button
+            rejectBtn.onclick = function() {
+                const notes = document.getElementById('moderatorNotes').value;
+                rejectRequest(request.id, notes);
+            };
+        } else {
+            approveBtn.style.display = 'none';
+            rejectBtn.style.display = 'none';
+        }
+        
+        // Show the modal
+        modal.style.display = 'block';
+        
+        // Set up close button
+        const closeBtn = modal.querySelector('.close-modal');
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+        };
+        
+        // Close when clicking outside the modal content
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
     }
-  });
+    
+    // Function to approve a request
+    function approveRequest(requestId, notes) {
+        // Show confirmation modal
+        const confirmModal = document.getElementById('confirmationModal');
+        const confirmTitle = document.getElementById('confirmationTitle');
+        const confirmMessage = document.getElementById('confirmationMessage');
+        const confirmBtn = document.getElementById('confirmActionBtn');
+        const cancelBtn = document.getElementById('cancelConfirmationBtn');
+        
+        confirmTitle.textContent = 'Approve Buy Request';
+        confirmMessage.textContent = 'Are you sure you want to approve this buy request? This will credit the user\'s wallet with the requested amount.';
+        
+        confirmModal.style.display = 'block';
+        
+        // Set up confirm button
+        confirmBtn.onclick = function() {
+            // Close confirmation modal
+            confirmModal.style.display = 'none';
+            
+            // Close details modal
+            document.getElementById('requestDetailsModal').style.display = 'none';
+            
+            // Show loading state
+            showToast('Processing request...', 'info');
+            
+            // Update request in Firebase
+            const db = firebase.firestore();
+            db.collection('buyRequests').doc(requestId).update({
+                status: 'completed',
+                moderatorNotes: notes,
+                completedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                moderator: 'Admin' // You might want to use the actual moderator name
+            })
+            .then(() => {
+                // Credit user's wallet
+                // This would typically involve another Firebase function or transaction
+                // For now, we'll just show a success message
+                
+                showToast('Buy request approved successfully', 'success');
+                
+                // Reload buy requests to update the UI
+                loadBuyCoinRequests();
+            })
+            .catch(error => {
+                console.error("Error approving request:", error);
+                showToast('Failed to approve request', 'error');
+            });
+        };
+        
+        // Set up cancel button
+        cancelBtn.onclick = function() {
+            confirmModal.style.display = 'none';
+        };
+        
+        // Close when clicking outside the modal
+        window.onclick = function(event) {
+            if (event.target === confirmModal) {
+                confirmModal.style.display = 'none';
+            }
+        };
+    }
+    
+    // Function to reject a request
+    function rejectRequest(requestId, notes) {
+        // Show confirmation modal
+        const confirmModal = document.getElementById('confirmationModal');
+        const confirmTitle = document.getElementById('confirmationTitle');
+        const confirmMessage = document.getElementById('confirmationMessage');
+        const confirmBtn = document.getElementById('confirmActionBtn');
+        const cancelBtn = document.getElementById('cancelConfirmationBtn');
+        
+        confirmTitle.textContent = 'Reject Buy Request';
+        confirmMessage.textContent = 'Are you sure you want to reject this buy request?';
+        
+        confirmModal.style.display = 'block';
+        
+        // Set up confirm button
+        confirmBtn.onclick = function() {
+            // Close confirmation modal
+            confirmModal.style.display = 'none';
+            
+            // Close details modal
+            document.getElementById('requestDetailsModal').style.display = 'none';
+            
+            // Show loading state
+            showToast('Processing request...', 'info');
+            
+            // Update request in Firebase
+            const db = firebase.firestore();
+            db.collection('buyRequests').doc(requestId).update({
+                status: 'rejected',
+                moderatorNotes: notes,
+                completedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                moderator: 'Admin' // You might want to use the actual moderator name
+            })
+            .then(() => {
+                showToast('Buy request rejected successfully', 'success');
+                
+                // Reload buy requests to update the UI
+                loadBuyCoinRequests();
+            })
+            .catch(error => {
+                console.error("Error rejecting request:", error);
+                showToast('Failed to reject request', 'error');
+            });
+        };
+        
+        // Set up cancel button
+        cancelBtn.onclick = function() {
+            confirmModal.style.display = 'none';
+        };
+        
+        // Close when clicking outside the modal
+        window.onclick = function(event) {
+            if (event.target === confirmModal) {
+                confirmModal.style.display = 'none';
+            }
+        };
+    }
+    
+    // Function to filter buy requests
+    function filterBuyRequests(searchTerm, statusFilter) {
+        const cards = document.querySelectorAll('#buyRequestCards .request-card');
+        
+        if (cards.length === 0) {
+            return;
+        }
+        
+        let visibleCount = 0;
+        
+        cards.forEach(card => {
+            const username = card.getAttribute('data-username').toLowerCase();
+            const walletId = card.getAttribute('data-wallet').toLowerCase();
+            const status = card.getAttribute('data-status');
+            
+            // Check if card matches both search term and status filter
+            const matchesSearch = searchTerm === '' || 
+                                 username.includes(searchTerm) || 
+                                 walletId.includes(searchTerm);
+                                 
+            const matchesStatus = statusFilter === 'all' || status === statusFilter;
+            
+            if (matchesSearch && matchesStatus) {
+                card.style.display = 'block';
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        
+        // Show empty state if no cards match the filter
+        if (visibleCount === 0) {
+            if (!document.querySelector('#buyRequestCards .empty-state')) {
+                const emptyState = document.createElement('div');
+                emptyState.className = 'empty-state filtered';
+                emptyState.innerHTML = `
+                    <i class="fas fa-filter"></i>
+                    <p>No requests match your filter</p>
+                `;
+                buyRequestCards.appendChild(emptyState);
+            }
+        } else {
+            const emptyState = document.querySelector('#buyRequestCards .empty-state.filtered');
+            if (emptyState) {
+                emptyState.remove();
+            }
+        }
+    }
+    
+    // Function to get current filter
+    function getCurrentFilter() {
+        const activeFilter = document.querySelector('#buyCoinSupport .dropdown-menu a.active');
+        return activeFilter ? activeFilter.getAttribute('data-filter') : 'all';
+    }
+    
+    // Function to update counters
+    function updateCounters(pendingCount, todayCount) {
+        buyRequestsBadge.textContent = pendingCount;
+        todayBuyRequests.textContent = todayCount;
+        
+        // Update badge visibility
+        if (pendingCount > 0) {
+            buyRequestsBadge.style.display = 'flex';
+        } else {
+            buyRequestsBadge.style.display = 'none';
+        }
+    }
+    
+    // Function to show empty state
+    function showEmptyState() {
+        buyRequestCards.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-coins"></i>
+                <p>No buy requests available</p>
+            </div>
+        `;
+    }
+    
+    // Function to show error state
+    function showErrorState() {
+        buyRequestCards.innerHTML = `
+            <div class="error-state">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Failed to load buy requests</p>
+                <button class="retry-btn" onclick="loadBuyCoinRequests()">
+                    <i class="fas fa-redo"></i> Retry
+                </button>
+            </div>
+        `;
+    }
+    
+    // Helper function to capitalize first letter
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+    
+    // Helper function to format date
+    function formatDate(date) {
+        if (!date) return 'N/A';
+        
+        const options = { 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        };
+        
+        return new Date(date).toLocaleDateString('en-US', options);
+    }
+    
+    // Helper function to format numbers with commas
+    function formatNumber(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    
+    // Function to show toast message
+    function showToast(message, type = 'success') {
+        const toast = document.getElementById('toast');
+        const toastIcon = toast.querySelector('.toast-icon i');
+        const toastMessage = toast.querySelector('.toast-message');
+        
+        // Set message
+        toastMessage.textContent = message;
+        
+        // Set icon and color based on type
+        toast.className = 'toast';
+        toast.classList.add(type);
+        
+        switch (type) {
+            case 'success':
+                toastIcon.className = 'fas fa-check-circle';
+                break;
+            case 'error':
+                toastIcon.className = 'fas fa-times-circle';
+                break;
+            case 'info':
+                toastIcon.className = 'fas fa-info-circle';
+                break;
+            case 'warning':
+                toastIcon.className = 'fas fa-exclamation-triangle';
+                break;
+        }
+        
+        // Show toast
+        toast.classList.add('show');
+        
+        // Hide after 3 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
 });
-    </script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Set up modal close buttons
+    setupModalCloseButtons();
+    
+    // Set up view full size image functionality
+    setupImageViewers();
+});
+
+// Function to set up modal close buttons
+function setupModalCloseButtons() {
+    const closeButtons = document.querySelectorAll('.close-modal');
+    
+    closeButtons.forEach(button => {
+        const modal = button.closest('.modal');
+        
+        button.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+    });
+    
+    // Close modals when clicking outside the content
+    window.addEventListener('click', function(event) {
+        const modals = document.querySelectorAll('.modal');
+        
+        modals.forEach(modal => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+}
+
+// Function to set up image viewers
+function setupImageViewers() {
+    document.addEventListener('click', function(event) {
+        if (event.target.matches('.view-full-btn') || event.target.closest('.view-full-btn')) {
+            event.preventDefault();
+            
+            // Find the closest image
+            const container = event.target.closest('.screenshot-container');
+            const image = container.querySelector('img');
+            
+            if (image && image.src) {
+                // Create a full-screen image viewer
+                const viewer = document.createElement('div');
+                viewer.className = 'image-viewer';
+                viewer.innerHTML = `
+                    <div class="image-viewer-content">
+                        <span class="close-viewer">&times;</span>
+                        <img src="${image.src}" alt="Full size image">
+                    </div>
+                `;
+                
+                // Add to body
+                document.body.appendChild(viewer);
+                
+                // Prevent scrolling on body
+                document.body.style.overflow = 'hidden';
+                
+                // Set up close button
+                const closeBtn = viewer.querySelector('.close-viewer');
+                closeBtn.addEventListener('click', function() {
+                    document.body.removeChild(viewer);
+                    document.body.style.overflow = '';
+                });
+                
+                viewer.addEventListener('click', function(e) {
+                    if (e.target === viewer) {
+                        document.body.removeChild(viewer);
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
+        }
+    });
+    
+    // Add CSS for image viewer
+    const style = document.createElement('style');
+    style.textContent = `
+        .image-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .image-viewer-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .image-viewer-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+        
+        .close-viewer {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        
+        .close-viewer:hover {
+            color: #ddd;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Function to create a request card from template
+function createRequestCard(data) {
+    // Clone the template
+    const template = document.getElementById('requestCardTemplate');
+    const card = template.content.cloneNode(true);
+    
+    // Set card data attributes
+    const cardElement = card.querySelector('.request-card');
+    cardElement.setAttribute('data-id', data.id);
+    cardElement.setAttribute('data-username', data.username || 'Unknown User');
+    cardElement.setAttribute('data-wallet', data.walletId || '');
+    cardElement.setAttribute('data-status', data.status || 'pending');
+    
+    // Set card content
+    card.querySelector('.username').textContent = data.username || 'Unknown User';
+    card.querySelector('.request-id').textContent = `ID: ${data.id.substring(0, 8)}`;
+    
+    // Set status badge
+    const statusBadge = card.querySelector('.status-badge');
+    statusBadge.textContent = capitalizeFirstLetter(data.status || 'pending');
+    statusBadge.className = `status-badge ${data.status || 'pending'}`;
+    
+    // Set amount and date
+    card.querySelector('.detail-value:first-of-type').textContent = 
+        `${formatNumber(data.amount || 0)} Talent Coins`;
+    
+    card.querySelector('.detail-value:last-of-type').textContent = 
+        formatDate(data.timestamp);
+    
+    return card;
+}
+
+// Function to populate request details modal
+function populateRequestDetails(data) {
+    // Clone the template
+    const template = document.getElementById('buyRequestDetailsTemplate');
+    const details = template.content.cloneNode(true);
+    
+    // Set user info
+    details.querySelector('.username').textContent = data.username || 'Unknown User';
+    details.querySelector('.wallet-id').textContent = `Wallet ID: ${data.walletId || 'N/A'}`;
+    
+    // Set request details
+    details.getElementById('requestId').textContent = data.id || 'N/A';
+    details.getElementById('requestAmount').textContent = 
+        `${formatNumber(data.amount || 0)} Talent Coins`;
+    details.getElementById('nairaAmount').textContent = 
+        `₦${formatNumber(data.nairaValue || 0)}`;
+    details.getElementById('requestDate').textContent = formatDate(data.timestamp);
+    
+    // Set status badge
+    const statusBadge = details.getElementById('requestStatus');
+    statusBadge.textContent = capitalizeFirstLetter(data.status || 'pending');
+    statusBadge.className = `status-badge ${data.status || 'pending'}`;
+    
+    // Set payment details
+    details.getElementById('transferReference').textContent = 
+        data.transferReference || 'N/A';
+    details.getElementById('transferDate').textContent = 
+        formatDate(data.transferDate) || 'N/A';
+    details.getElementById('transferAmount').textContent = 
+        `₦${formatNumber(data.transferAmount || 0)}`;
+    
+    // Set payment screenshot
+    const screenshotSection = details.getElementById('screenshotSection');
+    const screenshotImg = details.getElementById('paymentScreenshot');
+    
+    if (data.screenshotUrl) {
+        screenshotImg.src = data.screenshotUrl;
+        screenshotSection.style.display = 'block';
+    } else {
+        screenshotSection.style.display = 'none';
+    }
+    
+    // Set wallet ID for copying
+    details.getElementById('walletIdToCopy').textContent = data.walletId || 'N/A';
+    
+    // Set up copy wallet ID button
+    const copyBtn = details.getElementById('copyWalletIdBtn');
+    copyBtn.addEventListener('click', function() {
+        const walletId = data.walletId || '';
+        
+        if (walletId) {
+            navigator.clipboard.writeText(walletId)
+                .then(() => {
+                    // Show success message
+                    showToast('Wallet ID copied to clipboard', 'success');
+                    
+                    // Change button icon temporarily
+                    const icon = copyBtn.querySelector('i');
+                    icon.className = 'fas fa-check';
+                    
+                    setTimeout(() => {
+                        icon.className = 'fas fa-copy';
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Failed to copy wallet ID:', err);
+                    showToast('Failed to copy wallet ID', 'error');
+                });
+        }
+    });
+    
+    // Set moderator notes
+    const notesTextarea = details.getElementById('moderatorNotes');
+    notesTextarea.value = data.moderatorNotes || '';
+    
+    // Set up notes saving
+    notesTextarea.addEventListener('blur', function() {
+        const notes = notesTextarea.value.trim();
+        
+        // Only save if notes have changed
+        if (notes !== (data.moderatorNotes || '')) {
+            // Save notes to Firebase
+            db.collection('buyRequests').doc(data.id).update({
+                moderatorNotes: notes
+            })
+            .then(() => {
+                showToast('Notes saved successfully', 'success');
+                
+                // Update local data
+                data.moderatorNotes = notes;
+            })
+            .catch(error => {
+                console.error('Error saving notes:', error);
+                showToast('Failed to save notes', 'error');
+            });
+        }
+    });
+    
+    return details;
+}
+
+// Helper function to capitalize first letter
+function capitalizeFirstLetter(string) {
+    if (!string) return '';
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+// Helper function to format date
+function formatDate(date) {
+    if (!date) return 'N/A';
+    
+    let dateObj;
+    if (date.toDate) {
+        // Handle Firestore Timestamp
+        dateObj = date.toDate();
+    } else if (date.seconds) {
+        // Handle Firestore Timestamp in object form
+        dateObj = new Date(date.seconds * 1000);
+    } else {
+        // Handle regular date string or timestamp
+        dateObj = new Date(date);
+    }
+    
+    const options = { 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    };
+    
+    return dateObj.toLocaleDateString('en-US', options);
+}
+
+// Helper function to format numbers with commas
+function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+// Function to show toast message
+function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    const toastIcon = toast.querySelector('.toast-icon i');
+    const toastMessage = toast.querySelector('.toast-message');
+    
+    // Set message
+    toastMessage.textContent = message;
+    
+    // Set icon and color based on type
+    toast.className = 'toast';
+    toast.classList.add(type);
+    
+    switch (type) {
+        case 'success':
+            toastIcon.className = 'fas fa-check-circle';
+            break;
+        case 'error':
+            toastIcon.className = 'fas fa-times-circle';
+            break;
+        case 'info':
+            toastIcon.className = 'fas fa-info-circle';
+            break;
+        case 'warning':
+            toastIcon.className = 'fas fa-exclamation-triangle';
+            break;
+    }
+    
+    // Show toast
+    toast.classList.add('show');
+    
+    // Hide after 3 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+}
+
+
+
+
+
+</script>
+</body>
+</html>
+
