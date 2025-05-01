@@ -4008,68 +4008,127 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
     
-    // Function to approve a request
-    function approveRequest(requestId, notes) {
-        // Show confirmation modal
-        const confirmModal = document.getElementById('confirmationModal');
-        const confirmTitle = document.getElementById('confirmationTitle');
-        const confirmMessage = document.getElementById('confirmationMessage');
-        const confirmBtn = document.getElementById('confirmActionBtn');
-        const cancelBtn = document.getElementById('cancelConfirmationBtn');
-        
-        confirmTitle.textContent = 'Approve Buy Request';
-        confirmMessage.textContent = 'Are you sure you want to approve this buy request? This will credit the user\'s wallet with the requested amount.';
-        
-        confirmModal.style.display = 'block';
-        
-        // Set up confirm button
-        confirmBtn.onclick = function() {
-            // Close confirmation modal
-            confirmModal.style.display = 'none';
+   // Approve Buy Request
+function approveRequest(requestId) {
+    // Verify admin authentication
+    const user = firebase.auth().currentUser;
+    if (!user) {
+        showToast('You must be logged in to approve requests', 'error');
+        return;
+    }
+    
+    // Get admin notes
+    const notesInput = document.getElementById('moderatorNotes');
+    const notes = notesInput ? notesInput.value : '';
+    
+    // Show loading state
+    showToast('Processing request...', 'info');
+    
+    // Ensure admin is authenticated before proceeding
+    firebase.auth().currentUser.getIdToken(true)
+        .then(token => {
+            const db = firebase.firestore();
+            
+            // Check if user is admin
+            return db.collection('admins').doc(user.uid).get()
+                .then(adminDoc => {
+                    if (!adminDoc.exists) {
+                        throw new Error('You do not have admin privileges');
+                    }
+                    
+                    // Continue with approval process
+                    return db.collection('buyRequests').doc(requestId).get();
+                });
+        })
+        .then(doc => {
+            if (!doc.exists) {
+                throw new Error('Request not found');
+            }
+            
+            const requestData = doc.data();
+            const userId = requestData.userId;
+            const amount = requestData.amount;
+            
+            const db = firebase.firestore();
+            // Use a transaction to update both the request and the wallet
+            return db.runTransaction(transaction => {
+                // Get the user's wallet
+                const walletRef = db.collection('wallets').doc(userId);
+                
+                return transaction.get(walletRef)
+                    .then(walletDoc => {
+                        // Get current admin user
+                        const adminUser = firebase.auth().currentUser;
+                        const adminName = adminUser ? adminUser.displayName || adminUser.email : 'Admin';
+                        
+                        // Create wallet if it doesn't exist
+                        if (!walletDoc.exists) {
+                            transaction.set(walletRef, {
+                                talentCoins: amount,
+                                commission: 0,
+                                lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+                            });
+                        } else {
+                            // Update existing wallet
+                            const walletData = walletDoc.data();
+                            const currentBalance = walletData.talentCoins || 0;
+                            
+                            transaction.update(walletRef, {
+                                talentCoins: currentBalance + amount,
+                                lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+                            });
+                        }
+                        
+                        // Update the request status
+                        const requestRef = db.collection('buyRequests').doc(requestId);
+                        transaction.update(requestRef, {
+                            status: 'completed',
+                            moderatorNotes: notes,
+                            completedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                            moderator: adminName
+                        });
+                        
+                        // Create activity record
+                        const activityRef = db.collection('activity').doc();
+                        transaction.set(activityRef, {
+                            userId: userId,
+                            type: 'buy',
+                            title: 'Buy Request Approved',
+                            details: `${amount} Talent Coins added to wallet`,
+                            status: 'completed',
+                            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                    });
+            });
+        })
+        .then(() => {
+            showToast('Buy request approved successfully', 'success');
             
             // Close details modal
             document.getElementById('requestDetailsModal').style.display = 'none';
             
-            // Show loading state
-            showToast('Processing request...', 'info');
-            
-            // Update request in Firebase
-            const db = firebase.firestore();
-            db.collection('buyRequests').doc(requestId).update({
-                status: 'completed',
-                moderatorNotes: notes,
-                completedAt: firebase.firestore.FieldValue.serverTimestamp(),
-                moderator: 'Admin' // You might want to use the actual moderator name
-            })
-            .then(() => {
-                // Credit user's wallet
-                // This would typically involve another Firebase function or transaction
-                // For now, we'll just show a success message
-                
-                showToast('Buy request approved successfully', 'success');
-                
-                // Reload buy requests to update the UI
-                loadBuyCoinRequests();
-            })
-            .catch(error => {
-                console.error("Error approving request:", error);
-                showToast('Failed to approve request', 'error');
-            });
-        };
-        
-        // Set up cancel button
-        cancelBtn.onclick = function() {
-            confirmModal.style.display = 'none';
-        };
-        
-        // Close when clicking outside the modal
-        window.onclick = function(event) {
-            if (event.target === confirmModal) {
-                confirmModal.style.display = 'none';
-            }
-        };
-    }
-    
+            // Reload buy requests to update the UI
+            loadBuyCoinRequests();
+        })
+        .catch(error => {
+            console.error("Error approving request:", error);
+            showToast('Failed to approve request: ' + error.message, 'error');
+        });
+}
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
     // Function to reject a request
     function rejectRequest(requestId, notes) {
         // Show confirmation modal
@@ -4625,4 +4684,3 @@ function showToast(message, type = 'success') {
 </script>
 </body>
 </html>
-
