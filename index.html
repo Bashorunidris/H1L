@@ -10465,25 +10465,19 @@ textarea.form-control {
 
  /* Preview Page Button - Mobile Responsive */
 .preview-page-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 14px 20px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
+   display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 6px;
+    gap: 8px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-    width: 100%;
-    max-width: 280px;
-    min-height: 44px; /* iOS touch target minimum */
-    text-align: center;
-    line-height: 1.2;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    position: relative;
+    overflow: hidden;
     /* Prevent text selection */
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -13442,10 +13436,9 @@ textarea.form-control {
          <div class="walleticon-btn">
                     <i class="fas fa-wallet"></i>
                  </div>
-          
+               
             </div>
-            
-                  <!-- Preview Page Button (can be placed anywhere in your main page) -->
+             <!-- Preview Page Button (can be placed anywhere in your main page) -->
 <button id="openpreviewpagebtn" class="preview-page-btn">
     <i class="fas fa-eye"></i>
     
@@ -13467,7 +13460,12 @@ textarea.form-control {
                 <span>Creator</span>
             </div>
             
-           
+            <div class="action-btn spin-btn">
+                <div class="action-icon spin-icon">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+                <span>Spin</span>
+            </div>
             
              <div class="action-btn Game-btn">
     <div class="action-icon game-icon">
@@ -13482,12 +13480,6 @@ textarea.form-control {
                     <i class="fas fa-gem"></i>
                 </div>
                 <span>Rewarder</span>
-            </div>
-             <div class="action-btn spin-btn">
-                <div class="action-icon spin-icon">
-                    <i class="fas fa-sync-alt"></i>
-                </div>
-                <span>Spin</span>
             </div>
           
         </div>
