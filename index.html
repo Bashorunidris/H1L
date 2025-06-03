@@ -10463,9 +10463,24 @@ textarea.form-control {
 
 
 
- /* Preview Page Button - Mobile Responsive */
+
+/* Preview Page button */
 .preview-page-btn {
-   
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    position: relative;
+    overflow: hidden;
+    border: none;
+
     /* Prevent text selection */
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -10479,64 +10494,17 @@ textarea.form-control {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Active state for mobile (replaces hover) */
-.preview-page-btn:active {
-    transform: scale(0.98);
-    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.4);
-    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
-}
 
-/* Focus state for accessibility */
-.preview-page-btn:focus {
-    outline: 2px solid #667eea;
-    outline-offset: 2px;
-}
 
-/* Disabled state */
-.preview-page-btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
-}
-
-.preview-page-btn:disabled:active {
-    transform: none;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-/* Loading state */
-.preview-page-btn.loading {
-    opacity: 0.8;
-    cursor: wait;
-    pointer-events: none;
-}
-
-.preview-page-btn.loading::after {
-    content: '';
-    width: 16px;
-    height: 16px;
-    border: 2px solid transparent;
-    border-top: 2px solid white;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-left: 8px;
-}
-
-/* Icon styling within button */
 .preview-page-btn i {
-    font-size: 14px;
-    flex-shrink: 0;
+    font-size: 1rem;
+    position: relative;
 }
 
-/* Text truncation for long labels */
-.preview-page-btn .btn-text {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    flex: 1;
+.preview-page-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px var(--shadow-color);
 }
-
 /* Small Mobile (320px - 480px) */
 @media (max-width: 480px) {
     .preview-page-btn {
@@ -13426,7 +13394,11 @@ textarea.form-control {
                  </div>
                
             </div>
-            
+             <!-- Preview Page Button (can be placed anywhere in your main page) -->
+<button id="openpreviewpagebtn" class="preview-page-btn">
+    <i class="fas fa-eye"></i>
+    
+</button>
         <div class="hamburger-menu">
             <i class="fas fa-bars"></i>
         </div>
@@ -13436,36 +13408,21 @@ textarea.form-control {
     <div class="dashboard-container">
         <!-- Action Buttons Container - Single Row -->
         <div class="action-buttons-row">
-            <div class="action-btn rewarder-btn">
-                <div class="action-icon rewarder">
-                    <i class="fas fa-gem"></i>
-                </div>
-                <span>Rewarder</span>
-            </div>
+            
             <div class="action-btn creator-btn">
                 <div class="action-icon">
                     <i class="fas fa-video"></i>
                 </div>
                 <span>Creator</span>
             </div>
-            <div class="action-btn rewarder-btn">
-                <div class="action-icon rewarder">
-                    <i class="fas fa-gem"></i>
-                </div>
-                <span>Rewarder</span>
-            </div>
+            
             <div class="action-btn spin-btn">
                 <div class="action-icon spin-icon">
                     <i class="fas fa-sync-alt"></i>
                 </div>
                 <span>Spin</span>
             </div>
-            <div class="action-btn rewarder-btn">
-                <div class="action-icon rewarder">
-                    <i class="fas fa-gem"></i>
-                </div>
-                <span>Rewarder</span>
-            </div>
+            
              <div class="action-btn Game-btn">
     <div class="action-icon game-icon">
     <i class="fa-solid fa-gamepad"></i>
@@ -13473,23 +13430,14 @@ textarea.form-control {
     </div>
     <span>Game</span>
 </div>
-<div class="action-btn rewarder-btn">
-                <div class="action-icon rewarder">
-                    <i class="fas fa-gem"></i>
-                </div>
-                <span>Rewarder</span>
-            </div>
+
             <div class="action-btn rewarder-btn">
                 <div class="action-icon rewarder">
                     <i class="fas fa-gem"></i>
                 </div>
                 <span>Rewarder</span>
             </div>
-           <!-- Preview Page Button (can be placed anywhere in your main page) -->
-<button id="openpreviewpagebtn" class="preview-page-btn">
-    <i class="fas fa-eye"></i>
-    
-</button>
+          
         </div>
     </div>
   
