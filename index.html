@@ -10465,19 +10465,7 @@ textarea.form-control {
 
  /* Preview Page Button - Mobile Responsive */
 .preview-page-btn {
-   display: flex;
-    align-items: center;
-    gap: 8px;
-    background-color: var(--primary-color);
-    color: var(--white);
-    padding: 8px 16px;
-    border-radius: var(--border-radius);
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px var(--shadow-color);
-    position: relative;
-    overflow: hidden;
+   
     /* Prevent text selection */
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -13438,11 +13426,7 @@ textarea.form-control {
                  </div>
                
             </div>
-             <!-- Preview Page Button (can be placed anywhere in your main page) -->
-<button id="openpreviewpagebtn" class="preview-page-btn">
-    <i class="fas fa-eye"></i>
-    
-</button>
+            
         <div class="hamburger-menu">
             <i class="fas fa-bars"></i>
         </div>
@@ -13452,21 +13436,36 @@ textarea.form-control {
     <div class="dashboard-container">
         <!-- Action Buttons Container - Single Row -->
         <div class="action-buttons-row">
-            
+            <div class="action-btn rewarder-btn">
+                <div class="action-icon rewarder">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <span>Rewarder</span>
+            </div>
             <div class="action-btn creator-btn">
                 <div class="action-icon">
                     <i class="fas fa-video"></i>
                 </div>
                 <span>Creator</span>
             </div>
-            
+            <div class="action-btn rewarder-btn">
+                <div class="action-icon rewarder">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <span>Rewarder</span>
+            </div>
             <div class="action-btn spin-btn">
                 <div class="action-icon spin-icon">
                     <i class="fas fa-sync-alt"></i>
                 </div>
                 <span>Spin</span>
             </div>
-            
+            <div class="action-btn rewarder-btn">
+                <div class="action-icon rewarder">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <span>Rewarder</span>
+            </div>
              <div class="action-btn Game-btn">
     <div class="action-icon game-icon">
     <i class="fa-solid fa-gamepad"></i>
@@ -13474,14 +13473,23 @@ textarea.form-control {
     </div>
     <span>Game</span>
 </div>
-
+<div class="action-btn rewarder-btn">
+                <div class="action-icon rewarder">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <span>Rewarder</span>
+            </div>
             <div class="action-btn rewarder-btn">
                 <div class="action-icon rewarder">
                     <i class="fas fa-gem"></i>
                 </div>
                 <span>Rewarder</span>
             </div>
-          
+           <!-- Preview Page Button (can be placed anywhere in your main page) -->
+<button id="openpreviewpagebtn" class="preview-page-btn">
+    <i class="fas fa-eye"></i>
+    
+</button>
         </div>
     </div>
   
