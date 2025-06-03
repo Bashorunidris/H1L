@@ -756,23 +756,13 @@ body {
 
 /* Navigation buttons container */
 .dashboard-nav > div:not(.user-info):not(.hamburger-menu) {
-    display: flex;
+   display: flex;
     align-items: center;
-    gap: 15px;
+    justify-content: space-between;
+    padding: 10px 15px;
+    gap: 10px;
 }
-
- /* Container for all buttons */
-.icon-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    gap: 20px;
-    padding: 10px;
-    flex-wrap: wrap;
-}
-
-/* Common button styles */
+/* Button container styling - make buttons display horizontally */
 .trophy-btn,
 .wallet1-btn,
 .rewarder-btn,
@@ -781,121 +771,136 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 15px;
-    border-radius: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: transform 0.3s ease;
-    min-width: 80px;
+    transition: all 0.3s ease;
+    min-width: 50px;
     position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* Hover effects */
 .trophy-btn:hover,
 .wallet1-btn:hover,
 .rewarder-btn:hover,
 .spin-btn:hover {
-    transform: translateY(-5px);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Trophy button specific */
+/* Trophy button */
 .trophy-btn {
-    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    background: linear-gradient(135deg, #ffd700, #ffb300);
     color: #333;
 }
 
 .trophy-btn i {
-    font-size: 24px;
-    margin-bottom: 8px;
+    font-size: 18px;
+    margin-bottom: 4px;
 }
 
-/* Wallet button specific */
+/* Wallet button */
 .wallet1-btn {
-    background: linear-gradient(135deg, #4CAF50, #45a049);
+    background: linear-gradient(135deg, #4CAF50, #388E3C);
     color: white;
 }
 
 .walleticon-btn i {
-    font-size: 24px;
+    font-size: 18px;
 }
 
-/* Rewarder button specific */
+/* Rewarder button */
 .rewarder-btn {
-    background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+    background: linear-gradient(135deg, #9c27b0, #6a1b9a);
     color: white;
 }
 
 .action-icon.rewarder i {
-    font-size: 24px;
-    margin-bottom: 8px;
+    font-size: 18px;
+    margin-bottom: 4px;
 }
 
-/* Spin button specific */
+/* Spin button */
 .spin-btn {
-    background: linear-gradient(135deg, #2196F3, #1976D2);
+    background: linear-gradient(135deg, #2196F3, #1565C0);
     color: white;
 }
 
 .action-icon.spin-icon i {
-    font-size: 24px;
-    margin-bottom: 8px;
-    animation: spin 2s linear infinite;
+    font-size: 18px;
+    margin-bottom: 4px;
 }
 
 /* Spin animation */
+.spin-btn:hover .action-icon.spin-icon i {
+    animation: spin 1s linear infinite;
+}
+
 @keyframes spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
 
-/* Shine sweep effect */
-.shine-sweep {
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-    transition: left 0.5s;
-}
 
-.trophy-btn:hover .shine-sweep {
+.trophy-btn:hover .shine-swee {
     left: 100%;
 }
 
-/* Button text */
+/* Button text styling */
 .trophy-btn span,
 .rewarder-btn span,
 .spin-btn span {
-    font-size: 12px;
-    font-weight: bold;
+    font-size: 10px;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
+    margin-top: 2px;
 }
 
-/* Responsive design */
+/* Responsive adjustments */
 @media (max-width: 768px) {
-    .icon-container {
-        gap: 10px;
-        padding: 5px;
+    .dashboard-nav {
+        padding: 8px 10px;
+        gap: 5px;
     }
     
     .trophy-btn,
     .wallet1-btn,
     .rewarder-btn,
     .spin-btn {
-        min-width: 60px;
-        padding: 10px;
+        padding: 6px 8px;
+        min-width: 40px;
     }
     
     .trophy-btn i,
     .walleticon-btn i,
     .action-icon i {
-        font-size: 20px;
+        font-size: 16px;
     }
     
     .trophy-btn span,
     .rewarder-btn span,
     .spin-btn span {
-        font-size: 10px;
+        font-size: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .trophy-btn span,
+    .rewarder-btn span,
+    .spin-btn span {
+        display: none;
+    }
+    
+    .trophy-btn,
+    .wallet1-btn,
+    .rewarder-btn,
+    .spin-btn {
+        min-width: 35px;
+        padding: 8px;
     }
 }
 
@@ -11841,35 +11846,33 @@ textarea.form-control {
             <span class="username" id="usernameDisplay">Username</span>
         </div>
         
-<div class="icon-container">
-    <div class="trophy-btn">
-        <i class="fas fa-trophy"></i>
-        <div class="shine-sweep"></div>
-        <span>Trophy</span>
-    </div>
-    
-    <div class="wallet1-btn">
-        <div class="walleticon-btn">
-            <i class="fas fa-wallet"></i>
-        </div>
-    </div>
-    
-    <div class="rewarder-btn">
-        <div class="action-icon rewarder">
-            <i class="fas fa-gem"></i>
-        </div>
-        <span>Rewarder</span>
-    </div>
-    
-    <div class="spin-btn">
-        <div class="action-icon spin-icon">
-            <i class="fas fa-sync-alt"></i>
-        </div>
-        <span>Spin</span>
-    </div>
+        <div class="trophy-btn">
+    <i class="fas fa-trophy"></i>
+    <div class="shine-sweep"></div>
+    <span>Trophy</span>
 </div>
 
+        <div class="wallet1-btn">
+          
+         <div class="walleticon-btn">
+                    <i class="fas fa-wallet"></i>
+                 </div>
+               
+            </div>
+            
+            <div class="rewarder-btn">
+                <div class="action-icon rewarder">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <span>Rewarder</span>
+            </div>
 
+            <div class="spin-btn">
+                <div class="action-icon spin-icon">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+                <span>Spin</span>
+            </div>
 
         <div class="hamburger-menu">
             <i class="fas fa-bars"></i>
