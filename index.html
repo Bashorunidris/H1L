@@ -1211,6 +1211,151 @@ body {
     -webkit-overflow-scrolling: touch;
       background-color: rgba(0, 0, 0, 0.05);
 }
+/* Media Banner Styles */
+.media-banner-container {
+    width: 100%;
+    height: 70px;
+    overflow: hidden;
+    position: relative;
+    background: #000;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.media-banner-track {
+    display: flex;
+    height: 100%;
+    animation: autoScroll 20s linear infinite;
+    gap: 10px;
+}
+
+.media-item {
+    flex-shrink: 0;
+    width: 480px;
+    height: 70px;
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.media-item:hover {
+    transform: scale(1.05);
+    z-index: 10;
+}
+
+/* Video Styles */
+.video-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* Image Styles */
+.image-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* Media Overlay */
+.media-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    padding: 8px 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.media-item:hover .media-overlay {
+    opacity: 1;
+}
+
+.media-title {
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Auto Scroll Animation */
+@keyframes autoScroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Pause animation on hover */
+.media-banner-container:hover .media-banner-track {
+    animation-play-state: paused;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .media-item {
+        width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .media-item {
+        width: 250px;
+    }
+    
+    .media-banner-container {
+        height: 60px;
+    }
+    
+    .media-item {
+        height: 60px;
+    }
+}
+
+/* Loading placeholder */
+.media-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    z-index: -1;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Play/Pause indicator for videos */
+.video-item::after {
+    content: '▶';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 16px;
+    opacity: 0.7;
+    pointer-events: none;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
 
 /* Action Buttons - Single Row */
 .action-buttons-row {
@@ -13070,6 +13215,80 @@ textarea.form-control {
     
     <!-- Main Dashboard Container -->
     <div class="dashboard-container">
+      
+    <!-- Media Banner Container -->
+    <div class="media-banner-container">
+        <div class="media-banner-track">
+            <!-- Video Items -->
+            <div class="media-item video-item">
+                <video muted loop autoplay>
+                    <source src="video1.mp4" type="video/mp4">
+                </video>
+                <div class="media-overlay">
+                    <span class="media-title">Video 1</span>
+                </div>
+            </div>
+            
+            <!-- Image Items -->
+            <div class="media-item image-item">
+                <img src="image1.jpg" alt="Image 1">
+                <div class="media-overlay">
+                    <span class="media-title">Image 1</span>
+                </div>
+            </div>
+            
+            <div class="media-item video-item">
+                <video muted loop autoplay>
+                    <source src="video2.mp4" type="video/mp4">
+                </video>
+                <div class="media-overlay">
+                    <span class="media-title">Video 2</span>
+                </div>
+            </div>
+            
+            <div class="media-item image-item">
+                <img src="image2.jpg" alt="Image 2">
+                <div class="media-overlay">
+                    <span class="media-title">Image 2</span>
+                </div>
+            </div>
+            
+            <div class="media-item video-item">
+                <video muted loop autoplay>
+                    <source src="video3.mp4" type="video/mp4">
+                </video>
+                <div class="media-overlay">
+                    <span class="media-title">Video 3</span>
+                </div>
+            </div>
+            
+            <div class="media-item image-item">
+                <img src="image3.jpg" alt="Image 3">
+                <div class="media-overlay">
+                    <span class="media-title">Image 3</span>
+                </div>
+            </div>
+            
+            <!-- Duplicate items for seamless loop -->
+            <div class="media-item video-item">
+                <video muted loop autoplay>
+                    <source src="video1.mp4" type="video/mp4">
+                </video>
+                <div class="media-overlay">
+                    <span class="media-title">Video 1</span>
+                </div>
+            </div>
+            
+            <div class="media-item image-item">
+                <img src="image1.jpg" alt="Image 1">
+                <div class="media-overlay">
+                    <span class="media-title">Image 1</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
         <!-- Action Buttons Container - Single Row -->
         <div class="action-buttons-row">
             
