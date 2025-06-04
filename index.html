@@ -2804,6 +2804,40 @@ input:checked + .slider:before {
     overflow-x: hidden;
     min-height: 100vh;
 }
+/* Additional CSS for smooth show/hide transitions */
+.liveevent-page {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.liveevent-page-open {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Optional: Close button styling if you want to add one */
+.liveevent-close-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: hsl(261, 84%, 60%);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.liveevent-close-btn:hover {
+   transform: scale(1.1);
+    background: hsl(261, 84%, 60%);
+    
+}
 
 .liveevent-container {
     min-height: 100vh;
@@ -14038,8 +14072,8 @@ textarea.form-control {
                 </div>
                 <span>Rewarder</span>
             </div>
-           <div class="action-btn Liveevent-btn">
-                <div class="action-icon Liveevent">
+           <div class="action-btn Liveevents-btn">
+                <div class="action-icon Liveevents">
                     <i class="fas fa-status"></i>
                 </div>
                 <span>Live events</span>
@@ -14049,23 +14083,17 @@ textarea.form-control {
         
           
         </div>
-        
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Events</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="live-events.css">
-</head>
-<body>
+       
     <div class="liveevent-page">
         <div class="liveevent-container">
             <!-- Header -->
             <header class="liveevent-header">
                 <h1><i class="fas fa-broadcast-tower"></i> Live Events</h1>
             </header>
+<!-- Add this inside your liveevent-page div, preferably at the top -->
+<button class="liveevent-close-btn">
+    <i class="fas fa-times"></i>
+</button>
 
             <!-- Tab Navigation -->
             <div class="liveevent-tab-navigation">
@@ -24501,7 +24529,58 @@ function goBackToCreator() {
     console.log('Going back to event creator');
 }
     
-        
+       document.addEventListener('DOMContentLoaded', function() {
+    // Get the button and the live events page
+    const liveeventBtn = document.querySelector('.Liveevents-btn');
+    const liveeventPage = document.querySelector('.liveevent-page');
+    
+    // Hide the live events page initially
+    if (liveeventPage) {
+        liveeventPage.style.display = 'none';
+    }
+    
+    // Add click event listener to the button
+    if (liveeventBtn && liveeventPage) {
+        liveeventBtn.addEventListener('click', function() {
+            // Toggle the display of the live events page
+            if (liveeventPage.style.display === 'none' || liveeventPage.style.display === '') {
+                // Show the live events page
+                liveeventPage.style.display = 'block';
+                // Optional: Add a class for additional styling
+                liveeventPage.classList.add('liveevent-page-open');
+            } else {
+                // Hide the live events page
+                liveeventPage.style.display = 'none';
+                // Optional: Remove the class
+                liveeventPage.classList.remove('liveevent-page-open');
+            }
+        });
+    }
+    
+    // Optional: Add a close button functionality (if you want to close from within the page)
+    // You can add this HTML inside your liveevent-page: <button class="liveevent-close-btn"><i class="fas fa-times"></i></button>
+    const liveeventCloseBtn = document.querySelector('.liveevent-close-btn');
+    if (liveeventCloseBtn && liveeventPage) {
+        liveeventCloseBtn.addEventListener('click', function() {
+            liveeventPage.style.display = 'none';
+            liveeventPage.classList.remove('liveevent-page-open');
+        });
+    }
+    
+    // Optional: Close when clicking outside the live events page
+    document.addEventListener('click', function(event) {
+        // Check if the click is outside the live events page and not on the trigger button
+        if (liveeventPage && 
+            liveeventPage.style.display === 'block' && 
+            !liveeventPage.contains(event.target) && 
+            !liveeventBtn.contains(event.target)) {
+            
+            liveeventPage.style.display = 'none';
+            liveeventPage.classList.remove('liveevent-page-open');
+        }
+    });
+});
+ 
     
    // Tab switching functionality
         document.addEventListener('DOMContentLoaded', function() {
