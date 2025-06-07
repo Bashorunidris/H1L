@@ -9167,45 +9167,74 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
 
 
 
-/* Event Creator Modal Styles */
-.modal-overlay {
-    display: none;
+
+   
+   
+/* Creator Modal Overlay */
+.creator-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
     z-index: 1000;
-    overflow-y: auto;
-    padding: 20px;
+    backdrop-filter: blur(5px);
 }
 
-.modal-overlay.active {
-    display: block;
-    animation: fadeIn 0.3s ease-in-out;
+.creator-modal-overlay.active {
+    display: flex;
 }
 
-.modal-content {
-    background-color: #fff;
-    border-radius: 10px;
-    max-width: 600px;
-    margin: 30px auto;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    position: relative;
+/* Creator Modal Container */
+.creator-modal-container {
+    background: #1a1a2e;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
     max-height: 90vh;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    animation: creatorModalSlideIn 0.3s ease-out;
     display: flex;
     flex-direction: column;
+    border: 1px solid #16213e;
 }
 
+@keyframes creatorModalSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
 
+/* Modal Header */
+.creator-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    background: rgba(22, 33, 62, 0.3);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #16213e;
+}
 
-/* Close Button */
-.close-modal-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(255, 255, 255, 0.9);
+.creator-modal-header h2 {
+    color: white;
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.creator-modal-close-btn {
+    background: rgba(22, 33, 62, 0.5);
     border: none;
     border-radius: 50%;
     width: 40px;
@@ -9214,617 +9243,633 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    z-index: 10001;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    color: white;
+    font-size: 1.2rem;
 }
 
-.close-modal-btn:hover {
-    background: #fff;
+.creator-modal-close-btn:hover {
+    background: rgba(22, 33, 62, 0.8);
     transform: rotate(90deg);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-.close-modal-btn i {
-    font-size: 18px;
-    color: #666;
-}
-
-/* Banner Section */
-.banner-section {
-    height: 100px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+/* Banner Ads */
+.creator-banner-ad {
+    width: 480px;
+    height: 65px;
+    margin: 0 auto;
+    padding: 10px 15px;
+    background: linear-gradient(135deg, #16213e, #0f3460);
+    backdrop-filter: blur(10px);
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    overflow: hidden;
+    border-radius: 8px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
-.banner-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-    opacity: 0.3;
+.creator-banner-ad.top-banner {
+    border-bottom: 1px solid #16213e;
+    margin-top: 0;
 }
 
-.banner-content {
+.creator-banner-ad.bottom-banner {
+    border-top: 1px solid #16213e;
+    margin-bottom: 0;
+}
+
+.creator-ad-content {
     text-align: center;
+}
+
+.creator-ad-label {
+    background: #0f3460;
     color: white;
-    z-index: 1;
-    position: relative;
-}
-
-.banner-content h1 {
-    font-size: 24px;
-    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
     margin-bottom: 5px;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-.banner-content p {
-    font-size: 14px;
-    opacity: 0.9;
-    font-weight: 400;
+.creator-ad-content p {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    font-size: 0.85rem;
 }
 
-/* Cards Container */
-.cards-container {
-    padding: 20px;
-    max-height: calc(90vh - 180px);
+/* Scrollable Content Area */
+.creator-content-area {
+    flex: 1;
     overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #ddd transparent;
+    padding: 20px 25px;
+    background: #1a1a2e;
 }
 
-.cards-container::-webkit-scrollbar {
-    width: 6px;
-}
-
-.cards-container::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.cards-container::-webkit-scrollbar-thumb {
-    background: #ddd;
-    border-radius: 3px;
-}
-
-.cards-container::-webkit-scrollbar-thumb:hover {
-    background: #bbb;
-}
-
-.cards-wrapper {
+.creator-cards-container {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-/* Event Cards */
-.event-card {
-    position: relative;
-    height: 120px;
+/* Creator Card Buttons with Different Border Colors */
+.creator-card-btn {
+    background: rgba(22, 33, 62, 0.3);
     border-radius: 15px;
-    overflow: hidden;
+    padding: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    backdrop-filter: blur(10px);
+    border: 2px solid;
 }
 
-.event-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+/* Entertainment Event - Teal Blue */
+.creator-card-btn:nth-child(1) {
+    border-color: #008B8B;
 }
 
-.event-card:active {
+.creator-card-btn:nth-child(1):hover {
+    background: rgba(0, 139, 139, 0.1);
+    border-color: #20B2AA;
     transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 139, 139, 0.2);
 }
 
-/* Card Backgrounds */
-.entertainment-card {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+/* Sport Event - Ocean Blue */
+.creator-card-btn:nth-child(2) {
+    border-color: #1E90FF;
 }
 
-.sport-card {
-    background: linear-gradient(135deg, #4834d4 0%, #686de0 100%);
+.creator-card-btn:nth-child(2):hover {
+    background: rgba(30, 144, 255, 0.1);
+    border-color: #4169E1;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(30, 144, 255, 0.2);
 }
 
-.award-card {
-    background: linear-gradient(135deg, #f9ca24 0%, #f0932b 100%);
+/* Award Ceremony - Deep Sky Blue */
+.creator-card-btn:nth-child(3) {
+    border-color: #00BFFF;
 }
 
-.coming-soon-card {
-    background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
-    opacity: 0.7;
-    cursor: not-allowed;
+.creator-card-btn:nth-child(3):hover {
+    background: rgba(0, 191, 255, 0.1);
+    border-color: #87CEEB;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 191, 255, 0.2);
 }
 
-.coming-soon-card:hover {
-    transform: none;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+.creator-card-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(22, 33, 62, 0.5);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    flex-shrink: 0;
 }
 
-/* Card Overlay */
-.card-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.3);
+.creator-card-content {
+    flex: 1;
+}
+
+.creator-card-content h3 {
+    color: white;
+    margin: 0 0 5px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.creator-card-content p {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.creator-card-arrow {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
     transition: all 0.3s ease;
 }
 
-.event-card:hover .card-overlay {
-    background: rgba(0, 0, 0, 0.2);
+.creator-card-btn:hover .creator-card-arrow {
+    color: white;
+    transform: translateX(5px);
 }
 
-/* Card Content */
-.card-content {
-    position: relative;
-    z-index: 2;
-    height: 100%;
+/* Add More Placeholder */
+.creator-add-more {
+    background: rgba(22, 33, 62, 0.2);
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    padding: 30px 20px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.creator-add-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(22, 33, 62, 0.3);
+    border-radius: 50%;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    padding: 20px;
-    color: white;
+    font-size: 1.5rem;
+    margin: 0 auto 15px;
 }
 
-.card-icon {
-    font-size: 28px;
-    margin-bottom: 8px;
-    opacity: 0.9;
-}
-
-.card-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 5px;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.card-description {
-    font-size: 12px;
-    opacity: 0.9;
-    line-height: 1.4;
-    max-width: 280px;
-}
-
-/* Footer Ads */
-.footer-ads {
-    background: #f8f9fa;
-    padding: 15px 20px;
-    border-top: 1px solid #e9ecef;
-}
-
-.ad-banner {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 10px;
-    padding: 12px 15px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.ad-banner::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    animation: shimmer 3s infinite;
-}
-
-@keyframes shimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
-}
-
-.ad-content {
-    position: relative;
-    z-index: 1;
-}
-
-.ad-label {
-    display: inline-block;
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    font-size: 10px;
-    padding: 2px 8px;
-    border-radius: 10px;
-    margin-bottom: 5px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.ad-content p {
-    color: white;
-    font-size: 13px;
+.creator-add-more p {
     margin: 0;
-    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* Custom Scrollbar */
+.creator-content-area::-webkit-scrollbar {
+    width: 6px;
+}
+
+.creator-content-area::-webkit-scrollbar-track {
+    background: rgba(22, 33, 62, 0.3);
+    border-radius: 3px;
+}
+
+.creator-content-area::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+.creator-content-area::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .modal-container {
+    .creator-modal-container {
         width: 95%;
-        max-width: none;
-        margin: 10px;
-        border-radius: 15px;
+        max-height: 95vh;
     }
     
-    .banner-content h1 {
-        font-size: 20px;
+    .creator-modal-header {
+        padding: 15px 20px;
     }
     
-    .banner-content p {
-        font-size: 12px;
+    .creator-modal-header h2 {
+        font-size: 1.5rem;
     }
     
-    .cards-container {
+    .creator-content-area {
+        padding: 15px 20px;
+    }
+    
+    .creator-banner-ad {
+        width: 100%;
+        max-width: 480px;
+        padding: 8px 12px;
+    }
+    
+    .creator-card-btn {
         padding: 15px;
-        max-height: calc(90vh - 160px);
+        gap: 12px;
     }
     
-    .event-card {
-        height: 100px;
-    }
-    
-    .card-icon {
-        font-size: 24px;
-        margin-bottom: 5px;
-    }
-    
-    .card-title {
-        font-size: 16px;
-        margin-bottom: 3px;
-    }
-    
-    .card-description {
-        font-size: 11px;
-    }
-    
-    .footer-ads {
-        padding: 12px 15px;
-    }
-    
-    .ad-content p {
-        font-size: 12px;
+    .creator-card-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
     }
 }
 
 @media (max-width: 480px) {
-    .modal-container {
-        width: 98%;
-        margin: 5px;
-        border-radius: 12px;
+    .creator-modal-container {
+        width: 100%;
+        height: 100%;
+        max-height: 100vh;
+        border-radius: 0;
     }
     
-    .banner-section {
-        height: 80px;
+    .creator-banner-ad {
+        width: 100%;
+        height: 55px;
+        padding: 8px 10px;
     }
     
-    .banner-content h1 {
-        font-size: 18px;
+    .creator-ad-content p {
+        font-size: 0.8rem;
     }
     
-    .banner-content p {
-        font-size: 11px;
+    .creator-card-btn {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
     }
     
-    .cards-container {
-        padding: 12px;
-        max-height: calc(90vh - 140px);
-    }
-    
-    .event-card {
-        height: 90px;
-    }
-    
-    .card-content {
-        padding: 15px;
-    }
-    
-    .card-icon {
-        font-size: 20px;
-        margin-bottom: 4px;
-    }
-    
-    .card-title {
-        font-size: 14px;
-        margin-bottom: 2px;
-    }
-    
-    .card-description {
-        font-size: 10px;
-        line-height: 1.3;
-    }
-    
-    .close-modal-btn {
-        width: 35px;
-        height: 35px;
-        top: 10px;
-        right: 10px;
-    }
-    
-    .close-modal-btn i {
-        font-size: 16px;
-    }
-    
-    .footer-ads {
-        padding: 10px 12px;
-    }
-    
-    .ad-banner {
-        padding: 10px 12px;
-    }
-    
-    .ad-content p {
-        font-size: 11px;
-    }
-    
-    .ad-label {
-        font-size: 9px;
-        padding: 1px 6px;
-    }
-}
-
-/* High DPI Displays */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .banner-section,
-    .event-card {
-        background-attachment: scroll;
-    }
-}
-
-/* Performance Optimizations */
-.modal-overlay {
-    will-change: opacity, visibility;
-}
-
-.modal-container {
-    will-change: transform;
-}
-
-.event-card {
-    will-change: transform, box-shadow;
-}
-
-.close-modal-btn {
-    will-change: transform, background-color;
-}
-
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-    
-    .ad-banner::before {
-        animation: none;
-    }
-}
-
-/* Focus States for Accessibility */
-.close-modal-btn:focus,
-.event-card:focus {
-    outline: 2px solid #667eea;
-    outline-offset: 2px;
-}
-
-/* Loading States */
-.modal-container.loading {
-    pointer-events: none;
-}
-
-.modal-container.loading::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10002;
-}
-
-/* Print Styles */
-@media print {
-    .modal-overlay {
+    .creator-card-arrow {
         display: none;
     }
 }
 
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-    .modal-container {
-        background: #1a1a1a;
-        color: #fff;
-    }
-    
-    .footer-ads {
-        background: #2a2a2a;
-        border-top-color: #444;
-    }
-    
-    .close-modal-btn {
-        background: rgba(0, 0, 0, 0.8);
-    }
-    
-    .close-modal-btn i {
-        color: #fff;
-    }
-    
-    .cards-container::-webkit-scrollbar-thumb {
-        background: #555;
-    }
-    
-    .cards-container::-webkit-scrollbar-thumb:hover {
-        background: #666;
-    }
+/* Entertainment Event Page */
+.entertainment-event-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1a1a2e;
+    z-index: 1000;
+    overflow-y: auto;
+    display: none;
 }
 
-
-
-/* Loading States */
-.modal-overlay.loading .creator-modal {
-    pointer-events: none;
-}
-
-.modal-overlay.loading .card {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-/* Error States */
-.card.error {
-    background: linear-gradient(135deg, #e74c3c, #c0392b);
-    animation: shake 0.5s ease-in-out;
-}
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-}
-
-/* Success States */
-.card.success {
-    background: linear-gradient(135deg, #27ae60, #2ecc71);
-    animation: pulse 0.6s ease-in-out;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-/* Utility Classes */
-.fade-in {
-    animation: fadeIn 0.3s ease-in;
-}
-
-.fade-out {
-    animation: fadeOut 0.3s ease-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
-}
-
-/* Z-index Management */
-.modal-overlay {
-    z-index: 9999;
-}
-
-.close-btn {
-    z-index: 10000;
-}
-
-/* Browser Compatibility */
-.creator-modal {
-    -webkit-transform: translateY(-50px) scale(0.9);
-    -moz-transform: translateY(-50px) scale(0.9);
-    -ms-transform: translateY(-50px) scale(0.9);
-    transform: translateY(-50px) scale(0.9);
-}
-
-.modal-overlay.active .creator-modal {
-    -webkit-transform: translateY(0) scale(1);
-    -moz-transform: translateY(0) scale(1);
-    -ms-transform: translateY(0) scale(1);
-    transform: translateY(0) scale(1);
-}
-
-/* Touch Device Optimizations */
-@media (hover: none) and (pointer: coarse) {
-    .card:hover {
-        transform: none;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    }
-    
-    .close-btn:hover {
-        transform: none;
-        background: rgba(255, 255, 255, 0.2);
-    }
-    
-    .card:active {
-        transform: scale(0.98);
-    }
-}
-
-/* High DPI Display Support */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .banner-text,
-    .card-title {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-}
-
-
-
-/* Main Container */
-.entertain-page-container {
-    min-height: 100vh;
+/* Page Header */
+.entertainment-page-header {
     display: flex;
-    flex-direction: column;
-    color:#ffffff;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    background: rgba(22, 33, 62, 0.3);
+    border-bottom: 1px solid #16213e;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
-/* Banner Ad Section */
-.entertain-banner-ad {
-    position: relative;
-    height: 120px;
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+.entertainment-page-header h2 {
+    color: white;
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.close-entertainment-event-page-btn {
+    background: rgba(22, 33, 62, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
     color: white;
-    overflow: hidden;
+    font-size: 1.3rem;
 }
 
-.entertain-banner-ad::before {
-    content: '';
-    position: absolute;
+.close-entertainment-event-page-btn:hover {
+    background: rgba(22, 33, 62, 0.8);
+    transform: rotate(90deg);
+}
+
+/* Banner Ad */
+.entertainment-banner-ad {
+    width: 480px;
+    height: 65px;
+    margin: 20px auto;
+    padding: 10px 15px;
+    background: linear-gradient(135deg, #16213e, #0f3460);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: 1px solid #008B8B;
+}
+
+.entertainment-ad-content {
+    text-align: center;
+}
+
+.entertainment-ad-label {
+    background: #0f3460;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.entertainment-ad-content p {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+/* Action Buttons */
+.entertainment-action-buttons {
+    display: flex;
+    gap: 20px;
+    padding: 0 25px;
+    margin: 20px 0;
+    justify-content: center;
+}
+
+.entertainment-action-btn {
+    background: rgba(22, 33, 62, 0.3);
+    border: 2px solid #008B8B;
+    border-radius: 15px;
+    padding: 15px 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-weight: 600;
+    min-width: 120px;
+    justify-content: center;
+}
+
+.entertainment-action-btn:hover {
+    background: rgba(0, 139, 139, 0.1);
+    border-color: #20B2AA;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 139, 139, 0.2);
+}
+
+.entertainment-btn-icon {
+    font-size: 1.2rem;
+}
+
+/* Tabs */
+.entertainment-tabs {
+    padding: 0 25px;
+}
+
+.entertainment-tabs-header {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #16213e;
+    padding-bottom: 10px;
+}
+
+.entertainment-tab-btn {
+    background: rgba(22, 33, 62, 0.3);
+    border: 1px solid #16213e;
+    border-radius: 10px 10px 0 0;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+}
+
+.entertainment-tab-btn:hover {
+    background: rgba(22, 33, 62, 0.5);
+    color: white;
+}
+
+.entertainment-tab-btn.active {
+    background: #008B8B;
+    color: white;
+    border-color: #008B8B;
+}
+
+.entertainment-tab-btn i {
+    font-size: 1rem;
+}
+
+/* Tab Content */
+.entertainment-tab-content {
+    min-height: 400px;
+}
+
+.entertainment-tab-pane {
+    display: none;
+}
+
+.entertainment-tab-pane.active {
+    display: block;
+}
+
+.entertainment-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+/* Empty State */
+.entertainment-empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.entertainment-empty-state i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.entertainment-empty-state p {
+    font-size: 1.1rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .entertainment-page-header {
+        padding: 15px 20px;
+    }
+    
+    .entertainment-page-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .entertainment-banner-ad {
+        width: 100%;
+        max-width: 480px;
+        margin: 15px auto;
+        padding: 8px 12px;
+    }
+    
+    .entertainment-action-buttons {
+        padding: 0 20px;
+        gap: 15px;
+    }
+    
+    .entertainment-action-btn {
+        padding: 12px 20px;
+        min-width: 100px;
+    }
+    
+    .entertainment-tabs {
+        padding: 0 20px;
+    }
+    
+    .entertainment-tabs-header {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .entertainment-tab-btn {
+        justify-content: center;
+        padding: 10px 15px;
+    }
+    
+    .entertainment-cards-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .entertainment-page-header {
+        padding: 12px 15px;
+    }
+    
+    .entertainment-page-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .entertainment-banner-ad {
+        height: 55px;
+        padding: 8px 10px;
+    }
+    
+    .entertainment-ad-content p {
+        font-size: 0.8rem;
+    }
+    
+    .entertainment-action-buttons {
+        flex-direction: column;
+        padding: 0 15px;
+        gap: 10px;
+    }
+    
+    .entertainment-action-btn {
+        width: 100%;
+    }
+    
+    .entertainment-tabs {
+        padding: 0 15px;
+    }
+    
+    .entertainment-tab-btn span {
+        display: none;
+    }
+    
+    .entertainment-empty-state {
+        padding: 40px 15px;
+    }
+    
+    .entertainment-empty-state i {
+        font-size: 3rem;
+    }
+    
+    .entertainment-empty-state p {
+        font-size: 1rem;
+    }
+}
+
+
+/* Host Entertainment Popup Overlay */
+.host-entertainment-popup-overlay {
+    position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="entertain-grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23entertain-grain)"/></svg>');
-    opacity: 0.3;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1500;
+    backdrop-filter: blur(5px);
 }
 
-.entertain-close-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(255, 255, 255, 0.2);
+/* Popup Container */
+.host-entertainment-popup-container {
+    background: #1a1a2e;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    border: 1px solid #16213e;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Popup Header */
+.host-entertainment-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    background: rgba(22, 33, 62, 0.3);
+    border-bottom: 1px solid #16213e;
+}
+
+.host-entertainment-popup-header h2 {
+    color: white;
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.close-host-entertainment-popup-btn {
+    background: rgba(22, 33, 62, 0.5);
     border: none;
     border-radius: 50%;
     width: 40px;
@@ -9835,549 +9880,596 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
     cursor: pointer;
     transition: all 0.3s ease;
     color: white;
-    font-size: 18px;
+    font-size: 1.2rem;
 }
 
-.entertain-close-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
+.close-host-entertainment-popup-btn:hover {
+    background: rgba(22, 33, 62, 0.8);
     transform: rotate(90deg);
 }
 
-.entertain-ad-content {
+/* Banner Ad */
+.host-entertainment-banner-ad {
+    width: 480px;
+    height: 65px;
+    margin: 15px auto;
+    padding: 10px 15px;
+    background: linear-gradient(135deg, #16213e, #0f3460);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: 1px solid #008B8B;
+}
+
+.host-entertainment-ad-content {
     text-align: center;
-    z-index: 1;
-    position: relative;
 }
 
-.entertain-ad-content h2 {
-    font-size: 28px;
-    font-weight: 700;
+.host-entertainment-ad-label {
+    background: #0f3460;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.host-entertainment-ad-content p {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+/* Form Content */
+.host-entertainment-form-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 25px;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: white;
+    font-weight: 600;
     margin-bottom: 8px;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    font-size: 0.95rem;
 }
 
-.entertain-ad-content p {
-    font-size: 16px;
-    opacity: 0.9;
+/* Form Inputs */
+.form-input, .form-select, .form-textarea {
+    width: 100%;
+    padding: 12px 15px;
+    background: rgba(22, 33, 62, 0.3);
+    border: 1px solid #16213e;
+    border-radius: 10px;
+    color: white;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
 }
 
-/* Action Buttons */
-.entertain-action-buttons {
-    padding: 20px;
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+    outline: none;
+    border-color: #008B8B;
+    box-shadow: 0 0 0 2px rgba(0, 139, 139, 0.2);
+}
+
+.form-input::placeholder, .form-textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+.form-help {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.8rem;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Custom Category Input */
+.custom-category-input {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.custom-category-input .form-input {
+    flex: 1;
+}
+
+.add-category-btn, .custom-category-toggle {
+    background: #008B8B;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.add-category-btn:hover, .custom-category-toggle:hover {
+    background: #20B2AA;
+    transform: translateY(-1px);
+}
+
+.custom-category-toggle {
+    background: rgba(22, 33, 62, 0.5);
+    margin-top: 10px;
+    width: 100%;
+}
+
+/* Fee Options */
+.fee-options {
     display: flex;
     gap: 15px;
-    background: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    align-items: center;
 }
 
-.entertain-host-btn,
-.entertain-join-btn {
+.fee-input-wrapper {
     flex: 1;
-    padding: 15px 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.fee-input {
+    flex: 1;
+}
+
+.currency-label {
+    color: #008B8B;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.naira-equivalent {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.8rem;
+}
+
+.no-fee-btn {
+    background: rgba(22, 33, 62, 0.5);
+    color: white;
+    border: 1px solid #16213e;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.no-fee-btn:hover {
+    background: rgba(22, 33, 62, 0.8);
+    border-color: #008B8B;
+}
+
+.no-fee-btn.active {
+    background: #008B8B;
+    border-color: #008B8B;
+}
+
+/* Background Options */
+.background-options {
+    border: 1px solid #16213e;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.background-tabs {
+    display: flex;
+    background: rgba(22, 33, 62, 0.3);
+}
+
+.bg-tab {
+    flex: 1;
+    padding: 10px;
+    background: transparent;
     border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.bg-tab.active {
+    background: #008B8B;
+    color: white;
+}
+
+.background-content {
+    padding: 15px;
+}
+
+.bg-content {
+    display: none;
+}
+
+.bg-content.active {
+    display: block;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+    background: rgba(22, 33, 62, 0.3);
+    border: 2px dashed #16213e;
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.file-label:hover {
+    border-color: #008B8B;
+    color: white;
+}
+
+.color-palette {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.color-option {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.color-option:hover, .color-option.selected {
+    border-color: white;
+    transform: scale(1.1);
+}
+
+.custom-color-input {
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Tags Section */
+.tags-section {
+    border: 1px solid #16213e;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.tag-input-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.tag-input {
+    flex: 1;
+}
+
+.add-tag-btn {
+    background: #008B8B;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.add-tag-btn:hover {
+    background: #20B2AA;
+}
+
+.tags-display {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.hashtags, .startags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag-item {
+    background: rgba(22, 33, 62, 0.5);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.tag-remove {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    font-size: 0.7rem;
+}
+
+.tag-remove:hover {
+    color: #ff6b6b;
+}
+
+/* Rules Section */
+.rules-section {
+    border: 1px solid #16213e;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.rule-input-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.rule-textarea {
+    flex: 1;
+    resize: vertical;
+}
+
+.add-rule-btn {
+    background: #008B8B;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+}
+
+.add-rule-btn:hover {
+    background: #20B2AA;
+}
+
+.rules-list {
+    margin-bottom: 10px;
+}
+
+.rule-item {
+    background: rgba(22, 33, 62, 0.3);
+    border: 1px solid #16213e;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.rule-text {
+    color: white;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    flex: 1;
+}
+
+.rule-number {
+    background: #008B8B;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.rule-remove {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 2px;
+}
+
+.rule-remove:hover {
+    color: #ff6b6b;
+}
+
+/* Payment Summary */
+.payment-summary {
+    background: rgba(22, 33, 62, 0.3);
+    border: 1px solid #16213e;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.payment-summary h3 {
+    color: white;
+    margin: 0 0 15px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.creation-fee-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.fee-item {
+    display: flex;
+    justify-content: space-between;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+.fee-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    padding-top: 10px;
+    border-top: 1px solid #16213e;
+    margin-top: 10px;
+}
+
+.fee-total small {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.8rem;
+    font-weight: normal;
+}
+
+/* Submit Button */
+.form-actions {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #16213e;
+}
+
+.submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #008B8B, #20B2AA);
+    color: white;
+    border: none;
+    padding: 15px;
     border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    font-size: 16px;
-    font-weight: 600;
 }
 
-.entertain-host-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-}
-
-.entertain-host-btn:hover {
+.submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 139, 139, 0.3);
 }
 
-.entertain-join-btn {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    color: white;
+.submit-btn:disabled {
+    background: rgba(22, 33, 62, 0.5);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
-.entertain-join-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(240, 147, 251, 0.4);
+/* Custom Scrollbar */
+.host-entertainment-form-content::-webkit-scrollbar {
+    width: 6px;
 }
 
-.entertain-btn-icon {
-    font-size: 20px;
+.host-entertainment-form-content::-webkit-scrollbar-track {
+    background: rgba(22, 33, 62, 0.3);
+    border-radius: 3px;
 }
 
-/* Tabs Container */
-.entertain-tabs-container {
-    background: white;
-    border-bottom: 1px solid #e9ecef;
+.host-entertainment-form-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
 }
 
-.entertain-tabs-header {
-    display: flex;
-    padding: 0 20px;
-}
-
-.entertain-tab-btn {
-    flex: 1;
-    padding: 15px 10px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #666;
-    border-bottom: 3px solid transparent;
-}
-
-.entertain-tab-btn.active {
-    color: #ff6b6b;
-    border-bottom-color: #ff6b6b;
-}
-
-.entertain-tab-btn:hover:not(.active) {
-    color: #333;
-    background: #f8f9fa;
-}
-
-.entertain-tab-btn i {
-    font-size: 16px;
-}
-
-/* Content Area */
-.entertain-content-area {
-    flex: 1;
-    padding: 20px;
-    min-height: 400px;
-}
-
-.entertain-tab-content {
-    display: none;
-}
-
-.entertain-tab-content.active {
-    display: block;
-}
-
-.entertain-events-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    min-height: 300px;
-}
-
-.entertain-placeholder {
-    grid-column: 1 / -1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 60px 20px;
-    color: #999;
-    text-align: center;
-}
-
-.entertain-placeholder i {
-    font-size: 48px;
-    margin-bottom: 20px;
-    opacity: 0.5;
-}
-
-.entertain-placeholder h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #666;
-}
-
-.entertain-placeholder p {
-    font-size: 16px;
-    opacity: 0.8;
-}
-
-/* Footer Section */
-.entertain-footer {
-    background: white;
-    border-top: 1px solid #e9ecef;
-    padding: 20px;
-}
-
-.entertain-footer-ads {
-    margin-bottom: 30px;
-}
-
-.entertain-ad-banner {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 12px;
-    padding: 15px 20px;
-    text-align: center;
-    color: white;
-    position: relative;
-    overflow: hidden;
-}
-
-.entertain-ad-banner::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    animation: entertain-shimmer 3s infinite;
-}
-@keyframes entertain-shimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
-}
-
-.entertain-ad-label {
-    display: inline-block;
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    font-size: 11px;
-    padding: 3px 10px;
-    border-radius: 12px;
-    margin-bottom: 8px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.entertain-ad-banner p {
-    font-size: 14px;
-    margin: 0;
-    font-weight: 500;
-}
-
-/* Partners Section */
-.entertain-partners-section {
-    text-align: center;
-}
-
-.entertain-partners-section h4 {
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 20px;
-    font-weight: 600;
-}
-
-.entertain-partners-scroll {
-    overflow: hidden;
-    white-space: nowrap;
-    position: relative;
-    background: #f8f9fa;
-    border-radius: 10px;
-    padding: 15px 0;
-}
-
-.entertain-partners-track {
-    display: inline-flex;
-    animation: entertain-scroll 30s linear infinite;
-    gap: 30px;
-}
-
-@keyframes entertain-scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
-.entertain-partner-logo {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 15px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-.entertain-partner-logo:hover {
-    transform: scale(1.05);
-}
-
-.entertain-partner-logo img {
-    max-width: 120px;
-    max-height: 60px;
-    object-fit: contain;
-    filter: grayscale(100%);
-    transition: filter 0.3s ease;
-}
-
-.entertain-partner-logo:hover img {
-    filter: grayscale(0%);
+.host-entertainment-form-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .entertain-banner-ad {
-        height: 100px;
+    .host-entertainment-popup-container {
+        width: 95%;
+        max-height: 95vh;
     }
     
-    .entertain-ad-content h2 {
-        font-size: 22px;
+    .host-entertainment-popup-header {
+        padding: 15px 20px;
     }
     
-    .entertain-ad-content p {
-        font-size: 14px;
+    .host-entertainment-popup-header h2 {
+        font-size: 1.4rem;
     }
     
-    .entertain-action-buttons {
+    .host-entertainment-banner-ad {
+        width: 100%;
+        max-width: 480px;
+        margin: 10px auto;
+    }
+    
+    .host-entertainment-form-content {
+        padding: 15px 20px;
+    }
+    
+    .fee-options {
         flex-direction: column;
-        padding: 15px;
         gap: 10px;
     }
     
-    .entertain-host-btn,
-    .entertain-join-btn {
-        padding: 12px 15px;
-        font-size: 14px;
+    .tag-input-section, .rule-input-section {
+        flex-direction: column;
+        gap: 8px;
     }
     
-    .entertain-tabs-header {
-        padding: 0 15px;
-    }
-    
-    .entertain-tab-btn {
-        padding: 12px 8px;
-        font-size: 12px;
-        gap: 5px;
-    }
-    
-    .entertain-tab-btn i {
-        font-size: 14px;
-    }
-    
-    .entertain-tab-btn span {
-        display: none;
-    }
-    
-    .entertain-content-area {
-        padding: 15px;
-    }
-    
-    .entertain-events-grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-    
-    .entertain-placeholder {
-        padding: 40px 15px;
-    }
-    
-    .entertain-placeholder i {
-        font-size: 36px;
-    }
-    
-    .entertain-placeholder h3 {
-        font-size: 20px;
-    }
-    
-    .entertain-placeholder p {
-        font-size: 14px;
-    }
-    
-    .entertain-footer {
-        padding: 15px;
-    }
-    
-    .entertain-partners-section h4 {
-        font-size: 16px;
-        margin-bottom: 15px;
-    }
-    
-    .entertain-partner-logo {
-        padding: 8px 12px;
-    }
-    
-    .entertain-partner-logo img {
-        max-width: 100px;
-        max-height: 50px;
+    .color-palette {
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
 @media (max-width: 480px) {
-    .entertain-banner-ad {
-        height: 80px;
+    .host-entertainment-popup-container {
+        width: 100%;
+        height: 100%;
+        max-height: 100vh;
+        border-radius: 0;
     }
     
-    .entertain-ad-content h2 {
-        font-size: 18px;
-        margin-bottom: 5px;
+    .host-entertainment-banner-ad {
+        height: 55px;
+        padding: 8px 10px;
     }
     
-    .entertain-ad-content p {
-        font-size: 12px;
+    .host-entertainment-form-content {
+        padding: 15px;
     }
     
-    .entertain-close-btn {
+    .color-palette {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .color-option {
         width: 35px;
         height: 35px;
-        top: 10px;
-        right: 10px;
-        font-size: 16px;
-    }
-    
-    .entertain-action-buttons {
-        padding: 12px;
-    }
-    
-    .entertain-host-btn,
-    .entertain-join-btn {
-        padding: 10px 12px;
-        font-size: 13px;
-    }
-    
-    .entertain-btn-icon {
-        font-size: 18px;
-    }
-    
-    .entertain-content-area {
-        padding: 12px;
-    }
-    
-    .entertain-footer {
-        padding: 12px;
-    }
-    
-    .entertain-ad-banner {
-        padding: 12px 15px;
-    }
-    
-    .entertain-ad-banner p {
-        font-size: 13px;
-    }
-    
-    .entertain-partners-scroll {
-        padding: 12px 0;
-    }
-    
-    .entertain-partners-track {
-        gap: 20px;
-    }
-    
-    .entertain-partner-logo img {
-        max-width: 80px;
-        max-height: 40px;
     }
 }
 
-/* Performance Optimizations */
-.entertain-page-container {
-    will-change: scroll-position;
-}
 
-.entertain-partners-track {
-    will-change: transform;
-}
-
-.entertain-host-btn,
-.entertain-join-btn {
-    will-change: transform, box-shadow;
-}
-
-.entertain-tab-btn {
-    will-change: color, background-color, border-bottom-color;
-}
-
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-    .entertain-partners-track {
-        animation-duration: 60s;
-    }
-    
-    .entertain-ad-banner::before {
-        animation: none;
-    }
-    
-    * {
-        transition-duration: 0.1s !important;
-    }
-}
-
-/* Focus States */
-.entertain-close-btn:focus,
-.entertain-host-btn:focus,
-.entertain-join-btn:focus,
-.entertain-tab-btn:focus {
-    outline: 2px solid #ff6b6b;
-    outline-offset: 2px;
-}
-
-/* Loading States */
-.entertain-loading {
-    pointer-events: none;
-    opacity: 0.7;
-}
-
-.entertain-loading::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 40px;
-    height: 40px;
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #ff6b6b;
-    border-radius: 50%;
-    animation: entertain-spin 1s linear infinite;
-    transform: translate(-50%, -50%);
-}
-
-@keyframes entertain-spin {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-    body {
-        background: #1a1a1a;
-        color: #fff;
-    }
-    
-    .entertain-action-buttons,
-    .entertain-tabs-container,
-    .entertain-footer {
-        background: #2a2a2a;
-        border-color: #444;
-    }
-    
-    .entertain-tab-btn {
-        color: #ccc;
-    }
-    
-    .entertain-tab-btn:hover:not(.active) {
-        background: #333;
-        color: #fff;
-    }
-    
-    .entertain-placeholder {
-        color: #666;
-    }
-    
-    .entertain-placeholder h3 {
-        color: #999;
-    }
-    
-    .entertain-partners-scroll {
-        background: #333;
-    }
-    
-    .entertain-partner-logo {
-        background: #2a2a2a;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    }
-}
 
 
 /* Loading States */
@@ -11999,11 +12091,7 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                  </div>
                
             </div>
-             <!-- Preview Page Button (can be placed anywhere in your main page) -->
-<button id="openpreviewpagebtn" class="preview-page-btn">
-    <i class="fas fa-eye"></i>
-    
-</button>
+             
         <div class="hamburger-menu">
             <i class="fas fa-bars"></i>
         </div>
@@ -13966,236 +14054,386 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
         
 
              
-                        
-                      
-                      
-    <!-- Modal Overlay -->
-    <div id="creatorPageModal" class="modal-overlay">
-        <div class="modal-container">
-            <!-- Close Button -->
-            <button class="close-modal-btn" onclick="closeCreatorModal()">
+           <!-- Creator Page Modal -->
+<div class="creator-modal-overlay" id="creatorModal" onclick="closeCreatorModal(event)">
+    <div class="creator-modal-container" onclick="event.stopPropagation()">
+        <!-- Modal Header with Close Button -->
+        <div class="creator-modal-header">
+            <h2>🎬 Creator Hub</h2>
+            <button class="creator-modal-close-btn" onclick="closeCreatorModal()">
                 <i class="fas fa-times"></i>
             </button>
-            
-            <!-- Banner Section -->
-            <div class="banner-section">
-                <div class="banner-content">
-                    <h1>Create Your Event</h1>
-                    <p>Choose your event type and start creating amazing experiences</p>
+        </div>
+
+        <!-- Top Banner Ad -->
+        <div class="creator-banner-ad top-banner">
+            <div class="creator-ad-content">
+                <span class="creator-ad-label">Sponsored</span>
+                <p>Create amazing events and reach thousands of participants!</p>
+            </div>
+        </div>
+
+        <!-- Scrollable Content Area -->
+        <div class="creator-content-area">
+            <div class="creator-cards-container">
+                <!-- Entertainment Event Card -->
+                <div class="creator-card-btn" onclick="openEntertainmentEvent()">
+                    <div class="creator-card-icon">
+                        <i class="fas fa-theater-masks"></i>
+                    </div>
+                    <div class="creator-card-content">
+                        <h3>Entertainment Event</h3>
+                        <p>Create talent shows, performances & entertainment events</p>
+                    </div>
+                    <div class="creator-card-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+
+                <!-- Sport Event Card -->
+                <div class="creator-card-btn" onclick="openSportEvent()">
+                    <div class="creator-card-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="creator-card-content">
+                        <h3>Sport Event</h3>
+                        <p>Organize sports competitions & tournaments</p>
+                    </div>
+                    <div class="creator-card-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+
+                <!-- Award Ceremony Card -->
+                <div class="creator-card-btn" onclick="openAwardCeremony()">
+                    <div class="creator-card-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="creator-card-content">
+                        <h3>Award Ceremony</h3>
+                        <p>Host award ceremonies & recognition events</p>
+                    </div>
+                    <div class="creator-card-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+
+                <!-- Placeholder for future buttons -->
+                <div class="creator-add-more">
+                    <div class="creator-add-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <p>More event types coming soon...</p>
                 </div>
             </div>
-            
-            <!-- Cards Container -->
-            <div class="cards-container">
-                <div class="cards-wrapper">
-                    <!-- Entertainment Card -->
-                    <div class="event-card entertainment-card" onclick="selectEventType('entertainment')">
-                        <div class="card-overlay"></div>
-                        <div class="card-content">
-                            <div class="card-icon">
-                                <i class="fas fa-music"></i>
-                            </div>
-                            <h2 class="card-title">Entertainment</h2>
-                            <p class="card-description">Create talent shows, performances, and entertainment events</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Sport Event Card -->
-                    <div class="event-card sport-card" onclick="selectEventType('sport')">
-                        <div class="card-overlay"></div>
-                        <div class="card-content">
-                            <div class="card-icon">
-                                <i class="fas fa-trophy"></i>
-                            </div>
-                            <h2 class="card-title">Sport Event</h2>
-                            <p class="card-description">Organize competitions, tournaments, and sporting events</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Award and Voting Ceremony Card -->
-                    <div class="event-card award-card" onclick="selectEventType('award')">
-                        <div class="card-overlay"></div>
-                        <div class="card-content">
-                            <div class="card-icon">
-                                <i class="fas fa-award"></i>
-                            </div>
-                            <h2 class="card-title">Award & Voting Ceremony</h2>
-                            <p class="card-description">Host award shows, voting events, and recognition ceremonies</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Placeholder for future cards -->
-                    <div class="event-card coming-soon-card">
-                        <div class="card-overlay"></div>
-                        <div class="card-content">
-                            <div class="card-icon">
-                                <i class="fas fa-plus"></i>
-                            </div>
-                            <h2 class="card-title">More Coming Soon</h2>
-                            <p class="card-description">New event types will be added regularly</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Footer Ads Section -->
-            <div class="footer-ads">
-                <div class="ad-banner">
-                    <div class="ad-content">
-                        <span class="ad-label">Sponsored</span>
-                        <p>Boost your events with premium features - Upgrade now!</p>
-                    </div>
-                </div>
+        </div>
+
+        <!-- Bottom Banner Ad -->
+        <div class="creator-banner-ad bottom-banner">
+            <div class="creator-ad-content">
+                <span class="creator-ad-label">Featured</span>
+                <p>Boost your events with premium features and wider reach!</p>
             </div>
         </div>
     </div>
-    
-       
-    <div class="entertain-page-container">
-       
-       <div class="modal-container">
-        
-      <!-- Banner Ad Section -->
-        <div class="entertain-banner-ad">
-            <button class="entertain-close-btn" onclick="closeEntertainPage()">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="entertain-ad-content">
-                <h2>🎭 Entertainment Hub</h2>
-                <p>Discover amazing talent shows, performances, and entertainment events</p>
+</div>
+             
+                      
+       <!-- Entertainment Event Page -->
+<div class="entertainment-event-page" id="entertainmentEventPage">
+    <!-- Close Button -->
+    <div class="entertainment-page-header">
+        <h2>Entertainment Event</h2>
+        <button class="close-entertainment-event-page-btn" id="closeEntertainmentEventPageBtn">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!-- Banner Ad -->
+    <div class="entertainment-banner-ad">
+        <div class="entertainment-ad-content">
+            <span class="entertainment-ad-label">Sponsored</span>
+            <p>Create amazing entertainment events and showcase your talent to the world!</p>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="entertainment-action-buttons">
+        <button class="entertainment-action-btn host-entertainment-event" id="hostEntertainmentEvent">
+            <div class="entertainment-btn-icon">
+                <i class="fas fa-plus-circle"></i>
             </div>
-        </div>
+            <span>Host</span>
+        </button>
 
-        <!-- Host/Join Buttons -->
-        <div class="entertain-action-buttons">
-            <button class="entertain-host-btn" onclick="hostEntertainEvent()">
-                <div class="entertain-btn-icon">
-                    <i class="fas fa-plus-circle"></i>
-                </div>
-                <span>Host Entertainment Event</span>
-            </button>
-            <button class="entertain-join-btn" onclick="joinEntertainEvent()">
-                <div class="entertain-btn-icon">
-                    <i class="fas fa-user-plus"></i>
-                </div>
-                <span>Joined Event</span>
-            </button>
-        </div>
-
-        <!-- Tabs Section -->
-        <div class="entertain-tabs-container">
-            <div class="entertain-tabs-header">
-                <button class="entertain-tab-btn active" data-tab="live" onclick="switchEntertainTab('live')">
-                    <i class="fas fa-broadcast-tower"></i>
-                    <span>Live Events</span>
-                </button>
-                <button class="entertain-tab-btn" data-tab="new" onclick="switchEntertainTab('new')">
-                    <i class="fas fa-star"></i>
-                    <span>New Events</span>
-                </button>
-                <button class="entertain-tab-btn" data-tab="old" onclick="switchEntertainTab('old')">
-                    <i class="fas fa-history"></i>
-                    <span>Past Events</span>
-                </button>
+        <button class="entertainment-action-btn joined-entertainment-event" id="joinedEntertainmentEvent">
+            <div class="entertainment-btn-icon">
+                <i class="fas fa-users"></i>
             </div>
+            <span>Joined</span>
+        </button>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="entertainment-tabs">
+        <div class="entertainment-tabs-header">
+            <button class="entertainment-tab-btn active live-entertainment-event" id="liveEntertainmentEvent" onclick="switchEntertainmentTab('live')">
+                <i class="fas fa-broadcast-tower"></i>
+                <span>Live Events</span>
+            </button>
+            <button class="entertainment-tab-btn new-entertainment-event" id="newEntertainmentEvent" onclick="switchEntertainmentTab('new')">
+                <i class="fas fa-calendar-plus"></i>
+                <span>New Events</span>
+            </button>
+            <button class="entertainment-tab-btn previous-entertainment-event" id="previousEntertainmentEvent" onclick="switchEntertainmentTab('previous')">
+                <i class="fas fa-history"></i>
+                <span>Previous Events</span>
+            </button>
         </div>
 
-        <!-- Content Area -->
-        <div class="entertain-content-area">
+        <!-- Tab Contents -->
+        <div class="entertainment-tab-content">
             <!-- Live Events Tab -->
-            <div class="entertain-tab-content active" id="entertain-live-tab">
-                <div class="entertain-events-grid">
-                    <!-- Event cards will be populated here -->
-                    <div class="entertain-placeholder">
-                        <i class="fas fa-music"></i>
-                        <h3>No Live Events</h3>
-                        <p>Live entertainment events will appear here</p>
+            <div class="entertainment-tab-pane active" id="entertainment-live-tab">
+                <div class="entertainment-cards-container" id="liveEventsContainer">
+                    <!-- Entertainment cards will be loaded here -->
+                    <div class="entertainment-empty-state">
+                        <i class="fas fa-broadcast-tower"></i>
+                        <p>No live events of yours now</p>
                     </div>
                 </div>
             </div>
 
             <!-- New Events Tab -->
-            <div class="entertain-tab-content" id="entertain-new-tab">
-                <div class="entertain-events-grid">
-                    <div class="entertain-placeholder">
-                        <i class="fas fa-star"></i>
-                        <h3>No New Events</h3>
-                        <p>New entertainment events will appear here</p>
+            <div class="entertainment-tab-pane" id="entertainment-new-tab">
+                <div class="entertainment-cards-container" id="newEventsContainer">
+                    <!-- Entertainment cards will be loaded here -->
+                    <div class="entertainment-empty-state">
+                        <i class="fas fa-calendar-plus"></i>
+                        <p>No entertainment card<br>Try creating</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Past Events Tab -->
-            <div class="entertain-tab-content" id="entertain-old-tab">
-                <div class="entertain-events-grid">
-                    <div class="entertain-placeholder">
+            <!-- Previous Events Tab -->
+            <div class="entertainment-tab-pane" id="entertainment-previous-tab">
+                <div class="entertainment-cards-container" id="previousEventsContainer">
+                    <!-- Entertainment cards will be loaded here -->
+                    <div class="entertainment-empty-state">
                         <i class="fas fa-history"></i>
-                        <h3>No Past Events</h3>
-                        <p>Past entertainment events will appear here</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Footer Section -->
-        <div class="entertain-footer">
-            <!-- Footer Ads -->
-            <div class="entertain-footer-ads">
-                <div class="entertain-ad-banner">
-                    <span class="entertain-ad-label">Sponsored</span>
-                    <p>Boost your entertainment events with premium features!</p>
-                </div>
-            </div>
-
-            <!-- Partners/Sponsors Auto Scroll -->
-            <div class="entertain-partners-section">
-                <h4>Our Partners</h4>
-                <div class="entertain-partners-scroll">
-                    <div class="entertain-partners-track">
-                        <div class="entertain-partner-logo">
-                            <img src="https://via.placeholder.com/120x60/667eea/ffffff?text=Partner+1" alt="Partner 1">
-                        </div>
-                        <div class="entertain-partner-logo">
-                            <img src="https://via.placeholder.com/120x60/764ba2/ffffff?text=Partner+2" alt="Partner 2">
-                        </div>
-                        <div class="entertain-partner-logo">
-                            <img src="https://via.placeholder.com/120x60/f093fb/ffffff?text=Partner+3" alt="Partner 3">
-                        </div>
-                        <div class="entertain-partner-logo">
-                            <img src="https://via.placeholder.com/120x60/f5576c/ffffff?text=Partner+4" alt="Partner 4">
-                        </div>
-                        <div class="entertain-partner-logo">
-                            <img src="https://via.placeholder.com/120x60/4facfe/ffffff?text=Partner+5" alt="Partner 5">
-                        </div>
-                        <div class="entertain-partner-logo">
-                            <img src="https://via.placeholder.com/120x60/00d2ff/ffffff?text=Partner+6" alt="Partner 6">
-                        </div>
-                        <!-- Duplicate for seamless loop -->
-                        <div class="entertain-partner-logo">
-                            <img src="https://via.placeholder.com/120x60/667eea/ffffff?text=Partner+1" alt="Partner 1">
-                        </div>
-                        <div class="entertain-partner-logo">
-                            <img src="https://via.placeholder.com/120x60/764ba2/ffffff?text=Partner+2" alt="Partner 2">
-                        </div>
-                        <div class="entertain-partner-logo">
-                            <img src="https://via.placeholder.com/120x60/f093fb/ffffff?text=Partner+3" alt="Partner 3">
-                        </div>
-                        <div class="entertain-partner-logo">
-                            <img src="https://via.placeholder.com/120x60/f5576c/ffffff?text=Partner+4" alt="Partner 4">
-                        </div>
-                        <div class="entertain-partner-logo">
-                            <img src="https://via.placeholder.com/120x60/4facfe/ffffff?text=Partner+5" alt="Partner 5">
-                        </div>
-                        <div class="entertain-partner-logo">
-                            <img src="https://via.placeholder.com/120x60/00d2ff/ffffff?text=Partner+6" alt="Partner 6">
-                        </div>
+                        <p>No previous events</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+     
+          <!-- Host Entertainment Event Popup -->
+<div class="host-entertainment-popup-overlay" id="hostEntertainmentPopup">
+    <div class="host-entertainment-popup-container">
+        <!-- Close Button -->
+        <div class="host-entertainment-popup-header">
+            <h2>🎭 Host Entertainment Event</h2>
+            <button class="close-host-entertainment-popup-btn" id="closeHostEntertainmentPopupBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
 
-       
+        <!-- Banner Ad -->
+        <div class="host-entertainment-banner-ad">
+            <div class="host-entertainment-ad-content">
+                <span class="host-entertainment-ad-label">Featured</span>
+                <p>Create your entertainment event and connect with talented participants!</p>
+            </div>
+        </div>
+
+        <!-- Form Content -->
+        <div class="host-entertainment-form-content">
+            <form id="hostEntertainmentForm">
+                <!-- Event Type Selection -->
+                <div class="form-group">
+                    <label for="eventType">Event Type</label>
+                    <select id="eventType" class="form-select" onchange="updateEventTypeOptions()">
+                        <option value="">Select Event Type</option>
+                        <option value="medium">Medium Event</option>
+                        <option value="tactical">Tactical Event</option>
+                        <option value="bigRush">Big Rush</option>
+                    </select>
+                </div>
+
+                <!-- Category Selection -->
+                <div class="form-group" id="categoryGroup" style="display: none;">
+                    <label for="eventCategory">Category</label>
+                    <select id="eventCategory" class="form-select">
+                        <option value="">Select Category</option>
+                    </select>
+                    <div class="custom-category-input" style="display: none;">
+                        <input type="text" id="customCategory" placeholder="Enter custom category" class="form-input">
+                        <button type="button" onclick="addCustomCategory()" class="add-category-btn">Add</button>
+                    </div>
+                    <button type="button" onclick="toggleCustomCategory()" class="custom-category-toggle">Add Custom Category</button>
+                </div>
+
+                <!-- Duration Selection -->
+                <div class="form-group" id="durationGroup" style="display: none;">
+                    <label for="eventDuration">Event Duration</label>
+                    <select id="eventDuration" class="form-select">
+                        <option value="">Select Duration</option>
+                    </select>
+                </div>
+
+                <!-- Participants -->
+                <div class="form-group" id="participantsGroup" style="display: none;">
+                    <label for="maxParticipants">Maximum Participants</label>
+                    <input type="number" id="maxParticipants" class="form-input" min="10" max="50">
+                    <small class="form-help" id="participantsHelp">Minimum: 10, Maximum: 50</small>
+                </div>
+
+                <!-- Entry Fee -->
+                <div class="form-group" id="entryFeeGroup" style="display: none;">
+                    <label>Entry Fee</label>
+                    <div class="fee-options">
+                        <div class="fee-input-wrapper">
+                            <input type="number" id="entryFee" class="form-input fee-input" min="1" max="500" placeholder="30">
+                            <span class="currency-label">TC</span>
+                            <span class="naira-equivalent" id="entryFeeNaira">≈ ₦450</span>
+                        </div>
+                        <button type="button" class="no-fee-btn" id="noEntryFeeBtn" onclick="toggleEntryFee()">No Entry Fee</button>
+                    </div>
+                </div>
+
+                <!-- Voting Fee -->
+                <div class="form-group" id="votingFeeGroup" style="display: none;">
+                    <label>Voting Fee</label>
+                    <div class="fee-options">
+                        <div class="fee-input-wrapper">
+                            <input type="number" id="votingFee" class="form-input fee-input" min="1" max="500" placeholder="20">
+                            <span class="currency-label">TC</span>
+                            <span class="naira-equivalent" id="votingFeeNaira">≈ ₦300</span>
+                        </div>
+                        <button type="button" class="no-fee-btn" id="noVotingFeeBtn" onclick="toggleVotingFee()">No Voting Fee</button>
+                    </div>
+                </div>
+
+                <!-- Event Name -->
+                <div class="form-group" id="eventNameGroup" style="display: none;">
+                    <label for="eventName">Event Name</label>
+                    <input type="text" id="eventName" class="form-input" placeholder="Enter event name" maxlength="50">
+                </div>
+
+                <!-- Event Description -->
+                <div class="form-group" id="descriptionGroup" style="display: none;">
+                    <label for="eventDescription">Event Description</label>
+                    <textarea id="eventDescription" class="form-textarea" placeholder="Describe your event (20-100 words)" rows="4"></textarea>
+                    <small class="form-help">
+                        <span id="wordCount">0</span>/100 words (minimum 20 words)
+                    </small>
+                </div>
+
+                <!-- Background Selection -->
+                <div class="form-group" id="backgroundGroup" style="display: none;">
+                    <label>Event Background</label>
+                    <div class="background-options">
+                        <div class="background-tabs">
+                            <button type="button" class="bg-tab active" onclick="switchBackgroundTab('image')">Image</button>
+                            <button type="button" class="bg-tab" onclick="switchBackgroundTab('color')">Color</button>
+                        </div>
+                        <div class="background-content">
+                            <div class="bg-content active" id="imageContent">
+                                <input type="file" id="backgroundImage" accept="image/*" class="file-input">
+                                <label for="backgroundImage" class="file-label">
+                                    <i class="fas fa-upload"></i>
+                                    Choose Background Image
+                                </label>
+                            </div>
+                            <div class="bg-content" id="colorContent">
+                                <div class="color-palette">
+                                    <div class="color-option" style="background: #FF6B6B" onclick="selectColor('#FF6B6B')"></div>
+                                    <div class="color-option" style="background: #4ECDC4" onclick="selectColor('#4ECDC4')"></div>
+                                    <div class="color-option" style="background: #45B7D1" onclick="selectColor('#45B7D1')"></div>
+                                    <div class="color-option" style="background: #96CEB4" onclick="selectColor('#96CEB4')"></div>
+                                    <div class="color-option" style="background: #FFEAA7" onclick="selectColor('#FFEAA7')"></div>
+                                    <div class="color-option" style="background: #DDA0DD" onclick="selectColor('#DDA0DD')"></div>
+                                </div>
+                                <input type="color" id="customColor" class="custom-color-input" onchange="selectColor(this.value)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tags -->
+                <div class="form-group" id="tagsGroup" style="display: none;">
+                    <label>Tags</label>
+                    <div class="tags-section">
+                        <div class="tag-input-section">
+                            <input type="text" id="hashtagInput" placeholder="Add hashtag" class="tag-input">
+                            <button type="button" onclick="addHashtag()" class="add-tag-btn"># Add</button>
+                        </div>
+                        <div class="tag-input-section">
+                            <input type="text" id="startagInput" placeholder="Add star tag" class="tag-input">
+                            <button type="button" onclick="addStartag()" class="add-tag-btn">* Add</button>
+                        </div>
+                        <div class="tags-display">
+                            <div class="hashtags" id="hashtagsDisplay"></div>
+                            <div class="startags" id="startagsDisplay"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Rules -->
+                <div class="form-group" id="rulesGroup" style="display: none;">
+                    <label>Event Rules</label>
+                    <div class="rules-section">
+                        <div class="rule-input-section">
+                            <textarea id="ruleInput" placeholder="Enter event rule" class="rule-textarea" rows="2"></textarea>
+                            <button type="button" onclick="addRule()" class="add-rule-btn">Add Rule</button>
+                        </div>
+                        <div class="rules-list" id="rulesList"></div>
+                        <small class="form-help">
+                            <span id="rulesCount">0</span>/15 rules (minimum 1 rule required)
+                        </small>
+                    </div>
+                </div>
+
+                <!-- Payment Summary -->
+                <div class="form-group" id="paymentGroup" style="display: none;">
+                    <div class="payment-summary">
+                        <h3>Payment Summary</h3>
+                        <div class="creation-fee-breakdown">
+                            <div class="fee-item">
+                                <span>Event Type:</span>
+                                <span id="selectedEventType">-</span>
+                            </div>
+                            <div class="fee-item">
+                                <span>Base Creation Fee:</span>
+                                <span id="baseFee">0 TC</span>
+                            </div>
+                            <div class="fee-item" id="feeDiscountItem" style="display: none;">
+                                <span>Discount (No Entry/Voting Fees):</span>
+                                <span id="discountAmount">0 TC</span>
+                            </div>
+                            <div class="fee-total">
+                                <span>Total Creation Fee:</span>
+                                <span id="totalCreationFee">0 TC</span>
+                                <small>(≈ ₦<span id="totalCreationFeeNaira">0</span>)</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-actions" id="submitGroup" style="display: none;">
+                    <button type="submit" class="submit-btn" id="createEventBtn">
+                        <i class="fas fa-rocket"></i>
+                        Create Event
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    
 
           <div class="event-card" data-event-id="unique-event-id">
     <!-- Card Background (Image or Color) -->
@@ -20181,341 +20419,886 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
-// Add this to your existing JavaScript file or create a new one
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Get the creator button
+    // Get the creator button and the creator modal
     const creatorBtn = document.querySelector('.creator-btn');
+    const creatorModal = document.querySelector('#creatorModal');
     
-    // Add click event listener to creator button
-    if (creatorBtn) {
+    // Hide the creator modal initially
+    if (creatorModal) {
+        creatorModal.style.display = 'none';
+    }
+    
+    // Add click event listener to the creator button
+    if (creatorBtn && creatorModal) {
         creatorBtn.addEventListener('click', function() {
-            window.openCreatorModal();
-        });
-    }
-});
-
-
-
-
-// Creator Page Modal JavaScript
-document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('creatorPageModal');
-    
-    // Global functions for modal control
-    window.openCreatorModal = function() {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        
-        // Add event listener for escape key
-        document.addEventListener('keydown', handleEscapeKey);
-        
-        // Prevent background scroll on mobile
-        document.addEventListener('touchmove', preventScroll, { passive: false });
-    };
-    
-    window.closeCreatorModal = function() {
-        modal.classList.remove('active');
-        document.body.style.overflow = 'auto';
-        
-        // Remove event listeners
-        document.removeEventListener('keydown', handleEscapeKey);
-        document.removeEventListener('touchmove', preventScroll);
-    };
-    
-    // Handle escape key press
-    function handleEscapeKey(event) {
-        if (event.key === 'Escape') {
-            closeCreatorModal();
-        }
-    }
-    
-    // Prevent background scroll on mobile
-    function preventScroll(event) {
-        if (!event.target.closest('.cards-container')) {
-            event.preventDefault();
-        }
-    }
-    
-    // Close modal when clicking outside
-    modal.addEventListener('click', function(event) {
-        if (event.target === modal) {
-            closeCreatorModal();
-        }
-    });
-    
-  
-           
-    
-    // Smooth scroll for cards container
-    const cardsContainer = document.querySelector('.cards-container');
-    if (cardsContainer) {
-        cardsContainer.style.scrollBehavior = 'smooth';
-    }
-    
-    // Add ripple effect to cards
-    const eventCards = document.querySelectorAll('.event-card');
-    eventCards.forEach(card => {
-        card.addEventListener('click', function(e) {
-            // Don't add ripple to coming soon card
-            if (this.classList.contains('coming-soon-card')) {
-                return;
+            // Toggle the display of the creator modal
+            if (creatorModal.style.display === 'none' || creatorModal.style.display === '') {
+                // Show the creator modal
+                creatorModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                // Optional: Add a class for additional styling
+                creatorModal.classList.add('creator-modal-open');
+            } else {
+                // Hide the creator modal
+                creatorModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                // Optional: Remove the class
+                creatorModal.classList.remove('creator-modal-open');
             }
-            
-            const ripple = document.createElement('span');
-            const rect = this.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            const x = e.clientX - rect.left - size / 2;
-            const y = e.clientY - rect.top - size / 2;
-            
-            ripple.style.cssText = `
-                position: absolute;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.6);
-                transform: scale(0);
-                animation: ripple 0.6s linear;
-                width: ${size}px;
-                height: ${size}px;
-                left: ${x}px;
-                top: ${y}px;
-                pointer-events: none;
-                z-index: 10;
-            `;
-            
-            this.appendChild(ripple);
-            
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
-        });
-    });
-    
-    // Add CSS for ripple animation
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes ripple {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
-        }
-        
-        .event-card {
-            position: relative;
-            overflow: hidden;
-        }
-    `;
-    document.head.appendChild(style);
-    
-    // Performance optimization: Intersection Observer for cards
-    if ('IntersectionObserver' in window) {
-        const cardObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '50px'
-        });
-        
-        eventCards.forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            cardObserver.observe(card);
         });
     }
     
-    // Add keyboard navigation
-    document.addEventListener('keydown', function(event) {
-        if (!modal.classList.contains('active')) return;
-        
-        const focusableElements = modal.querySelectorAll(
-            '.close-modal-btn, .event-card:not(.coming-soon-card)'
-        );
-        const focusedElement = document.activeElement;
-        const focusedIndex = Array.from(focusableElements).indexOf(focusedElement);
-        
-        switch(event.key) {
-            case 'ArrowDown':
-                event.preventDefault();
-                const nextIndex = (focusedIndex + 1) % focusableElements.length;
-                focusableElements[nextIndex].focus();
-                break;
-            case 'ArrowUp':
-                event.preventDefault();
-                const prevIndex = focusedIndex <= 0 ? focusableElements.length - 1 : focusedIndex - 1;
-                focusableElements[prevIndex].focus();
-                break;
-            case 'Enter':
-            case ' ':
-                if (focusedElement.classList.contains('event-card')) {
-                    event.preventDefault();
-                    focusedElement.click();
-                }
-                break;
-        }
-    });
-    
-    // Auto-focus first card when modal opens
-    modal.addEventListener('transitionend', function(event) {
-        if (event.target === modal && modal.classList.contains('active')) {
-            const firstCard = modal.querySelector('.event-card:not(.coming-soon-card)');
-            if (firstCard) {
-                firstCard.focus();
-            }
-        }
-    });
-    
-    // Add touch gestures for mobile
-    let touchStartY = 0;
-    let touchEndY = 0;
-    
-    modal.addEventListener('touchstart', function(e) {
-        touchStartY = e.changedTouches[0].screenY;
-    });
-    
-    modal.addEventListener('touchend', function(e) {
-        touchEndY = e.changedTouches[0].screenY;
-        handleSwipe();
-    });
-    
-    function handleSwipe() {
-        const swipeThreshold = 100;
-        const swipeDistance = touchStartY - touchEndY;
-        
-        // Swipe down to close modal
-        if (swipeDistance < -swipeThreshold) {
-            closeCreatorModal();
-        }
-    }
-    
-    // Preload next page resources (optional)
-    function preloadResources() {
-        const link = document.createElement('link');
-        link.rel = 'prefetch';
-        link.href = 'entertainment-creator.html'; // Example
-        document.head.appendChild(link);
-    }
-    
-    // Initialize preloading after modal is shown
-    modal.addEventListener('transitionend', function(event) {
-        if (event.target === modal && modal.classList.contains('active')) {
-            setTimeout(preloadResources, 1000);
-        }
-    });
-});
-
-// Utility function to open modal from external scripts
-window.CreatorModal = {
-    open: function() {
-        window.openCreatorModal();
-    },
-    close: function() {
-        window.closeCreatorModal();
-    },
-    selectType: function(type) {
-        window.selectEventType(type);
-    }
-};
-
-
-// Update the selectEventType function in your existing creatorpagemodal.js file
-
-window.selectEventType = function(eventType) {
-    if (eventType === 'entertainment') {
-        // Close the creator modal first
-        closeCreatorModal();
-        
-        // Show the entertainment page
-        openEntertainPage();
-    } else {
-        // Keep existing functionality for other event types
-        console.log('Selected event type:', eventType);
-        
-        const modalContainer = document.querySelector('.modal-container');
-        modalContainer.classList.add('loading');
-        
-        setTimeout(() => {
-            modalContainer.classList.remove('loading');
-            closeCreatorModal();
-            
-            switch(eventType) {
-                case 'sport':
-                    alert('Opening Sport Event Creator...');
-                    break;
-                case 'award':
-                    alert('Opening Award & Voting Ceremony Creator...');
-                    break;
-                default:
-                    alert('Event type coming soon!');
-            }
-        }, 500);
-    }
-};
-
-// Function to open entertainment page
-window.openEntertainPage = function() {
-    const entertainPage = document.querySelector('.entertain-page-container');
-    if (entertainPage) {
-        entertainPage.style.display = 'flex';
-        entertainPage.style.position = 'fixed';
-        entertainPage.style.top = '0';
-        entertainPage.style.left = '0';
-        entertainPage.style.width = '100%';
-        entertainPage.style.height = '100%';
-        entertainPage.style.zIndex = '10001';
-        entertainPage.style.opacity = '0';
-        entertainPage.style.transform = 'translateY(20px)';
-        
-        // Prevent body scroll
-        document.body.style.overflow = 'hidden';
-        
-        // Animate in
-        setTimeout(() => {
-            entertainPage.style.transition = 'all 0.3s ease';
-            entertainPage.style.opacity = '1';
-            entertainPage.style.transform = 'translateY(0)';
-        }, 50);
-    }
-};
-
-// Function to close entertainment page
-window.closeEntertainPage = function() {
-    const entertainPage = document.querySelector('.entertain-page-container');
-    if (entertainPage) {
-        entertainPage.style.opacity = '0';
-        entertainPage.style.transform = 'translateY(20px)';
-        
-        setTimeout(() => {
-            entertainPage.style.display = 'none';
+    // Close button functionality
+    const creatorCloseBtn = document.querySelector('.creator-modal-close-btn');
+    if (creatorCloseBtn && creatorModal) {
+        creatorCloseBtn.addEventListener('click', function() {
+            creatorModal.style.display = 'none';
             document.body.style.overflow = 'auto';
-        }, 300);
+            creatorModal.classList.remove('creator-modal-open');
+        });
     }
-};
+    
+    // Close when clicking outside the creator modal
+    document.addEventListener('click', function(event) {
+        // Check if the click is outside the creator modal and not on the trigger button
+        if (creatorModal && 
+            creatorModal.style.display === 'flex' && 
+            !creatorModal.querySelector('.creator-modal-container').contains(event.target) && 
+            !creatorBtn.contains(event.target)) {
+            
+            creatorModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            creatorModal.classList.remove('creator-modal-open');
+        }
+    });
+});
 
-// Function to switch entertainment tabs
-window.switchEntertainTab = function(tabName) {
+// Placeholder functions for card buttons (you'll tell me what these should do later)
+function openEntertainmentEvent() {
+    console.log('Entertainment Event clicked');
+    // You'll tell me what happens here
+}
+
+function openSportEvent() {
+    console.log('Sport Event clicked');
+    // You'll tell me what happens here
+}
+
+function openAwardCeremony() {
+    console.log('Award Ceremony clicked');
+    // You'll tell me what happens here
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the entertainment event page
+    const entertainmentEventPage = document.querySelector('#entertainmentEventPage');
+    
+    // Hide the entertainment event page initially
+    if (entertainmentEventPage) {
+        entertainmentEventPage.style.display = 'none';
+    }
+    
+    // Close button functionality
+    const closeEntertainmentEventPageBtn = document.querySelector('.close-entertainment-event-page-btn');
+    if (closeEntertainmentEventPageBtn && entertainmentEventPage) {
+        closeEntertainmentEventPageBtn.addEventListener('click', function() {
+            entertainmentEventPage.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+    }
+});
+
+// Open Entertainment Event Page (called from creator modal)
+function openEntertainmentEvent() {
+    const entertainmentEventPage = document.querySelector('#entertainmentEventPage');
+    const creatorModal = document.querySelector('#creatorModal');
+    
+    if (entertainmentEventPage) {
+        // Hide creator modal first
+        if (creatorModal) {
+            creatorModal.style.display = 'none';
+        }
+        
+        // Show entertainment event page
+        entertainmentEventPage.style.display = 'block';
+        document.body.style.overflow = 'auto'; // Allow scrolling on the page
+    }
+}
+
+// Switch Entertainment Tabs
+function switchEntertainmentTab(tabName) {
     // Remove active class from all tabs and content
-    document.querySelectorAll('.entertain-tab-btn').forEach(btn => {
+    document.querySelectorAll('.entertainment-tab-btn').forEach(btn => {
         btn.classList.remove('active');
     });
-    
-    document.querySelectorAll('.entertain-tab-content').forEach(content => {
+    document.querySelectorAll('.entertainment-tab-pane').forEach(content => {
         content.classList.remove('active');
     });
     
     // Add active class to clicked tab and corresponding content
-    document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
-    document.getElementById(`entertain-${tabName}-tab`).classList.add('active');
+    document.querySelector(`#${tabName}EntertainmentEvent`).classList.add('active');
+    document.getElementById(`entertainment-${tabName}-tab`).classList.add('active');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the host entertainment popup
+    const hostEntertainmentPopup = document.querySelector('#hostEntertainmentPopup');
+    
+    // Hide the popup initially
+    if (hostEntertainmentPopup) {
+        hostEntertainmentPopup.style.display = 'none';
+    }
+    
+    // Close button functionality
+    const closeHostEntertainmentPopupBtn = document.querySelector('#closeHostEntertainmentPopupBtn');
+    if (closeHostEntertainmentPopupBtn && hostEntertainmentPopup) {
+        closeHostEntertainmentPopupBtn.addEventListener('click', function() {
+            hostEntertainmentPopup.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+    }
+    
+    // Close when clicking outside
+    hostEntertainmentPopup.addEventListener('click', function(event) {
+        if (event.target === hostEntertainmentPopup) {
+            hostEntertainmentPopup.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
+    
+    // Initialize fee calculations
+    setupFeeCalculations();
+    
+    // Initialize word counter
+    setupWordCounter();
+    
+    // Initialize form validation
+    setupFormValidation();
+});
+
+// Event type categories data
+const eventTypeData = {
+    medium: {
+        categories: ['singing', 'dancing', 'drawing'],
+        durations: ['3 days', '7 days', '14 days', '30 days', '45 days'],
+        participantRange: { min: 10, max: 50 },
+        entryFeeDefault: 30,
+        votingFeeDefault: 20,
+        creationFee: { full: 70, discounted: 40 }
+    },
+    tactical: {
+        categories: ['comedy', 'short film'],
+               durations: ['3 days', '7 days', '14 days', '30 days', '45 days', '60 days'],
+        participantRange: { min: 10, max: 30 },
+        entryFeeDefault: 40,
+        votingFeeDefault: 35,
+        creationFee: { full: 75, discounted: 43 }
+    },
+    bigRush: {
+        categories: ['amazing inventions', 'pitch deck'],
+        durations: ['3 days', '7 days', '14 days', '30 days', '45 days'],
+        participantRange: { min: 10, max: 30 },
+        entryFeeDefault: 70,
+        votingFeeDefault: 50,
+        creationFee: { full: 90, discounted: 60 }
+    }
 };
 
+// Custom categories storage
+let customCategories = {
+    medium: [],
+    tactical: [],
+    bigRush: []
+};
 
+// Tags and rules storage
+let hashtags = [];
+let startags = [];
+let eventRules = [];
 
+// Open Host Entertainment Popup (called from entertainment event page)
+function openHostEntertainmentPopup() {
+    const hostEntertainmentPopup = document.querySelector('#hostEntertainmentPopup');
+    if (hostEntertainmentPopup) {
+        hostEntertainmentPopup.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+// Update event type options
+function updateEventTypeOptions() {
+    const eventType = document.getElementById('eventType').value;
+    const categoryGroup = document.getElementById('categoryGroup');
+    const durationGroup = document.getElementById('durationGroup');
+    const participantsGroup = document.getElementById('participantsGroup');
+    const entryFeeGroup = document.getElementById('entryFeeGroup');
+    const votingFeeGroup = document.getElementById('votingFeeGroup');
+    const eventNameGroup = document.getElementById('eventNameGroup');
+    const descriptionGroup = document.getElementById('descriptionGroup');
+    const backgroundGroup = document.getElementById('backgroundGroup');
+    const tagsGroup = document.getElementById('tagsGroup');
+    const rulesGroup = document.getElementById('rulesGroup');
+    const paymentGroup = document.getElementById('paymentGroup');
+    const submitGroup = document.getElementById('submitGroup');
+    
+    if (eventType) {
+        const data = eventTypeData[eventType];
+        
+        // Show all form groups
+        categoryGroup.style.display = 'block';
+        durationGroup.style.display = 'block';
+        participantsGroup.style.display = 'block';
+        entryFeeGroup.style.display = 'block';
+        votingFeeGroup.style.display = 'block';
+        eventNameGroup.style.display = 'block';
+        descriptionGroup.style.display = 'block';
+        backgroundGroup.style.display = 'block';
+        tagsGroup.style.display = 'block';
+        rulesGroup.style.display = 'block';
+        paymentGroup.style.display = 'block';
+        submitGroup.style.display = 'block';
+        
+        // Update categories
+        updateCategories(eventType, data.categories);
+        
+        // Update durations
+        updateDurations(data.durations);
+        
+        // Update participant limits
+        updateParticipantLimits(data.participantRange);
+        
+        // Update fee defaults
+        updateFeeDefaults(data.entryFeeDefault, data.votingFeeDefault);
+        
+        // Update payment summary
+        updatePaymentSummary(eventType);
+        
+    } else {
+        // Hide all form groups
+        categoryGroup.style.display = 'none';
+        durationGroup.style.display = 'none';
+        participantsGroup.style.display = 'none';
+        entryFeeGroup.style.display = 'none';
+        votingFeeGroup.style.display = 'none';
+        eventNameGroup.style.display = 'none';
+        descriptionGroup.style.display = 'none';
+        backgroundGroup.style.display = 'none';
+        tagsGroup.style.display = 'none';
+        rulesGroup.style.display = 'none';
+        paymentGroup.style.display = 'none';
+        submitGroup.style.display = 'none';
+    }
+}
+
+// Update categories dropdown
+function updateCategories(eventType, categories) {
+    const categorySelect = document.getElementById('eventCategory');
+    categorySelect.innerHTML = '<option value="">Select Category</option>';
+    
+    // Add default categories
+    categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+        categorySelect.appendChild(option);
+    });
+    
+    // Add custom categories
+    if (customCategories[eventType] && customCategories[eventType].length > 0) {
+        customCategories[eventType].forEach(category => {
+            const option = document.createElement('option');
+            option.value = category;
+            option.textContent = category;
+            categorySelect.appendChild(option);
+        });
+    }
+}
+
+// Update durations dropdown
+function updateDurations(durations) {
+    const durationSelect = document.getElementById('eventDuration');
+    durationSelect.innerHTML = '<option value="">Select Duration</option>';
+    
+    durations.forEach(duration => {
+        const option = document.createElement('option');
+        option.value = duration;
+        option.textContent = duration;
+        durationSelect.appendChild(option);
+    });
+}
+
+// Update participant limits
+function updateParticipantLimits(range) {
+    const participantsInput = document.getElementById('maxParticipants');
+    const participantsHelp = document.getElementById('participantsHelp');
+    
+    participantsInput.min = range.min;
+    participantsInput.max = range.max;
+    participantsInput.placeholder = range.min.toString();
+    participantsHelp.textContent = `Minimum: ${range.min}, Maximum: ${range.max}`;
+}
+
+// Update fee defaults
+function updateFeeDefaults(entryDefault, votingDefault) {
+    const entryFeeInput = document.getElementById('entryFee');
+    const votingFeeInput = document.getElementById('votingFee');
+    const entryFeeNaira = document.getElementById('entryFeeNaira');
+    const votingFeeNaira = document.getElementById('votingFeeNaira');
+    
+    entryFeeInput.placeholder = entryDefault.toString();
+    votingFeeInput.placeholder = votingDefault.toString();
+    
+    entryFeeNaira.textContent = `≈ ₦${entryDefault * 15}`;
+    votingFeeNaira.textContent = `≈ ₦${votingDefault * 15}`;
+}
+
+// Toggle custom category input
+function toggleCustomCategory() {
+    const customInput = document.querySelector('.custom-category-input');
+    const toggleBtn = document.querySelector('.custom-category-toggle');
+    
+    if (customInput.style.display === 'none' || !customInput.style.display) {
+        customInput.style.display = 'flex';
+        toggleBtn.textContent = 'Cancel';
+    } else {
+        customInput.style.display = 'none';
+        toggleBtn.textContent = 'Add Custom Category';
+        document.getElementById('customCategory').value = '';
+    }
+}
+
+// Add custom category
+function addCustomCategory() {
+    const eventType = document.getElementById('eventType').value;
+    const customCategoryInput = document.getElementById('customCategory');
+    const categoryValue = customCategoryInput.value.trim();
+    
+    if (categoryValue && eventType) {
+        // Add to custom categories
+        if (!customCategories[eventType]) {
+            customCategories[eventType] = [];
+        }
+        
+        if (!customCategories[eventType].includes(categoryValue)) {
+            customCategories[eventType].push(categoryValue);
+            
+            // Update categories dropdown
+            const data = eventTypeData[eventType];
+            updateCategories(eventType, data.categories);
+            
+            // Select the new category
+            document.getElementById('eventCategory').value = categoryValue;
+            
+            // Clear input and hide
+            customCategoryInput.value = '';
+            toggleCustomCategory();
+        }
+    }
+}
+
+// Toggle entry fee
+function toggleEntryFee() {
+    const entryFeeInput = document.getElementById('entryFee');
+    const noEntryFeeBtn = document.getElementById('noEntryFeeBtn');
+    
+    if (noEntryFeeBtn.classList.contains('active')) {
+        noEntryFeeBtn.classList.remove('active');
+        entryFeeInput.disabled = false;
+        noEntryFeeBtn.textContent = 'No Entry Fee';
+    } else {
+        noEntryFeeBtn.classList.add('active');
+        entryFeeInput.disabled = true;
+        entryFeeInput.value = '';
+        noEntryFeeBtn.textContent = 'Enable Entry Fee';
+    }
+    
+    updatePaymentSummary();
+}
+
+// Toggle voting fee
+function toggleVotingFee() {
+    const votingFeeInput = document.getElementById('votingFee');
+    const noVotingFeeBtn = document.getElementById('noVotingFeeBtn');
+    
+    if (noVotingFeeBtn.classList.contains('active')) {
+        noVotingFeeBtn.classList.remove('active');
+        votingFeeInput.disabled = false;
+        noVotingFeeBtn.textContent = 'No Voting Fee';
+    } else {
+        noVotingFeeBtn.classList.add('active');
+        votingFeeInput.disabled = true;
+        votingFeeInput.value = '';
+        noVotingFeeBtn.textContent = 'Enable Voting Fee';
+    }
+    
+    updatePaymentSummary();
+}
+
+// Setup fee calculations
+function setupFeeCalculations() {
+    const entryFeeInput = document.getElementById('entryFee');
+    const votingFeeInput = document.getElementById('votingFee');
+    
+    if (entryFeeInput) {
+        entryFeeInput.addEventListener('input', function() {
+            const value = parseInt(this.value) || 0;
+            const nairaValue = value * 15;
+            document.getElementById('entryFeeNaira').textContent = `≈ ₦${nairaValue}`;
+            updatePaymentSummary();
+        });
+    }
+    
+    if (votingFeeInput) {
+        votingFeeInput.addEventListener('input', function() {
+            const value = parseInt(this.value) || 0;
+            const nairaValue = value * 15;
+            document.getElementById('votingFeeNaira').textContent = `≈ ₦${nairaValue}`;
+            updatePaymentSummary();
+        });
+    }
+}
+
+// Update payment summary
+function updatePaymentSummary(eventType = null) {
+    if (!eventType) {
+        eventType = document.getElementById('eventType').value;
+    }
+    
+    if (!eventType) return;
+    
+    const data = eventTypeData[eventType];
+    const noEntryFee = document.getElementById('noEntryFeeBtn').classList.contains('active');
+    const noVotingFee = document.getElementById('noVotingFeeBtn').classList.contains('active');
+    
+    const selectedEventTypeSpan = document.getElementById('selectedEventType');
+    const baseFeeSpan = document.getElementById('baseFee');
+    const feeDiscountItem = document.getElementById('feeDiscountItem');
+    const discountAmountSpan = document.getElementById('discountAmount');
+    const totalCreationFeeSpan = document.getElementById('totalCreationFee');
+    const totalCreationFeeNairaSpan = document.getElementById('totalCreationFeeNaira');
+    
+    // Update event type display
+    const eventTypeNames = {
+        medium: 'Medium Event',
+        tactical: 'Tactical Event',
+        bigRush: 'Big Rush'
+    };
+    selectedEventTypeSpan.textContent = eventTypeNames[eventType];
+    
+    // Calculate creation fee
+    let creationFee = data.creationFee.full;
+    let discount = 0;
+    
+    if (noEntryFee && noVotingFee) {
+        creationFee = data.creationFee.discounted;
+        discount = data.creationFee.full - data.creationFee.discounted;
+        feeDiscountItem.style.display = 'flex';
+        discountAmountSpan.textContent = `-${discount} TC`;
+    } else {
+        feeDiscountItem.style.display = 'none';
+    }
+    
+    baseFeeSpan.textContent = `${data.creationFee.full} TC`;
+    totalCreationFeeSpan.textContent = `${creationFee} TC`;
+    totalCreationFeeNairaSpan.textContent = (creationFee * 15).toString();
+}
+
+// Switch background tab
+function switchBackgroundTab(tabType) {
+    // Remove active class from all tabs
+    document.querySelectorAll('.bg-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    document.querySelectorAll('.bg-content').forEach(content => {
+        content.classList.remove('active');
+    });
+    
+    // Add active class to selected tab
+    event.target.classList.add('active');
+    document.getElementById(`${tabType}Content`).classList.add('active');
+}
+
+// Select color
+function selectColor(color) {
+    // Remove selected class from all color options
+    document.querySelectorAll('.color-option').forEach(option => {
+        option.classList.remove('selected');
+    });
+    
+    // Add selected class to clicked color
+    if (event.target.classList.contains('color-option')) {
+        event.target.classList.add('selected');
+    }
+    
+    // Store selected color
+    document.getElementById('customColor').value = color;
+}
+
+// Add hashtag
+function addHashtag() {
+    const hashtagInput = document.getElementById('hashtagInput');
+    const hashtag = hashtagInput.value.trim();
+    
+    if (hashtag && !hashtags.includes(hashtag)) {
+        hashtags.push(hashtag);
+        updateHashtagsDisplay();
+        hashtagInput.value = '';
+    }
+}
+
+// Add star tag
+function addStartag() {
+    const startagInput = document.getElementById('startagInput');
+    const startag = startagInput.value.trim();
+    
+    if (startag && !startags.includes(startag)) {
+        startags.push(startag);
+        updateStartagsDisplay();
+        startagInput.value = '';
+    }
+}
+
+// Update hashtags display
+function updateHashtagsDisplay() {
+    const hashtagsDisplay = document.getElementById('hashtagsDisplay');
+    hashtagsDisplay.innerHTML = '';
+    
+    hashtags.forEach((hashtag, index) => {
+        const tagElement = document.createElement('div');
+        tagElement.className = 'tag-item';
+        tagElement.innerHTML = `
+            #${hashtag}
+            <button type="button" class="tag-remove" onclick="removeHashtag(${index})">×</button>
+        `;
+        hashtagsDisplay.appendChild(tagElement);
+    });
+}
+
+// Update star tags display
+function updateStartagsDisplay() {
+    const startagsDisplay = document.getElementById('startagsDisplay');
+    startagsDisplay.innerHTML = '';
+    
+    startags.forEach((startag, index) => {
+        const tagElement = document.createElement('div');
+        tagElement.className = 'tag-item';
+        tagElement.innerHTML = `
+                       *${startag}
+            <button type="button" class="tag-remove" onclick="removeStartag(${index})">×</button>
+        `;
+        startagsDisplay.appendChild(tagElement);
+    });
+}
+
+// Remove hashtag
+function removeHashtag(index) {
+    hashtags.splice(index, 1);
+    updateHashtagsDisplay();
+}
+
+// Remove star tag
+function removeStartag(index) {
+    startags.splice(index, 1);
+    updateStartagsDisplay();
+}
+
+// Add rule
+function addRule() {
+    const ruleInput = document.getElementById('ruleInput');
+    const rule = ruleInput.value.trim();
+    
+    if (rule && eventRules.length < 15) {
+        eventRules.push(rule);
+        updateRulesDisplay();
+        ruleInput.value = '';
+        updateRulesCount();
+    }
+}
+
+// Update rules display
+function updateRulesDisplay() {
+    const rulesList = document.getElementById('rulesList');
+    rulesList.innerHTML = '';
+    
+    eventRules.forEach((rule, index) => {
+        const ruleElement = document.createElement('div');
+        ruleElement.className = 'rule-item';
+        ruleElement.innerHTML = `
+            <div class="rule-number">${index + 1}</div>
+            <div class="rule-text">${rule}</div>
+            <button type="button" class="rule-remove" onclick="removeRule(${index})">×</button>
+        `;
+        rulesList.appendChild(ruleElement);
+    });
+}
+
+// Remove rule
+function removeRule(index) {
+    eventRules.splice(index, 1);
+    updateRulesDisplay();
+    updateRulesCount();
+}
+
+// Update rules count
+function updateRulesCount() {
+    const rulesCount = document.getElementById('rulesCount');
+    rulesCount.textContent = eventRules.length;
+}
+
+// Setup word counter
+function setupWordCounter() {
+    const descriptionTextarea = document.getElementById('eventDescription');
+    
+    if (descriptionTextarea) {
+        descriptionTextarea.addEventListener('input', function() {
+            const words = this.value.trim().split(/\s+/).filter(word => word.length > 0);
+            const wordCount = this.value.trim() === '' ? 0 : words.length;
+            document.getElementById('wordCount').textContent = wordCount;
+            
+            // Update validation
+            validateForm();
+        });
+    }
+}
+
+// Setup form validation
+function setupFormValidation() {
+    const form = document.getElementById('hostEntertainmentForm');
+    const submitBtn = document.getElementById('createEventBtn');
+    
+    // Add event listeners to all form inputs
+    const inputs = form.querySelectorAll('input, select, textarea');
+    inputs.forEach(input => {
+        input.addEventListener('input', validateForm);
+        input.addEventListener('change', validateForm);
+    });
+    
+    // Form submission
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (validateForm()) {
+            submitForm();
+        }
+    });
+}
+
+// Validate form
+function validateForm() {
+    const eventType = document.getElementById('eventType').value;
+    const eventCategory = document.getElementById('eventCategory').value;
+    const eventDuration = document.getElementById('eventDuration').value;
+    const maxParticipants = document.getElementById('maxParticipants').value;
+    const eventName = document.getElementById('eventName').value.trim();
+    const eventDescription = document.getElementById('eventDescription').value.trim();
+    const submitBtn = document.getElementById('createEventBtn');
+    
+    // Check word count
+    const words = eventDescription.split(/\s+/).filter(word => word.length > 0);
+    const wordCount = eventDescription === '' ? 0 : words.length;
+    
+    // Validation conditions
+    const isValid = eventType && 
+                   eventCategory && 
+                   eventDuration && 
+                   maxParticipants && 
+                   eventName && 
+                   wordCount >= 20 && 
+                   wordCount <= 100 && 
+                   eventRules.length >= 1;
+    
+    // Update submit button
+    if (submitBtn) {
+        submitBtn.disabled = !isValid;
+    }
+    
+    return isValid;
+}
+
+// Submit form
+function submitForm() {
+    const formData = collectFormData();
+    
+    // Show loading state
+    const submitBtn = document.getElementById('createEventBtn');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Event...';
+    submitBtn.disabled = true;
+    
+    // Simulate API call
+    setTimeout(() => {
+        console.log('Event Data:', formData);
+        
+        // Show success message
+        alert('Entertainment Event created successfully!');
+        
+        // Reset form and close popup
+        resetForm();
+        document.getElementById('hostEntertainmentPopup').style.display = 'none';
+        document.body.style.overflow = 'auto';
+        
+        // Reset button
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }, 2000);
+}
+
+// Collect form data
+function collectFormData() {
+    const eventType = document.getElementById('eventType').value;
+    const eventCategory = document.getElementById('eventCategory').value;
+    const eventDuration = document.getElementById('eventDuration').value;
+    const maxParticipants = parseInt(document.getElementById('maxParticipants').value);
+    const eventName = document.getElementById('eventName').value.trim();
+    const eventDescription = document.getElementById('eventDescription').value.trim();
+    
+    // Fee data
+    const noEntryFee = document.getElementById('noEntryFeeBtn').classList.contains('active');
+    const noVotingFee = document.getElementById('noVotingFeeBtn').classList.contains('active');
+    const entryFee = noEntryFee ? 0 : (parseInt(document.getElementById('entryFee').value) || eventTypeData[eventType].entryFeeDefault);
+    const votingFee = noVotingFee ? 0 : (parseInt(document.getElementById('votingFee').value) || eventTypeData[eventType].votingFeeDefault);
+    
+    // Background data
+    const backgroundImage = document.getElementById('backgroundImage').files[0];
+    const backgroundColor = document.getElementById('customColor').value;
+    
+    // Calculate creation fee
+    const data = eventTypeData[eventType];
+    const creationFee = (noEntryFee && noVotingFee) ? data.creationFee.discounted : data.creationFee.full;
+    
+    return {
+        eventType,
+        eventCategory,
+        eventDuration,
+        maxParticipants,
+        eventName,
+        eventDescription,
+        entryFee,
+        votingFee,
+        backgroundImage,
+        backgroundColor,
+        hashtags: [...hashtags],
+        startags: [...startags],
+        eventRules: [...eventRules],
+        creationFee,
+        timestamp: new Date().toISOString()
+    };
+}
+
+// Reset form
+function resetForm() {
+    // Reset form fields
+    document.getElementById('hostEntertainmentForm').reset();
+    
+    // Reset arrays
+    hashtags = [];
+    startags = [];
+    eventRules = [];
+    
+    // Reset displays
+    updateHashtagsDisplay();
+    updateStartagsDisplay();
+    updateRulesDisplay();
+    updateRulesCount();
+    
+    // Reset word count
+    document.getElementById('wordCount').textContent = '0';
+    
+    // Reset fee buttons
+    document.getElementById('noEntryFeeBtn').classList.remove('active');
+    document.getElementById('noVotingFeeBtn').classList.remove('active');
+    document.getElementById('noEntryFeeBtn').textContent = 'No Entry Fee';
+    document.getElementById('noVotingFeeBtn').textContent = 'No Voting Fee';
+    
+    // Reset background tabs
+    document.querySelectorAll('.bg-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    document.querySelectorAll('.bg-content').forEach(content => {
+        content.classList.remove('active');
+    });
+    document.querySelector('.bg-tab').classList.add('active');
+    document.getElementById('imageContent').classList.add('active');
+    
+    // Reset color selection
+    document.querySelectorAll('.color-option').forEach(option => {
+        option.classList.remove('selected');
+    });
+    
+    // Hide all form groups except event type
+    const formGroups = [
+        'categoryGroup', 'durationGroup', 'participantsGroup', 
+        'entryFeeGroup', 'votingFeeGroup', 'eventNameGroup', 
+        'descriptionGroup', 'backgroundGroup', 'tagsGroup', 
+        'rulesGroup', 'paymentGroup', 'submitGroup'
+    ];
+    
+    formGroups.forEach(groupId => {
+        document.getElementById(groupId).style.display = 'none';
+    });
+    
+    // Hide custom category input
+    document.querySelector('.custom-category-input').style.display = 'none';
+    document.querySelector('.custom-category-toggle').textContent = 'Add Custom Category';
+}
+
+// Add event listeners for Enter key on tag inputs
+document.addEventListener('DOMContentLoaded', function() {
+    const hashtagInput = document.getElementById('hashtagInput');
+    const startagInput = document.getElementById('startagInput');
+    const ruleInput = document.getElementById('ruleInput');
+    const customCategoryInput = document.getElementById('customCategory');
+    
+    if (hashtagInput) {
+        hashtagInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addHashtag();
+            }
+        });
+    }
+    
+    if (startagInput) {
+        startagInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addStartag();
+            }
+        });
+    }
+    
+    if (ruleInput) {
+        ruleInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                addRule();
+            }
+        });
+    }
+    
+    if (customCategoryInput) {
+        customCategoryInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addCustomCategory();
+            }
+        });
+    }
+});
+
+// Add this to the existing entertainment-event-page.js file
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Existing code...
+    
+    // Host Entertainment Event button functionality
+    const hostEntertainmentEventBtn = document.querySelector('#hostEntertainmentEvent');
+    if (hostEntertainmentEventBtn) {
+        hostEntertainmentEventBtn.addEventListener('click', function() {
+            openHostEntertainmentPopup();
+        });
+    }
+});
 
        document.addEventListener('DOMContentLoaded', function() {
     // Get the button and the live events page
