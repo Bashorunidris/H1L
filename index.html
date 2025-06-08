@@ -10469,6 +10469,418 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
     }
 }
 
+/* Payment Method Selection */
+.payment-method-selection {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.payment-option {
+    flex: 1;
+}
+
+.payment-option input[type="radio"] {
+    display: none;
+}
+
+.payment-option-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+    font-weight: 500;
+}
+
+.payment-option input[type="radio"]:checked + .payment-option-label,
+.payment-option-label.active {
+    border-color: #007bff;
+    background: #f8f9ff;
+    color: #007bff;
+}
+
+.payment-option-label:hover {
+    border-color: #007bff;
+    background: #f8f9ff;
+}
+
+.payment-option-label i {
+    font-size: 18px;
+}
+
+/* Promo Code Section */
+.promo-code-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+}
+
+.promo-code-section .form-input {
+    margin-bottom: 8px;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.promo-code-section .form-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.promo-code-section .form-input.valid {
+    border-color: #28a745;
+    background: #f8fff9;
+}
+
+.promo-code-section .form-input.invalid {
+    border-color: #dc3545;
+    background: #fff8f8;
+}
+
+.promo-code-section .form-help {
+    color: #6c757d;
+    font-size: 12px;
+    font-style: italic;
+}
+
+/* Payment Summary */
+.payment-summary {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.payment-summary h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 18px;
+}
+
+.creation-fee-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.fee-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.fee-item:last-child {
+    border-bottom: none;
+}
+
+.fee-item.total-fee {
+    font-weight: 600;
+    font-size: 16px;
+    color: #007bff;
+    border-top: 2px solid #007bff;
+    padding-top: 12px;
+    margin-top: 8px;
+}
+
+.fee-equivalent {
+    text-align: center;
+    margin-top: 10px;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+/* Entertainment Card Styles */
+.entertainment-card {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.entertainment-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+.entertainment-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.event-name-overlay {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 80px;
+    z-index: 2;
+}
+
+.event-name-overlay h3 {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    line-height: 1.2;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 8px 12px;
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+}
+
+.card-action-buttons {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: flex;
+    gap: 8px;
+    z-index: 3;
+}
+
+.card-btn {
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    font-size: 14px;
+}
+
+.card-btn:hover {
+    background: white;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.edit-btn:hover {
+    color: #007bff;
+}
+
+.delete-btn:hover {
+    color: #dc3545;
+}
+
+.participants-counter {
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 8px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    backdrop-filter: blur(10px);
+    z-index: 2;
+}
+
+.duration-display {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 8px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    backdrop-filter: blur(10px);
+    z-index: 2;
+}
+
+.card-bottom-actions {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 2;
+}
+
+.open-btn, .launch-btn {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    font-size: 14px;
+}
+
+.open-btn {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+}
+
+.open-btn:hover {
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.launch-btn {
+    background: rgba(0, 123, 255, 0.9);
+    color: white;
+}
+
+.launch-btn:hover {
+    background: #007bff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+/* Success and Error Popups */
+.success-popup, .error-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: fadeIn 0.3s ease;
+}
+
+.success-popup-content, .error-popup-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    animation: slideUp 0.3s ease;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.success-popup-content h3, .error-popup-content h3 {
+    margin: 15px 0 10px 0;
+    font-size: 20px;
+}
+
+.success-popup-content p, .error-popup-content p {
+    margin: 10px 0 20px 0;
+    color: #666;
+    line-height: 1.5;
+}
+
+.success-icon {
+    color: #28a745;
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.error-icon {
+    color: #dc3545;
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.success-ok-btn, .error-ok-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.success-ok-btn:hover, .error-ok-btn:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { 
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .payment-method-selection {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .entertainment-card {
+        height: 280px;
+    }
+    
+    .event-name-overlay h3 {
+        font-size: 16px;
+    }
+    
+    .card-bottom-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .open-btn, .launch-btn {
+        padding: 10px 15px;
+        font-size: 13px;
+    }
+}
 
 
 
@@ -14396,32 +14808,63 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                     </div>
                 </div>
 
-                <!-- Payment Summary -->
-                <div class="form-group" id="paymentGroup" style="display: none;">
-                    <div class="payment-summary">
-                        <h3>Payment Summary</h3>
-                        <div class="creation-fee-breakdown">
-                            <div class="fee-item">
-                                <span>Event Type:</span>
-                                <span id="selectedEventType">-</span>
-                            </div>
-                            <div class="fee-item">
-                                <span>Base Creation Fee:</span>
-                                <span id="baseFee">0 TC</span>
-                            </div>
-                            <div class="fee-item" id="feeDiscountItem" style="display: none;">
-                                <span>Discount (No Entry/Voting Fees):</span>
-                                <span id="discountAmount">0 TC</span>
-                            </div>
-                            <div class="fee-total">
-                                <span>Total Creation Fee:</span>
-                                <span id="totalCreationFee">0 TC</span>
-                                <small>(≈ ₦<span id="totalCreationFeeNaira">0</span>)</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                   <!-- Update the payment summary section -->
+<div class="form-group" id="paymentGroup" style="display: none;">
+    <label class="form-label">Payment Method</label>
+    
+    <!-- Update the payment method selection with click handlers -->
+<div class="payment-method-selection">
+    <div class="payment-option">
+        <input type="radio" id="tcBalancePayment" name="paymentMethod" value="tcBalance" checked>
+        <label for="tcBalancePayment" class="payment-option-label" onclick="togglePaymentMethod('tcBalance')">
+            <i class="fas fa-coins"></i>
+            <span>Pay with TC Balance</span>
+        </label>
+    </div>
+    
+    <div class="payment-option">
+        <input type="radio" id="promoCodePayment" name="paymentMethod" value="promoCode">
+        <label for="promoCodePayment" class="payment-option-label" onclick="togglePaymentMethod('promoCode')">
+            <i class="fas fa-ticket-alt"></i>
+            <span>Use Promo Code</span>
+        </label>
+    </div>
+</div>
 
+    
+    <!-- Promo Code Input -->
+    <div class="promo-code-section" id="promoCodeSection" style="display: none;">
+        <input type="text" id="promoCodeInput" class="form-input" placeholder="Enter promo code (Bisask19, nig2025, Ismartdc)">
+        <small class="form-help">Valid codes: Bisask19, nig2025, Ismartdc</small>
+    </div>
+    
+    <!-- Payment Summary -->
+    <div class="payment-summary">
+        <h3>Payment Summary</h3>
+        <div class="creation-fee-breakdown">
+            <div class="fee-item">
+                <span>Event Type:</span>
+                <span id="selectedEventType">-</span>
+            </div>
+            <div class="fee-item">
+                <span>Creation Fee:</span>
+                <span id="creationFee">0 TC</span>
+            </div>
+            <div class="fee-item" id="feeDiscountItem" style="display: none;">
+                <span>Discount (No Entry/Voting Fee):</span>
+                <span id="discountAmount">0 TC</span>
+            </div>
+            <div class="fee-item total-fee">
+                <span>Total Creation Fee:</span>
+                <span id="totalCreationFee">0 TC</span>
+            </div>
+            <div class="fee-equivalent">
+                <span>≈ ₦<span id="totalCreationFeeNaira">0</span></span>
+            </div>
+        </div>
+    </div>
+</div>
+ 
                 <!-- Submit Button -->
                 <div class="form-actions" id="submitGroup" style="display: none;">
                     <button type="submit" class="submit-btn" id="createEventBtn">
@@ -20577,19 +21020,34 @@ document.addEventListener('DOMContentLoaded', function() {
     setupFormValidation();
 });
 
-// Event type categories data
+
+// Add this to the existing entertainment-event-page.js file
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Existing code...
+    
+    // Host Entertainment Event button functionality
+    const hostEntertainmentEventBtn = document.querySelector('#hostEntertainmentEvent');
+    if (hostEntertainmentEventBtn) {
+        hostEntertainmentEventBtn.addEventListener('click', function() {
+            openHostEntertainmentPopup();
+        });
+    }
+});
+
+// Event type data configuration
 const eventTypeData = {
     medium: {
-        categories: ['singing', 'dancing', 'drawing'],
-        durations: ['3 days', '7 days', '14 days', '30 days', '45 days'],
+        categories: ['singing', 'dancing', 'comedy', 'poetry', 'storytelling', 'music performance'],
+        durations: ['3 days', '7 days', '14 days', '30 days'],
         participantRange: { min: 10, max: 50 },
         entryFeeDefault: 30,
         votingFeeDefault: 20,
-        creationFee: { full: 70, discounted: 40 }
+        creationFee: { full: 40, discounted: 25 }
     },
     tactical: {
-        categories: ['comedy', 'short film'],
-               durations: ['3 days', '7 days', '14 days', '30 days', '45 days', '60 days'],
+        categories: ['talent showcase', 'skill competition', 'creative challenge', 'performance battle'],
+        durations: ['3 days', '7 days', '14 days', '30 days', '45 days', '60 days'],
         participantRange: { min: 10, max: 30 },
         entryFeeDefault: 40,
         votingFeeDefault: 35,
@@ -20605,6 +21063,9 @@ const eventTypeData = {
     }
 };
 
+// Valid promo codes
+const validPromoCodes = ['Bisask19', 'nig2025', 'Ismartdc'];
+
 // Custom categories storage
 let customCategories = {
     medium: [],
@@ -20617,13 +21078,76 @@ let hashtags = [];
 let startags = [];
 let eventRules = [];
 
-// Open Host Entertainment Popup (called from entertainment event page)
+// Current user's TC balance
+let currentUserBalance = 0;
+
+// Update the openHostEntertainmentPopup function to ensure events are loaded
 function openHostEntertainmentPopup() {
     const hostEntertainmentPopup = document.querySelector('#hostEntertainmentPopup');
     if (hostEntertainmentPopup) {
         hostEntertainmentPopup.style.display = 'flex';
         document.body.style.overflow = 'hidden';
+        
+        // Load user's TC balance
+        loadUserBalance();
+        
+        // Also refresh events in the background
+        loadExistingEvents();
     }
+}
+
+
+// Close popup
+document.addEventListener('DOMContentLoaded', function() {
+    const closeBtn = document.getElementById('closeHostEntertainmentPopupBtn');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            document.getElementById('hostEntertainmentPopup').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+    }
+    
+    // Initialize form validation and other features
+    setupFormValidation();
+    setupWordCounter();
+    setupFeeCalculations();
+});
+
+// Load user's TC balance
+async function loadUserBalance() {
+    try {
+        const user = auth.currentUser;
+        if (user) {
+            const walletDoc = await db.collection('wallets').doc(user.uid).get();
+            if (walletDoc.exists) {
+                currentUserBalance = walletDoc.data().balance || 0;
+                console.log('User TC Balance:', currentUserBalance);
+            }
+        }
+    } catch (error) {
+        console.error('Error loading user balance:', error);
+        currentUserBalance = 0;
+    }
+}
+
+// Toggle payment method
+function togglePaymentMethod(method) {
+    const promoCodeSection = document.getElementById('promoCodeSection');
+    const tcBalanceRadio = document.getElementById('tcBalancePayment');
+    const promoCodeRadio = document.getElementById('promoCodePayment');
+    
+    if (method === 'promoCode') {
+        promoCodeSection.style.display = 'block';
+        promoCodeRadio.checked = true;
+        tcBalanceRadio.checked = false;
+    } else {
+        promoCodeSection.style.display = 'none';
+        tcBalanceRadio.checked = true;
+        promoCodeRadio.checked = false;
+        document.getElementById('promoCodeInput').value = '';
+    }
+    
+    updatePaymentSummary();
 }
 
 // Update event type options
@@ -20775,7 +21299,6 @@ function addCustomCategory() {
     const categoryValue = customCategoryInput.value.trim();
     
     if (categoryValue && eventType) {
-        // Add to custom categories
         if (!customCategories[eventType]) {
             customCategories[eventType] = [];
         }
@@ -20783,14 +21306,11 @@ function addCustomCategory() {
         if (!customCategories[eventType].includes(categoryValue)) {
             customCategories[eventType].push(categoryValue);
             
-            // Update categories dropdown
             const data = eventTypeData[eventType];
             updateCategories(eventType, data.categories);
             
-            // Select the new category
             document.getElementById('eventCategory').value = categoryValue;
             
-            // Clear input and hide
             customCategoryInput.value = '';
             toggleCustomCategory();
         }
@@ -20872,7 +21392,7 @@ function updatePaymentSummary(eventType = null) {
     const noVotingFee = document.getElementById('noVotingFeeBtn').classList.contains('active');
     
     const selectedEventTypeSpan = document.getElementById('selectedEventType');
-    const baseFeeSpan = document.getElementById('baseFee');
+    const creationFeeSpan = document.getElementById('creationFee');
     const feeDiscountItem = document.getElementById('feeDiscountItem');
     const discountAmountSpan = document.getElementById('discountAmount');
     const totalCreationFeeSpan = document.getElementById('totalCreationFee');
@@ -20899,14 +21419,13 @@ function updatePaymentSummary(eventType = null) {
         feeDiscountItem.style.display = 'none';
     }
     
-    baseFeeSpan.textContent = `${data.creationFee.full} TC`;
+    creationFeeSpan.textContent = `${data.creationFee.full} TC`;
     totalCreationFeeSpan.textContent = `${creationFee} TC`;
     totalCreationFeeNairaSpan.textContent = (creationFee * 15).toString();
 }
 
 // Switch background tab
 function switchBackgroundTab(tabType) {
-    // Remove active class from all tabs
     document.querySelectorAll('.bg-tab').forEach(tab => {
         tab.classList.remove('active');
     });
@@ -20914,48 +21433,33 @@ function switchBackgroundTab(tabType) {
         content.classList.remove('active');
     });
     
-    // Add active class to selected tab
-    event.target.classList.add('active');
-    document.getElementById(`${tabType}Content`).classList.add('active');
+    document.querySelector(`[onclick="switchBackgroundTab('${tabType}')"]`).classList.add('active');
+    document.getElementById(tabType === 'image' ? 'imageContent' : 'colorContent').classList.add('active');
 }
 
 // Select color
 function selectColor(color) {
-    // Remove selected class from all color options
     document.querySelectorAll('.color-option').forEach(option => {
         option.classList.remove('selected');
     });
     
-    // Add selected class to clicked color
-    if (event.target.classList.contains('color-option')) {
-        event.target.classList.add('selected');
+    const colorOption = document.querySelector(`[style*="${color}"]`);
+    if (colorOption) {
+        colorOption.classList.add('selected');
     }
     
-    // Store selected color
     document.getElementById('customColor').value = color;
 }
 
 // Add hashtag
 function addHashtag() {
     const hashtagInput = document.getElementById('hashtagInput');
-    const hashtag = hashtagInput.value.trim();
+    const hashtag = hashtagInput.value.trim().replace('#', '');
     
-    if (hashtag && !hashtags.includes(hashtag)) {
+    if (hashtag && hashtags.length < 10 && !hashtags.includes(hashtag)) {
         hashtags.push(hashtag);
         updateHashtagsDisplay();
         hashtagInput.value = '';
-    }
-}
-
-// Add star tag
-function addStartag() {
-    const startagInput = document.getElementById('startagInput');
-    const startag = startagInput.value.trim();
-    
-    if (startag && !startags.includes(startag)) {
-        startags.push(startag);
-        updateStartagsDisplay();
-        startagInput.value = '';
     }
 }
 
@@ -20966,13 +21470,25 @@ function updateHashtagsDisplay() {
     
     hashtags.forEach((hashtag, index) => {
         const tagElement = document.createElement('div');
-        tagElement.className = 'tag-item';
+        tagElement.className = 'tag-item hashtag-item';
         tagElement.innerHTML = `
             #${hashtag}
             <button type="button" class="tag-remove" onclick="removeHashtag(${index})">×</button>
         `;
         hashtagsDisplay.appendChild(tagElement);
     });
+}
+
+// Add star tag
+function addStartag() {
+    const startagInput = document.getElementById('startagInput');
+    const startag = startagInput.value.trim().replace('*', '');
+    
+    if (startag && startags.length < 10 && !startags.includes(startag)) {
+        startags.push(startag);
+        updateStartagsDisplay();
+        startagInput.value = '';
+    }
 }
 
 // Update star tags display
@@ -20982,9 +21498,9 @@ function updateStartagsDisplay() {
     
     startags.forEach((startag, index) => {
         const tagElement = document.createElement('div');
-        tagElement.className = 'tag-item';
+        tagElement.className = 'tag-item startag-item';
         tagElement.innerHTML = `
-                       *${startag}
+            *${startag}
             <button type="button" class="tag-remove" onclick="removeStartag(${index})">×</button>
         `;
         startagsDisplay.appendChild(tagElement);
@@ -21056,7 +21572,6 @@ function setupWordCounter() {
             const wordCount = this.value.trim() === '' ? 0 : words.length;
             document.getElementById('wordCount').textContent = wordCount;
             
-            // Update validation
             validateForm();
         });
     }
@@ -21065,22 +21580,21 @@ function setupWordCounter() {
 // Setup form validation
 function setupFormValidation() {
     const form = document.getElementById('hostEntertainmentForm');
-    const submitBtn = document.getElementById('createEventBtn');
     
-    // Add event listeners to all form inputs
-    const inputs = form.querySelectorAll('input, select, textarea');
-    inputs.forEach(input => {
-        input.addEventListener('input', validateForm);
-        input.addEventListener('change', validateForm);
-    });
-    
-    // Form submission
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (validateForm()) {
-            submitForm();
-        }
-    });
+    if (form) {
+        const inputs = form.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('input', validateForm);
+            input.addEventListener('change', validateForm);
+        });
+        
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (validateForm()) {
+                submitForm();
+            }
+        });
+    }
 }
 
 // Validate form
@@ -21093,11 +21607,9 @@ function validateForm() {
     const eventDescription = document.getElementById('eventDescription').value.trim();
     const submitBtn = document.getElementById('createEventBtn');
     
-    // Check word count
     const words = eventDescription.split(/\s+/).filter(word => word.length > 0);
     const wordCount = eventDescription === '' ? 0 : words.length;
     
-    // Validation conditions
     const isValid = eventType && 
                    eventCategory && 
                    eventDuration && 
@@ -21107,7 +21619,6 @@ function validateForm() {
                    wordCount <= 100 && 
                    eventRules.length >= 1;
     
-    // Update submit button
     if (submitBtn) {
         submitBtn.disabled = !isValid;
     }
@@ -21115,36 +21626,81 @@ function validateForm() {
     return isValid;
 }
 
+// Validate promo code
+function validatePromoCode(code) {
+    return validPromoCodes.includes(code);
+}
+
+// Check if user has sufficient TC balance
+function checkSufficientBalance(requiredAmount) {
+    return currentUserBalance >= requiredAmount;
+}
+
 // Submit form
-function submitForm() {
-    const formData = collectFormData();
-    
-    // Show loading state
+async function submitForm() {
     const submitBtn = document.getElementById('createEventBtn');
     const originalText = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Event...';
-    submitBtn.disabled = true;
     
-    // Simulate API call
-    setTimeout(() => {
-        console.log('Event Data:', formData);
+    try {
+        // Show loading state
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Event...';
+        submitBtn.disabled = true;
+        
+        // Get payment method
+        const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+        const eventType = document.getElementById('eventType').value;
+        const creationFee = calculateCreationFee(eventType);
+        
+        // Validate payment
+        if (paymentMethod === 'tcBalance') {
+            if (!checkSufficientBalance(creationFee)) {
+                throw new Error(`Insufficient TC Balance. You need ${creationFee} TC but have ${currentUserBalance} TC.`);
+            }
+        } else if (paymentMethod === 'promoCode') {
+            const promoCode = document.getElementById('promoCodeInput').value.trim();
+            if (!validatePromoCode(promoCode)) {
+                throw new Error('Invalid promo code. Valid codes are: Bisask19, nig2025, Ismartdc');
+            }
+        }
+        
+        // Collect form data
+        const eventData = await collectFormData(paymentMethod, creationFee);
+        
+        // Process payment and create event
+        await processPaymentAndCreateEvent(eventData, paymentMethod, creationFee);
+        
+        // Create and display entertainment card
+        createEntertainmentCard(eventData);
         
         // Show success message
-        alert('Entertainment Event created successfully!');
+        showSuccessMessage(eventData.eventName);
         
-        // Reset form and close popup
+        // Reset and close form
         resetForm();
         document.getElementById('hostEntertainmentPopup').style.display = 'none';
         document.body.style.overflow = 'auto';
         
+    } catch (error) {
+        console.error('Error creating event:', error);
+        alert(error.message || 'Error creating event. Please try again.');
+    } finally {
         // Reset button
         submitBtn.innerHTML = originalText;
         submitBtn.disabled = false;
-    }, 2000);
+    }
 }
 
-// Collect form data
-function collectFormData() {
+// Calculate creation fee
+function calculateCreationFee(eventType) {
+    const data = eventTypeData[eventType];
+    const noEntryFee = document.getElementById('noEntryFeeBtn').classList.contains('active');
+    const noVotingFee = document.getElementById('noVotingFeeBtn').classList.contains('active');
+    
+    return (noEntryFee && noVotingFee) ? data.creationFee.discounted : data.creationFee.full;
+}
+
+// Update the collectFormData function to ensure createdAt is set properly
+async function collectFormData(paymentMethod, creationFee) {
     const eventType = document.getElementById('eventType').value;
     const eventCategory = document.getElementById('eventCategory').value;
     const eventDuration = document.getElementById('eventDuration').value;
@@ -21162,27 +21718,165 @@ function collectFormData() {
     const backgroundImage = document.getElementById('backgroundImage').files[0];
     const backgroundColor = document.getElementById('customColor').value;
     
-    // Calculate creation fee
-    const data = eventTypeData[eventType];
-    const creationFee = (noEntryFee && noVotingFee) ? data.creationFee.discounted : data.creationFee.full;
+    // Upload background image if provided
+    let backgroundImageUrl = null;
+    if (backgroundImage) {
+        backgroundImageUrl = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (e) => resolve(e.target.result);
+            reader.readAsDataURL(backgroundImage);
+        });
+    }
+    
+    // Get promo code if used
+    const promoCodeUsed = paymentMethod === 'promoCode' ? document.getElementById('promoCodeInput').value.trim() : null;
     
     return {
+        eventId: generateEventId(),
+        creatorId: auth.currentUser.uid,
         eventType,
         eventCategory,
         eventDuration,
         maxParticipants,
+        currentParticipants: 0,
         eventName,
         eventDescription,
         entryFee,
         votingFee,
-        backgroundImage,
+        backgroundImageUrl,
         backgroundColor,
         hashtags: [...hashtags],
         startags: [...startags],
         eventRules: [...eventRules],
         creationFee,
-        timestamp: new Date().toISOString()
+        paymentMethod,
+        promoCodeUsed,
+        status: 'active',
+        createdAt: firebase.firestore.Timestamp.now(), // Use Timestamp.now() instead of FieldValue.serverTimestamp()
+        participants: []
     };
+}
+
+
+// Generate unique event ID
+function generateEventId() {
+    return 'event_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
+// Process payment and create event
+async function processPaymentAndCreateEvent(eventData, paymentMethod, creationFee) {
+    const user = auth.currentUser;
+    
+    if (paymentMethod === 'tcBalance') {
+        // Deduct TC from user's wallet
+        const newBalance = currentUserBalance - creationFee;
+        await db.collection('wallets').doc(user.uid).update({
+            balance: newBalance
+        });
+        
+        // Update local balance
+        currentUserBalance = newBalance;
+    }
+    
+    // Save event to EVENT DATABASE
+    await db.collection('events').doc(eventData.eventId).set(eventData);
+}
+
+// Create entertainment card
+function createEntertainmentCard(eventData) {
+    const newEventsContainer = document.getElementById('newEventsContainer');
+    const emptyState = newEventsContainer.querySelector('.entertainment-empty-state');
+    
+    // Hide empty state
+    if (emptyState) {
+        emptyState.style.display = 'none';
+    }
+    
+    // Create card element
+    const cardElement = document.createElement('div');
+    cardElement.className = 'entertainment-card';
+    cardElement.id = `card-${eventData.eventId}`;
+    
+    // Set background
+    const backgroundStyle = eventData.backgroundImageUrl 
+        ? `background-image: url(${eventData.backgroundImageUrl})` 
+        : `background-color: ${eventData.backgroundColor || '#4ECDC4'}`;
+    
+    cardElement.innerHTML = `
+        <div class="entertainment-card-inner" style="${backgroundStyle}">
+            <!-- Event Name Overlay -->
+            <div class="event-name-overlay">
+                <h3>${eventData.eventName}</h3>
+            </div>
+            
+            <!-- Action Buttons (Top Left) -->
+            <div class="card-action-buttons">
+                <button class="card-btn edit-btn" onclick="editEventName('${eventData.eventId}')" title="Edit Event Name">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="card-btn delete-btn" onclick="deleteEvent('${eventData.eventId}')" title="Delete Event">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+            
+            <!-- Participants Counter (Top Right) -->
+            <div class="participants-counter">
+                <i class="fas fa-users"></i>
+                <span>${eventData.currentParticipants}/${eventData.maxParticipants}</span>
+            </div>
+            
+            <!-- Duration (Middle Left) -->
+            <div class="event-duration">
+                <i class="fas fa-clock"></i>
+                <span>${eventData.eventDuration}</span>
+            </div>
+            
+            <!-- Action Buttons (Bottom) -->
+            <div class="card-bottom-actions">
+                <button class="open-btn" onclick="openEntertainmentCard('${eventData.eventId}')">
+                    <span>open entertainment card</span>
+                </button>
+                <button class="launch-btn" onclick="launchEvent('${eventData.eventId}')">
+                    <span>Launch</span>
+                </button>
+            </div>
+        </div>
+    `;
+    
+       // Add card to container
+    newEventsContainer.insertBefore(cardElement, emptyState);
+}
+
+// Show success message
+function showSuccessMessage(eventName) {
+    // Create success message overlay
+    const successOverlay = document.createElement('div');
+    successOverlay.className = 'success-message-overlay';
+    successOverlay.innerHTML = `
+        <div class="success-message-container">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Event Created Successfully!</h3>
+            <p>You have created an event <strong>${eventName}</strong></p>
+            <button class="success-ok-btn" onclick="closeSuccessMessage()">OK</button>
+        </div>
+    `;
+    
+    document.body.appendChild(successOverlay);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        closeSuccessMessage();
+    }, 5000);
+}
+
+// Close success message
+function closeSuccessMessage() {
+    const successOverlay = document.querySelector('.success-message-overlay');
+    if (successOverlay) {
+        successOverlay.remove();
+    }
 }
 
 // Reset form
@@ -21201,8 +21895,9 @@ function resetForm() {
     updateRulesDisplay();
     updateRulesCount();
     
-    // Reset word count
-    document.getElementById('wordCount').textContent = '0';
+    // Reset payment method
+    document.getElementById('tcBalancePayment').checked = true;
+    document.getElementById('promoCodeSection').style.display = 'none';
     
     // Reset fee buttons
     document.getElementById('noEntryFeeBtn').classList.remove('active');
@@ -21210,44 +21905,332 @@ function resetForm() {
     document.getElementById('noEntryFeeBtn').textContent = 'No Entry Fee';
     document.getElementById('noVotingFeeBtn').textContent = 'No Voting Fee';
     
-    // Reset background tabs
-    document.querySelectorAll('.bg-tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
-    document.querySelectorAll('.bg-content').forEach(content => {
-        content.classList.remove('active');
-    });
-    document.querySelector('.bg-tab').classList.add('active');
-    document.getElementById('imageContent').classList.add('active');
-    
-    // Reset color selection
-    document.querySelectorAll('.color-option').forEach(option => {
-        option.classList.remove('selected');
-    });
-    
     // Hide all form groups except event type
     const formGroups = [
-        'categoryGroup', 'durationGroup', 'participantsGroup', 
-        'entryFeeGroup', 'votingFeeGroup', 'eventNameGroup', 
-        'descriptionGroup', 'backgroundGroup', 'tagsGroup', 
-        'rulesGroup', 'paymentGroup', 'submitGroup'
+        'categoryGroup', 'durationGroup', 'participantsGroup', 'entryFeeGroup',
+        'votingFeeGroup', 'eventNameGroup', 'descriptionGroup', 'backgroundGroup',
+        'tagsGroup', 'rulesGroup', 'paymentGroup', 'submitGroup'
     ];
     
     formGroups.forEach(groupId => {
         document.getElementById(groupId).style.display = 'none';
     });
     
-    // Hide custom category input
-    document.querySelector('.custom-category-input').style.display = 'none';
-    document.querySelector('.custom-category-toggle').textContent = 'Add Custom Category';
+    // Reset word count
+    document.getElementById('wordCount').textContent = '0';
+    
+    // Reset background selection
+    document.querySelectorAll('.bg-tab').forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('.bg-content').forEach(content => content.classList.remove('active'));
+    document.querySelector('[onclick="switchBackgroundTab(\'image\')"]').classList.add('active');
+    document.getElementById('imageContent').classList.add('active');
+    
+    // Reset color selection
+    document.querySelectorAll('.color-option').forEach(option => option.classList.remove('selected'));
 }
 
-// Add event listeners for Enter key on tag inputs
+// Edit event name
+async function editEventName(eventId) {
+    try {
+        const eventDoc = await db.collection('events').doc(eventId).get();
+        if (!eventDoc.exists) {
+            alert('Event not found');
+            return;
+        }
+        
+        const eventData = eventDoc.data();
+        const newName = prompt('Enter new event name:', eventData.eventName);
+        
+        if (newName && newName.trim() !== '' && newName.trim() !== eventData.eventName) {
+            // Update in database
+            await db.collection('events').doc(eventId).update({
+                eventName: newName.trim()
+            });
+            
+            // Update card display
+            const card = document.getElementById(`card-${eventId}`);
+            const nameOverlay = card.querySelector('.event-name-overlay h3');
+            nameOverlay.textContent = newName.trim();
+            
+            alert('Event name updated successfully!');
+        }
+    } catch (error) {
+        console.error('Error updating event name:', error);
+        alert('Error updating event name. Please try again.');
+    }
+}
+
+// Delete event
+async function deleteEvent(eventId) {
+    if (confirm('Are you sure you want to delete this event? This action cannot be undone.')) {
+        try {
+            // Delete from database
+            await db.collection('events').doc(eventId).delete();
+            
+            // Remove card from display
+            const card = document.getElementById(`card-${eventId}`);
+            if (card) {
+                card.remove();
+            }
+            
+            // Show empty state if no cards left
+            const newEventsContainer = document.getElementById('newEventsContainer');
+            const remainingCards = newEventsContainer.querySelectorAll('.entertainment-card');
+            const emptyState = newEventsContainer.querySelector('.entertainment-empty-state');
+            
+            if (remainingCards.length === 0 && emptyState) {
+                emptyState.style.display = 'block';
+            }
+            
+            alert('Event deleted successfully!');
+        } catch (error) {
+            console.error('Error deleting event:', error);
+            alert('Error deleting event. Please try again.');
+        }
+    }
+}
+
+// Open entertainment card
+function openEntertainmentCard(eventId) {
+    console.log('Opening entertainment card:', eventId);
+    // TODO: Implement card opening functionality
+    // This could open a detailed view of the event
+    alert(`Opening entertainment card: ${eventId}`);
+}
+
+// Launch event
+function launchEvent(eventId) {
+    console.log('Launching event:', eventId);
+    // TODO: Implement event launch functionality
+    // This could start the event, make it live, etc.
+    alert(`Launching event: ${eventId}`);
+}
+
+
+
+// Update the loadExistingEvents function with better error handling
+async function loadExistingEvents() {
+    try {
+        const user = auth.currentUser;
+        if (!user) {
+            console.log('No authenticated user found');
+            return;
+        }
+        
+        console.log('Loading existing events for user:', user.uid);
+        
+        // Try the query without orderBy first to test basic access
+        let eventsQuery;
+        try {
+            eventsQuery = await db.collection('events')
+                .where('creatorId', '==', user.uid)
+                .where('status', '==', 'active')
+                .orderBy('createdAt', 'desc')
+                .get();
+        } catch (orderByError) {
+            console.warn('OrderBy failed, trying without orderBy:', orderByError);
+            // Fallback: query without orderBy
+            eventsQuery = await db.collection('events')
+                .where('creatorId', '==', user.uid)
+                .where('status', '==', 'active')
+                .get();
+        }
+        
+        const newEventsContainer = document.getElementById('newEventsContainer');
+        const emptyState = newEventsContainer.querySelector('.entertainment-empty-state');
+        
+        if (!newEventsContainer) {
+            console.error('newEventsContainer not found');
+            return;
+        }
+        
+        // Clear existing cards first (prevent duplicates)
+        const existingCards = newEventsContainer.querySelectorAll('.entertainment-card');
+        existingCards.forEach(card => card.remove());
+        
+        if (!eventsQuery.empty) {
+            console.log('Found', eventsQuery.size, 'events');
+            
+            if (emptyState) {
+                emptyState.style.display = 'none';
+            }
+            
+            // Convert to array and sort manually if orderBy failed
+            const events = [];
+            eventsQuery.forEach(doc => {
+                const eventData = { ...doc.data(), eventId: doc.id };
+                events.push(eventData);
+            });
+            
+            // Sort by createdAt if it exists
+            events.sort((a, b) => {
+                if (a.createdAt && b.createdAt) {
+                    return b.createdAt.toMillis() - a.createdAt.toMillis();
+                }
+                return 0;
+            });
+            
+            // Create cards for each event
+            events.forEach(eventData => {
+                createEntertainmentCard(eventData);
+            });
+        } else {
+            console.log('No events found');
+            if (emptyState) {
+                emptyState.style.display = 'block';
+            }
+        }
+    } catch (error) {
+        console.error('Error loading existing events:', error);
+        
+        // Show user-friendly error message
+        if (error.code === 'permission-denied') {
+            console.error('Permission denied. Please check if you are logged in.');
+            alert('Unable to load events. Please make sure you are logged in.');
+        } else if (error.code === 'failed-precondition') {
+            console.error('Index required. Creating query without orderBy...');
+            // The function will retry without orderBy automatically
+        }
+    }
+}
+
+// Add a function to initialize the entertainment section
+function initializeEntertainmentSection() {
+    console.log('Initializing entertainment section...');
+    
+    // Check if user is authenticated
+    const user = auth.currentUser;
+    if (user) {
+        loadExistingEvents();
+        loadUserBalance();
+    } else {
+        // Wait for auth state to be determined
+        const unsubscribe = auth.onAuthStateChanged(function(user) {
+            if (user) {
+                loadExistingEvents();
+                loadUserBalance();
+            }
+            unsubscribe(); // Remove listener after first call
+        });
+    }
+}
+
+// Call this function when the entertainment section becomes visible
+function onEntertainmentSectionVisible() {
+    console.log('Entertainment section is now visible');
+    initializeEntertainmentSection();
+}
+
+// Update the auth state change listener
+auth.onAuthStateChanged(function(user) {
+    console.log('Auth state changed:', user ? user.uid : 'No user');
+    if (user) {
+        // Only load if the entertainment section is currently visible
+        const entertainmentSection = document.getElementById('newEventsContainer');
+        if (entertainmentSection && isElementVisible(entertainmentSection)) {
+            loadExistingEvents();
+            loadUserBalance();
+        }
+    }
+});
+
+// Helper function to check if element is visible
+function isElementVisible(element) {
+    if (!element) return false;
+    
+    const rect = element.getBoundingClientRect();
+    const style = window.getComputedStyle(element);
+    
+    return (
+        rect.width > 0 &&
+        rect.height > 0 &&
+        style.display !== 'none' &&
+        style.visibility !== 'hidden' &&
+        style.opacity !== '0'
+    );
+}
+
+// Add event listeners for when the page becomes visible
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM Content Loaded');
+    
+    // Initialize immediately if entertainment section exists
+    const entertainmentSection = document.getElementById('newEventsContainer');
+    if (entertainmentSection) {
+        initializeEntertainmentSection();
+    }
+    
+    // Listen for page visibility changes
+    document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+            console.log('Page became visible');
+            // Reload events when page becomes visible again
+            setTimeout(() => {
+                initializeEntertainmentSection();
+            }, 500); // Small delay to ensure everything is loaded
+        }
+    });
+    
+    // Listen for focus events (when user returns to tab/app)
+    window.addEventListener('focus', function() {
+        console.log('Window gained focus');
+        setTimeout(() => {
+            initializeEntertainmentSection();
+        }, 500);
+    });
+});
+
+// If you're using a single-page application with navigation
+// Add this function to be called when navigating to entertainment section
+function navigateToEntertainmentSection() {
+    console.log('Navigating to entertainment section');
+    
+    // Show the entertainment section
+    const entertainmentSection = document.getElementById('entertainmentSection');
+    if (entertainmentSection) {
+        entertainmentSection.style.display = 'block';
+    }
+    
+    // Load events after a short delay to ensure DOM is ready
+    setTimeout(() => {
+        initializeEntertainmentSection();
+    }, 100);
+}
+
+// Add this to your navigation system if you have one
+// For example, if you have buttons that show/hide sections:
+function showEntertainmentSection() {
+    // Hide other sections
+    document.querySelectorAll('.main-section').forEach(section => {
+        section.style.display = 'none';
+    });
+    
+    // Show entertainment section
+    const entertainmentSection = document.getElementById('entertainmentSection');
+    if (entertainmentSection) {
+        entertainmentSection.style.display = 'block';
+        
+        // Load events
+        setTimeout(() => {
+            initializeEntertainmentSection();
+        }, 100);
+    }
+}
+
+// Add a manual refresh function that users can call
+function refreshEntertainmentEvents() {
+    console.log('Manually refreshing entertainment events...');
+    loadExistingEvents();
+}
+
+ 
+
+
+// Add event listeners for tag inputs
 document.addEventListener('DOMContentLoaded', function() {
     const hashtagInput = document.getElementById('hashtagInput');
     const startagInput = document.getElementById('startagInput');
     const ruleInput = document.getElementById('ruleInput');
-    const customCategoryInput = document.getElementById('customCategory');
     
     if (hashtagInput) {
         hashtagInput.addEventListener('keypress', function(e) {
@@ -21269,36 +22252,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (ruleInput) {
         ruleInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && !e.shiftKey) {
+            if (e.key === 'Enter' && e.ctrlKey) {
                 e.preventDefault();
                 addRule();
             }
         });
     }
-    
-    if (customCategoryInput) {
-        customCategoryInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                addCustomCategory();
-            }
-        });
-    }
 });
 
-// Add this to the existing entertainment-event-page.js file
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Existing code...
-    
-    // Host Entertainment Event button functionality
-    const hostEntertainmentEventBtn = document.querySelector('#hostEntertainmentEvent');
-    if (hostEntertainmentEventBtn) {
-        hostEntertainmentEventBtn.addEventListener('click', function() {
-            openHostEntertainmentPopup();
-        });
-    }
-});
 
        document.addEventListener('DOMContentLoaded', function() {
     // Get the button and the live events page
