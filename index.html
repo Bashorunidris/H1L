@@ -10601,287 +10601,538 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
     font-size: 14px;
 }
 
-/* Entertainment Card Styles */
+/* Responsive Entertainment Card Styles for Android & iOS */
 .entertainment-card {
-    position: relative;
     width: 100%;
-    height: 300px;
+    max-width: 350px;
+    height: 280px;
+    margin: 15px auto;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    margin-bottom: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    /* Prevent text selection on mobile */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    /* Improve touch performance */
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
-.entertainment-card:hover {
-    transform: translateY(-5px);
+.entertainment-card:hover,
+.entertainment-card:active {
+    transform: translateY(-3px);
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
 }
 
 .entertainment-card-inner {
-    position: relative;
     width: 100%;
     height: 100%;
-    padding: 20px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding: 12px;
+    /* Improve rendering on mobile */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
-.event-name-overlay {
+/* Card Overlay for better text visibility */
+.card-overlay {
     position: absolute;
-    top: 20px;
-    left: 20px;
-    right: 80px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.1) 0%,
+        rgba(0, 0, 0, 0.3) 50%,
+        rgba(0, 0, 0, 0.5) 100%
+    );
+    z-index: 1;
+}
+
+/* All content should be above overlay */
+.entertainment-card-inner > * {
+    position: relative;
     z-index: 2;
 }
 
-.event-name-overlay h3 {
+/* Event Name Overlay */
+.event-name-overlay {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(0, 0, 0, 0.85);
     color: white;
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    line-height: 1.2;
-    background: rgba(0, 0, 0, 0.3);
     padding: 8px 12px;
     border-radius: 8px;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px);
+    max-width: calc(100% - 120px);
+    z-index: 3;
 }
 
+.event-name-overlay h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+}
+
+/* Action Buttons (Top Right) */
 .card-action-buttons {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    gap: 6px;
+    z-index: 3;
+}
+
+.card-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(10px);
+    font-size: 14px;
+    /* Better touch targets */
+    min-width: 44px;
+    min-height: 44px;
+    /* Prevent double-tap zoom */
+    touch-action: manipulation;
+}
+
+.card-btn:hover,
+.card-btn:active {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.05);
+}
+
+.card-btn:active {
+    transform: scale(0.95);
+}
+
+.edit-btn:hover,
+.edit-btn:active {
+    color: #007bff;
+}
+
+.delete-btn:hover,
+.delete-btn:active {
+    color: #dc3545;
+}
+
+/* Participants Counter */
+.participants-counter {
+    position: absolute;
+    top: 60px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    backdrop-filter: blur(10px);
+    z-index: 3;
+}
+
+/* Event Info Middle Section */
+.event-info-middle {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 3;
+    max-width: calc(100% - 24px);
+}
+
+.event-duration,
+.event-type,
+.event-fee {
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    backdrop-filter: blur(10px);
+    white-space: nowrap;
+    max-width: fit-content;
+}
+
+.event-duration {
+    background: rgba(76, 175, 80, 0.9);
+}
+
+.event-type {
+    background: rgba(33, 150, 243, 0.9);
+}
+
+.event-fee {
+    background: rgba(255, 193, 7, 0.9);
+    color: #333;
+}
+
+/* Bottom Action Buttons */
+.card-bottom-actions {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
     display: flex;
     gap: 8px;
     z-index: 3;
 }
 
-.card-btn {
-    width: 35px;
-    height: 35px;
-    border: none;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.9);
-    color: #333;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    font-size: 14px;
-}
-
-.card-btn:hover {
-    background: white;
-    transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.edit-btn:hover {
-    color: #007bff;
-}
-
-.delete-btn:hover {
-    color: #dc3545;
-}
-
-.participants-counter {
-    position: absolute;
-    top: 70px;
-    right: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 8px 12px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #333;
-    backdrop-filter: blur(10px);
-    z-index: 2;
-}
-
-.duration-display {
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.9);
-    padding: 8px 12px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #333;
-    backdrop-filter: blur(10px);
-    z-index: 2;
-}
-
-.card-bottom-actions {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
-    display: flex;
-    gap: 10px;
-    z-index: 2;
-}
-
-.open-btn, .launch-btn {
+.open-btn,
+.launch-btn {
     flex: 1;
-    padding: 12px 20px;
+    padding: 10px 12px;
     border: none;
-    border-radius: 25px;
+    border-radius: 20px;
     font-weight: 600;
     cursor: pointer;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(10px);
+    font-size: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    font-size: 14px;
+    gap: 5px;
+    /* Better touch targets */
+    min-height: 44px;
+    touch-action: manipulation;
 }
 
 .open-btn {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     color: #333;
 }
 
-.open-btn:hover {
-    background: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+.open-btn:hover,
+.open-btn:active {
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-1px);
 }
 
 .launch-btn {
-    background: rgba(0, 123, 255, 0.9);
+    background: rgba(76, 175, 80, 0.95);
     color: white;
 }
 
-.launch-btn:hover {
-    background: #007bff;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+.launch-btn:hover,
+.launch-btn:active {
+    background: rgba(76, 175, 80, 1);
+    transform: translateY(-1px);
 }
 
-/* Success and Error Popups */
-.success-popup, .error-popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
-    animation: fadeIn 0.3s ease;
+.open-btn:active,
+.launch-btn:active {
+    transform: scale(0.98);
 }
 
-.success-popup-content, .error-popup-content {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-    max-width: 400px;
-    width: 90%;
-    animation: slideUp 0.3s ease;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+/* Container Responsive Styles */
+.entertainment-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.success-popup-content h3, .error-popup-content h3 {
-    margin: 15px 0 10px 0;
-    font-size: 20px;
-}
-
-.success-popup-content p, .error-popup-content p {
-    margin: 10px 0 20px 0;
-    color: #666;
-    line-height: 1.5;
-}
-
-.success-icon {
-    color: #28a745;
-    font-size: 48px;
-    margin-bottom: 15px;
-}
-
-.error-icon {
-    color: #dc3545;
-    font-size: 48px;
-    margin-bottom: 15px;
-}
-
-.success-ok-btn, .error-ok-btn {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: 600;
-    margin-top: 10px;
-    transition: all 0.3s ease;
-    font-size: 14px;
-}
-
-.success-ok-btn:hover, .error-ok-btn:hover {
-    background: #0056b3;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes slideUp {
-    from { 
-        opacity: 0;
-        transform: translateY(30px) scale(0.9);
-    }
-    to { 
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .payment-method-selection {
-        flex-direction: column;
-        gap: 10px;
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+    .entertainment-card {
+        max-width: 100%;
+        height: 260px;
+        margin: 10px 0;
+        border-radius: 12px;
     }
     
-    .entertainment-card {
-        height: 280px;
+    .entertainment-card-inner {
+        padding: 10px;
+    }
+    
+    .event-name-overlay {
+        top: 10px;
+        left: 10px;
+        padding: 6px 10px;
+        max-width: calc(100% - 100px);
     }
     
     .event-name-overlay h3 {
-        font-size: 16px;
+        font-size: 13px;
+    }
+    
+    .card-action-buttons {
+        top: 10px;
+        right: 10px;
+        gap: 4px;
+    }
+    
+    .card-btn {
+        width: 32px;
+        height: 32px;
+        min-width: 40px;
+        min-height: 40px;
+        font-size: 12px;
+    }
+    
+    .participants-counter {
+        top: 52px;
+        right: 10px;
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+    
+    .event-info-middle {
+        left: 10px;
+        gap: 5px;
+    }
+    
+    .event-duration,
+    .event-type,
+    .event-fee {
+        font-size: 11px;
+        padding: 5px 8px;
     }
     
     .card-bottom-actions {
-        flex-direction: column;
-        gap: 8px;
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        gap: 6px;
     }
     
-    .open-btn, .launch-btn {
-        padding: 10px 15px;
-        font-size: 13px;
+    .open-btn,
+    .launch-btn {
+        padding: 8px 10px;
+        font-size: 11px;
+        min-height: 40px;
+    }
+    
+    .open-btn span,
+    .launch-btn span {
+        display: none;
+    }
+    
+    .entertainment-cards-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 15px;
     }
 }
 
+/* Small Mobile Devices */
+@media screen and (max-width: 480px) {
+    .entertainment-card {
+        height: 240px;
+        margin: 8px 0;
+    }
+    
+    .event-name-overlay h3 {
+        font-size: 12px;
+    }
+    
+    .card-btn {
+        width: 30px;
+        height: 30px;
+        min-width: 36px;
+        min-height: 36px;
+        font-size: 11px;
+    }
+    
+    .participants-counter {
+        font-size: 10px;
+    }
+    
+    .event-duration,
+    .event-type,
+    .event-fee {
+        font-size: 10px;
+        padding: 4px 6px;
+    }
+    
+    .open-btn,
+    .launch-btn {
+        padding: 6px 8px;
+        font-size: 10px;
+        min-height: 36px;
+    }
+    
+    .entertainment-cards-container {
+        padding: 10px;
+        gap: 10px;
+    }
+}
+
+/* Large Tablets */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .entertainment-cards-container {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 25px;
+        padding: 25px;
+    }
+    
+    .entertainment-card {
+        max-width: 380px;
+        height: 300px;
+    }
+}
+
+/* Desktop */
+@media screen and (min-width: 1025px) {
+    .entertainment-cards-container {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+        padding: 30px;
+    }
+    
+    .entertainment-card {
+        max-width: 400px;
+        height: 320px;
+    }
+    
+    .entertainment-card:hover {
+        transform: translateY(-8px);
+    }
+}
+
+/* iOS Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+    .entertainment-card {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+    }
+    
+    .card-btn,
+    .open-btn,
+    .launch-btn {
+        -webkit-appearance: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+}
+
+/* Android Chrome specific fixes */
+@media screen and (-webkit-min-device-pixel-ratio: 1) {
+    .entertainment-card {
+        will-change: transform;
+    }
+    
+    .card-btn:active,
+    .open-btn:active,
+    .launch-btn:active {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* High DPI displays */
+@media screen and (-webkit-min-device-pixel-ratio: 2),
+       screen and (min-resolution: 192dpi) {
+    .entertainment-card {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .entertainment-card:hover,
+    .entertainment-card:active {
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .entertainment-card {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    .card-btn {
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+    }
+    
+    .open-btn {
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+    }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .entertainment-card,
+    .card-btn,
+    .open-btn,
+    .launch-btn {
+        transition: none;
+    }
+    
+    .entertainment-card:hover {
+        transform: none;
+    }
+}
+
+/* Empty State Responsive */
+.entertainment-empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+.entertainment-empty-state i {
+    font-size: 48px;
+    color: #ddd;
+    margin-bottom: 20px;
+}
+
+.entertainment-empty-state p {
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 480px) {
+    .entertainment-empty-state {
+        padding: 30px 15px;
+    }
+    
+    .entertainment-empty-state i {
+        font-size: 36px;
+    }
+    
+    .entertainment-empty-state p {
+        font-size: 14px;
+    }
+}
 
 
 /* Loading States */
@@ -21636,10 +21887,16 @@ function checkSufficientBalance(requiredAmount) {
     return currentUserBalance >= requiredAmount;
 }
 
-// Submit form
+       
 async function submitForm() {
     const submitBtn = document.getElementById('createEventBtn');
     const originalText = submitBtn.innerHTML;
+    
+    // Prevent multiple submissions
+    if (submitBtn.disabled) {
+        console.log('Form already being submitted');
+        return;
+    }
     
     try {
         // Show loading state
@@ -21669,7 +21926,7 @@ async function submitForm() {
         // Process payment and create event
         await processPaymentAndCreateEvent(eventData, paymentMethod, creationFee);
         
-        // Create and display entertainment card
+        // Create and display entertainment card (only once)
         createEntertainmentCard(eventData);
         
         // Show success message
@@ -21689,6 +21946,8 @@ async function submitForm() {
         submitBtn.disabled = false;
     }
 }
+
+     
 
 // Calculate creation fee
 function calculateCreationFee(eventType) {
@@ -21782,10 +22041,17 @@ async function processPaymentAndCreateEvent(eventData, paymentMethod, creationFe
     await db.collection('events').doc(eventData.eventId).set(eventData);
 }
 
-// Create entertainment card
+
 function createEntertainmentCard(eventData) {
     const newEventsContainer = document.getElementById('newEventsContainer');
     const emptyState = newEventsContainer.querySelector('.entertainment-empty-state');
+    
+    // Check if card already exists to prevent duplicates
+    const existingCard = document.getElementById(`card-${eventData.eventId}`);
+    if (existingCard) {
+        console.log('Card already exists for event:', eventData.eventId);
+        return; // Don't create duplicate
+    }
     
     // Hide empty state
     if (emptyState) {
@@ -21799,17 +22065,20 @@ function createEntertainmentCard(eventData) {
     
     // Set background
     const backgroundStyle = eventData.backgroundImageUrl 
-        ? `background-image: url(${eventData.backgroundImageUrl})` 
-        : `background-color: ${eventData.backgroundColor || '#4ECDC4'}`;
+        ? `background-image: url(${eventData.backgroundImageUrl}); background-size: cover; background-position: center;` 
+        : `background: linear-gradient(135deg, ${eventData.backgroundColor || '#4ECDC4'}, ${adjustBrightness(eventData.backgroundColor || '#4ECDC4', -20)});`;
     
     cardElement.innerHTML = `
         <div class="entertainment-card-inner" style="${backgroundStyle}">
-            <!-- Event Name Overlay -->
+            <!-- Card Overlay for better text visibility -->
+            <div class="card-overlay"></div>
+            
+            <!-- Event Name (Top Left) -->
             <div class="event-name-overlay">
                 <h3>${eventData.eventName}</h3>
             </div>
             
-            <!-- Action Buttons (Top Left) -->
+            <!-- Action Buttons (Top Right) -->
             <div class="card-action-buttons">
                 <button class="card-btn edit-btn" onclick="editEventName('${eventData.eventId}')" title="Edit Event Name">
                     <i class="fas fa-edit"></i>
@@ -21819,33 +22088,77 @@ function createEntertainmentCard(eventData) {
                 </button>
             </div>
             
-            <!-- Participants Counter (Top Right) -->
+            <!-- Participants Counter (Top Right, below action buttons) -->
             <div class="participants-counter">
                 <i class="fas fa-users"></i>
                 <span>${eventData.currentParticipants}/${eventData.maxParticipants}</span>
             </div>
             
-            <!-- Duration (Middle Left) -->
-            <div class="event-duration">
-                <i class="fas fa-clock"></i>
-                <span>${eventData.eventDuration}</span>
+            <!-- Event Info (Middle) -->
+            <div class="event-info-middle">
+                <!-- Duration -->
+                <div class="event-duration">
+                    <i class="fas fa-clock"></i>
+                    <span>${eventData.eventDuration}</span>
+                </div>
+                
+                <!-- Event Type -->
+                <div class="event-type">
+                    <i class="fas fa-tag"></i>
+                    <span>${eventData.eventType}</span>
+                </div>
+                
+                <!-- Entry Fee (if applicable) -->
+                ${eventData.entryFee > 0 ? `
+                <div class="event-fee">
+                    <i class="fas fa-coins"></i>
+                    <span>${eventData.entryFee} TC</span>
+                </div>
+                ` : ''}
             </div>
             
             <!-- Action Buttons (Bottom) -->
             <div class="card-bottom-actions">
                 <button class="open-btn" onclick="openEntertainmentCard('${eventData.eventId}')">
-                    <span>open entertainment card</span>
+                    <i class="fas fa-eye"></i>
+                    <span>View Details</span>
                 </button>
                 <button class="launch-btn" onclick="launchEvent('${eventData.eventId}')">
+                    <i class="fas fa-rocket"></i>
                     <span>Launch</span>
                 </button>
             </div>
         </div>
     `;
     
-       // Add card to container
-    newEventsContainer.insertBefore(cardElement, emptyState);
+    // Add card to container (at the beginning, not before empty state)
+    if (emptyState) {
+        newEventsContainer.insertBefore(cardElement, emptyState);
+    } else {
+        newEventsContainer.appendChild(cardElement);
+    }
+    
+    console.log('Created card for event:', eventData.eventId);
 }
+
+// Helper function to adjust color brightness
+function adjustBrightness(hex, percent) {
+    // Remove # if present
+    hex = hex.replace('#', '');
+    
+    // Parse r, g, b values
+    const num = parseInt(hex, 16);
+    const amt = Math.round(2.55 * percent);
+    const R = (num >> 16) + amt;
+    const G = (num >> 8 & 0x00FF) + amt;
+    const B = (num & 0x0000FF) + amt;
+    
+    return '#' + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
+        (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
+        (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
+}
+
+
 
 // Show success message
 function showSuccessMessage(eventName) {
@@ -22007,8 +22320,6 @@ function launchEvent(eventId) {
 }
 
 
-
-// Update the loadExistingEvents function with better error handling
 async function loadExistingEvents() {
     try {
         const user = auth.currentUser;
@@ -22029,7 +22340,6 @@ async function loadExistingEvents() {
                 .get();
         } catch (orderByError) {
             console.warn('OrderBy failed, trying without orderBy:', orderByError);
-            // Fallback: query without orderBy
             eventsQuery = await db.collection('events')
                 .where('creatorId', '==', user.uid)
                 .where('status', '==', 'active')
@@ -22044,9 +22354,12 @@ async function loadExistingEvents() {
             return;
         }
         
-        // Clear existing cards first (prevent duplicates)
+        // Clear existing cards first (prevent duplicates) - but keep empty state
         const existingCards = newEventsContainer.querySelectorAll('.entertainment-card');
-        existingCards.forEach(card => card.remove());
+        existingCards.forEach(card => {
+            console.log('Removing existing card:', card.id);
+            card.remove();
+        });
         
         if (!eventsQuery.empty) {
             console.log('Found', eventsQuery.size, 'events');
@@ -22083,16 +22396,12 @@ async function loadExistingEvents() {
     } catch (error) {
         console.error('Error loading existing events:', error);
         
-        // Show user-friendly error message
         if (error.code === 'permission-denied') {
             console.error('Permission denied. Please check if you are logged in.');
-            alert('Unable to load events. Please make sure you are logged in.');
-        } else if (error.code === 'failed-precondition') {
-            console.error('Index required. Creating query without orderBy...');
-            // The function will retry without orderBy automatically
         }
     }
 }
+
 
 // Add a function to initialize the entertainment section
 function initializeEntertainmentSection() {
