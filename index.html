@@ -433,6 +433,97 @@
         transform: translateY(0);
     }
     
+    
+/* Image Preview Styles */
+.image-preview-container {
+    display: none;
+    margin-top: 15px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: 2px dashed #dee2e6;
+    text-align: center;
+    position: relative;
+}
+
+.image-preview {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+.image-preview-text {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.remove-image-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.remove-image-btn:hover {
+    background: #c82333;
+    transform: translateY(-1px);
+}
+
+.remove-image-btn:active {
+    transform: translateY(0);
+}
+
+/* File Input Styling */
+.file-input-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.file-input-label {
+    display: block;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 14px;
+}
+
+.file-input-label:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.file-input-label i {
+    margin-right: 8px;
+}
+
+#backgroundImage {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
     /* Responsive styles */
     @media (max-width: 992px) {
         .split-screen {
@@ -456,6 +547,14 @@
         .right {
             padding: 30px;
         }
+        .image-preview-container {
+        background: #2d3748;
+        border-color: #4a5568;
+    }
+    
+    .image-preview-text {
+        color: #a0aec0;
+    }
     }
     
     @media (max-width: 768px) {
@@ -4304,6 +4403,518 @@ input:checked + .slider:before {
         transition-duration: 0.01ms !important;
     }
 }
+
+/* Twitter-like Post Card Styles */
+.newevent-post-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 16px;
+    border: 1px solid #e1e8ed;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.newevent-post-card.newevent-post-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.newevent-post-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Post Header */
+.newevent-post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.newevent-post-user-info {
+    flex: 1;
+}
+
+.newevent-post-username {
+    font-weight: 600;
+    font-size: 16px;
+    color: #14171a;
+    margin-bottom: 2px;
+}
+
+.newevent-post-email {
+    font-size: 14px;
+    color: #657786;
+}
+
+.newevent-post-fees {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.newevent-fee-container {
+    background: #f7f9fa;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    color: #657786;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+.newevent-fee-container i {
+    font-size: 10px;
+}
+
+/* Post Description */
+.newevent-post-description {
+    margin-bottom: 16px;
+    max-height: 120px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #ccd6dd #f7f9fa;
+}
+
+.newevent-post-description::-webkit-scrollbar {
+    width: 4px;
+}
+
+.newevent-post-description::-webkit-scrollbar-track {
+    background: #f7f9fa;
+    border-radius: 2px;
+}
+
+.newevent-post-description::-webkit-scrollbar-thumb {
+    background: #ccd6dd;
+    border-radius: 2px;
+}
+
+.newevent-post-description p {
+    margin: 0;
+    line-height: 1.5;
+    color: #14171a;
+    font-size: 15px;
+}
+
+/* Mini Entertainment Card */
+.newevent-post-mini-card {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e1e8ed;
+}
+
+.newevent-mini-card-inner {
+    position: relative;
+    min-height: 120px;
+    display: flex;
+    align-items: flex-end;
+    padding: 12px;
+}
+
+.newevent-mini-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+}
+
+.newevent-mini-card-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    color: white;
+}
+
+.newevent-mini-card-title {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 8px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.newevent-mini-card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.newevent-mini-card-date,
+.newevent-mini-card-participants {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.newevent-join-btn {
+    background: #1da1f2;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+    min-height: 32px;
+}
+
+.newevent-join-btn:hover {
+    background: #1991db;
+    transform: scale(1.05);
+}
+
+.newevent-join-btn:active {
+    transform: scale(0.95);
+}
+
+/* Start Button Styles for Entertainment Cards */
+.start-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.start-btn:hover:not(:disabled) {
+    background: #218838;
+    transform: translateY(-1px);
+}
+
+.start-btn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.start-btn:disabled:hover {
+    transform: none;
+}
+
+/* Loading Message Styles */
+.newevent-loading-message {
+    text-align: center;
+    padding: 40px 20px;
+    color: #657786;
+}
+
+.newevent-loading-message i {
+    font-size: 24px;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.newevent-loading-message p {
+    margin: 0;
+    font-size: 16px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .newevent-post-card {
+        margin-bottom: 16px;
+        padding: 12px;
+    }
+    
+    .newevent-post-header {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .newevent-post-fees {
+        justify-content: flex-start;
+    }
+    
+    .newevent-fee-container {
+        font-size: 11px;
+        padding: 3px 6px;
+    }
+    
+    .newevent-mini-card-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+    
+    .newevent-join-btn {
+        align-self: flex-end;
+    }
+    
+    .newevent-post-description {
+        max-height: 100px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .newevent-post-card {
+        padding: 10px;
+        margin-bottom: 12px;
+    }
+    
+    .newevent-mini-card-inner {
+        min-height: 100px;
+        padding: 10px;
+    }
+    
+        .newevent-mini-card-title {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+    
+    .newevent-mini-card-date,
+    .newevent-mini-card-participants {
+        font-size: 11px;
+    }
+    
+    .newevent-join-btn {
+        padding: 5px 10px;
+        font-size: 11px;
+        min-height: 28px;
+    }
+    
+    .newevent-post-username {
+        font-size: 15px;
+    }
+    
+    .newevent-post-email {
+        font-size: 13px;
+    }
+    
+    .newevent-post-description p {
+        font-size: 14px;
+    }
+}
+
+/* Animation for new posts */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.newevent-post-card {
+    animation: slideInUp 0.4s ease-out;
+}
+
+/* Filter active state enhancement */
+.newevent-filter-btn.newevent-active {
+    background: #1da1f2;
+    color: white;
+    box-shadow: 0 2px 4px rgba(29, 161, 242, 0.3);
+}
+
+.newevent-search-filter-btn.newevent-active {
+    background: #1da1f2;
+    color: white;
+    box-shadow: 0 2px 4px rgba(29, 161, 242, 0.3);
+}
+
+/* Enhanced hover effects */
+.newevent-post-card:hover .newevent-join-btn {
+    box-shadow: 0 2px 8px rgba(29, 161, 242, 0.3);
+}
+
+/* Empty state styling */
+.newevent-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #657786;
+}
+
+.newevent-empty-state i {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+.newevent-empty-state h3 {
+    margin: 0 0 8px 0;
+    font-size: 20px;
+    color: #14171a;
+}
+
+.newevent-empty-state p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+/* Scrollbar styling for containers */
+.newevent-cards-container {
+    max-height: calc(100vh - 300px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #ccd6dd #f7f9fa;
+}
+
+.newevent-cards-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.newevent-cards-container::-webkit-scrollbar-track {
+    background: #f7f9fa;
+    border-radius: 3px;
+}
+
+.newevent-cards-container::-webkit-scrollbar-thumb {
+    background: #ccd6dd;
+    border-radius: 3px;
+}
+
+.newevent-cards-container::-webkit-scrollbar-thumb:hover {
+    background: #aab8c2;
+}
+
+/* Participant count styling */
+.newevent-mini-card-participants {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 6px;
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+}
+
+/* Date styling */
+.newevent-mini-card-date {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 6px;
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+}
+
+/* Enhanced fee containers */
+.newevent-fee-container {
+    border: 1px solid #e1e8ed;
+    transition: all 0.2s ease;
+}
+
+.newevent-fee-container:hover {
+    background: #e1e8ed;
+    border-color: #ccd6dd;
+}
+
+/* Success animation for launched events */
+@keyframes launchSuccess {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 4px 16px rgba(40, 167, 69, 0.3);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.newevent-post-card.launch-success {
+    animation: launchSuccess 0.6s ease-out;
+}
+
+/* Pulse animation for join button */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(29, 161, 242, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(29, 161, 242, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(29, 161, 242, 0);
+    }
+}
+
+.newevent-join-btn:hover {
+    animation: pulse 1.5s infinite;
+}
+
+/* Loading spinner enhancement */
+.newevent-loading-message .fa-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Dark mode support (if needed later) */
+@media (prefers-color-scheme: dark) {
+    .newevent-post-card {
+        background: #192734;
+        border-color: #38444d;
+        color: #ffffff;
+    }
+    
+    .newevent-post-username {
+        color: #ffffff;
+    }
+    
+    .newevent-post-description p {
+        color: #ffffff;
+    }
+    
+    .newevent-fee-container {
+        background: #273340;
+        border-color: #38444d;
+        color: #8899a6;
+    }
+    
+    .newevent-loading-message {
+        color: #8899a6;
+    }
+}
+
+/* Print styles */
+@media print {
+    .newevent-post-card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #000;
+    }
+    
+    .newevent-join-btn {
+        display: none;
+    }
+    
+    .newevent-mini-card-overlay {
+        display: none;
+    }
+}
+
 
 
 :root {
@@ -9138,36 +9749,6 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
 }
 
 
-/* Toast Notification */
-.toast {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #059669;
-  color: white;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-weight: 500;
-  z-index: 10000;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
-}
-
-.toast.show {
-  transform: translateX(0);
-}
-
-.toast.error {
-  background: #dc2626;
-}
-
-.toast.warning {
-  background: #f59e0b;
-}
-
-
-
-
    
    
 /* Creator Modal Overlay */
@@ -10950,6 +11531,62 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
         grid-template-columns: 1fr;
         gap: 15px;
         padding: 15px;
+    }
+}
+.entertainment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 15px;
+}
+
+.refresh-events-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    min-height: 44px;
+}
+
+.refresh-events-btn:hover {
+    background: #0056b3;
+}
+
+.refresh-events-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.refresh-events-btn i {
+    transition: transform 0.3s ease;
+}
+
+.refresh-events-btn:not(:disabled):hover i {
+    transform: rotate(180deg);
+}
+
+/* Mobile responsive */
+@media screen and (max-width: 768px) {
+    .entertainment-header {
+        padding: 0 10px;
+        margin-bottom: 15px;
+    }
+    
+    .refresh-events-btn {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+    
+    .refresh-events-btn span {
+        display: none;
     }
 }
 
@@ -15009,7 +15646,19 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                                     <i class="fas fa-upload"></i>
                                     Choose Background Image
                                 </label>
-                            </div>
+                            <input type="file" id="backgroundImage" name="backgroundImage" accept="image/*">
+    </div>
+    
+                              
+                            <!-- Image Preview Container -->
+    <div id="imagePreviewContainer" class="image-preview-container">
+        <img id="imagePreview" class="image-preview" alt="Preview">
+        <div id="imagePreviewText" class="image-preview-text"></div>
+        <button type="button" id="removeImageBtn" class="remove-image-btn">
+            <i class="fas fa-trash"></i>
+            Remove Image
+        </button>
+    </div>
                             <div class="bg-content" id="colorContent">
                                 <div class="color-palette">
                                     <div class="color-option" style="background: #FF6B6B" onclick="selectColor('#FF6B6B')"></div>
@@ -15128,77 +15777,6 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
     </div>
 </div>
     
-
-          <div class="event-card" data-event-id="unique-event-id">
-    <!-- Card Background (Image or Color) -->
-    <div class="card-background" style="background: linear-gradient(135deg, #4a6cf7, #667eea);">
-        <!-- You can also use: style="background-image: url('path-to-image.jpg');" -->
-    </div>
-    
-    <!-- Event Name (Top Left) -->
-    <div class="event-name">
-        <h3>Amazing Talent Show</h3>
-    </div>
-    
-    <!-- Menu Button (Top Left Corner) -->
-    <div class="menu-container">
-        <button class="menu-btn">
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="menu-dropdown">
-            <div class="menu-item" data-action="delete">
-                <i class="fas fa-trash"></i>
-                Delete Event & Get Code Back
-            </div>
-            <div class="menu-item" data-action="edit">
-                <i class="fas fa-edit"></i>
-                Edit Event Name
-            </div>
-        </div>
-    </div>
-    
-    <!-- Participants Counter (Top Right) -->
-    <div class="participants-counter">
-        <div class="counter-circle">
-            <div class="joined-count">
-                <span class="count">12</span>
-                <small>Joined</small>
-            </div>
-            <div class="divider"></div>
-            <div class="max-count">
-                <span class="count">50</span>
-                <small>Max</small>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Duration Circle (Right Middle) -->
-    <div class="duration-circle">
-        <div class="duration-content">
-            <span class="duration-number">30</span>
-            <small class="duration-unit">days</small>
-        </div>
-    </div>
-    
-    <!-- Creation Date (Left Bottom) -->
-    <div class="creation-date">
-        <i class="fas fa-calendar"></i>
-        <span>Dec 15, 2024</span>
-    </div>
-    
-    <!-- Creator Name Input (Center Bottom) -->
-    <div class="creator-name-section">
-        <input type="text" class="creator-name-input" placeholder="Enter your creator name" value="">
-    </div>
-    
-    <!-- Enter & Move Dropdown (Right Bottom) -->
-    <div class="enter-move-section">
-        <select class="enter-move-dropdown">
-            <option value="">Enter</option>
-            <option value="move-to-trackpage">Move to Track page</option>
-        </select>
-    </div>
-</div>
  
 
 
@@ -21887,21 +22465,26 @@ function checkSufficientBalance(requiredAmount) {
     return currentUserBalance >= requiredAmount;
 }
 
-       
+
+ // Fix double submission in submitForm function
 async function submitForm() {
     const submitBtn = document.getElementById('createEventBtn');
-    const originalText = submitBtn.innerHTML;
     
-    // Prevent multiple submissions
-    if (submitBtn.disabled) {
-        console.log('Form already being submitted');
+    // SOLUTION: Prevent double submission with a flag
+    if (window.isSubmitting) {
+        console.log('Already submitting, ignoring...');
         return;
     }
     
+    // Set flag to prevent double submission
+    window.isSubmitting = true;
+    
+    const originalText = submitBtn.innerHTML;
+    
     try {
-        // Show loading state
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Event...';
+        // Disable button immediately
         submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Event...';
         
         // Get payment method
         const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
@@ -21926,8 +22509,8 @@ async function submitForm() {
         // Process payment and create event
         await processPaymentAndCreateEvent(eventData, paymentMethod, creationFee);
         
-        // Create and display entertainment card (only once)
-        createEntertainmentCard(eventData);
+        // DON'T create card here - let loadExistingEvents handle it
+        // createEntertainmentCard(eventData); // REMOVE THIS LINE
         
         // Show success message
         showSuccessMessage(eventData.eventName);
@@ -21937,15 +22520,22 @@ async function submitForm() {
         document.getElementById('hostEntertainmentPopup').style.display = 'none';
         document.body.style.overflow = 'auto';
         
+        // Reload events from database instead of creating card manually
+        setTimeout(() => {
+            loadExistingEvents();
+        }, 500);
+        
     } catch (error) {
         console.error('Error creating event:', error);
         alert(error.message || 'Error creating event. Please try again.');
     } finally {
-        // Reset button
+        // Reset button and flag
         submitBtn.innerHTML = originalText;
         submitBtn.disabled = false;
+        window.isSubmitting = false; // Reset flag
     }
 }
+     
 
      
 
@@ -22525,12 +23115,59 @@ function showEntertainmentSection() {
         }, 100);
     }
 }
-
-// Add a manual refresh function that users can call
+// Add manual refresh function
 function refreshEntertainmentEvents() {
     console.log('Manually refreshing entertainment events...');
-    loadExistingEvents();
+    
+    // Show loading indicator
+    const refreshBtn = document.getElementById('refreshEventsBtn');
+    if (refreshBtn) {
+        const originalContent = refreshBtn.innerHTML;
+        refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        refreshBtn.disabled = true;
+        
+        // Load events
+        loadExistingEvents().then(() => {
+            // Reset button after loading
+            setTimeout(() => {
+                refreshBtn.innerHTML = originalContent;
+                refreshBtn.disabled = false;
+            }, 500);
+        }).catch(() => {
+            refreshBtn.innerHTML = originalContent;
+            refreshBtn.disabled = false;
+        });
+    } else {
+        // If no button, just load events
+        loadExistingEvents();
+    }
 }
+
+// Add refresh button to your HTML - place this near your events container
+const refreshButtonHTML = `
+<div class="entertainment-header">
+    <h2>Your Entertainment Events</h2>
+    <button id="refreshEventsBtn" onclick="refreshEntertainmentEvents()" class="refresh-events-btn" title="Refresh Events">
+        <i class="fas fa-sync-alt"></i>
+        <span>Refresh</span>
+    </button>
+</div>
+`;
+
+// Auto-inject refresh button if it doesn't exist
+function addRefreshButton() {
+    const container = document.getElementById('newEventsContainer');
+    if (container && !document.getElementById('refreshEventsBtn')) {
+        const headerDiv = document.createElement('div');
+        headerDiv.innerHTML = refreshButtonHTML;
+        container.parentNode.insertBefore(headerDiv.firstElementChild, container);
+    }
+}
+
+// Call this when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    addRefreshButton();
+});
 
  
 
@@ -22568,6 +23205,806 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Add image preview functionality
+function setupImagePreview() {
+    const backgroundImageInput = document.getElementById('backgroundImage');
+    const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+    const imagePreview = document.getElementById('imagePreview');
+    const removeImageBtn = document.getElementById('removeImageBtn');
+    const imagePreviewText = document.getElementById('imagePreviewText');
+    
+    if (!backgroundImageInput) return;
+    
+    backgroundImageInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        
+        if (file) {
+            // Validate file type
+            const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+            if (!validTypes.includes(file.type)) {
+                showToast('Please select a valid image file (JPEG, PNG, GIF, or WebP)', 'error');
+                this.value = '';
+                return;
+            }
+            
+            // Validate file size (max 5MB)
+            const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+            if (file.size > maxSize) {
+                showToast('Image size must be less than 5MB', 'error');
+                this.value = '';
+                return;
+            }
+            
+            // Create file reader
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                // Show preview container
+                imagePreviewContainer.style.display = 'block';
+                
+                // Set image source
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+                
+                // Update text
+                imagePreviewText.textContent = `Selected: ${file.name}`;
+                
+                // Show success toast
+                showToast('Image uploaded successfully!', 'success');
+                
+                // Hide color picker section when image is selected
+                const colorSection = document.querySelector('.color-picker-section');
+                if (colorSection) {
+                    colorSection.style.opacity = '0.5';
+                    colorSection.style.pointerEvents = 'none';
+                }
+            };
+            
+            reader.onerror = function() {
+                showToast('Error reading image file', 'error');
+                this.value = '';
+            };
+            
+            // Read file as data URL
+            reader.readAsDataURL(file);
+        }
+    });
+    
+    // Remove image functionality
+    if (removeImageBtn) {
+        removeImageBtn.addEventListener('click', function() {
+            // Clear file input
+            backgroundImageInput.value = '';
+            
+            // Hide preview
+            imagePreviewContainer.style.display = 'none';
+            imagePreview.src = '';
+            imagePreview.style.display = 'none';
+            imagePreviewText.textContent = '';
+            
+            // Show color picker section again
+            const colorSection = document.querySelector('.color-picker-section');
+            if (colorSection) {
+                colorSection.style.opacity = '1';
+                colorSection.style.pointerEvents = 'auto';
+            }
+            
+            showToast('Image removed', 'info');
+        });
+    }
+}
+
+// Call setup when DOM is loaded
+document.addEventListener('DOMContentLoaded', setupImagePreview);
+
+// Professional Toast Notification System
+class ToastManager {
+    constructor() {
+        this.container = null;
+        this.toasts = [];
+        this.init();
+    }
+    
+    init() {
+        // Create toast container if it doesn't exist
+        if (!document.getElementById('toast-container')) {
+            this.container = document.createElement('div');
+            this.container.id = 'toast-container';
+            this.container.className = 'toast-container';
+            document.body.appendChild(this.container);
+        } else {
+            this.container = document.getElementById('toast-container');
+        }
+    }
+    
+    show(message, type = 'info', duration = 4000) {
+        const toast = this.createToast(message, type, duration);
+        this.container.appendChild(toast);
+        this.toasts.push(toast);
+        
+        // Trigger animation
+        setTimeout(() => {
+            toast.classList.add('toast-show');
+        }, 10);
+        
+        // Auto remove
+        setTimeout(() => {
+            this.removeToast(toast);
+        }, duration);
+        
+        return toast;
+    }
+    
+    createToast(message, type, duration) {
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        
+        const icon = this.getIcon(type);
+        const progressBar = duration > 0 ? `<div class="toast-progress" style="animation-duration: ${duration}ms;"></div>` : '';
+        
+        toast.innerHTML = `
+            <div class="toast-content">
+                <div class="toast-icon">
+                    <i class="${icon}"></i>
+                </div>
+                <div class="toast-message">${message}</div>
+                <button class="toast-close" onclick="toastManager.removeToast(this.parentElement.parentElement)">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            ${progressBar}
+        `;
+        
+        return toast;
+    }
+    
+    getIcon(type) {
+        const icons = {
+            success: 'fas fa-check-circle',
+            error: 'fas fa-exclamation-circle',
+            warning: 'fas fa-exclamation-triangle',
+            info: 'fas fa-info-circle'
+        };
+        return icons[type] || icons.info;
+    }
+    
+    removeToast(toast) {
+        if (!toast || !toast.parentElement) return;
+        
+        toast.classList.add('toast-hide');
+        
+        setTimeout(() => {
+            if (toast.parentElement) {
+                toast.parentElement.removeChild(toast);
+            }
+            
+            // Remove from array
+            const index = this.toasts.indexOf(toast);
+            if (index > -1) {
+                this.toasts.splice(index, 1);
+            }
+        }, 300);
+    }
+    
+    clear() {
+        this.toasts.forEach(toast => this.removeToast(toast));
+    }
+}
+
+// Initialize toast manager
+const toastManager = new ToastManager();
+
+// Global function for easy access
+function showToast(message, type = 'info', duration = 4000) {
+    return toastManager.show(message, type, duration);
+}
+
+// Replace all alert() calls with toast notifications
+function showSuccessMessage(eventName) {
+    showToast(`🎉 Event "${eventName}" created successfully!`, 'success', 5000);
+}
+
+function showErrorMessage(message) {
+    showToast(message, 'error', 6000);
+}
+
+function showWarningMessage(message) {
+    showToast(message, 'warning', 5000);
+}
+
+function showInfoMessage(message) {
+    showToast(message, 'info', 4000);
+}
+
+
+// Launch Event Functionality
+async function launchEvent(eventId) {
+    try {
+        console.log('Launching event:', eventId);
+        
+        const user = auth.currentUser;
+        if (!user) {
+            throw new Error('User not authenticated');
+        }
+        
+        // Get the original event data
+        const eventDoc = await db.collection('events').doc(eventId).get();
+        if (!eventDoc.exists) {
+            throw new Error('Event not found');
+        }
+        
+        const eventData = eventDoc.data();
+        
+        // Create launched event data
+        const launchedEventData = {
+            ...eventData,
+            originalEventId: eventId,
+            launchedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            status: 'launched',
+            participants: [],
+            currentParticipants: 0
+        };
+        
+        // Add to launched events collection
+        const launchedEventRef = await db.collection('launchedEvents').add(launchedEventData);
+        
+        // Update original event status
+        await db.collection('events').doc(eventId).update({
+            status: 'launched',
+            launchedEventId: launchedEventRef.id,
+            launchedAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        
+        // Update the entertainment card button
+        updateEntertainmentCardToStart(eventId, eventData);
+        
+        // Create Twitter-like post in New Events feed
+        createNewEventPost({
+            ...launchedEventData,
+            launchedEventId: launchedEventRef.id,
+            eventId: eventId
+        });
+        
+        console.log('Event launched successfully');
+        
+    } catch (error) {
+        console.error('Error launching event:', error);
+        alert('Error launching event: ' + error.message);
+    }
+}
+
+// Update entertainment card button from Launch to Start
+function updateEntertainmentCardToStart(eventId, eventData) {
+    const card = document.getElementById(`card-${eventId}`);
+    if (!card) return;
+    
+    const launchBtn = card.querySelector('.launch-btn');
+    if (!launchBtn) return;
+    
+    // Change button appearance and functionality
+    launchBtn.classList.remove('launch-btn');
+    launchBtn.classList.add('start-btn');
+    
+    // Update button content based on event type
+    const entryFee = eventData.entryFee || 0;
+    const votingFee = eventData.votingFee || 0;
+    const currentParticipants = eventData.currentParticipants || 0;
+    
+    if (entryFee > 0 || votingFee > 0) {
+        // Paid event - needs 10+ participants
+        if (currentParticipants >= 10) {
+            launchBtn.disabled = false;
+            launchBtn.innerHTML = '<i class="fas fa-play"></i> <span>Start</span>';
+        } else {
+            launchBtn.disabled = true;
+            launchBtn.innerHTML = `<i class="fas fa-users"></i> <span>Start (${currentParticipants}/10)</span>`;
+            launchBtn.title = 'Need at least 10 participants to start paid event';
+        }
+    } else {
+        // Free event - can start immediately
+        launchBtn.disabled = false;
+        launchBtn.innerHTML = '<i class="fas fa-play"></i> <span>Start</span>';
+    }
+    
+    // Remove old onclick and add placeholder for future start functionality
+    launchBtn.setAttribute('onclick', `startEvent('${eventId}')`);
+}
+
+// Create Twitter-like post in New Events feed
+function createNewEventPost(eventData) {
+    const talentCardsContainer = document.getElementById('newevent-talent-cards');
+    if (!talentCardsContainer) return;
+    
+    // Remove loading message if it exists
+    const loadingMessage = talentCardsContainer.querySelector('.newevent-loading-message');
+    if (loadingMessage) {
+        loadingMessage.style.display = 'none';
+    }
+    
+    // Get user data
+    const user = auth.currentUser;
+    const username = user.displayName || 'Anonymous User';
+    const email = user.email || '';
+    const shortEmail = shortenEmail(email);
+    
+    // Create post card
+    const postCard = document.createElement('div');
+    postCard.className = 'newevent-post-card';
+    postCard.id = `post-${eventData.launchedEventId}`;
+    
+    postCard.innerHTML = `
+        <div class="newevent-post-header">
+            <div class="newevent-post-user-info">
+                <div class="newevent-post-username">${username}</div>
+                <div class="newevent-post-email">${shortEmail}</div>
+            </div>
+            <div class="newevent-post-fees">
+                <div class="newevent-fee-container">
+                    <i class="fas fa-coins"></i>
+                    <span>Entry: ${eventData.entryFee || 0} TC</span>
+                </div>
+                <div class="newevent-fee-container">
+                    <i class="fas fa-vote-yea"></i>
+                    <span>Vote: ${eventData.votingFee || 0} TC</span>
+                </div>
+                <div class="newevent-fee-container">
+                    <i class="fas fa-clock"></i>
+                    <span>${formatDurationShort(eventData.eventDuration)}</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="newevent-post-description">
+            <p>${eventData.eventDescription || 'No description provided.'}</p>
+        </div>
+        
+        <div class="newevent-post-mini-card">
+            <div class="newevent-mini-card-inner" style="${getEventBackground(eventData)}">
+                <div class="newevent-mini-card-overlay"></div>
+                <div class="newevent-mini-card-content">
+                    <div class="newevent-mini-card-title">${eventData.eventName}</div>
+                    <div class="newevent-mini-card-bottom">
+                        <div class="newevent-mini-card-date">
+                            <i class="fas fa-calendar"></i>
+                            <span>${formatDate(eventData.createdAt)}</span>
+                        </div>
+                        <div class="newevent-mini-card-participants">
+                            <i class="fas fa-users"></i>
+                            <span>${eventData.currentParticipants || 0}/${eventData.maxParticipants}</span>
+                        </div>
+                        <button class="newevent-join-btn" onclick="joinEvent('${eventData.launchedEventId}')">
+                            <i class="fas fa-plus"></i>
+                            <span>Join</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Add to container
+    talentCardsContainer.appendChild(postCard);
+    
+    // Add animation
+    setTimeout(() => {
+        postCard.classList.add('newevent-post-visible');
+    }, 100);
+}
+
+// Helper functions
+function shortenEmail(email) {
+    if (!email) return '';
+    const [username, domain] = email.split('@');
+    if (username.length <= 4) return email;
+    return `${username.substring(0, 4)}......@${domain}`;
+}
+
+function formatDurationShort(duration) {
+    const durationMap = {
+        '30 minutes': '30min',
+        '1 hour': '1hr',
+        '1.5 hours': '1.5hr',
+        '2 hours': '2hr',
+        '3 hours': '3hr',
+        '4 hours': '4hr',
+        '5 hours': '5hr',
+        '6 hours': '6hr'
+    };
+    return durationMap[duration] || duration;
+}
+
+function getEventBackground(eventData) {
+    if (eventData.backgroundImageUrl) {
+        return `background-image: url(${eventData.backgroundImageUrl}); background-size: cover; background-position: center;`;
+    } else {
+        const color = eventData.backgroundColor || '#4ECDC4';
+        return `background: linear-gradient(135deg, ${color}, ${adjustBrightness(color, -20)});`;
+    }
+}
+
+function formatDate(timestamp) {
+    if (!timestamp) return 'Unknown';
+    const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+    return date.toLocaleDateString('en-US', { 
+        month: 'short', 
+        day: 'numeric',
+        year: 'numeric'
+    });
+}
+
+function adjustBrightness(hex, percent) {
+    const num = parseInt(hex.replace("#", ""), 16);
+    const amt = Math.round(2.55 * percent);
+    const R = (num >> 16) + amt;
+    const G = (num >> 8 & 0x00FF) + amt;
+    const B = (num & 0x0000FF) + amt;
+    return "#" + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
+        (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
+        (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
+}
+
+// Load existing launched events when page loads
+async function loadExistingLaunchedEvents() {
+    try {
+        const talentCardsContainer = document.getElementById('newevent-talent-cards');
+        if (!talentCardsContainer) return;
+        
+        console.log('Loading existing launched events...');
+        
+        const launchedEventsQuery = await db.collection('launchedEvents')
+            .where('status', '==', 'launched')
+            .orderBy('launchedAt', 'desc')
+            .limit(20)
+            .get();
+        
+        const loadingMessage = talentCardsContainer.querySelector('.newevent-loading-message');
+        
+        if (!launchedEventsQuery.empty) {
+            if (loadingMessage) {
+                loadingMessage.style.display = 'none';
+            }
+            
+            launchedEventsQuery.forEach(doc => {
+                const eventData = { ...doc.data(), launchedEventId: doc.id };
+                createNewEventPost(eventData);
+            });
+        } else {
+            if (loadingMessage) {
+                loadingMessage.innerHTML = `
+                    <i class="fas fa-info-circle"></i>
+                    <p>No launched events yet. Launch your first event!</p>
+                `;
+            }
+        }
+    } catch (error) {
+        console.error('Error loading launched events:', error);
+    }
+}
+
+// Filter functionality for New Events
+function setupNewEventFilters() {
+    const filterButtons = document.querySelectorAll('.newevent-filter-btn');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('newevent-active'));
+            // Add active class to clicked button
+            this.classList.add('newevent-active');
+            
+            const filter = this.getAttribute('data-filter');
+            filterLaunchedEvents(filter);
+        });
+    });
+}
+
+// Filter launched events based on selected filter
+async function filterLaunchedEvents(filter) {
+    try {
+        const talentCardsContainer = document.getElementById('newevent-talent-cards');
+        if (!talentCardsContainer) return;
+        
+        // Clear existing cards
+        const existingCards = talentCardsContainer.querySelectorAll('.newevent-post-card');
+        existingCards.forEach(card => card.remove());
+        
+        // Show loading
+        let loadingMessage = talentCardsContainer.querySelector('.newevent-loading-message');
+        if (!loadingMessage) {
+            loadingMessage = document.createElement('div');
+            loadingMessage.className = 'newevent-loading-message';
+            talentCardsContainer.appendChild(loadingMessage);
+        }
+        loadingMessage.style.display = 'block';
+        loadingMessage.innerHTML = `
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading ${filter} events...</p>
+        `;
+        
+        let query = db.collection('launchedEvents').where('status', '==', 'launched');
+        
+        // Apply filter logic
+        const now = new Date();
+        switch(filter) {
+            case 'latest':
+                query = query.orderBy('launchedAt', 'desc');
+                break;
+            case 'old':
+                query = query.orderBy('launchedAt', 'asc');
+                break;
+            case '48hrs':
+                const twoDaysAgo = new Date(now.getTime() - (48 * 60 * 60 * 1000));
+                query = query.where('launchedAt', '>=', twoDaysAgo).orderBy('launchedAt', 'desc');
+                break;
+            case '3days':
+                const threeDaysAgo = new Date(now.getTime() - (3 * 24 * 60 * 60 * 1000));
+                query = query.where('launchedAt', '>=', threeDaysAgo).orderBy('launchedAt', 'desc');
+                break;
+            case '14days':
+                const fourteenDaysAgo = new Date(now.getTime() - (14 * 24 * 60 * 60 * 1000));
+                query = query.where('launchedAt', '>=', fourteenDaysAgo).orderBy('launchedAt', 'desc');
+                break;
+            default:
+                query = query.orderBy('launchedAt', 'desc');
+        }
+        
+        const results = await query.limit(20).get();
+        
+        if (!results.empty) {
+            loadingMessage.style.display = 'none';
+            results.forEach(doc => {
+                const eventData = { ...doc.data(), launchedEventId: doc.id };
+                createNewEventPost(eventData);
+            });
+        } else {
+            loadingMessage.innerHTML = `
+                <i class="fas fa-info-circle"></i>
+                <p>No events found for "${filter}" filter.</p>
+            `;
+        }
+        
+    } catch (error) {
+        console.error('Error filtering events:', error);
+    }
+}
+
+// Search functionality
+function setupNewEventSearch() {
+    const searchInput = document.querySelector('.newevent-search-input');
+    const searchFilterBtns = document.querySelectorAll('.newevent-search-filter-btn');
+    
+    if (searchInput) {
+        let searchTimeout;
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                const searchTerm = this.value.trim();
+                const activeFilter = document.querySelector('.newevent-search-filter-btn.newevent-active').getAttribute('data-search');
+                searchLaunchedEvents(searchTerm, activeFilter);
+            }, 500);
+        });
+    }
+    
+    searchFilterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            searchFilterBtns.forEach(b => b.classList.remove('newevent-active'));
+            this.classList.add('newevent-active');
+            
+                  const searchTerm = searchInput.value.trim();
+            const filter = this.getAttribute('data-search');
+            if (searchTerm) {
+                searchLaunchedEvents(searchTerm, filter);
+            }
+        });
+    });
+}
+
+// Search launched events
+async function searchLaunchedEvents(searchTerm, filter) {
+    try {
+        const talentCardsContainer = document.getElementById('newevent-talent-cards');
+        if (!talentCardsContainer) return;
+        
+        if (!searchTerm) {
+            loadExistingLaunchedEvents();
+            return;
+        }
+        
+        // Clear existing cards
+        const existingCards = talentCardsContainer.querySelectorAll('.newevent-post-card');
+        existingCards.forEach(card => card.remove());
+        
+        // Show loading
+        let loadingMessage = talentCardsContainer.querySelector('.newevent-loading-message');
+        if (!loadingMessage) {
+            loadingMessage = document.createElement('div');
+            loadingMessage.className = 'newevent-loading-message';
+            talentCardsContainer.appendChild(loadingMessage);
+        }
+        loadingMessage.style.display = 'block';
+        loadingMessage.innerHTML = `
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Searching for "${searchTerm}"...</p>
+        `;
+        
+        // Get all launched events and filter client-side (since Firestore has limited text search)
+        const allEventsQuery = await db.collection('launchedEvents')
+            .where('status', '==', 'launched')
+            .orderBy('launchedAt', 'desc')
+            .limit(100)
+            .get();
+        
+        const searchResults = [];
+        const searchTermLower = searchTerm.toLowerCase();
+        
+        allEventsQuery.forEach(doc => {
+            const eventData = doc.data();
+            let shouldInclude = false;
+            
+            // Search based on filter type
+            switch(filter) {
+                case 'all':
+                    shouldInclude = 
+                        eventData.eventName?.toLowerCase().includes(searchTermLower) ||
+                        eventData.eventDescription?.toLowerCase().includes(searchTermLower) ||
+                        eventData.eventType?.toLowerCase().includes(searchTermLower) ||
+                        eventData.creatorName?.toLowerCase().includes(searchTermLower);
+                    break;
+                case 'events':
+                    shouldInclude = 
+                        eventData.eventName?.toLowerCase().includes(searchTermLower) ||
+                        eventData.eventType?.toLowerCase().includes(searchTermLower);
+                    break;
+                case 'performers':
+                case 'shows':
+                case 'competitions':
+                    shouldInclude = 
+                        eventData.eventName?.toLowerCase().includes(searchTermLower) ||
+                        eventData.eventDescription?.toLowerCase().includes(searchTermLower);
+                    break;
+            }
+            
+            if (shouldInclude) {
+                searchResults.push({ ...eventData, launchedEventId: doc.id });
+            }
+        });
+        
+        if (searchResults.length > 0) {
+            loadingMessage.style.display = 'none';
+            searchResults.forEach(eventData => {
+                createNewEventPost(eventData);
+            });
+        } else {
+            loadingMessage.innerHTML = `
+                <i class="fas fa-search"></i>
+                <p>No results found for "${searchTerm}"</p>
+            `;
+        }
+        
+    } catch (error) {
+        console.error('Error searching events:', error);
+        const loadingMessage = document.querySelector('.newevent-loading-message');
+        if (loadingMessage) {
+            loadingMessage.innerHTML = `
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Error searching events. Please try again.</p>
+            `;
+        }
+    }
+}
+
+// Placeholder for join event functionality (to be implemented later)
+function joinEvent(launchedEventId) {
+    console.log('Join event clicked for:', launchedEventId);
+    alert('Join functionality will be implemented later!');
+}
+
+// Placeholder for start event functionality (to be implemented later)
+function startEvent(eventId) {
+    console.log('Start event clicked for:', eventId);
+    alert('Start functionality will be implemented later!');
+}
+
+// Update participant count in real-time
+function updateParticipantCount(launchedEventId, newCount) {
+    const postCard = document.getElementById(`post-${launchedEventId}`);
+    if (postCard) {
+        const participantSpan = postCard.querySelector('.newevent-mini-card-participants span');
+        if (participantSpan) {
+            const maxParticipants = participantSpan.textContent.split('/')[1];
+            participantSpan.textContent = `${newCount}/${maxParticipants}`;
+        }
+    }
+    
+    // Also update the original entertainment card if visible
+    const originalCard = document.querySelector(`[id*="card-"]`);
+    if (originalCard) {
+        const participantCounter = originalCard.querySelector('.participants-counter span');
+        if (participantCounter) {
+            const maxParticipants = participantCounter.textContent.split('/')[1];
+            participantCounter.textContent = `${newCount}/${maxParticipants}`;
+        }
+        
+        // Update start button state if it's a paid event
+        const startBtn = originalCard.querySelector('.start-btn');
+        if (startBtn && startBtn.disabled && newCount >= 10) {
+            startBtn.disabled = false;
+            startBtn.innerHTML = '<i class="fas fa-play"></i> <span>Start</span>';
+            startBtn.title = '';
+        }
+    }
+}
+
+// Initialize New Events functionality
+function initializeNewEvents() {
+    // Setup filters
+    setupNewEventFilters();
+    
+    // Setup search
+    setupNewEventSearch();
+    
+    // Load existing launched events
+    loadExistingLaunchedEvents();
+    
+    console.log('New Events functionality initialized');
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if New Events page elements exist
+    if (document.getElementById('newevent-talent-cards')) {
+        initializeNewEvents();
+    }
+});
+
+// Real-time listener for participant updates
+function setupParticipantListener() {
+    if (!auth.currentUser) return;
+    
+    db.collection('launchedEvents')
+        .where('status', '==', 'launched')
+        .onSnapshot(snapshot => {
+            snapshot.docChanges().forEach(change => {
+                if (change.type === 'modified') {
+                    const eventData = change.doc.data();
+                    const launchedEventId = change.doc.id;
+                    
+                    // Update participant count in UI
+                    updateParticipantCount(launchedEventId, eventData.currentParticipants || 0);
+                }
+            });
+        });
+}
+
+// Setup real-time listener when user is authenticated
+auth.onAuthStateChanged(user => {
+    if (user) {
+        setupParticipantListener();
+    }
+});
+
+// Utility function to refresh New Events feed
+function refreshNewEventsFeed() {
+    const talentCardsContainer = document.getElementById('newevent-talent-cards');
+    if (!talentCardsContainer) return;
+    
+    // Clear existing cards
+    const existingCards = talentCardsContainer.querySelectorAll('.newevent-post-card');
+    existingCards.forEach(card => card.remove());
+    
+    // Reload events
+    loadExistingLaunchedEvents();
+}
+
+// Export functions for global access
+window.launchEvent = launchEvent;
+window.joinEvent = joinEvent;
+window.startEvent = startEvent;
+window.refreshNewEventsFeed = refreshNewEventsFeed;
+      
+
+
 
 
 
