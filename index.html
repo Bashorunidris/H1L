@@ -4404,518 +4404,6 @@ input:checked + .slider:before {
     }
 }
 
-/* Twitter-like Post Card Styles */
-.newevent-post-card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    padding: 16px;
-    border: 1px solid #e1e8ed;
-    transition: all 0.3s ease;
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-.newevent-post-card.newevent-post-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.newevent-post-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
-}
-
-/* Post Header */
-.newevent-post-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 12px;
-}
-
-.newevent-post-user-info {
-    flex: 1;
-}
-
-.newevent-post-username {
-    font-weight: 600;
-    font-size: 16px;
-    color: #14171a;
-    margin-bottom: 2px;
-}
-
-.newevent-post-email {
-    font-size: 14px;
-    color: #657786;
-}
-
-.newevent-post-fees {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.newevent-fee-container {
-    background: #f7f9fa;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    color: #657786;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    white-space: nowrap;
-}
-
-.newevent-fee-container i {
-    font-size: 10px;
-}
-
-/* Post Description */
-.newevent-post-description {
-    margin-bottom: 16px;
-    max-height: 120px;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #ccd6dd #f7f9fa;
-}
-
-.newevent-post-description::-webkit-scrollbar {
-    width: 4px;
-}
-
-.newevent-post-description::-webkit-scrollbar-track {
-    background: #f7f9fa;
-    border-radius: 2px;
-}
-
-.newevent-post-description::-webkit-scrollbar-thumb {
-    background: #ccd6dd;
-    border-radius: 2px;
-}
-
-.newevent-post-description p {
-    margin: 0;
-    line-height: 1.5;
-    color: #14171a;
-    font-size: 15px;
-}
-
-/* Mini Entertainment Card */
-.newevent-post-mini-card {
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid #e1e8ed;
-}
-
-.newevent-mini-card-inner {
-    position: relative;
-    min-height: 120px;
-    display: flex;
-    align-items: flex-end;
-    padding: 12px;
-}
-
-.newevent-mini-card-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
-}
-
-.newevent-mini-card-content {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    color: white;
-}
-
-.newevent-mini-card-title {
-    font-weight: 600;
-    font-size: 16px;
-    margin-bottom: 8px;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-.newevent-mini-card-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.newevent-mini-card-date,
-.newevent-mini-card-participants {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 12px;
-    opacity: 0.9;
-}
-
-.newevent-join-btn {
-    background: #1da1f2;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 16px;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    transition: all 0.2s ease;
-    min-height: 32px;
-}
-
-.newevent-join-btn:hover {
-    background: #1991db;
-    transform: scale(1.05);
-}
-
-.newevent-join-btn:active {
-    transform: scale(0.95);
-}
-
-/* Start Button Styles for Entertainment Cards */
-.start-btn {
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.start-btn:hover:not(:disabled) {
-    background: #218838;
-    transform: translateY(-1px);
-}
-
-.start-btn:disabled {
-    background: #6c757d;
-    cursor: not-allowed;
-    opacity: 0.7;
-}
-
-.start-btn:disabled:hover {
-    transform: none;
-}
-
-/* Loading Message Styles */
-.newevent-loading-message {
-    text-align: center;
-    padding: 40px 20px;
-    color: #657786;
-}
-
-.newevent-loading-message i {
-    font-size: 24px;
-    margin-bottom: 12px;
-    display: block;
-}
-
-.newevent-loading-message p {
-    margin: 0;
-    font-size: 16px;
-}
-
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-    .newevent-post-card {
-        margin-bottom: 16px;
-        padding: 12px;
-    }
-    
-    .newevent-post-header {
-        flex-direction: column;
-        gap: 8px;
-    }
-    
-    .newevent-post-fees {
-        justify-content: flex-start;
-    }
-    
-    .newevent-fee-container {
-        font-size: 11px;
-        padding: 3px 6px;
-    }
-    
-    .newevent-mini-card-bottom {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
-    }
-    
-    .newevent-join-btn {
-        align-self: flex-end;
-    }
-    
-    .newevent-post-description {
-        max-height: 100px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .newevent-post-card {
-        padding: 10px;
-        margin-bottom: 12px;
-    }
-    
-    .newevent-mini-card-inner {
-        min-height: 100px;
-        padding: 10px;
-    }
-    
-        .newevent-mini-card-title {
-        font-size: 14px;
-        margin-bottom: 6px;
-    }
-    
-    .newevent-mini-card-date,
-    .newevent-mini-card-participants {
-        font-size: 11px;
-    }
-    
-    .newevent-join-btn {
-        padding: 5px 10px;
-        font-size: 11px;
-        min-height: 28px;
-    }
-    
-    .newevent-post-username {
-        font-size: 15px;
-    }
-    
-    .newevent-post-email {
-        font-size: 13px;
-    }
-    
-    .newevent-post-description p {
-        font-size: 14px;
-    }
-}
-
-/* Animation for new posts */
-@keyframes slideInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.newevent-post-card {
-    animation: slideInUp 0.4s ease-out;
-}
-
-/* Filter active state enhancement */
-.newevent-filter-btn.newevent-active {
-    background: #1da1f2;
-    color: white;
-    box-shadow: 0 2px 4px rgba(29, 161, 242, 0.3);
-}
-
-.newevent-search-filter-btn.newevent-active {
-    background: #1da1f2;
-    color: white;
-    box-shadow: 0 2px 4px rgba(29, 161, 242, 0.3);
-}
-
-/* Enhanced hover effects */
-.newevent-post-card:hover .newevent-join-btn {
-    box-shadow: 0 2px 8px rgba(29, 161, 242, 0.3);
-}
-
-/* Empty state styling */
-.newevent-empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: #657786;
-}
-
-.newevent-empty-state i {
-    font-size: 48px;
-    margin-bottom: 16px;
-    opacity: 0.5;
-}
-
-.newevent-empty-state h3 {
-    margin: 0 0 8px 0;
-    font-size: 20px;
-    color: #14171a;
-}
-
-.newevent-empty-state p {
-    margin: 0;
-    font-size: 16px;
-    line-height: 1.4;
-}
-
-/* Scrollbar styling for containers */
-.newevent-cards-container {
-    max-height: calc(100vh - 300px);
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #ccd6dd #f7f9fa;
-}
-
-.newevent-cards-container::-webkit-scrollbar {
-    width: 6px;
-}
-
-.newevent-cards-container::-webkit-scrollbar-track {
-    background: #f7f9fa;
-    border-radius: 3px;
-}
-
-.newevent-cards-container::-webkit-scrollbar-thumb {
-    background: #ccd6dd;
-    border-radius: 3px;
-}
-
-.newevent-cards-container::-webkit-scrollbar-thumb:hover {
-    background: #aab8c2;
-}
-
-/* Participant count styling */
-.newevent-mini-card-participants {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 2px 6px;
-    border-radius: 8px;
-    backdrop-filter: blur(4px);
-}
-
-/* Date styling */
-.newevent-mini-card-date {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 2px 6px;
-    border-radius: 8px;
-    backdrop-filter: blur(4px);
-}
-
-/* Enhanced fee containers */
-.newevent-fee-container {
-    border: 1px solid #e1e8ed;
-    transition: all 0.2s ease;
-}
-
-.newevent-fee-container:hover {
-    background: #e1e8ed;
-    border-color: #ccd6dd;
-}
-
-/* Success animation for launched events */
-@keyframes launchSuccess {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    50% {
-        transform: scale(1.02);
-        box-shadow: 0 4px 16px rgba(40, 167, 69, 0.3);
-    }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-}
-
-.newevent-post-card.launch-success {
-    animation: launchSuccess 0.6s ease-out;
-}
-
-/* Pulse animation for join button */
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(29, 161, 242, 0.7);
-    }
-    70% {
-        box-shadow: 0 0 0 10px rgba(29, 161, 242, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(29, 161, 242, 0);
-    }
-}
-
-.newevent-join-btn:hover {
-    animation: pulse 1.5s infinite;
-}
-
-/* Loading spinner enhancement */
-.newevent-loading-message .fa-spinner {
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* Dark mode support (if needed later) */
-@media (prefers-color-scheme: dark) {
-    .newevent-post-card {
-        background: #192734;
-        border-color: #38444d;
-        color: #ffffff;
-    }
-    
-    .newevent-post-username {
-        color: #ffffff;
-    }
-    
-    .newevent-post-description p {
-        color: #ffffff;
-    }
-    
-    .newevent-fee-container {
-        background: #273340;
-        border-color: #38444d;
-        color: #8899a6;
-    }
-    
-    .newevent-loading-message {
-        color: #8899a6;
-    }
-}
-
-/* Print styles */
-@media print {
-    .newevent-post-card {
-        break-inside: avoid;
-        box-shadow: none;
-        border: 1px solid #000;
-    }
-    
-    .newevent-join-btn {
-        display: none;
-    }
-    
-    .newevent-mini-card-overlay {
-        display: none;
-    }
-}
-
-
 
 :root {
     --primary-color: #6c5ce7;
@@ -11771,6 +11259,1625 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
     }
 }
 
+/* ===== PHYSICAL EVENT CREATION STYLES ===== */
+
+/* Event Mode Selection */
+.event-mode-selection {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.mode-option {
+    flex: 1;
+}
+
+.mode-option input[type="radio"] {
+    display: none;
+}
+
+.mode-option-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #fff;
+    text-align: center;
+}
+
+.mode-option-label:hover {
+    border-color: #4ECDC4;
+    background: #f8fdfc;
+    transform: translateY(-2px);
+}
+
+.mode-option input[type="radio"]:checked + .mode-option-label {
+    border-color: #4ECDC4;
+    background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+    color: white;
+    box-shadow: 0 8px 25px rgba(78, 205, 196, 0.3);
+}
+
+.mode-option-label i {
+    font-size: 24px;
+    margin-bottom: 8px;
+    color: #666;
+}
+
+.mode-option input[type="radio"]:checked + .mode-option-label i {
+    color: white;
+}
+
+.mode-option-label span {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.mode-option-label small {
+    font-size: 12px;
+    opacity: 0.8;
+    line-height: 1.3;
+}
+
+/* Physical Event Sections */
+#physicalEventSections {
+    animation: slideInUp 0.5s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Physical Category Selection */
+#physicalEventCategory {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+#physicalEventCategory option {
+    background: white;
+    color: #333;
+    padding: 8px;
+}
+
+#physicalEventCategory optgroup {
+    background: #f5f5f5;
+    font-weight: 600;
+    color: #555;
+}
+
+.custom-physical-category-input {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #4ECDC4;
+}
+
+/* Location Input */
+#locationGroup label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+#locationGroup label i {
+    color: #e74c3c;
+    font-size: 16px;
+}
+
+#eventLocation {
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px;
+    font-family: inherit;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+#eventLocation:focus {
+    border-color: #4ECDC4;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.1);
+}
+
+/* Event Scheduling */
+.scheduling-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+    border-radius: 12px;
+    color: white;
+}
+
+.datetime-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.datetime-field {
+    flex: 1;
+}
+
+.datetime-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.datetime-field input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 14px;
+}
+
+.datetime-field input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.datetime-field input::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+.duration-display {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.duration-display i {
+    margin-right: 8px;
+    color: #ffd700;
+}
+
+.duration-display strong {
+    color: #ffd700;
+    font-size: 16px;
+}
+
+/* Ticket Configuration */
+.ticket-config-section {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    border: 2px dashed #dee2e6;
+    min-height: 120px;
+}
+
+.ticket-types-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.ticket-type-item {
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 15px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.ticket-type-item:hover {
+    border-color: #4ECDC4;
+    box-shadow: 0 4px 15px rgba(78, 205, 196, 0.1);
+}
+
+.ticket-type-header {
+    display: flex;
+    justify-content: between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.ticket-type-name {
+    font-weight: 600;
+    font-size: 16px;
+    color: #333;
+}
+
+.ticket-type-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.ticket-type-badge.free {
+    background: #d4edda;
+    color: #155724;
+}
+
+.ticket-type-badge.paid {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.ticket-type-badge.donation {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.ticket-type-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.ticket-type-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #28a745;
+}
+
+.ticket-type-quantity {
+    font-size: 14px;
+    color: #666;
+}
+
+.ticket-type-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-ticket-btn, .delete-ticket-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.edit-ticket-btn {
+    background: #17a2b8;
+    color: white;
+}
+
+.edit-ticket-btn:hover {
+    background: #138496;
+    transform: translateY(-1px);
+}
+
+.delete-ticket-btn {
+    background: #dc3545;
+    color: white;
+}
+
+.delete-ticket-btn:hover {
+    background: #c82333;
+    transform: translateY(-1px);
+}
+
+.add-ticket-type-btn {
+    width: 100%;
+    padding: 15px;
+    border: 2px dashed #4ECDC4;
+    background: transparent;
+    color: #4ECDC4;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.add-ticket-type-btn:hover {
+    background: #4ECDC4;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(78, 205, 196, 0.3);
+}
+
+.add-ticket-type-btn i {
+    margin-right: 8px;
+}
+
+/* Physical Event Background */
+.background-tabs {
+    display: flex;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 4px;
+    margin-bottom: 15px;
+}
+
+.bg-tab {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.bg-tab.active {
+    background: white;
+    color: #4ECDC4;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.bg-content {
+    display: none;
+}
+
+.bg-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Media Upload */
+.file-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    border: 2px dashed #4ECDC4;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #f8fdfc;
+}
+
+.file-label:hover {
+    border-color: #44A08D;
+    background: #e8f8f5;
+    transform: translateY(-2px);
+}
+
+.file-label i {
+    font-size: 20px;
+    color: #4ECDC4;
+}
+
+.media-preview-container {
+    margin-top: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    background: #000;
+}
+
+.media-preview {
+    width: 100%;
+    max-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.media-preview img,
+.media-preview video {
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.remove-media-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(220, 53, 69, 0.9);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.remove-media-btn:hover {
+    background: #dc3545;
+    transform: scale(1.05);
+}
+
+/* Gradient Background */
+.gradient-picker {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+}
+
+.gradient-controls {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.color-input-group {
+    flex: 1;
+}
+
+.color-input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+}
+
+.gradient-color-input {
+    width: 100%;
+    height: 40px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.gradient-color-input:hover {
+    border-color: #4ECDC4;
+}
+
+.gradient-preview {
+    height: 80px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
+    border: 2px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== TICKET CONFIGURATION MODAL STYLES ===== */
+
+.ticket-config-modal-overlay,
+.ticket-edit-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    backdrop-filter: blur(5px);
+}
+
+.ticket-config-modal-container,
+.ticket-edit-modal-container {
+    background: white;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+.ticket-config-modal-header,
+.ticket-edit-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 2px solid #f0f0f0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 15px 15px 0 0;
+}
+
+.ticket-config-modal-header h3,
+.ticket-edit-modal-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.close-ticket-config-btn,
+.close-ticket-edit-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.close-ticket-config-btn:hover,
+.close-ticket-edit-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+.ticket-config-modal-content,
+.ticket-edit-modal-content {
+    padding: 25px;
+}
+
+/* Ticket Type Options */
+.ticket-type-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.ticket-type-option {
+    position: relative;
+}
+
+.ticket-type-option input[type="radio"] {
+    display: none;
+}
+
+.ticket-type-label {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.ticket-type-label:hover {
+    border-color: #4ECDC4;
+    background: #f8fdfc;
+    transform: translateX(5px);
+}
+
+.ticket-type-option input[type="radio"]:checked + .ticket-type-label {
+    border-color: #4ECDC4;
+    background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+    color: white;
+    box-shadow: 0 6px 20px rgba(78, 205, 196, 0.3);
+}
+
+.ticket-type-label i {
+    font-size: 20px;
+    color: #666;
+    min-width: 20px;
+}
+
+.ticket-type-option input[type="radio"]:checked + .ticket-type-label i {
+    color: white;
+}
+
+.ticket-type-label span {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.ticket-type-label small {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-top: 2px;
+    display: block;
+}
+
+/* Ticket Configuration Sections */
+.ticket-config-section {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-left: 4px solid #4ECDC4;
+}
+
+/* Processing Method Options */
+.processing-method-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.processing-option {
+    position: relative;
+}
+
+.processing-option input[type="radio"] {
+    display: none;
+}
+
+.processing-option-label {
+    display: block;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.processing-option-label:hover {
+    border-color: #17a2b8;
+    background: #f0f9ff;
+}
+
+.processing-option input[type="radio"]:checked + .processing-option-label {
+    border-color: #17a2b8;
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+    color: white;
+}
+
+.processing-option-label span {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.processing-option-label small {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* Ticket Customization */
+.ticket-customization {
+    background: white;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    overflow: hidden;
+}
+
+.customization-tabs {
+    display: flex;
+    background: #f8f9fa;
+}
+
+.custom-tab {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+}
+
+.custom-tab:hover {
+    background: #e9ecef;
+}
+
+.custom-tab.active {
+    background: white;
+    color: #4ECDC4;
+    border-bottom-color: #4ECDC4;
+}
+
+.customization-content {
+    padding: 20px;
+}
+
+.custom-content {
+    display: none;
+}
+
+.custom-content.active {
+    display: block;
+    animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Ticket Preview */
+.ticket-preview {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    padding: 20px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.ticket-preview::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.ticket-preview-content {
+    position: relative;
+    z-index: 2;
+}
+
+.ticket-preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.ticket-preview-name {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.ticket-preview-type {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.ticket-preview-price {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.ticket-preview-quantity {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* Modal Actions */
+.ticket-config-actions,
+.ticket-edit-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    padding-top: 20px;
+    border-top: 2px solid #f0f0f0;
+    margin-top: 20px;
+}
+
+.cancel-ticket-btn,
+.cancel-edit-btn {
+    padding: 12px 24px;
+    border: 2px solid #6c757d;
+    background: transparent;
+    color: #6c757d;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.cancel-ticket-btn:hover,
+.cancel-edit-btn:hover {
+    background: #6c757d;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.save-ticket-btn,
+.update-ticket-btn {
+    padding: 12px 24px;
+    border: none;
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.save-ticket-btn:hover,
+.update-ticket-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+.save-ticket-btn i,
+.update-ticket-btn i {
+    margin-right: 8px;
+}
+
+/* ===== ENHANCED PAYMENT BREAKDOWN STYLES ===== */
+
+.payment-summary {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    border: 2px solid #dee2e6;
+}
+
+.payment-summary h3 {
+    margin: 0 0 15px 0;
+    color: #495057;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.payment-summary h3::before {
+    content: '💳';
+    font-size: 20px;
+}
+
+.creation-fee-breakdown {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+}
+
+.fee-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.fee-item:last-child {
+    border-bottom: none;
+}
+
+.fee-item.total-fee {
+    border-top: 2px solid #4ECDC4;
+    margin-top: 10px;
+    padding-top: 15px;
+    font-weight: 700;
+    font-size: 16px;
+    color: #2c3e50;
+}
+
+.fee-equivalent {
+    text-align: center;
+    margin-top: 10px;
+    padding: 8px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Physical Event Payment Breakdown */
+#physicalPaymentBreakdown .fee-item span:first-child {
+    color: #495057;
+    font-weight: 500;
+}
+
+#physicalPaymentBreakdown .fee-item span:last-child {
+    color: #28a745;
+    font-weight: 600;
+}
+
+/* ===== RESPONSIVE DESIGN FOR PHYSICAL EVENTS ===== */
+
+@media (max-width: 768px) {
+    .event-mode-selection {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .mode-option-label {
+        padding: 15px 12px;
+    }
+    
+    .datetime-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .ticket-config-modal-container,
+    .ticket-edit-modal-container {
+        width: 95%;
+        margin: 10px;
+        max-height: 85vh;
+    }
+    
+    .ticket-config-modal-header,
+    .ticket-edit-modal-header {
+        padding: 15px 20px;
+    }
+    
+    .ticket-config-modal-content,
+    .ticket-edit-modal-content {
+        padding: 20px;
+    }
+    
+    .ticket-type-options {
+        gap: 8px;
+    }
+    
+    .ticket-type-label {
+        padding: 12px 15px;
+        gap: 12px;
+    }
+    
+    .ticket-config-actions,
+    .ticket-edit-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .cancel-ticket-btn,
+    .cancel-edit-btn,
+    .save-ticket-btn,
+    .update-ticket-btn {
+        width: 100%;
+        padding: 15px;
+    }
+    
+    .gradient-controls {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .scheduling-section {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mode-option-label {
+        padding: 12px 10px;
+    }
+    
+    .mode-option-label i {
+        font-size: 20px;
+    }
+    
+    .mode-option-label span {
+        font-size: 14px;
+    }
+    
+    .mode-option-label small {
+        font-size: 11px;
+    }
+    
+    .ticket-type-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .ticket-type-details {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .ticket-type-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .edit-ticket-btn,
+    .delete-ticket-btn {
+        flex: 1;
+        padding: 8px 12px;
+    }
+}
+
+/* ===== ENHANCED ANIMATIONS ===== */
+
+.ticket-type-item {
+    animation: slideInLeft 0.5s ease-out;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.add-ticket-type-btn {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(78, 205, 196, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(78, 205, 196, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(78, 205, 196, 0);
+    }
+}
+/* Success/Error States */
+.ticket-config-success {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border: 2px solid #28a745;
+    color: #155724;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: successSlideIn 0.5s ease-out;
+}
+
+.ticket-config-error {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    border: 2px solid #dc3545;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: errorShake 0.5s ease-out;
+}
+
+@keyframes successSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes errorShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Loading States */
+.ticket-config-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    color: #6c757d;
+}
+
+.loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #4ECDC4;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===== ENHANCED FORM VALIDATION STYLES ===== */
+
+.form-input.error,
+.form-textarea.error,
+.form-select.error {
+    border-color: #dc3545;
+    background-color: #fff5f5;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+.form-input.success,
+.form-textarea.success,
+.form-select.success {
+    border-color: #28a745;
+    background-color: #f8fff8;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+.field-error {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    animation: errorFadeIn 0.3s ease-out;
+}
+
+.field-success {
+    color: #28a745;
+    font-size: 12px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    animation: successFadeIn 0.3s ease-out;
+}
+
+@keyframes errorFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes successFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== TICKET SUMMARY DISPLAY ===== */
+
+.ticket-summary {
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 15px;
+}
+
+.ticket-summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.ticket-summary-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ticket-count-badge {
+    background: #4ECDC4;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.ticket-summary-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ticket-summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #4ECDC4;
+}
+
+.ticket-summary-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.ticket-summary-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.ticket-summary-details {
+    font-size: 12px;
+    color: #666;
+}
+
+.ticket-summary-price {
+    font-weight: 700;
+    color: #28a745;
+    font-size: 16px;
+}
+
+/* ===== PHYSICAL EVENT SPECIFIC ENHANCEMENTS ===== */
+
+.physical-event-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-left: 10px;
+}
+
+.location-preview {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.location-preview i {
+    color: #e74c3c;
+    font-size: 16px;
+}
+
+.location-preview-text {
+    color: #495057;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.event-duration-highlight {
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: #333;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+/* ===== ADVANCED TICKET CONFIGURATION FEATURES ===== */
+
+.ticket-tier-indicator {
+    position: absolute;
+    top: -8px;
+    right: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.ticket-availability-bar {
+    width: 100%;
+    height: 6px;
+    background: #e9ecef;
+    border-radius: 3px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.ticket-availability-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #28a745 0%, #20c997 100%);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.ticket-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #6c757d;
+}
+
+/* ===== PAYMENT METHOD ENHANCEMENTS ===== */
+
+.payment-method-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.payment-option {
+    position: relative;
+}
+
+.payment-option input[type="radio"] {
+    display: none;
+}
+
+.payment-option-label {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.payment-option-label:hover {
+    border-color: #4ECDC4;
+    background: #f8fdfc;
+    transform: translateX(5px);
+}
+
+.payment-option input[type="radio"]:checked + .payment-option-label {
+    border-color: #4ECDC4;
+    background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+    color: white;
+    box-shadow: 0 6px 20px rgba(78, 205, 196, 0.3);
+}
+
+.payment-option-label i {
+    font-size: 20px;
+    color: #666;
+    min-width: 20px;
+}
+
+.payment-option input[type="radio"]:checked + .payment-option-label i {
+    color: white;
+}
+
+.payment-option-label span {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.promo-code-section {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 15px;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.promo-code-section input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ffc107;
+    border-radius: 8px;
+    font-weight: 500;
+    background: white;
+}
+
+.promo-code-section input:focus {
+    outline: none;
+    border-color: #e0a800;
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2);
+}
+
+/* ===== FINAL RESPONSIVE ADJUSTMENTS ===== */
+
+@media (max-width: 576px) {
+    .scheduling-section {
+        padding: 12px;
+    }
+    
+    .datetime-field label {
+        font-size: 12px;
+    }
+    
+    .datetime-field input {
+        padding: 8px;
+        font-size: 13px;
+    }
+    
+    .duration-display {
+        padding: 10px;
+        font-size: 14px;
+    }
+    
+    .ticket-type-item {
+        padding: 12px;
+    }
+    
+    .ticket-type-name {
+        font-size: 14px;
+    }
+    
+    .ticket-type-price {
+        font-size: 16px;
+    }
+    
+    .payment-summary {
+        padding: 15px;
+    }
+    
+    .creation-fee-breakdown {
+        padding: 12px;
+    }
+    
+    .fee-item {
+        font-size: 14px;
+        padding: 6px 0;
+    }
+    
+    .fee-item.total-fee {
+        font-size: 15px;
+    }
+}
+
+/* ===== ACCESSIBILITY ENHANCEMENTS ===== */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+    outline: 2px solid #4ECDC4;
+    outline-offset: 2px;
+}
+
+.ticket-type-label:focus-within,
+.payment-option-label:focus-within,
+.mode-option-label:focus-within {
+    outline: 2px solid #4ECDC4;
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .mode-option-label,
+    .ticket-type-label,
+    .payment-option-label {
+        border-width: 3px;
+    }
+    
+    .mode-option input[type="radio"]:checked + .mode-option-label,
+    .ticket-type-option input[type="radio"]:checked + .ticket-type-label,
+    .payment-option input[type="radio"]:checked + .payment-option-label {
+        background: #000;
+        color: #fff;
+        border-color: #fff;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ===== PRINT STYLES ===== */
+
+@media print {
+    .ticket-config-modal-overlay,
+    .ticket-edit-modal-overlay {
+        display: none !important;
+    }
+    
+    .form-actions,
+    .ticket-config-actions,
+    .ticket-edit-actions {
+        display: none !important;
+    }
+    
+    .payment-summary {
+        background: white !important;
+        border: 2px solid #000 !important;
+    }
+    
+    .ticket-preview {
+        background: white !important;
+        color: #000 !important;
+        border: 2px solid #000 !important;
+    }
+}
+
 
 /* Loading States */
 .loading-overlay {
@@ -15529,7 +16636,8 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
     </div>
 </div>
      
-          <!-- Host Entertainment Event Popup -->
+
+<!-- Host Entertainment Event Popup -->
 <div class="host-entertainment-popup-overlay" id="hostEntertainmentPopup">
     <div class="host-entertainment-popup-container">
         <!-- Close Button -->
@@ -15539,7 +16647,7 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                 <i class="fas fa-times"></i>
             </button>
         </div>
-
+        
         <!-- Banner Ad -->
         <div class="host-entertainment-banner-ad">
             <div class="host-entertainment-ad-content">
@@ -15547,91 +16655,260 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                 <p>Create your entertainment event and connect with talented participants!</p>
             </div>
         </div>
-
+        
         <!-- Form Content -->
         <div class="host-entertainment-form-content">
             <form id="hostEntertainmentForm">
-                <!-- Event Type Selection -->
-                <div class="form-group">
-                    <label for="eventType">Event Type</label>
-                    <select id="eventType" class="form-select" onchange="updateEventTypeOptions()">
-                        <option value="">Select Event Type</option>
-                        <option value="medium">Medium Event</option>
-                        <option value="tactical">Tactical Event</option>
-                        <option value="bigRush">Big Rush</option>
-                    </select>
-                </div>
-
-                <!-- Category Selection -->
-                <div class="form-group" id="categoryGroup" style="display: none;">
-                    <label for="eventCategory">Category</label>
-                    <select id="eventCategory" class="form-select">
-                        <option value="">Select Category</option>
-                    </select>
-                    <div class="custom-category-input" style="display: none;">
-                        <input type="text" id="customCategory" placeholder="Enter custom category" class="form-input">
-                        <button type="button" onclick="addCustomCategory()" class="add-category-btn">Add</button>
-                    </div>
-                    <button type="button" onclick="toggleCustomCategory()" class="custom-category-toggle">Add Custom Category</button>
-                </div>
-
-                <!-- Duration Selection -->
-                <div class="form-group" id="durationGroup" style="display: none;">
-                    <label for="eventDuration">Event Duration</label>
-                    <select id="eventDuration" class="form-select">
-                        <option value="">Select Duration</option>
-                    </select>
-                </div>
-
-                <!-- Participants -->
-                <div class="form-group" id="participantsGroup" style="display: none;">
-                    <label for="maxParticipants">Maximum Participants</label>
-                    <input type="number" id="maxParticipants" class="form-input" min="10" max="50">
-                    <small class="form-help" id="participantsHelp">Minimum: 10, Maximum: 50</small>
-                </div>
-
-                <!-- Entry Fee -->
-                <div class="form-group" id="entryFeeGroup" style="display: none;">
-                    <label>Entry Fee</label>
-                    <div class="fee-options">
-                        <div class="fee-input-wrapper">
-                            <input type="number" id="entryFee" class="form-input fee-input" min="1" max="500" placeholder="30">
-                            <span class="currency-label">TC</span>
-                            <span class="naira-equivalent" id="entryFeeNaira">≈ ₦450</span>
+                
+                <!-- Event Mode Selection (NEW) -->
+                <div class="form-group" id="eventModeGroup">
+                    <label for="eventMode">Event Mode</label>
+                    <div class="event-mode-selection">
+                        <div class="mode-option">
+                            <input type="radio" id="onlineEvent" name="eventMode" value="online" checked>
+                            <label for="onlineEvent" class="mode-option-label" onclick="selectEventMode('online')">
+                                <i class="fas fa-laptop"></i>
+                                <span>Online Event</span>
+                                <small>Virtual entertainment competitions</small>
+                            </label>
                         </div>
-                        <button type="button" class="no-fee-btn" id="noEntryFeeBtn" onclick="toggleEntryFee()">No Entry Fee</button>
-                    </div>
-                </div>
-
-                <!-- Voting Fee -->
-                <div class="form-group" id="votingFeeGroup" style="display: none;">
-                    <label>Voting Fee</label>
-                    <div class="fee-options">
-                        <div class="fee-input-wrapper">
-                            <input type="number" id="votingFee" class="form-input fee-input" min="1" max="500" placeholder="20">
-                            <span class="currency-label">TC</span>
-                            <span class="naira-equivalent" id="votingFeeNaira">≈ ₦300</span>
+                        <div class="mode-option">
+                            <input type="radio" id="physicalEvent" name="eventMode" value="physical">
+                            <label for="physicalEvent" class="mode-option-label" onclick="selectEventMode('physical')">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Physical Event</span>
+                                <small>In-person events and gatherings</small>
+                            </label>
                         </div>
-                        <button type="button" class="no-fee-btn" id="noVotingFeeBtn" onclick="toggleVotingFee()">No Voting Fee</button>
                     </div>
                 </div>
 
+                <!-- ONLINE EVENT SECTIONS (Original) -->
+                <div id="onlineEventSections">
+                    <!-- Event Type Selection -->
+                    <div class="form-group" id="eventTypeGroup" style="display: none;">
+                        <label for="eventType">Event Type</label>
+                        <select id="eventType" class="form-select" onchange="updateEventTypeOptions()">
+                            <option value="">Select Event Type</option>
+                            <option value="medium">Medium Event</option>
+                            <option value="tactical">Tactical Event</option>
+                            <option value="bigRush">Big Rush</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Category Selection -->
+                    <div class="form-group" id="categoryGroup" style="display: none;">
+                        <label for="eventCategory">Category</label>
+                        <select id="eventCategory" class="form-select">
+                            <option value="">Select Category</option>
+                        </select>
+                        <div class="custom-category-input" style="display: none;">
+                            <input type="text" id="customCategory" placeholder="Enter custom category" class="form-input">
+                            <button type="button" onclick="addCustomCategory()" class="add-category-btn">Add</button>
+                        </div>
+                        <button type="button" onclick="toggleCustomCategory()" class="custom-category-toggle">Add Custom Category</button>
+                    </div>
+                    
+                    <!-- Duration Selection -->
+                    <div class="form-group" id="durationGroup" style="display: none;">
+                        <label for="eventDuration">Event Duration</label>
+                        <select id="eventDuration" class="form-select">
+                            <option value="">Select Duration</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Participants -->
+                    <div class="form-group" id="participantsGroup" style="display: none;">
+                        <label for="maxParticipants">Maximum Participants</label>
+                        <input type="number" id="maxParticipants" class="form-input" min="10" max="50">
+                        <small class="form-help" id="participantsHelp">Minimum: 10, Maximum: 50</small>
+                    </div>
+                    
+                    <!-- Entry Fee -->
+                    <div class="form-group" id="entryFeeGroup" style="display: none;">
+                        <label>Entry Fee</label>
+                        <div class="fee-options">
+                            <div class="fee-input-wrapper">
+                                <input type="number" id="entryFee" class="form-input fee-input" min="1" max="500" placeholder="30">
+                                <span class="currency-label">TC</span>
+                                <span class="naira-equivalent" id="entryFeeNaira">≈ ₦450</span>
+                            </div>
+                            <button type="button" class="no-fee-btn" id="noEntryFeeBtn" onclick="toggleEntryFee()">No Entry Fee</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Voting Fee -->
+                    <div class="form-group" id="votingFeeGroup" style="display: none;">
+                        <label>Voting Fee</label>
+                        <div class="fee-options">
+                            <div class="fee-input-wrapper">
+                                <input type="number" id="votingFee" class="form-input fee-input" min="1" max="500" placeholder="20">
+                                <span class="currency-label">TC</span>
+                                <span class="naira-equivalent" id="votingFeeNaira">≈ ₦300</span>
+                            </div>
+                            <button type="button" class="no-fee-btn" id="noVotingFeeBtn" onclick="toggleVotingFee()">No Voting Fee</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PHYSICAL EVENT SECTIONS (NEW) -->
+                <div id="physicalEventSections" style="display: none;">
+                    <!-- Physical Event Category Selection -->
+                    <div class="form-group" id="physicalCategoryGroup" style="display: none;">
+                        <label for="physicalEventCategory">Event Category</label>
+                        <select id="physicalEventCategory" class="form-select" onchange="updatePhysicalCategory()">
+                            <option value="">Select Category</option>
+                            <optgroup label="Performance Arts">
+                                <option value="singing">Singing</option>
+                                <option value="music">Music</option>
+                                <option value="dance">Dance</option>
+                                <option value="comedy">Comedy</option>
+                                <option value="theater">Theater</option>
+                            </optgroup>
+                            <optgroup label="Visual Arts">
+                                <option value="art-exhibition">Art Exhibition</option>
+                                <option value="fashion-show">Fashion Show</option>
+                            </optgroup>
+                            <optgroup label="Sports & Recreation">
+                                <option value="sports">Sports Events</option>
+                            </optgroup>
+                            <optgroup label="Business & Learning">
+                                <option value="conference">Conference</option>
+                                <option value="workshop">Workshop</option>
+                            </optgroup>
+                            <optgroup label="Social & Cultural">
+                                <option value="food-drinks">Food & Drinks</option>
+                                <option value="networking">Networking</option>
+                                <option value="festival">Festival</option>
+                            </optgroup>
+                            <option value="other">Other</option>
+                        </select>
+                        <div class="custom-physical-category-input" style="display: none;">
+                            <input type="text" id="customPhysicalCategory" placeholder="Enter custom category" class="form-input">
+                            <button type="button" onclick="addCustomPhysicalCategory()" class="add-category-btn">Add</button>
+                        </div>
+                    </div>
+
+                    <!-- Event Location -->
+                    <div class="form-group" id="locationGroup" style="display: none;">
+                        <label for="eventLocation">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Event Location
+                        </label>
+                        <textarea id="eventLocation" class="form-textarea" placeholder="Enter full venue address or location details" rows="3"></textarea>
+                        <small class="form-help">Provide complete address including city, state for easy navigation</small>
+                    </div>
+
+                    <!-- Event Scheduling -->
+                    <div class="form-group" id="schedulingGroup" style="display: none;">
+                        <label>Event Schedule</label>
+                        <div class="scheduling-section">
+                            <div class="datetime-row">
+                                <div class="datetime-field">
+                                    <label for="startDate">Start Date</label>
+                                    <input type="date" id="startDate" class="form-input" onchange="calculateDuration()">
+                                </div>
+                                <div class="datetime-field">
+                                    <label for="startTime">Start Time</label>
+                                    <input type="time" id="startTime" class="form-input" onchange="calculateDuration()">
+                                </div>
+                            </div>
+                            <div class="datetime-row">
+                                <div class="datetime-field">
+                                    <label for="endDate">End Date</label>
+                                    <input type="date" id="endDate" class="form-input" onchange="calculateDuration()">
+                                </div>
+                                <div class="datetime-field">
+                                    <label for="endTime">End Time</label>
+                                    <input type="time" id="endTime" class="form-input" onchange="calculateDuration()">
+                                </div>
+                            </div>
+                            <div class="duration-display" id="durationDisplay" style="display: none;">
+                                <i class="fas fa-clock"></i>
+                                <span>Duration: <strong id="calculatedDuration">-</strong></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ticket Configuration -->
+                    <div class="form-group" id="ticketConfigGroup" style="display: none;">
+                        <label>Ticket Configuration</label>
+                        <div class="ticket-config-section">
+                            <div class="ticket-types-list" id="ticketTypesList">
+                                <!-- Ticket types will be added here dynamically -->
+                            </div>
+                            <button type="button" class="add-ticket-type-btn" onclick="addTicketType()">
+                                <i class="fas fa-plus"></i>
+                                Add Ticket Type
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Physical Event Background -->
+                    <div class="form-group" id="physicalBackgroundGroup" style="display: none;">
+                        <label>Event Background</label>
+                        <div class="background-options">
+                            <div class="background-tabs">
+                                <button type="button" class="bg-tab active" onclick="switchPhysicalBackgroundTab('media')">Media</button>
+                                <button type="button" class="bg-tab" onclick="switchPhysicalBackgroundTab('gradient')">Gradient</button>
+                            </div>
+                            <div class="background-content">
+                                <div class="bg-content active" id="mediaContent">
+                                    <input type="file" id="physicalBackgroundMedia" accept="image/*,video/mp4,video/mov,.gif" class="file-input" onchange="handlePhysicalMediaUpload(this)">
+                                    <label for="physicalBackgroundMedia" class="file-label">
+                                        <i class="fas fa-upload"></i>
+                                        Choose Media (Image, GIF, Video)
+                                    </label>
+                                    <small class="form-help">Supported: JPG, PNG, GIF, MP4, MOV | Max: 10MB | Video: 15s max</small>
+                                    
+                                    <!-- Media Preview Container -->
+                                    <div id="physicalMediaPreviewContainer" class="media-preview-container" style="display: none;">
+                                        <div id="physicalMediaPreview" class="media-preview"></div>
+                                        <button type="button" id="removePhysicalMediaBtn" class="remove-media-btn" onclick="removePhysicalMedia()">
+                                            <i class="fas fa-trash"></i>
+                                            Remove Media
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-content" id="gradientContent">
+                                    <div class="gradient-picker">
+                                        <div class="gradient-controls">
+                                            <div class="color-input-group">
+                                                <label>Color 1</label>
+                                                <input type="color" id="gradientColor1" class="gradient-color-input" value="#FF6B6B" onchange="updateGradientPreview()">
+                                            </div>
+                                            <div class="color-input-group">
+                                                <label>Color 2</label>
+                                                <input type="color" id="gradientColor2" class="gradient-color-input" value="#4ECDC4" onchange="updateGradientPreview()">
+                                            </div>
+                                        </div>
+                                        <div class="gradient-preview" id="gradientPreview"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SHARED SECTIONS (Both Online & Physical) -->
                 <!-- Event Name -->
                 <div class="form-group" id="eventNameGroup" style="display: none;">
                     <label for="eventName">Event Name</label>
-                    <input type="text" id="eventName" class="form-input" placeholder="Enter event name" maxlength="50">
+                    <input type="text" id="eventName" class="form-input" placeholder="Enter event name" minlength="3" maxlength="50">
+                    <small class="form-help">3-50 characters required</small>
                 </div>
-
+                
                 <!-- Event Description -->
                 <div class="form-group" id="descriptionGroup" style="display: none;">
                     <label for="eventDescription">Event Description</label>
-                    <textarea id="eventDescription" class="form-textarea" placeholder="Describe your event (20-100 words)" rows="4"></textarea>
+                    <textarea id="eventDescription" class="form-textarea" placeholder="Describe your event (minimum 5 words)" rows="4" onkeyup="updateWordCount()"></textarea>
                     <small class="form-help">
-                        <span id="wordCount">0</span>/100 words (minimum 20 words)
+                        <span id="wordCount">0</span> words (minimum 5 words required)
                     </small>
                 </div>
-
-                <!-- Background Selection -->
+                
+                <!-- Background Selection (Online Events Only) -->
                 <div class="form-group" id="backgroundGroup" style="display: none;">
                     <label>Event Background</label>
                     <div class="background-options">
@@ -15646,19 +16923,19 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                                     <i class="fas fa-upload"></i>
                                     Choose Background Image
                                 </label>
-                            <input type="file" id="backgroundImage" name="backgroundImage" accept="image/*">
-    </div>
-    
-                              
-                            <!-- Image Preview Container -->
-    <div id="imagePreviewContainer" class="image-preview-container">
-        <img id="imagePreview" class="image-preview" alt="Preview">
-        <div id="imagePreviewText" class="image-preview-text"></div>
-        <button type="button" id="removeImageBtn" class="remove-image-btn">
-            <i class="fas fa-trash"></i>
-            Remove Image
-        </button>
-    </div>
+                                
+                                <!-- Image Preview Container -->
+                                <!-- Image Preview Container -->
+                                <div id="imagePreviewContainer" class="image-preview-container" style="display: none;">
+                                    <img id="imagePreview" class="image-preview" alt="Preview">
+                                    <div id="imagePreviewText" class="image-preview-text"></div>
+                                    <button type="button" id="removeImageBtn" class="remove-image-btn">
+                                        <i class="fas fa-trash"></i>
+                                        Remove Image
+                                    </button>
+                                </div>
+                            </div>
+                            
                             <div class="bg-content" id="colorContent">
                                 <div class="color-palette">
                                     <div class="color-option" style="background: #FF6B6B" onclick="selectColor('#FF6B6B')"></div>
@@ -15673,7 +16950,7 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Tags -->
                 <div class="form-group" id="tagsGroup" style="display: none;">
                     <label>Tags</label>
@@ -15692,7 +16969,7 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Event Rules -->
                 <div class="form-group" id="rulesGroup" style="display: none;">
                     <label>Event Rules</label>
@@ -15707,64 +16984,89 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                         </small>
                     </div>
                 </div>
-
-                   <!-- Update the payment summary section -->
-<div class="form-group" id="paymentGroup" style="display: none;">
-    <label class="form-label">Payment Method</label>
-    
-    <!-- Update the payment method selection with click handlers -->
-<div class="payment-method-selection">
-    <div class="payment-option">
-        <input type="radio" id="tcBalancePayment" name="paymentMethod" value="tcBalance" checked>
-        <label for="tcBalancePayment" class="payment-option-label" onclick="togglePaymentMethod('tcBalance')">
-            <i class="fas fa-coins"></i>
-            <span>Pay with TC Balance</span>
-        </label>
-    </div>
-    
-    <div class="payment-option">
-        <input type="radio" id="promoCodePayment" name="paymentMethod" value="promoCode">
-        <label for="promoCodePayment" class="payment-option-label" onclick="togglePaymentMethod('promoCode')">
-            <i class="fas fa-ticket-alt"></i>
-            <span>Use Promo Code</span>
-        </label>
-    </div>
-</div>
-
-    
-    <!-- Promo Code Input -->
-    <div class="promo-code-section" id="promoCodeSection" style="display: none;">
-        <input type="text" id="promoCodeInput" class="form-input" placeholder="Enter promo code (Bisask19, nig2025, Ismartdc)">
-        <small class="form-help">Valid codes: Bisask19, nig2025, Ismartdc</small>
-    </div>
-    
-    <!-- Payment Summary -->
-    <div class="payment-summary">
-        <h3>Payment Summary</h3>
-        <div class="creation-fee-breakdown">
-            <div class="fee-item">
-                <span>Event Type:</span>
-                <span id="selectedEventType">-</span>
-            </div>
-            <div class="fee-item">
-                <span>Creation Fee:</span>
-                <span id="creationFee">0 TC</span>
-            </div>
-            <div class="fee-item" id="feeDiscountItem" style="display: none;">
-                <span>Discount (No Entry/Voting Fee):</span>
-                <span id="discountAmount">0 TC</span>
-            </div>
-            <div class="fee-item total-fee">
-                <span>Total Creation Fee:</span>
-                <span id="totalCreationFee">0 TC</span>
-            </div>
-            <div class="fee-equivalent">
-                <span>≈ ₦<span id="totalCreationFeeNaira">0</span></span>
-            </div>
-        </div>
-    </div>
-</div>
- 
+                
+                <!-- Payment Section -->
+                <div class="form-group" id="paymentGroup" style="display: none;">
+                    <label class="form-label">Payment Method</label>
+                    
+                    <!-- Payment Method Selection -->
+                    <div class="payment-method-selection">
+                        <div class="payment-option">
+                            <input type="radio" id="tcBalancePayment" name="paymentMethod" value="tcBalance" checked>
+                            <label for="tcBalancePayment" class="payment-option-label" onclick="togglePaymentMethod('tcBalance')">
+                                <i class="fas fa-coins"></i>
+                                <span>Pay with TC Balance</span>
+                            </label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" id="promoCodePayment" name="paymentMethod" value="promoCode">
+                            <label for="promoCodePayment" class="payment-option-label" onclick="togglePaymentMethod('promoCode')">
+                                <i class="fas fa-ticket-alt"></i>
+                                <span>Use Promo Code</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Promo Code Input -->
+                    <div class="promo-code-section" id="promoCodeSection" style="display: none;">
+                        <input type="text" id="promoCodeInput" class="form-input" placeholder="Enter promo code (Bisask19, nig2025, Ismartdc)">
+                        <small class="form-help">Valid codes: Bisask19, nig2025, Ismartdc</small>
+                    </div>
+                    
+                    <!-- Payment Summary -->
+                    <div class="payment-summary">
+                        <h3>Payment Summary</h3>
+                        <div class="creation-fee-breakdown" id="onlinePaymentBreakdown">
+                            <div class="fee-item">
+                                <span>Event Type:</span>
+                                <span id="selectedEventType">-</span>
+                            </div>
+                            <div class="fee-item">
+                                <span>Creation Fee:</span>
+                                <span id="creationFee">0 TC</span>
+                            </div>
+                            <div class="fee-item" id="feeDiscountItem" style="display: none;">
+                                <span>Discount (No Entry/Voting Fee):</span>
+                                <span id="discountAmount">0 TC</span>
+                            </div>
+                            <div class="fee-item total-fee">
+                                <span>Total Creation Fee:</span>
+                                <span id="totalCreationFee">0 TC</span>
+                            </div>
+                            <div class="fee-equivalent">
+                                <span>≈ ₦<span id="totalCreationFeeNaira">0</span></span>
+                            </div>
+                        </div>
+                        
+                        <!-- Physical Event Payment Breakdown -->
+                        <div class="creation-fee-breakdown" id="physicalPaymentBreakdown" style="display: none;">
+                            <div class="fee-item">
+                                <span>Event Category:</span>
+                                <span id="selectedPhysicalCategory">-</span>
+                            </div>
+                            <div class="fee-item" id="freeTicketFeeItem" style="display: none;">
+                                <span>Free/Donation Tickets Fee:</span>
+                                <span id="freeTicketFee">7 TC</span>
+                            </div>
+                            <div class="fee-item" id="paidTicketFeeItem" style="display: none;">
+                                <span>Paid Tickets Fee:</span>
+                                <span id="paidTicketFee">0 TC</span>
+                            </div>
+                            <div class="fee-item" id="ticketProcessingFeeItem" style="display: none;">
+                                <span>Processing Method:</span>
+                                <span id="processingMethod">-</span>
+                            </div>
+                            <div class="fee-item total-fee">
+                                <span>Total Creation Fee:</span>
+                                <span id="totalPhysicalCreationFee">0 TC</span>
+                            </div>
+                            <div class="fee-equivalent">
+                                <span>≈ ₦<span id="totalPhysicalCreationFeeNaira">0</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- Submit Button -->
                 <div class="form-actions" id="submitGroup" style="display: none;">
                     <button type="submit" class="submit-btn" id="createEventBtn">
@@ -15776,9 +17078,353 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
         </div>
     </div>
 </div>
-    
- 
 
+<!-- Ticket Configuration Modal (NEW) -->
+<div class="ticket-config-modal-overlay" id="ticketConfigModal" style="display: none;">
+    <div class="ticket-config-modal-container">
+        <div class="ticket-config-modal-header">
+            <h3>Configure Ticket Type</h3>
+            <button class="close-ticket-config-btn" onclick="closeTicketConfigModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="ticket-config-modal-content">
+            <form id="ticketConfigForm">
+                <!-- Ticket Name -->
+                <div class="form-group">
+                    <label for="ticketName">Ticket Name</label>
+                    <input type="text" id="ticketName" class="form-input" placeholder="e.g., VIP, Regular, Student, Early Bird" maxlength="30">
+                </div>
+                
+                <!-- Ticket Type Selection -->
+                <div class="form-group">
+                    <label>Ticket Type</label>
+                    <div class="ticket-type-options">
+                        <div class="ticket-type-option">
+                            <input type="radio" id="freeTicket" name="ticketType" value="free" checked>
+                            <label for="freeTicket" class="ticket-type-label" onclick="selectTicketType('free')">
+                                <i class="fas fa-gift"></i>
+                                <span>Free</span>
+                                <small>No cost to attendees</small>
+                            </label>
+                        </div>
+                        <div class="ticket-type-option">
+                            <input type="radio" id="paidTicket" name="ticketType" value="paid">
+                            <label for="paidTicket" class="ticket-type-label" onclick="selectTicketType('paid')">
+                                <i class="fas fa-money-bill"></i>
+                                <span>Paid</span>
+                                <small>Standard paid tickets</small>
+                            </label>
+                        </div>
+                        <div class="ticket-type-option">
+                            <input type="radio" id="donationTicket" name="ticketType" value="donation">
+                            <label for="donationTicket" class="ticket-type-label" onclick="selectTicketType('donation')">
+                                <i class="fas fa-heart"></i>
+                                <span>Donation</span>
+                                <small>Pay-what-you-want</small>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ticket Configuration Sections -->
+                <div id="ticketConfigSections">
+                    <!-- Free Ticket Config -->
+                    <div id="freeTicketConfig" class="ticket-config-section">
+                        <div class="form-group">
+                            <label for="freeTicketQuantity">Quantity</label>
+                            <input type="number" id="freeTicketQuantity" class="form-input" min="1" placeholder="Number of free tickets">
+                        </div>
+                    </div>
+                    
+                    <!-- Paid Ticket Config -->
+                    <div id="paidTicketConfig" class="ticket-config-section" style="display: none;">
+                        <div class="form-group">
+                            <label for="ticketPrice">Price (₦)</label>
+                            <input type="number" id="ticketPrice" class="form-input" min="1" placeholder="Ticket price in Naira">
+                        </div>
+                        <div class="form-group">
+                            <label for="paidTicketQuantity">Quantity</label>
+                            <input type="number" id="paidTicketQuantity" class="form-input" min="1" placeholder="Number of paid tickets">
+                        </div>
+                        <div class="form-group">
+                            <label>Payment Processing Method</label>
+                            <div class="processing-method-options">
+                                <div class="processing-option">
+                                    <input type="radio" id="perTicketProcessing" name="processingMethod" value="perTicket" checked>
+                                    <label for="perTicketProcessing" class="processing-option-label">
+                                        <span>Per-Ticket Processing</span>
+                                        <small>4 TC added to each purchase (Free to create)</small>
+                                    </label>
+                                </div>
+                                <div class="processing-option">
+                                    <input type="radio" id="oneTimeProcessing" name="processingMethod" value="oneTime">
+                                    <label for="oneTimeProcessing" class="processing-option-label">
+                                        <span>One-Time Payment</span>
+                                        <small>Pay 0.2 TC × quantity upfront</small>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Donation Ticket Config -->
+                    <div id="donationTicketConfig" class="ticket-config-section" style="display: none;">
+                        <div class="form-group">
+                            <label for="suggestedDonation">Suggested Donation (₦)</label>
+                            <input type="number" id="suggestedDonation" class="form-input" min="0" placeholder="Optional suggested amount">
+                            <small class="form-help">Leave empty for completely open donations</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="donationTicketQuantity">Quantity</label>
+                            <input type="number" id="donationTicketQuantity" class="form-input" min="1" placeholder="Number of donation tickets">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Optional Description -->
+                <div class="form-group">
+                    <label for="ticketDescription">Description (Optional)</label>
+                    <textarea id="ticketDescription" class="form-textarea" placeholder="Additional ticket details" rows="2"></textarea>
+                </div>
+                
+                <!-- Ticket Customization -->
+                <div class="form-group">
+                    <label>Ticket Design (Optional)</label>
+                    <div class="ticket-customization">
+                        <div class="customization-tabs">
+                            <button type="button" class="custom-tab active" onclick="switchTicketCustomTab('image')">Image</button>
+                            <button type="button" class="custom-tab" onclick="switchTicketCustomTab('color')">Color</button>
+                        </div>
+                        <div class="customization-content">
+                            <div class="custom-content active" id="ticketImageContent">
+                                <input type="file" id="ticketImage" accept="image/*" class="file-input">
+                                <label for="ticketImage" class="file-label">
+                                    <i class="fas fa-upload"></i>
+                                    Upload Ticket Image
+                                </label>
+                            </div>
+                            <div class="custom-content" id="ticketColorContent">
+                                <div class="color-palette">
+                                    <div class="color-option" style="background: #FF6B6B" onclick="selectTicketColor('#FF6B6B')"></div
+                                    <div class="color-option" style="background: #FF6B6B" onclick="selectTicketColor('#FF6B6B')"></div>
+                                    <div class="color-option" style="background: #4ECDC4" onclick="selectTicketColor('#4ECDC4')"></div>
+                                    <div class="color-option" style="background: #45B7D1" onclick="selectTicketColor('#45B7D1')"></div>
+                                    <div class="color-option" style="background: #96CEB4" onclick="selectTicketColor('#96CEB4')"></div>
+                                    <div class="color-option" style="background: #FFEAA7" onclick="selectTicketColor('#FFEAA7')"></div>
+                                    <div class="color-option" style="background: #DDA0DD" onclick="selectTicketColor('#DDA0DD')"></div>
+                                    <div class="color-option" style="background: #FF9F43" onclick="selectTicketColor('#FF9F43')"></div>
+                                    <div class="color-option" style="background: #A29BFE" onclick="selectTicketColor('#A29BFE')"></div>
+                                </div>
+                                <input type="color" id="customTicketColor" class="custom-color-input" onchange="selectTicketColor(this.value)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ticket Preview -->
+                <div class="form-group">
+                    <label>Ticket Preview</label>
+                    <div class="ticket-preview" id="ticketPreview">
+                        <div class="ticket-preview-content">
+                            <div class="ticket-preview-header">
+                                <span class="ticket-preview-name" id="ticketPreviewName">Ticket Name</span>
+                                <span class="ticket-preview-type" id="ticketPreviewType">FREE</span>
+                            </div>
+                            <div class="ticket-preview-price" id="ticketPreviewPrice">Free Entry</div>
+                            <div class="ticket-preview-quantity" id="ticketPreviewQuantity">0 available</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Modal Actions -->
+                <div class="ticket-config-actions">
+                    <button type="button" class="cancel-ticket-btn" onclick="closeTicketConfigModal()">Cancel</button>
+                    <button type="button" class="save-ticket-btn" onclick="saveTicketConfiguration()">
+                        <i class="fas fa-save"></i>
+                        Save Ticket
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Ticket Edit Modal (for editing existing tickets) -->
+<div class="ticket-edit-modal-overlay" id="ticketEditModal" style="display: none;">
+    <div class="ticket-edit-modal-container">
+        <div class="ticket-edit-modal-header">
+            <h3>Edit Ticket Type</h3>
+            <button class="close-ticket-edit-btn" onclick="closeTicketEditModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="ticket-edit-modal-content">
+            <!-- Same form structure as ticket config modal but for editing -->
+            <form id="ticketEditForm">
+                <!-- Hidden field to store ticket index -->
+                <input type="hidden" id="editTicketIndex" value="">
+                
+                <!-- Edit Ticket Name -->
+                <div class="form-group">
+                    <label for="editTicketName">Ticket Name</label>
+                    <input type="text" id="editTicketName" class="form-input" placeholder="e.g., VIP, Regular, Student, Early Bird" maxlength="30">
+                </div>
+                
+                <!-- Edit Ticket Type Selection -->
+                <div class="form-group">
+                    <label>Ticket Type</label>
+                    <div class="ticket-type-options">
+                        <div class="ticket-type-option">
+                            <input type="radio" id="editFreeTicket" name="editTicketType" value="free">
+                            <label for="editFreeTicket" class="ticket-type-label" onclick="selectEditTicketType('free')">
+                                <i class="fas fa-gift"></i>
+                                <span>Free</span>
+                                <small>No cost to attendees</small>
+                            </label>
+                        </div>
+                        <div class="ticket-type-option">
+                            <input type="radio" id="editPaidTicket" name="editTicketType" value="paid">
+                            <label for="editPaidTicket" class="ticket-type-label" onclick="selectEditTicketType('paid')">
+                                <i class="fas fa-money-bill"></i>
+                                <span>Paid</span>
+                                <small>Standard paid tickets</small>
+                            </label>
+                        </div>
+                        <div class="ticket-type-option">
+                            <input type="radio" id="editDonationTicket" name="editTicketType" value="donation">
+                            <label for="editDonationTicket" class="ticket-type-label" onclick="selectEditTicketType('donation')">
+                                <i class="fas fa-heart"></i>
+                                <span>Donation</span>
+                                <small>Pay-what-you-want</small>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Edit Ticket Configuration Sections -->
+                <div id="editTicketConfigSections">
+                    <!-- Edit Free Ticket Config -->
+                    <div id="editFreeTicketConfig" class="ticket-config-section">
+                        <div class="form-group">
+                            <label for="editFreeTicketQuantity">Quantity</label>
+                            <input type="number" id="editFreeTicketQuantity" class="form-input" min="1" placeholder="Number of free tickets">
+                        </div>
+                    </div>
+                    
+                    <!-- Edit Paid Ticket Config -->
+                    <div id="editPaidTicketConfig" class="ticket-config-section" style="display: none;">
+                        <div class="form-group">
+                            <label for="editTicketPrice">Price (₦)</label>
+                            <input type="number" id="editTicketPrice" class="form-input" min="1" placeholder="Ticket price in Naira">
+                        </div>
+                        <div class="form-group">
+                            <label for="editPaidTicketQuantity">Quantity</label>
+                            <input type="number" id="editPaidTicketQuantity" class="form-input" min="1" placeholder="Number of paid tickets">
+                        </div>
+                        <div class="form-group">
+                            <label>Payment Processing Method</label>
+                            <div class="processing-method-options">
+                                <div class="processing-option">
+                                    <input type="radio" id="editPerTicketProcessing" name="editProcessingMethod" value="perTicket">
+                                    <label for="editPerTicketProcessing" class="processing-option-label">
+                                        <span>Per-Ticket Processing</span>
+                                        <small>4 TC added to each purchase (Free to create)</small>
+                                    </label>
+                                </div>
+                                <div class="processing-option">
+                                    <input type="radio" id="editOneTimeProcessing" name="editProcessingMethod" value="oneTime">
+                                    <label for="editOneTimeProcessing" class="processing-option-label">
+                                        <span>One-Time Payment</span>
+                                        <small>Pay 0.2 TC × quantity upfront</small>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Edit Donation Ticket Config -->
+                    <div id="editDonationTicketConfig" class="ticket-config-section" style="display: none;">
+                        <div class="form-group">
+                            <label for="editSuggestedDonation">Suggested Donation (₦)</label>
+                            <input type="number" id="editSuggestedDonation" class="form-input" min="0" placeholder="Optional suggested amount">
+                            <small class="form-help">Leave empty for completely open donations</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="editDonationTicketQuantity">Quantity</label>
+                            <input type="number" id="editDonationTicketQuantity" class="form-input" min="1" placeholder="Number of donation tickets">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Edit Optional Description -->
+                <div class="form-group">
+                    <label for="editTicketDescription">Description (Optional)</label>
+                    <textarea id="editTicketDescription" class="form-textarea" placeholder="Additional ticket details" rows="2"></textarea>
+                </div>
+                
+                <!-- Edit Ticket Customization -->
+                <div class="form-group">
+                    <label>Ticket Design (Optional)</label>
+                    <div class="ticket-customization">
+                        <div class="customization-tabs">
+                            <button type="button" class="custom-tab active" onclick="switchEditTicketCustomTab('image')">Image</button>
+                            <button type="button" class="custom-tab" onclick="switchEditTicketCustomTab('color')">Color</button>
+                        </div>
+                        <div class="customization-content">
+                            <div class="custom-content active" id="editTicketImageContent">
+                                <input type="file" id="editTicketImage" accept="image/*" class="file-input">
+                                <label for="editTicketImage" class="file-label">
+                                    <i class="fas fa-upload"></i>
+                                    Upload Ticket Image
+                                </label>
+                            </div>
+                            <div class="custom-content" id="editTicketColorContent">
+                                <div class="color-palette">
+                                    <div class="color-option" style="background: #FF6B6B" onclick="selectEditTicketColor('#FF6B6B')"></div>
+                                    <div class="color-option" style="background: #4ECDC4" onclick="selectEditTicketColor('#4ECDC4')"></div>
+                                    <div class="color-option" style="background: #45B7D1" onclick="selectEditTicketColor('#45B7D1')"></div>
+                                    <div class="color-option" style="background: #96CEB4" onclick="selectEditTicketColor('#96CEB4')"></div>
+                                    <div class="color-option" style="background: #FFEAA7" onclick="selectEditTicketColor('#FFEAA7')"></div>
+                                    <div class="color-option" style="background: #DDA0DD" onclick="selectEditTicketColor('#DDA0DD')"></div>
+                                    <div class="color-option" style="background: #FF9F43" onclick="selectEditTicketColor('#FF9F43')"></div>
+                                    <div class="color-option" style="background: #A29BFE" onclick="selectEditTicketColor('#A29BFE')"></div>
+                                </div>
+                                <input type="color" id="editCustomTicketColor" class="custom-color-input" onchange="selectEditTicketColor(this.value)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Edit Ticket Preview -->
+                <div class="form-group">
+                    <label>Ticket Preview</label>
+                    <div class="ticket-preview" id="editTicketPreview">
+                        <div class="ticket-preview-content">
+                            <div class="ticket-preview-header">
+                                <span class="ticket-preview-name" id="editTicketPreviewName">Ticket Name</span>
+                                <span class="ticket-preview-type" id="editTicketPreviewType">FREE</span>
+                            </div>
+                            <div class="ticket-preview-price" id="editTicketPreviewPrice">Free Entry</div>
+                            <div class="ticket-preview-quantity" id="editTicketPreviewQuantity">0 available</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Edit Modal Actions -->
+                <div class="ticket-edit-actions">
+                    <button type="button" class="cancel-edit-btn" onclick="closeTicketEditModal()">Cancel</button>
+                    <button type="button" class="update-ticket-btn" onclick="updateTicketConfiguration()">
+                        <i class="fas fa-save"></i>
+                        Update Ticket
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 
 <!-- Spin Wheel Modal -->
@@ -23418,595 +25064,1182 @@ function showInfoMessage(message) {
 }
 
 
-// Launch Event Functionality
-async function launchEvent(eventId) {
-    try {
-        console.log('Launching event:', eventId);
+// Global variables for physical events
+let physicalTicketTypes = [];
+let currentEditingTicketIndex = -1;
+let selectedPhysicalBackground = { type: 'gradient', value: '#FF6B6B,#4ECDC4' };
+let physicalMediaFile = null;
+
+// Event mode selection
+function selectEventMode(mode) {
+    const onlineRadio = document.getElementById('onlineEvent');
+    const physicalRadio = document.getElementById('physicalEvent');
+    const onlineSections = document.getElementById('onlineEventSections');
+    const physicalSections = document.getElementById('physicalEventSections');
+    
+    if (mode === 'online') {
+        onlineRadio.checked = true;
+        physicalRadio.checked = false;
+        onlineSections.style.display = 'block';
+        physicalSections.style.display = 'none';
         
-        const user = auth.currentUser;
-        if (!user) {
-            throw new Error('User not authenticated');
-        }
+        // Show online event flow
+        showFormGroup('eventTypeGroup');
+        hideFormGroup('physicalCategoryGroup');
+        hideFormGroup('locationGroup');
+        hideFormGroup('schedulingGroup');
+        hideFormGroup('ticketConfigGroup');
+        hideFormGroup('physicalBackgroundGroup');
         
-        // Get the original event data
-        const eventDoc = await db.collection('events').doc(eventId).get();
-        if (!eventDoc.exists) {
-            throw new Error('Event not found');
-        }
+        // Reset physical event data
+        resetPhysicalEventData();
         
-        const eventData = eventDoc.data();
+    } else if (mode === 'physical') {
+        physicalRadio.checked = true;
+        onlineRadio.checked = false;
+        physicalSections.style.display = 'block';
+        onlineSections.style.display = 'none';
         
-        // Create launched event data
-        const launchedEventData = {
-            ...eventData,
-            originalEventId: eventId,
-            launchedAt: firebase.firestore.FieldValue.serverTimestamp(),
-            status: 'launched',
-            participants: [],
-            currentParticipants: 0
-        };
+        // Show physical event flow
+        showFormGroup('physicalCategoryGroup');
+        hideFormGroup('eventTypeGroup');
+        hideFormGroup('categoryGroup');
+        hideFormGroup('durationGroup');
+        hideFormGroup('participantsGroup');
+        hideFormGroup('entryFeeGroup');
+        hideFormGroup('votingFeeGroup');
+        hideFormGroup('backgroundGroup');
         
-        // Add to launched events collection
-        const launchedEventRef = await db.collection('launchedEvents').add(launchedEventData);
-        
-        // Update original event status
-        await db.collection('events').doc(eventId).update({
-            status: 'launched',
-            launchedEventId: launchedEventRef.id,
-            launchedAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-        
-        // Update the entertainment card button
-        updateEntertainmentCardToStart(eventId, eventData);
-        
-        // Create Twitter-like post in New Events feed
-        createNewEventPost({
-            ...launchedEventData,
-            launchedEventId: launchedEventRef.id,
-            eventId: eventId
-        });
-        
-        console.log('Event launched successfully');
-        
-    } catch (error) {
-        console.error('Error launching event:', error);
-        alert('Error launching event: ' + error.message);
+        // Reset online event data
+        resetOnlineEventData();
+    }
+    
+    // Update payment breakdown visibility
+    updatePaymentBreakdownVisibility(mode);
+}
+
+// Physical event category selection
+function updatePhysicalCategory() {
+    const category = document.getElementById('physicalEventCategory').value;
+    const customInput = document.querySelector('.custom-physical-category-input');
+    
+    if (category === 'other') {
+        customInput.style.display = 'block';
+    } else {
+        customInput.style.display = 'none';
+    }
+    
+    if (category) {
+        showFormGroup('locationGroup');
+        updatePhysicalPaymentSummary();
     }
 }
 
-// Update entertainment card button from Launch to Start
-function updateEntertainmentCardToStart(eventId, eventData) {
-    const card = document.getElementById(`card-${eventId}`);
-    if (!card) return;
+// Add custom physical category
+function addCustomPhysicalCategory() {
+    const customInput = document.getElementById('customPhysicalCategory');
+    const categorySelect = document.getElementById('physicalEventCategory');
     
-    const launchBtn = card.querySelector('.launch-btn');
-    if (!launchBtn) return;
+    if (customInput.value.trim()) {
+        // Add new option to select
+        const newOption = document.createElement('option');
+        newOption.value = customInput.value.trim().toLowerCase().replace(/\s+/g, '-');
+        newOption.textContent = customInput.value.trim();
+        newOption.selected = true;
+        
+        categorySelect.appendChild(newOption);
+        
+        // Hide custom input
+        document.querySelector('.custom-physical-category-input').style.display = 'none';
+        customInput.value = '';
+        
+        // Continue flow
+        showFormGroup('locationGroup');
+        updatePhysicalPaymentSummary();
+    }
+}
+
+// Location validation and flow continuation
+function validateLocation() {
+    const location = document.getElementById('eventLocation').value.trim();
     
-    // Change button appearance and functionality
-    launchBtn.classList.remove('launch-btn');
-    launchBtn.classList.add('start-btn');
+    if (location.length >= 10) {
+        showFormGroup('schedulingGroup');
+    } else {
+        hideFormGroup('schedulingGroup');
+    }
+}
+
+// Event location input handler
+document.getElementById('eventLocation').addEventListener('input', validateLocation);
+
+// Date and time calculation
+function calculateDuration() {
+    const startDate = document.getElementById('startDate').value;
+    const startTime = document.getElementById('startTime').value;
+    const endDate = document.getElementById('endDate').value;
+    const endTime = document.getElementById('endTime').value;
     
-    // Update button content based on event type
-    const entryFee = eventData.entryFee || 0;
-    const votingFee = eventData.votingFee || 0;
-    const currentParticipants = eventData.currentParticipants || 0;
-    
-    if (entryFee > 0 || votingFee > 0) {
-        // Paid event - needs 10+ participants
-        if (currentParticipants >= 10) {
-            launchBtn.disabled = false;
-            launchBtn.innerHTML = '<i class="fas fa-play"></i> <span>Start</span>';
+    if (startDate && startTime && endDate && endTime) {
+        const start = new Date(`${startDate}T${startTime}`);
+        const end = new Date(`${endDate}T${endTime}`);
+        
+        if (end > start) {
+            const diffMs = end - start;
+            const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+            const diffMinutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+            
+            let durationText = '';
+            if (diffHours > 0) {
+                durationText += `${diffHours} hour${diffHours > 1 ? 's' : ''}`;
+            }
+            if (diffMinutes > 0) {
+                if (durationText) durationText += ' ';
+                durationText += `${diffMinutes} minute${diffMinutes > 1 ? 's' : ''}`;
+            }
+            
+            document.getElementById('calculatedDuration').textContent = durationText;
+            document.getElementById('durationDisplay').style.display = 'flex';
+            
+            // Continue to ticket configuration
+            showFormGroup('ticketConfigGroup');
+            
+            // Validation passed
+            return true;
         } else {
-            launchBtn.disabled = true;
-            launchBtn.innerHTML = `<i class="fas fa-users"></i> <span>Start (${currentParticipants}/10)</span>`;
-            launchBtn.title = 'Need at least 10 participants to start paid event';
+            document.getElementById('durationDisplay').style.display = 'none';
+            hideFormGroup('ticketConfigGroup');
+            alert('End date/time must be after start date/time');
+            return false;
         }
     } else {
-        // Free event - can start immediately
-        launchBtn.disabled = false;
-        launchBtn.innerHTML = '<i class="fas fa-play"></i> <span>Start</span>';
+        document.getElementById('durationDisplay').style.display = 'none';
+        hideFormGroup('ticketConfigGroup');
+    }
+    return false;
+}
+
+// Ticket Configuration Functions
+function addTicketType() {
+    // Reset ticket config form
+    resetTicketConfigForm();
+    
+    // Show ticket config modal
+    document.getElementById('ticketConfigModal').style.display = 'flex';
+    
+    // Focus on ticket name
+    document.getElementById('ticketName').focus();
+}
+
+function closeTicketConfigModal() {
+    document.getElementById('ticketConfigModal').style.display = 'none';
+    resetTicketConfigForm();
+}
+
+function resetTicketConfigForm() {
+    document.getElementById('ticketConfigForm').reset();
+    document.getElementById('ticketName').value = '';
+    document.getElementById('freeTicket').checked = true;
+    selectTicketType('free');
+    updateTicketPreview();
+}
+
+function selectTicketType(type) {
+    const freeConfig = document.getElementById('freeTicketConfig');
+    const paidConfig = document.getElementById('paidTicketConfig');
+    const donationConfig = document.getElementById('donationTicketConfig');
+    
+    // Hide all configs
+    freeConfig.style.display = 'none';
+    paidConfig.style.display = 'none';
+    donationConfig.style.display = 'none';
+    
+    // Show selected config
+    if (type === 'free') {
+        freeConfig.style.display = 'block';
+        document.getElementById('freeTicket').checked = true;
+    } else if (type === 'paid') {
+        paidConfig.style.display = 'block';
+        document.getElementById('paidTicket').checked = true;
+        document.getElementById('perTicketProcessing').checked = true;
+    } else if (type === 'donation') {
+        donationConfig.style.display = 'block';
+        document.getElementById('donationTicket').checked = true;
     }
     
-    // Remove old onclick and add placeholder for future start functionality
-    launchBtn.setAttribute('onclick', `startEvent('${eventId}')`);
+    updateTicketPreview();
 }
 
-// Create Twitter-like post in New Events feed
-function createNewEventPost(eventData) {
-    const talentCardsContainer = document.getElementById('newevent-talent-cards');
-    if (!talentCardsContainer) return;
+function updateTicketPreview() {
+    const ticketName = document.getElementById('ticketName').value || 'Ticket Name';
+    const ticketType = document.querySelector('input[name="ticketType"]:checked').value;
     
-    // Remove loading message if it exists
-    const loadingMessage = talentCardsContainer.querySelector('.newevent-loading-message');
-    if (loadingMessage) {
-        loadingMessage.style.display = 'none';
+    const previewName = document.getElementById('ticketPreviewName');
+    const previewType = document.getElementById('ticketPreviewType');
+    const previewPrice = document.getElementById('ticketPreviewPrice');
+    const previewQuantity = document.getElementById('ticketPreviewQuantity');
+    
+    previewName.textContent = ticketName;
+    
+    if (ticketType === 'free') {
+        previewType.textContent = 'FREE';
+        previewType.className = 'ticket-preview-type free';
+        previewPrice.textContent = 'Free Entry';
+        
+        const quantity = document.getElementById('freeTicketQuantity').value || 0;
+        previewQuantity.textContent = `${quantity} available`;
+        
+    } else if (ticketType === 'paid') {
+        previewType.textContent = 'PAID';
+        previewType.className = 'ticket-preview-type paid';
+        
+        const price = document.getElementById('ticketPrice').value || 0;
+        previewPrice.textContent = `₦${price}`;
+        
+        const quantity = document.getElementById('paidTicketQuantity').value || 0;
+        previewQuantity.textContent = `${quantity} available`;
+        
+    } else if (ticketType === 'donation') {
+        previewType.textContent = 'DONATION';
+        previewType.className = 'ticket-preview-type donation';
+        
+        const suggested = document.getElementById('suggestedDonation').value;
+        previewPrice.textContent = suggested ? `Suggested: ₦${suggested}` : 'Pay What You Want';
+        
+        const quantity = document.getElementById('donationTicketQuantity').value || 0;
+        previewQuantity.textContent = `${quantity} available`;
+    }
+}
+
+// Add event listeners for ticket preview updates
+document.getElementById('ticketName').addEventListener('input', updateTicketPreview);
+document.getElementById('freeTicketQuantity').addEventListener('input', updateTicketPreview);
+document.getElementById('ticketPrice').addEventListener('input', updateTicketPreview);
+document.getElementById('paidTicketQuantity').addEventListener('input', updateTicketPreview);
+document.getElementById('suggestedDonation').addEventListener('input', updateTicketPreview);
+document.getElementById('donationTicketQuantity').addEventListener('input', updateTicketPreview);
+
+function saveTicketConfiguration() {
+    const ticketName = document.getElementById('ticketName').value.trim();
+    const ticketType = document.querySelector('input[name="ticketType"]:checked').value;
+    
+    if (!ticketName) {
+        alert('Please enter a ticket name');
+        return;
     }
     
-    // Get user data
-    const user = auth.currentUser;
-    const username = user.displayName || 'Anonymous User';
-    const email = user.email || '';
-    const shortEmail = shortenEmail(email);
-    
-    // Create post card
-    const postCard = document.createElement('div');
-    postCard.className = 'newevent-post-card';
-    postCard.id = `post-${eventData.launchedEventId}`;
-    
-    postCard.innerHTML = `
-        <div class="newevent-post-header">
-            <div class="newevent-post-user-info">
-                <div class="newevent-post-username">${username}</div>
-                <div class="newevent-post-email">${shortEmail}</div>
-            </div>
-            <div class="newevent-post-fees">
-                <div class="newevent-fee-container">
-                    <i class="fas fa-coins"></i>
-                    <span>Entry: ${eventData.entryFee || 0} TC</span>
-                </div>
-                <div class="newevent-fee-container">
-                    <i class="fas fa-vote-yea"></i>
-                    <span>Vote: ${eventData.votingFee || 0} TC</span>
-                </div>
-                <div class="newevent-fee-container">
-                    <i class="fas fa-clock"></i>
-                    <span>${formatDurationShort(eventData.eventDuration)}</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="newevent-post-description">
-            <p>${eventData.eventDescription || 'No description provided.'}</p>
-        </div>
-        
-        <div class="newevent-post-mini-card">
-            <div class="newevent-mini-card-inner" style="${getEventBackground(eventData)}">
-                <div class="newevent-mini-card-overlay"></div>
-                <div class="newevent-mini-card-content">
-                    <div class="newevent-mini-card-title">${eventData.eventName}</div>
-                    <div class="newevent-mini-card-bottom">
-                        <div class="newevent-mini-card-date">
-                            <i class="fas fa-calendar"></i>
-                            <span>${formatDate(eventData.createdAt)}</span>
-                        </div>
-                        <div class="newevent-mini-card-participants">
-                            <i class="fas fa-users"></i>
-                            <span>${eventData.currentParticipants || 0}/${eventData.maxParticipants}</span>
-                        </div>
-                        <button class="newevent-join-btn" onclick="joinEvent('${eventData.launchedEventId}')">
-                            <i class="fas fa-plus"></i>
-                            <span>Join</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    // Add to container
-    talentCardsContainer.appendChild(postCard);
-    
-    // Add animation
-    setTimeout(() => {
-        postCard.classList.add('newevent-post-visible');
-    }, 100);
-}
-
-// Helper functions
-function shortenEmail(email) {
-    if (!email) return '';
-    const [username, domain] = email.split('@');
-    if (username.length <= 4) return email;
-    return `${username.substring(0, 4)}......@${domain}`;
-}
-
-function formatDurationShort(duration) {
-    const durationMap = {
-        '30 minutes': '30min',
-        '1 hour': '1hr',
-        '1.5 hours': '1.5hr',
-        '2 hours': '2hr',
-        '3 hours': '3hr',
-        '4 hours': '4hr',
-        '5 hours': '5hr',
-        '6 hours': '6hr'
+    let ticketConfig = {
+        name: ticketName,
+        type: ticketType,
+        description: document.getElementById('ticketDescription').value.trim()
     };
-    return durationMap[duration] || duration;
-}
-
-function getEventBackground(eventData) {
-    if (eventData.backgroundImageUrl) {
-        return `background-image: url(${eventData.backgroundImageUrl}); background-size: cover; background-position: center;`;
-    } else {
-        const color = eventData.backgroundColor || '#4ECDC4';
-        return `background: linear-gradient(135deg, ${color}, ${adjustBrightness(color, -20)});`;
-    }
-}
-
-function formatDate(timestamp) {
-    if (!timestamp) return 'Unknown';
-    const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
-    return date.toLocaleDateString('en-US', { 
-        month: 'short', 
-        day: 'numeric',
-        year: 'numeric'
-    });
-}
-
-function adjustBrightness(hex, percent) {
-    const num = parseInt(hex.replace("#", ""), 16);
-    const amt = Math.round(2.55 * percent);
-    const R = (num >> 16) + amt;
-    const G = (num >> 8 & 0x00FF) + amt;
-    const B = (num & 0x0000FF) + amt;
-    return "#" + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
-        (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
-        (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
-}
-
-// Load existing launched events when page loads
-async function loadExistingLaunchedEvents() {
-    try {
-        const talentCardsContainer = document.getElementById('newevent-talent-cards');
-        if (!talentCardsContainer) return;
-        
-        console.log('Loading existing launched events...');
-        
-        const launchedEventsQuery = await db.collection('launchedEvents')
-            .where('status', '==', 'launched')
-            .orderBy('launchedAt', 'desc')
-            .limit(20)
-            .get();
-        
-        const loadingMessage = talentCardsContainer.querySelector('.newevent-loading-message');
-        
-        if (!launchedEventsQuery.empty) {
-            if (loadingMessage) {
-                loadingMessage.style.display = 'none';
-            }
-            
-            launchedEventsQuery.forEach(doc => {
-                const eventData = { ...doc.data(), launchedEventId: doc.id };
-                createNewEventPost(eventData);
-            });
-        } else {
-            if (loadingMessage) {
-                loadingMessage.innerHTML = `
-                    <i class="fas fa-info-circle"></i>
-                    <p>No launched events yet. Launch your first event!</p>
-                `;
-            }
-        }
-    } catch (error) {
-        console.error('Error loading launched events:', error);
-    }
-}
-
-// Filter functionality for New Events
-function setupNewEventFilters() {
-    const filterButtons = document.querySelectorAll('.newevent-filter-btn');
     
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Remove active class from all buttons
-            filterButtons.forEach(btn => btn.classList.remove('newevent-active'));
-            // Add active class to clicked button
-            this.classList.add('newevent-active');
-            
-            const filter = this.getAttribute('data-filter');
-            filterLaunchedEvents(filter);
-        });
-    });
-}
-
-// Filter launched events based on selected filter
-async function filterLaunchedEvents(filter) {
-    try {
-        const talentCardsContainer = document.getElementById('newevent-talent-cards');
-        if (!talentCardsContainer) return;
-        
-        // Clear existing cards
-        const existingCards = talentCardsContainer.querySelectorAll('.newevent-post-card');
-        existingCards.forEach(card => card.remove());
-        
-        // Show loading
-        let loadingMessage = talentCardsContainer.querySelector('.newevent-loading-message');
-        if (!loadingMessage) {
-            loadingMessage = document.createElement('div');
-            loadingMessage.className = 'newevent-loading-message';
-            talentCardsContainer.appendChild(loadingMessage);
+    // Get type-specific configuration
+    if (ticketType === 'free') {
+        const quantity = parseInt(document.getElementById('freeTicketQuantity').value);
+        if (!quantity || quantity < 1) {
+            alert('Please enter a valid quantity for free tickets');
+            return;
         }
-        loadingMessage.style.display = 'block';
-        loadingMessage.innerHTML = `
-            <i class="fas fa-spinner fa-spin"></i>
-            <p>Loading ${filter} events...</p>
-        `;
+        ticketConfig.quantity = quantity;
         
-        let query = db.collection('launchedEvents').where('status', '==', 'launched');
+    } else if (ticketType === 'paid') {
+        const price = parseFloat(document.getElementById('ticketPrice').value);
+        const quantity = parseInt(document.getElementById('paidTicketQuantity').value);
+        const processingMethod = document.querySelector('input[name="processingMethod"]:checked').value;
         
-        // Apply filter logic
-        const now = new Date();
-        switch(filter) {
-            case 'latest':
-                query = query.orderBy('launchedAt', 'desc');
-                break;
-            case 'old':
-                query = query.orderBy('launchedAt', 'asc');
-                break;
-            case '48hrs':
-                const twoDaysAgo = new Date(now.getTime() - (48 * 60 * 60 * 1000));
-                query = query.where('launchedAt', '>=', twoDaysAgo).orderBy('launchedAt', 'desc');
-                break;
-            case '3days':
-                const threeDaysAgo = new Date(now.getTime() - (3 * 24 * 60 * 60 * 1000));
-                query = query.where('launchedAt', '>=', threeDaysAgo).orderBy('launchedAt', 'desc');
-                break;
-            case '14days':
-                const fourteenDaysAgo = new Date(now.getTime() - (14 * 24 * 60 * 60 * 1000));
-                query = query.where('launchedAt', '>=', fourteenDaysAgo).orderBy('launchedAt', 'desc');
-                break;
-            default:
-                query = query.orderBy('launchedAt', 'desc');
+        if (!price || price < 1) {
+            alert('Please enter a valid price for paid tickets');
+            return;
         }
-        
-        const results = await query.limit(20).get();
-        
-        if (!results.empty) {
-            loadingMessage.style.display = 'none';
-            results.forEach(doc => {
-                const eventData = { ...doc.data(), launchedEventId: doc.id };
-                createNewEventPost(eventData);
-            });
-        } else {
-            loadingMessage.innerHTML = `
-                <i class="fas fa-info-circle"></i>
-                <p>No events found for "${filter}" filter.</p>
-            `;
-        }
-        
-    } catch (error) {
-        console.error('Error filtering events:', error);
-    }
-}
-
-// Search functionality
-function setupNewEventSearch() {
-    const searchInput = document.querySelector('.newevent-search-input');
-    const searchFilterBtns = document.querySelectorAll('.newevent-search-filter-btn');
-    
-    if (searchInput) {
-        let searchTimeout;
-        searchInput.addEventListener('input', function() {
-            clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(() => {
-                const searchTerm = this.value.trim();
-                const activeFilter = document.querySelector('.newevent-search-filter-btn.newevent-active').getAttribute('data-search');
-                searchLaunchedEvents(searchTerm, activeFilter);
-            }, 500);
-        });
-    }
-    
-    searchFilterBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            searchFilterBtns.forEach(b => b.classList.remove('newevent-active'));
-            this.classList.add('newevent-active');
-            
-                  const searchTerm = searchInput.value.trim();
-            const filter = this.getAttribute('data-search');
-            if (searchTerm) {
-                searchLaunchedEvents(searchTerm, filter);
-            }
-        });
-    });
-}
-
-// Search launched events
-async function searchLaunchedEvents(searchTerm, filter) {
-    try {
-        const talentCardsContainer = document.getElementById('newevent-talent-cards');
-        if (!talentCardsContainer) return;
-        
-        if (!searchTerm) {
-            loadExistingLaunchedEvents();
+        if (!quantity || quantity < 1) {
+            alert('Please enter a valid quantity for paid tickets');
             return;
         }
         
-        // Clear existing cards
-        const existingCards = talentCardsContainer.querySelectorAll('.newevent-post-card');
-        existingCards.forEach(card => card.remove());
+        ticketConfig.price = price;
+        ticketConfig.quantity = quantity;
+        ticketConfig.processingMethod = processingMethod;
         
-        // Show loading
-        let loadingMessage = talentCardsContainer.querySelector('.newevent-loading-message');
-        if (!loadingMessage) {
-            loadingMessage = document.createElement('div');
-            loadingMessage.className = 'newevent-loading-message';
-            talentCardsContainer.appendChild(loadingMessage);
+    } else if (ticketType === 'donation') {
+        const quantity = parseInt(document.getElementById('donationTicketQuantity').value);
+        const suggested = parseFloat(document.getElementById('suggestedDonation').value) || 0;
+        
+        if (!quantity || quantity < 1) {
+            alert('Please enter a valid quantity for donation tickets');
+            return;
         }
-        loadingMessage.style.display = 'block';
-        loadingMessage.innerHTML = `
-            <i class="fas fa-spinner fa-spin"></i>
-            <p>Searching for "${searchTerm}"...</p>
+        
+        ticketConfig.quantity = quantity;
+        ticketConfig.suggestedDonation = suggested;
+    }
+    
+    // Add ticket to array
+    physicalTicketTypes.push(ticketConfig);
+    
+    // Update ticket display
+    updateTicketTypesDisplay();
+    
+    // Update payment summary
+    updatePhysicalPaymentSummary();
+    
+    // Close modal
+    closeTicketConfigModal();
+    
+    // Continue flow if this is the first ticket
+    if (physicalTicketTypes.length === 1) {
+        showFormGroup('eventNameGroup');
+    }
+}
+
+function updateTicketTypesDisplay() {
+    const container = document.getElementById('ticketTypesList');
+    container.innerHTML = '';
+    
+    physicalTicketTypes.forEach((ticket, index) => {
+        const ticketElement = document.createElement('div');
+        ticketElement.className = 'ticket-type-item';
+        
+        let priceDisplay = '';
+        if (ticket.type === 'free') {
+            priceDisplay = 'Free';
+        } else if (ticket.type === 'paid') {
+            priceDisplay = `₦${ticket.price}`;
+        } else if (ticket.type === 'donation') {
+            priceDisplay = ticket.suggestedDonation > 0 ? `Suggested: ₦${ticket.suggestedDonation}` : 'Pay What You Want';
+        }
+        
+        ticketElement.innerHTML = `
+            <div class="ticket-item-content">
+                <div class="ticket-item-header">
+                    <span class="ticket-item-name">${ticket.name}</span>
+                    <span class="ticket-item-type ${ticket.type}">${ticket.type.toUpperCase()}</span>
+                </div>
+                <div class="ticket-item-details">
+                    <span class="ticket-item-price">${priceDisplay}</span>
+                    <span class="ticket-item-quantity">${ticket.quantity} available</span>
+                </div>
+                ${ticket.description ? `<div class="ticket-item-description">${ticket.description}</div>` : ''}
+            </div>
+            <div class="ticket-item-actions">
+                <button type="button" class="edit-ticket-btn" onclick="editTicketType(${index})">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button type="button" class="delete-ticket-btn" onclick="deleteTicketType(${index})">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
         `;
         
-        // Get all launched events and filter client-side (since Firestore has limited text search)
-        const allEventsQuery = await db.collection('launchedEvents')
-            .where('status', '==', 'launched')
-            .orderBy('launchedAt', 'desc')
-            .limit(100)
-            .get();
+        container.appendChild(ticketElement);
+    });
+}
+
+function editTicketType(index) {
+    currentEditingTicketIndex = index;
+    const ticket = physicalTicketTypes[index];
+    
+    // Populate edit form with ticket data
+    document.getElementById('editTicketIndex').value = index;
+    document.getElementById('editTicketName').value = ticket.name;
+    document.getElementById('editTicketDescription').value = ticket.description || '';
+    
+    // Select ticket type
+    document.getElementById(`edit${ticket.type.charAt(0).toUpperCase() + ticket.type.slice(1)}Ticket`).checked = true;
+    selectEditTicketType(ticket.type);
+    
+    // Populate type-specific fields
+    if (ticket.type === 'free') {
+        document.getElementById('editFreeTicketQuantity').value = ticket.quantity;
+    } else if (ticket.type === 'paid') {
+        document.getElementById('editTicketPrice').value = ticket.price;
+        document.getElementById('editPaidTicketQuantity').value = ticket.quantity;
+        document.getElementById(`edit${ticket.processingMethod.charAt(0).toUpperCase() + ticket.processingMethod.slice(1)}Processing`).checked = true;
+        } else if (ticket.type === 'donation') {
+        document.getElementById('editSuggestedDonation').value = ticket.suggestedDonation || '';
+        document.getElementById('editDonationTicketQuantity').value = ticket.quantity;
+    }
+    
+    // Update edit preview
+    updateEditTicketPreview();
+    
+    // Show edit modal
+    document.getElementById('ticketEditModal').style.display = 'flex';
+}
+
+function deleteTicketType(index) {
+    if (confirm('Are you sure you want to delete this ticket type?')) {
+        physicalTicketTypes.splice(index, 1);
+        updateTicketTypesDisplay();
+        updatePhysicalPaymentSummary();
         
-        const searchResults = [];
-        const searchTermLower = searchTerm.toLowerCase();
+        // Hide subsequent form groups if no tickets remain
+        if (physicalTicketTypes.length === 0) {
+            hideFormGroup('eventNameGroup');
+            hideFormGroup('descriptionGroup');
+            hideFormGroup('physicalBackgroundGroup');
+            hideFormGroup('tagsGroup');
+            hideFormGroup('rulesGroup');
+            hideFormGroup('paymentGroup');
+            hideFormGroup('submitGroup');
+        }
+    }
+}
+
+function selectEditTicketType(type) {
+    const freeConfig = document.getElementById('editFreeTicketConfig');
+    const paidConfig = document.getElementById('editPaidTicketConfig');
+    const donationConfig = document.getElementById('editDonationTicketConfig');
+    
+    // Hide all configs
+    freeConfig.style.display = 'none';
+    paidConfig.style.display = 'none';
+    donationConfig.style.display = 'none';
+    
+    // Show selected config
+    if (type === 'free') {
+        freeConfig.style.display = 'block';
+    } else if (type === 'paid') {
+        paidConfig.style.display = 'block';
+    } else if (type === 'donation') {
+        donationConfig.style.display = 'block';
+    }
+    
+    updateEditTicketPreview();
+}
+
+function updateEditTicketPreview() {
+    const ticketName = document.getElementById('editTicketName').value || 'Ticket Name';
+    const ticketType = document.querySelector('input[name="editTicketType"]:checked')?.value || 'free';
+    
+    const previewName = document.getElementById('editTicketPreviewName');
+    const previewType = document.getElementById('editTicketPreviewType');
+    const previewPrice = document.getElementById('editTicketPreviewPrice');
+    const previewQuantity = document.getElementById('editTicketPreviewQuantity');
+    
+    previewName.textContent = ticketName;
+    
+    if (ticketType === 'free') {
+        previewType.textContent = 'FREE';
+        previewType.className = 'ticket-preview-type free';
+        previewPrice.textContent = 'Free Entry';
         
-        allEventsQuery.forEach(doc => {
-            const eventData = doc.data();
-            let shouldInclude = false;
-            
-            // Search based on filter type
-            switch(filter) {
-                case 'all':
-                    shouldInclude = 
-                        eventData.eventName?.toLowerCase().includes(searchTermLower) ||
-                        eventData.eventDescription?.toLowerCase().includes(searchTermLower) ||
-                        eventData.eventType?.toLowerCase().includes(searchTermLower) ||
-                        eventData.creatorName?.toLowerCase().includes(searchTermLower);
-                    break;
-                case 'events':
-                    shouldInclude = 
-                        eventData.eventName?.toLowerCase().includes(searchTermLower) ||
-                        eventData.eventType?.toLowerCase().includes(searchTermLower);
-                    break;
-                case 'performers':
-                case 'shows':
-                case 'competitions':
-                    shouldInclude = 
-                        eventData.eventName?.toLowerCase().includes(searchTermLower) ||
-                        eventData.eventDescription?.toLowerCase().includes(searchTermLower);
-                    break;
+        const quantity = document.getElementById('editFreeTicketQuantity').value || 0;
+        previewQuantity.textContent = `${quantity} available`;
+        
+    } else if (ticketType === 'paid') {
+        previewType.textContent = 'PAID';
+        previewType.className = 'ticket-preview-type paid';
+        
+        const price = document.getElementById('editTicketPrice').value || 0;
+        previewPrice.textContent = `₦${price}`;
+        
+        const quantity = document.getElementById('editPaidTicketQuantity').value || 0;
+        previewQuantity.textContent = `${quantity} available`;
+        
+    } else if (ticketType === 'donation') {
+        previewType.textContent = 'DONATION';
+        previewType.className = 'ticket-preview-type donation';
+        
+        const suggested = document.getElementById('editSuggestedDonation').value;
+        previewPrice.textContent = suggested ? `Suggested: ₦${suggested}` : 'Pay What You Want';
+        
+        const quantity = document.getElementById('editDonationTicketQuantity').value || 0;
+        previewQuantity.textContent = `${quantity} available`;
+    }
+}
+
+// Add event listeners for edit ticket preview updates
+document.getElementById('editTicketName').addEventListener('input', updateEditTicketPreview);
+document.getElementById('editFreeTicketQuantity').addEventListener('input', updateEditTicketPreview);
+document.getElementById('editTicketPrice').addEventListener('input', updateEditTicketPreview);
+document.getElementById('editPaidTicketQuantity').addEventListener('input', updateEditTicketPreview);
+document.getElementById('editSuggestedDonation').addEventListener('input', updateEditTicketPreview);
+document.getElementById('editDonationTicketQuantity').addEventListener('input', updateEditTicketPreview);
+
+function closeTicketEditModal() {
+    document.getElementById('ticketEditModal').style.display = 'none';
+    currentEditingTicketIndex = -1;
+}
+
+function updateTicketConfiguration() {
+    const index = currentEditingTicketIndex;
+    if (index === -1) return;
+    
+    const ticketName = document.getElementById('editTicketName').value.trim();
+    const ticketType = document.querySelector('input[name="editTicketType"]:checked').value;
+    
+    if (!ticketName) {
+        alert('Please enter a ticket name');
+        return;
+    }
+    
+    let ticketConfig = {
+        name: ticketName,
+        type: ticketType,
+        description: document.getElementById('editTicketDescription').value.trim()
+    };
+    
+    // Get type-specific configuration
+    if (ticketType === 'free') {
+        const quantity = parseInt(document.getElementById('editFreeTicketQuantity').value);
+        if (!quantity || quantity < 1) {
+            alert('Please enter a valid quantity for free tickets');
+            return;
+        }
+        ticketConfig.quantity = quantity;
+        
+    } else if (ticketType === 'paid') {
+        const price = parseFloat(document.getElementById('editTicketPrice').value);
+        const quantity = parseInt(document.getElementById('editPaidTicketQuantity').value);
+        const processingMethod = document.querySelector('input[name="editProcessingMethod"]:checked').value;
+        
+        if (!price || price < 1) {
+            alert('Please enter a valid price for paid tickets');
+            return;
+        }
+        if (!quantity || quantity < 1) {
+            alert('Please enter a valid quantity for paid tickets');
+            return;
+        }
+        
+        ticketConfig.price = price;
+        ticketConfig.quantity = quantity;
+        ticketConfig.processingMethod = processingMethod;
+        
+    } else if (ticketType === 'donation') {
+        const quantity = parseInt(document.getElementById('editDonationTicketQuantity').value);
+        const suggested = parseFloat(document.getElementById('editSuggestedDonation').value) || 0;
+        
+        if (!quantity || quantity < 1) {
+            alert('Please enter a valid quantity for donation tickets');
+            return;
+        }
+        
+        ticketConfig.quantity = quantity;
+        ticketConfig.suggestedDonation = suggested;
+    }
+    
+    // Update ticket in array
+    physicalTicketTypes[index] = ticketConfig;
+    
+    // Update display and payment summary
+    updateTicketTypesDisplay();
+    updatePhysicalPaymentSummary();
+    
+    // Close modal
+    closeTicketEditModal();
+}
+
+// Physical Event Background Functions
+function switchPhysicalBackgroundTab(tab) {
+    const mediaTabs = document.querySelectorAll('.bg-tab');
+    const mediaContents = document.querySelectorAll('.bg-content');
+    
+    // Remove active class from all tabs and contents
+    mediaTabs.forEach(t => t.classList.remove('active'));
+    mediaContents.forEach(c => c.classList.remove('active'));
+    
+    // Add active class to selected tab and content
+    event.target.classList.add('active');
+    document.getElementById(tab === 'media' ? 'mediaContent' : 'gradientContent').classList.add('active');
+    
+    // Update selected background type
+    selectedPhysicalBackground.type = tab;
+}
+
+function handlePhysicalMediaUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+    
+    // Validate file size (10MB max)
+    if (file.size > 10 * 1024 * 1024) {
+        alert('File size must be less than 10MB');
+        input.value = '';
+        return;
+    }
+    
+    // Validate file type
+    const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'video/mp4', 'video/quicktime'];
+    if (!validTypes.includes(file.type)) {
+        alert('Please upload a valid image (JPG, PNG, GIF) or video (MP4, MOV) file');
+        input.value = '';
+        return;
+    }
+    
+    // For videos, validate duration (15 seconds max)
+    if (file.type.startsWith('video/')) {
+        const video = document.createElement('video');
+        video.preload = 'metadata';
+        
+        video.onloadedmetadata = function() {
+            if (video.duration > 15) {
+                alert('Video duration must be 15 seconds or less');
+                input.value = '';
+                return;
             }
             
-            if (shouldInclude) {
-                searchResults.push({ ...eventData, launchedEventId: doc.id });
+            // Process valid video
+            processPhysicalMedia(file);
+        };
+        
+        video.src = URL.createObjectURL(file);
+    } else {
+        // Process image/gif
+        processPhysicalMedia(file);
+    }
+}
+
+function processPhysicalMedia(file) {
+    physicalMediaFile = file;
+    const previewContainer = document.getElementById('physicalMediaPreviewContainer');
+    const previewElement = document.getElementById('physicalMediaPreview');
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        previewElement.innerHTML = '';
+        
+        if (file.type.startsWith('image/')) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.className = 'media-preview-image';
+            previewElement.appendChild(img);
+        } else if (file.type.startsWith('video/')) {
+            const video = document.createElement('video');
+            video.src = e.target.result;
+            video.className = 'media-preview-video';
+            video.controls = true;
+            video.muted = true;
+            previewElement.appendChild(video);
+        }
+        
+        previewContainer.style.display = 'block';
+        selectedPhysicalBackground = { type: 'media', value: file };
+    };
+    
+    reader.readAsDataURL(file);
+}
+
+function removePhysicalMedia() {
+    physicalMediaFile = null;
+    document.getElementById('physicalBackgroundMedia').value = '';
+    document.getElementById('physicalMediaPreviewContainer').style.display = 'none';
+    document.getElementById('physicalMediaPreview').innerHTML = '';
+    
+    // Reset to gradient background
+    selectedPhysicalBackground = { type: 'gradient', value: '#FF6B6B,#4ECDC4' };
+    updateGradientPreview();
+}
+
+function updateGradientPreview() {
+    const color1 = document.getElementById('gradientColor1').value;
+    const color2 = document.getElementById('gradientColor2').value;
+    const preview = document.getElementById('gradientPreview');
+    
+    const gradient = `linear-gradient(135deg, ${color1}, ${color2})`;
+    preview.style.background = gradient;
+    
+    selectedPhysicalBackground = { type: 'gradient', value: `${color1},${color2}` };
+}
+
+// Ticket customization functions
+function switchTicketCustomTab(tab) {
+    const tabs = document.querySelectorAll('.custom-tab');
+    const contents = document.querySelectorAll('.custom-content');
+    
+    tabs.forEach(t => t.classList.remove('active'));
+    contents.forEach(c => c.classList.remove('active'));
+    
+    event.target.classList.add('active');
+    document.getElementById(tab === 'image' ? 'ticketImageContent' : 'ticketColorContent').classList.add('active');
+}
+
+function switchEditTicketCustomTab(tab) {
+    const tabs = document.querySelectorAll('.custom-tab');
+    const contents = document.querySelectorAll('.custom-content');
+    
+    tabs.forEach(t => t.classList.remove('active'));
+    contents.forEach(c => c.classList.remove('active'));
+    
+    event.target.classList.add('active');
+    document.getElementById(tab === 'image' ? 'editTicketImageContent' : 'editTicketColorContent').classList.add('active');
+}
+
+function selectTicketColor(color) {
+    // Update ticket preview background color
+    const preview = document.getElementById('ticketPreview');
+    preview.style.backgroundColor = color;
+    
+    // Remove active class from all color options
+    document.querySelectorAll('#ticketColorContent .color-option').forEach(option => {
+        option.classList.remove('active');
+    });
+    
+    // Add active class to selected color
+    event.target.classList.add('active');
+}
+
+function selectEditTicketColor(color) {
+    // Update edit ticket preview background color
+    const preview = document.getElementById('editTicketPreview');
+    preview.style.backgroundColor = color;
+    
+    // Remove active class from all color options
+    document.querySelectorAll('#editTicketColorContent .color-option').forEach(option => {
+        option.classList.remove('active');
+    });
+    
+    // Add active class to selected color
+    event.target.classList.add('active');
+}
+
+// Payment calculation for physical events
+function updatePhysicalPaymentSummary() {
+    const category = document.getElementById('physicalEventCategory').value;
+    const selectedCategoryElement = document.getElementById('selectedPhysicalCategory');
+    const freeTicketFeeElement = document.getElementById('freeTicketFee');
+    const paidTicketFeeElement = document.getElementById('paidTicketFee');
+    const processingMethodElement = document.getElementById('processingMethod');
+    const totalFeeElement = document.getElementById('totalPhysicalCreationFee');
+    const totalNairaElement = document.getElementById('totalPhysicalCreationFeeNaira');
+    
+    // Show category
+    if (category) {
+        const categoryText = document.getElementById('physicalEventCategory').selectedOptions[0].textContent;
+        selectedCategoryElement.textContent = categoryText;
+    } else {
+        selectedCategoryElement.textContent = '-';
+    }
+    
+    let totalFee = 0;
+    let hasFreeTickets = false;
+    let hasPaidTickets = false;
+    let paidTicketFee = 0;
+    let processingMethods = [];
+    
+    // Calculate fees based on ticket types
+    physicalTicketTypes.forEach(ticket => {
+        if (ticket.type === 'free' || ticket.type === 'donation') {
+            hasFreeTickets = true;
+        } else if (ticket.type === 'paid') {
+            hasPaidTickets = true;
+            
+            if (ticket.processingMethod === 'oneTime') {
+                paidTicketFee += 0.2 * ticket.quantity;
+                processingMethods.push('One-time');
+            } else {
+                processingMethods.push('Per-ticket');
             }
-        });
-        
-        if (searchResults.length > 0) {
-            loadingMessage.style.display = 'none';
-            searchResults.forEach(eventData => {
-                createNewEventPost(eventData);
-            });
-        } else {
-            loadingMessage.innerHTML = `
-                <i class="fas fa-search"></i>
-                <p>No results found for "${searchTerm}"</p>
-            `;
         }
+    });
+    
+    // Show/hide fee items
+    const freeTicketFeeItem = document.getElementById('freeTicketFeeItem');
+    const paidTicketFeeItem = document.getElementById('paidTicketFeeItem');
+    const processingFeeItem = document.getElementById('ticketProcessingFeeItem');
+    
+    if (hasFreeTickets) {
+        freeTicketFeeItem.style.display = 'flex';
+               freeTicketFeeElement.textContent = '7 TC';
+        totalFee += 7;
+    } else {
+        freeTicketFeeItem.style.display = 'none';
+    }
+    
+    if (hasPaidTickets) {
+        paidTicketFeeItem.style.display = 'flex';
+        paidTicketFeeElement.textContent = `${paidTicketFee} TC`;
+        totalFee += paidTicketFee;
         
-    } catch (error) {
-        console.error('Error searching events:', error);
-        const loadingMessage = document.querySelector('.newevent-loading-message');
-        if (loadingMessage) {
-            loadingMessage.innerHTML = `
-                <i class="fas fa-exclamation-triangle"></i>
-                <p>Error searching events. Please try again.</p>
-            `;
-        }
+        processingFeeItem.style.display = 'flex';
+        processingMethodElement.textContent = [...new Set(processingMethods)].join(', ');
+    } else {
+        paidTicketFeeItem.style.display = 'none';
+        processingFeeItem.style.display = 'none';
+    }
+    
+    // Update total
+    totalFeeElement.textContent = `${totalFee} TC`;
+    totalNairaElement.textContent = (totalFee * 50).toLocaleString();
+}
+
+// Payment breakdown visibility
+function updatePaymentBreakdownVisibility(mode) {
+    const onlineBreakdown = document.getElementById('onlinePaymentBreakdown');
+    const physicalBreakdown = document.getElementById('physicalPaymentBreakdown');
+    
+    if (mode === 'online') {
+        onlineBreakdown.style.display = 'block';
+        physicalBreakdown.style.display = 'none';
+    } else if (mode === 'physical') {
+        onlineBreakdown.style.display = 'none';
+        physicalBreakdown.style.display = 'block';
     }
 }
 
-// Placeholder for join event functionality (to be implemented later)
-function joinEvent(launchedEventId) {
-    console.log('Join event clicked for:', launchedEventId);
-    alert('Join functionality will be implemented later!');
-}
-
-// Placeholder for start event functionality (to be implemented later)
-function startEvent(eventId) {
-    console.log('Start event clicked for:', eventId);
-    alert('Start functionality will be implemented later!');
-}
-
-// Update participant count in real-time
-function updateParticipantCount(launchedEventId, newCount) {
-    const postCard = document.getElementById(`post-${launchedEventId}`);
-    if (postCard) {
-        const participantSpan = postCard.querySelector('.newevent-mini-card-participants span');
-        if (participantSpan) {
-            const maxParticipants = participantSpan.textContent.split('/')[1];
-            participantSpan.textContent = `${newCount}/${maxParticipants}`;
-        }
-    }
+// Reset functions
+function resetPhysicalEventData() {
+    physicalTicketTypes = [];
+    physicalMediaFile = null;
+    selectedPhysicalBackground = { type: 'gradient', value: '#FF6B6B,#4ECDC4' };
     
-    // Also update the original entertainment card if visible
-    const originalCard = document.querySelector(`[id*="card-"]`);
-    if (originalCard) {
-        const participantCounter = originalCard.querySelector('.participants-counter span');
-        if (participantCounter) {
-            const maxParticipants = participantCounter.textContent.split('/')[1];
-            participantCounter.textContent = `${newCount}/${maxParticipants}`;
+    // Reset form fields
+    document.getElementById('physicalEventCategory').value = '';
+    document.getElementById('eventLocation').value = '';
+    document.getElementById('startDate').value = '';
+    document.getElementById('startTime').value = '';
+    document.getElementById('endDate').value = '';
+    document.getElementById('endTime').value = '';
+    
+    // Reset displays
+    document.getElementById('ticketTypesList').innerHTML = '';
+    document.getElementById('durationDisplay').style.display = 'none';
+    document.querySelector('.custom-physical-category-input').style.display = 'none';
+    document.getElementById('physicalMediaPreviewContainer').style.display = 'none';
+}
+
+function resetOnlineEventData() {
+    // Reset online event specific data
+    document.getElementById('eventType').value = '';
+    document.getElementById('category').value = '';
+    document.getElementById('duration').value = '';
+    document.getElementById('participants').value = '';
+    document.getElementById('entryFee').value = '';
+    document.getElementById('votingFee').value = '';
+    
+    // Reset background
+    selectedBackground = { type: 'color', value: '#FF6B6B' };
+    imageFile = null;
+    
+    // Reset displays
+    document.querySelector('.custom-category-input').style.display = 'none';
+    document.getElementById('imagePreviewContainer').style.display = 'none';
+}
+
+// Enhanced form validation for physical events
+function validatePhysicalEventForm() {
+    const mode = document.querySelector('input[name="eventMode"]:checked').value;
+    
+    if (mode === 'physical') {
+        // Validate category
+        const category = document.getElementById('physicalEventCategory').value;
+        if (!category) {
+            alert('Please select an event category');
+            return false;
         }
         
-        // Update start button state if it's a paid event
-        const startBtn = originalCard.querySelector('.start-btn');
-        if (startBtn && startBtn.disabled && newCount >= 10) {
-            startBtn.disabled = false;
-            startBtn.innerHTML = '<i class="fas fa-play"></i> <span>Start</span>';
-            startBtn.title = '';
+        // Validate location
+        const location = document.getElementById('eventLocation').value.trim();
+        if (location.length < 10) {
+            alert('Please provide a detailed event location (minimum 10 characters)');
+            return false;
+        }
+        
+        // Validate dates
+        const startDate = document.getElementById('startDate').value;
+        const startTime = document.getElementById('startTime').value;
+        const endDate = document.getElementById('endDate').value;
+        const endTime = document.getElementById('endTime').value;
+        
+        if (!startDate || !startTime || !endDate || !endTime) {
+            alert('Please fill in all date and time fields');
+            return false;
+        }
+        
+        const start = new Date(`${startDate}T${startTime}`);
+        const end = new Date(`${endDate}T${endTime}`);
+        const now = new Date();
+        
+        if (start <= now) {
+            alert('Event start time must be in the future');
+            return false;
+        }
+        
+        if (end <= start) {
+            alert('Event end time must be after start time');
+            return false;
+        }
+        
+        // Validate tickets
+        if (physicalTicketTypes.length === 0) {
+            alert('Please add at least one ticket type');
+            return false;
+        }
+        
+        // Validate ticket configurations
+        for (let ticket of physicalTicketTypes) {
+            if (!ticket.name || ticket.name.trim().length === 0) {
+                alert('All tickets must have a name');
+                return false;
+            }
+            
+            if (!ticket.quantity || ticket.quantity < 1) {
+                alert(`Ticket "${ticket.name}" must have a valid quantity`);
+                return false;
+            }
+            
+            if (ticket.type === 'paid' && (!ticket.price || ticket.price < 1)) {
+                alert(`Paid ticket "${ticket.name}" must have a valid price`);
+                return false;
+            }
         }
     }
+    
+    return true;
 }
 
-// Initialize New Events functionality
-function initializeNewEvents() {
-    // Setup filters
-    setupNewEventFilters();
+// Enhanced form submission
+function handleFormSubmission(event) {
+    event.preventDefault();
     
-    // Setup search
-    setupNewEventSearch();
+    const mode = document.querySelector('input[name="eventMode"]:checked').value;
     
-    // Load existing launched events
-    loadExistingLaunchedEvents();
+    // Validate based on event mode
+    if (mode === 'online') {
+        if (!validateOnlineEventForm()) return;
+    } else if (mode === 'physical') {
+        if (!validatePhysicalEventForm()) return;
+    }
     
-    console.log('New Events functionality initialized');
+    // Common validations
+    const eventName = document.getElementById('eventName').value.trim();
+    const eventDescription = document.getElementById('eventDescription').value.trim();
+    
+    if (eventName.length < 5) {
+        alert('Event name must be at least 5 characters long');
+        return;
+    }
+    
+    if (eventDescription.length < 20) {
+        alert('Event description must be at least 20 characters long');
+        return;
+    }
+    
+    // Payment validation
+    const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+    if (paymentMethod === 'promoCode') {
+        const promoCode = document.getElementById('promoCodeInput').value.trim();
+        const validCodes = ['Bisask19', 'nig2025', 'Ismartdc'];
+        
+        if (!validCodes.includes(promoCode)) {
+            alert('Please enter a valid promo code');
+            return;
+        }
+    }
+    
+    // Create event data object
+    const eventData = createEventDataObject(mode);
+    
+    // Submit event
+    submitEvent(eventData);
 }
 
-// Initialize when DOM is ready
+function createEventDataObject(mode) {
+    const eventData = {
+        mode: mode,
+        name: document.getElementById('eventName').value.trim(),
+        description: document.getElementById('eventDescription').value.trim(),
+        background: mode === 'online' ? selectedBackground : selectedPhysicalBackground,
+        hashtags: hashtags,
+        startags: startags,
+        rules: rules,
+        paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value
+    };
+    
+    if (mode === 'online') {
+        eventData.type = document.getElementById('eventType').value;
+        eventData.category = document.getElementById('category').value;
+        eventData.duration = document.getElementById('duration').value;
+        eventData.participants = document.getElementById('participants').value;
+        eventData.entryFee = document.getElementById('entryFee').value;
+        eventData.votingFee = document.getElementById('votingFee').value;
+        
+        if (imageFile) {
+            eventData.backgroundImage = imageFile;
+        }
+        
+    } else if (mode === 'physical') {
+        eventData.category = document.getElementById('physicalEventCategory').value;
+        eventData.location = document.getElementById('eventLocation').value.trim();
+        eventData.startDate = document.getElementById('startDate').value;
+        eventData.startTime = document.getElementById('startTime').value;
+        eventData.endDate = document.getElementById('endDate').value;
+        eventData.endTime = document.getElementById('endTime').value;
+        eventData.tickets = physicalTicketTypes;
+        
+        if (physicalMediaFile) {
+            eventData.backgroundMedia = physicalMediaFile;
+        }
+    }
+    
+    if (eventData.paymentMethod === 'promoCode') {
+        eventData.promoCode = document.getElementById('promoCodeInput').value.trim();
+    }
+    
+    return eventData;
+}
+
+function submitEvent(eventData) {
+    // Show loading state
+    const submitBtn = document.getElementById('createEventBtn');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Event...';
+    submitBtn.disabled = true;
+    
+    // Simulate API call
+    setTimeout(() => {
+        console.log('Event Data:', eventData);
+        
+        // Show success message
+        alert('Event created successfully!');
+        
+        // Reset form
+        resetForm();
+        
+        // Reset button
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        
+        // Redirect or close modal
+        closeModal();
+        
+    }, 2000);
+}
+
+function resetForm() {
+    // Reset all form fields
+    document.getElementById('eventCreationForm').reset();
+    
+    // Reset global variables
+    physicalTicketTypes = [];
+    currentEditingTicketIndex = -1;
+    selectedPhysicalBackground = { type: 'gradient', value: '#FF6B6B,#4ECDC4' };
+    physicalMediaFile = null;
+    hashtags = [];
+    startags = [];
+    rules = [];
+    
+    // Reset displays
+    document.getElementById('ticketTypesList').innerHTML = '';
+    document.getElementById('hashtagsDisplay').innerHTML = '';
+    document.getElementById('startagsDisplay').innerHTML = '';
+    document.getElementById('rulesList').innerHTML = '';
+    document.getElementById('durationDisplay').style.display = 'none';
+    document.getElementById('physicalMediaPreviewContainer').style.display = 'none';
+    document.getElementById('imagePreviewContainer').style.display = 'none';
+    
+    // Hide all form groups except mode selection
+    hideAllFormGroups();
+    showFormGroup('eventModeGroup');
+    
+    // Reset to online mode by default
+    document.getElementById('onlineEvent').checked = true;
+    selectEventMode('online');
+}
+
+function hideAllFormGroups() {
+    const formGroups = [
+        'eventTypeGroup', 'categoryGroup', 'durationGroup', 'participantsGroup',
+        'entryFeeGroup', 'votingFeeGroup', 'physicalCategoryGroup', 'locationGroup',
+        'schedulingGroup', 'ticketConfigGroup', 'eventNameGroup', 'descriptionGroup',
+        'backgroundGroup', 'physicalBackgroundGroup', 'tagsGroup', 'rulesGroup',
+        'paymentGroup', 'submitGroup'
+    ];
+    
+    formGroups.forEach(groupId => {
+        hideFormGroup(groupId);
+    });
+}
+
+// Initialize physical event functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Check if New Events page elements exist
-    if (document.getElementById('newevent-talent-cards')) {
-        initializeNewEvents();
-    }
+    // Add event listeners for date/time inputs
+    ['startDate', 'startTime', 'endDate', 'endTime'].forEach(id => {
+        document.getElementById(id).addEventListener('change', calculateDuration);
+    });
+    
+    // Add event listeners for gradient colors
+    document.getElementById('gradientColor1').addEventListener('change', updateGradientPreview);
+    document.getElementById('gradientColor2').addEventListener('change', updateGradientPreview);
+    
+    // Initialize gradient preview
+    updateGradientPreview();
+    
+    // Add form submission handler
+    document.getElementById('eventCreationForm').addEventListener('submit', handleFormSubmission);
+    
+    // Set default event mode to online
+    document.getElementById('onlineEvent').checked = true;
+    selectEventMode('online');
 });
 
-// Real-time listener for participant updates
-function setupParticipantListener() {
-    if (!auth.currentUser) return;
-    
-    db.collection('launchedEvents')
-        .where('status', '==', 'launched')
-        .onSnapshot(snapshot => {
-            snapshot.docChanges().forEach(change => {
-                if (change.type === 'modified') {
-                    const eventData = change.doc.data();
-                    const launchedEventId = change.doc.id;
-                    
-                    // Update participant count in UI
-                    updateParticipantCount(launchedEventId, eventData.currentParticipants || 0);
-                }
-            });
-        });
-}
-
-// Setup real-time listener when user is authenticated
-auth.onAuthStateChanged(user => {
-    if (user) {
-        setupParticipantListener();
+// Utility functions for form group management
+function showFormGroup(groupId) {
+    const group = document.getElementById(groupId);
+    if (group) {
+        group.style.display = 'block';
     }
-});
-
-// Utility function to refresh New Events feed
-function refreshNewEventsFeed() {
-    const talentCardsContainer = document.getElementById('newevent-talent-cards');
-    if (!talentCardsContainer) return;
-    
-    // Clear existing cards
-    const existingCards = talentCardsContainer.querySelectorAll('.newevent-post-card');
-    existingCards.forEach(card => card.remove());
-    
-    // Reload events
-    loadExistingLaunchedEvents();
 }
 
-// Export functions for global access
-window.launchEvent = launchEvent;
-window.joinEvent = joinEvent;
-window.startEvent = startEvent;
-window.refreshNewEventsFeed = refreshNewEventsFeed;
-      
+function hideFormGroup(groupId) {
+    const group = document.getElementById(groupId);
+    if (group) {
+        group.style.display = 'none';
+    }
+}
+
+// Enhanced validation for online events (existing function enhancement)
+function validateOnlineEventForm() {
+    const eventType = document.getElementById('eventType').value;
+    const category = document.getElementById('category').value;
+    const duration = document.getElementById('duration').value;
+    const participants = document.getElementById('participants').value;
+    const entryFee = document.getElementById('entryFee').value;
+    const votingFee = document.getElementById('votingFee').value;
+    
+    if (!eventType) {
+        alert('Please select an event type');
+        return false;
+    }
+    
+    if (!category) {
+        alert('Please select a category');
+        return false;
+    }
+    
+    if (!duration) {
+        alert('Please select event duration');
+        return false;
+    }
+    
+    if (!participants) {
+        alert('Please select number of participants');
+        return false;
+    }
+    
+    if (!entryFee) {
+        alert('Please set entry fee');
+        return false;
+    }
+    
+    if (!votingFee) {
+        alert('Please set voting fee');
+        return false;
+    }
+    
+    return true;
+}
+
+// Close modal function
+function closeModal() {
+    const modal = document.querySelector('.modal-overlay');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
 
 
-
-
+    
 
        document.addEventListener('DOMContentLoaded', function() {
     // Get the button and the live events page
@@ -24035,7 +26268,6 @@ window.refreshNewEventsFeed = refreshNewEventsFeed;
             }
         });
     }
-    
     // Optional: Add a close button functionality (if you want to close from within the page)
     // You can add this HTML inside your liveevent-page: <button class="liveevent-close-btn"><i class="fas fa-times"></i></button>
     const liveeventCloseBtn = document.querySelector('.liveevent-close-btn');
@@ -24209,6 +26441,218 @@ window.refreshNewEventsFeed = refreshNewEventsFeed;
     });
 });
 
+
+   
+// Tab switching functionality for New Events page
+document.addEventListener('DOMContentLoaded', function() {
+    setupNewEventTabs();
+});
+
+function setupNewEventTabs() {
+    const tabButtons = document.querySelectorAll('.newevent-tab-btn');
+    const tabContents = document.querySelectorAll('.newevent-tab-content');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetTab = this.getAttribute('data-tab');
+            
+            // Remove active class from all tab buttons
+            tabButtons.forEach(btn => btn.classList.remove('newevent-active'));
+            
+            // Remove active class from all tab contents
+            tabContents.forEach(content => content.classList.remove('newevent-active'));
+            
+            // Add active class to clicked button
+            this.classList.add('newevent-active');
+            
+            // Show corresponding tab content
+            const targetContent = document.getElementById(`newevent-${targetTab}-tab`);
+            if (targetContent) {
+                targetContent.classList.add('newevent-active');
+            }
+            
+            // Load content for the active tab
+            loadTabContent(targetTab);
+            
+            console.log(`Switched to ${targetTab} tab`);
+        });
+    });
+    
+    // Load initial content for the default active tab (sports)
+    loadTabContent('sports');
+}
+
+function loadTabContent(tabType) {
+    console.log(`Loading content for ${tabType} tab`);
+    
+    if (tabType === 'sports') {
+        loadSportsEvents();
+    } else if (tabType === 'talent') {
+        loadTalentEvents();
+    }
+}
+
+function loadSportsEvents() {
+    const sportsContainer = document.getElementById('newevent-sports-cards');
+    if (!sportsContainer) return;
+    
+    // Show loading message
+    sportsContainer.innerHTML = `
+        <div class="newevent-loading-message">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading sports events...</p>
+        </div>
+    `;
+    
+    // Load sports events from database
+    // This will be implemented when we have sports events
+    setTimeout(() => {
+        sportsContainer.innerHTML = `
+            <div class="newevent-empty-message">
+                <i class="fas fa-futbol"></i>
+                <p>No sports events available yet</p>
+            </div>
+        `;
+    }, 1000);
+}
+
+function loadTalentEvents() {
+    const talentContainer = document.getElementById('newevent-talent-cards');
+    if (!talentContainer) return;
+    
+    // Show loading message
+    talentContainer.innerHTML = `
+        <div class="newevent-loading-message">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading talent shows...</p>
+        </div>
+    `;
+    
+    // Load launched entertainment events (they go to talent tab)
+    loadLaunchedEvents('talent');
+}
+
+function loadLaunchedEvents(category) {
+    const container = document.getElementById(`newevent-${category}-cards`);
+    if (!container) return;
+    
+    try {
+        // Query launched events for this category
+        db.collection('launchedEvents')
+            .where('feedCategory', '==', category)
+            .orderBy('launchedAt', 'desc')
+            .limit(20)
+            .get()
+            .then(querySnapshot => {
+                if (querySnapshot.empty) {
+                    container.innerHTML = `
+                        <div class="newevent-empty-message">
+                            <i class="fas fa-star"></i>
+                            <p>No ${category} events launched yet</p>
+                            <small>Events will appear here when users launch them</small>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Clear loading message
+                container.innerHTML = '';
+                
+                // Create cards for each launched event
+                querySnapshot.forEach(doc => {
+                    const eventData = { ...doc.data(), launchedEventId: doc.id };
+                    createNewEventPost(eventData, container);
+                });
+                
+                console.log(`Loaded ${querySnapshot.size} ${category} events`);
+            })
+            .catch(error => {
+                console.error(`Error loading ${category} events:`, error);
+                container.innerHTML = `
+                    <div class="newevent-error-message">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Error loading ${category} events</p>
+                        <button onclick="loadTabContent('${category}')" class="retry-btn">
+                            <i class="fas fa-redo"></i> Retry
+                        </button>
+                    </div>
+                `;
+            });
+    } catch (error) {
+        console.error(`Error in loadLaunchedEvents for ${category}:`, error);
+    }
+}
+
+// Close New Events page
+function closeNewEventsPage() {
+    const newEventPage = document.querySelector('.newevent-page');
+    if (newEventPage) {
+        newEventPage.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// Add event listener for close button
+document.addEventListener('DOMContentLoaded', function() {
+    const closeBtn = document.querySelector('.newevent-close-btn');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeNewEventsPage);
+    }
+});
+ 
+
+       document.addEventListener('DOMContentLoaded', function() {
+    // Get the button and the live events page
+    const liveeventBtn = document.querySelector('.Liveevents-btn');
+    const liveeventPage = document.querySelector('.liveevent-page');
+    
+    // Hide the live events page initially
+    if (liveeventPage) {
+        liveeventPage.style.display = 'none';
+    }
+    
+    // Add click event listener to the button
+    if (liveeventBtn && liveeventPage) {
+        liveeventBtn.addEventListener('click', function() {
+            // Toggle the display of the live events page
+            if (liveeventPage.style.display === 'none' || liveeventPage.style.display === '') {
+                // Show the live events page
+                liveeventPage.style.display = 'block';
+                // Optional: Add a class for additional styling
+                liveeventPage.classList.add('liveevent-page-open');
+            } else {
+                // Hide the live events page
+                liveeventPage.style.display = 'none';
+                // Optional: Remove the class
+                liveeventPage.classList.remove('liveevent-page-open');
+            }
+        });
+    }
+    // Optional: Add a close button functionality (if you want to close from within the page)
+    // You can add this HTML inside your liveevent-page: <button class="liveevent-close-btn"><i class="fas fa-times"></i></button>
+    const liveeventCloseBtn = document.querySelector('.liveevent-close-btn');
+    if (liveeventCloseBtn && liveeventPage) {
+        liveeventCloseBtn.addEventListener('click', function() {
+            liveeventPage.style.display = 'none';
+            liveeventPage.classList.remove('liveevent-page-open');
+        });
+    }
+    
+    // Optional: Close when clicking outside the live events page
+    document.addEventListener('click', function(event) {
+        // Check if the click is outside the live events page and not on the trigger button
+        if (liveeventPage && 
+            liveeventPage.style.display === 'block' && 
+            !liveeventPage.contains(event.target) && 
+            !liveeventBtn.contains(event.target)) {
+            
+            liveeventPage.style.display = 'none';
+            liveeventPage.classList.remove('liveevent-page-open');
+        }
+    });
+});
+ 
+    
 
   // Improved Spin Wheel Functionality with isolated class names
 document.addEventListener('DOMContentLoaded', function() {
