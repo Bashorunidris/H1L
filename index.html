@@ -4403,6 +4403,441 @@ input:checked + .slider:before {
         transition-duration: 0.01ms !important;
     }
 }
+/* Event Cards Styles */
+.newevent-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.newevent-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.newevent-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.newevent-card-background {
+    height: 120px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    border-radius: 12px 12px 0 0;
+}
+
+.newevent-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1));
+    border-radius: 12px 12px 0 0;
+}
+
+.newevent-card-content {
+    padding: 15px;
+}
+
+.newevent-card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2d3436;
+    text-align: center;
+    margin: 0 0 15px 0;
+    line-height: 1.3;
+}
+
+.newevent-card-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.newevent-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #636e72;
+}
+
+.newevent-detail-item i {
+    width: 16px;
+    color: #6c5ce7;
+    font-size: 14px;
+}
+
+.newevent-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid #f1f2f6;
+}
+
+.newevent-creation-date {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: #74b9ff;
+}
+
+.newevent-creation-date i {
+    font-size: 12px;
+}
+
+.newevent-check-btn {
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.newevent-check-btn:hover {
+    background: linear-gradient(135deg, #5f4fcf, #9085e8);
+    transform: scale(1.05);
+}
+
+.newevent-check-btn i {
+    font-size: 11px;
+}
+
+/* Event Details Modal Styles */
+.newevent-details-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    padding: 20px;
+}
+
+.newevent-details-container {
+    background: white;
+    border-radius: 15px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.newevent-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid #f1f2f6;
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+    color: white;
+    border-radius: 15px 15px 0 0;
+}
+
+.newevent-details-header h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.newevent-details-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+
+.newevent-details-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.newevent-details-content {
+    padding: 25px;
+}
+
+.newevent-details-description {
+    margin-bottom: 20px;
+}
+
+.newevent-details-description p {
+    color: #636e72;
+    line-height: 1.6;
+    font-size: 15px;
+    margin: 0;
+}
+
+.newevent-details-fee {
+    margin-bottom: 25px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #6c5ce7;
+}
+
+.newevent-details-fee h4 {
+    margin: 0 0 8px 0;
+    color: #2d3436;
+    font-size: 16px;
+}
+
+.newevent-details-fee p {
+    margin: 0;
+    color: #636e72;
+    font-weight: 500;
+}
+
+.newevent-payment-section h4 {
+    margin: 0 0 15px 0;
+    color: #2d3436;
+    font-size: 16px;
+}
+
+.newevent-payment-options {
+    margin-bottom: 20px;
+}
+
+.newevent-payment-option {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.newevent-payment-option:hover:not(.disabled) {
+    border-color: #6c5ce7;
+    background: #f8f7ff;
+}
+
+.newevent-payment-option.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.newevent-payment-option input[type="radio"] {
+    margin-right: 10px;
+}
+
+.newevent-payment-option label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #2d3436;
+}
+
+.newevent-payment-option.disabled label {
+    cursor: not-allowed;
+}
+
+.newevent-free-pass-section {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.newevent-free-pass-section p {
+    margin: 0 0 10px 0;
+    color: #636e72;
+    font-size: 14px;
+}
+
+.newevent-valid-codes {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.newevent-code {
+    background: #6c5ce7;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: monospace;
+}
+
+.newevent-code-input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.newevent-code-input:focus {
+    outline: none;
+    border-color: #6c5ce7;
+}
+
+.newevent-details-actions {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #f1f2f6;
+}
+
+.newevent-join-btn {
+    background: linear-gradient(135deg, #00b894, #00cec9);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.newevent-join-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #00a085, #00b7b3);
+    transform: translateY(-2px);
+}
+
+.newevent-join-btn:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Loading and Error States */
+.newevent-loading-message,
+.newevent-error-message,
+.newevent-no-events {
+    text-align: center;
+    padding: 40px 20px;
+    color: #636e72;
+}
+
+.newevent-loading-message i,
+.newevent-error-message i,
+.newevent-no-events i {
+    font-size: 48px;
+    margin-bottom: 15px;
+    color: #6c5ce7;
+}
+
+.newevent-loading-message p,
+.newevent-error-message p,
+.newevent-no-events p {
+    font-size: 16px;
+    margin: 0;
+}
+
+.newevent-retry-btn {
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.newevent-retry-btn:hover {
+    background: #5f4fcf;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .newevent-cards-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 15px 0;
+    }
+    
+    .newevent-card-title {
+        font-size: 16px;
+    }
+    
+    .newevent-details-modal {
+        padding: 10px;
+    }
+    
+    .newevent-details-container {
+        max-height: 95vh;
+    }
+    
+    .newevent-details-header {
+        padding: 15px 20px;
+    }
+    
+    .newevent-details-content {
+        padding: 20px;
+    }
+    
+    .newevent-valid-codes {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .newevent-cards-container {
+        padding: 10px 0;
+    }
+    
+    .newevent-card-content {
+        padding: 12px;
+    }
+    
+    .newevent-card-footer {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    
+    .newevent-check-btn {
+        align-self: flex-end;
+    }
+    
+    .newevent-details-header h2 {
+        font-size: 18px;
+    }
+    
+    .newevent-details-content {
+        padding: 15px;
+    }
+}
 
 
 :root {
@@ -11225,6 +11660,70 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
     }
 }
 
+/* Start button styling */
+.start-btn {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.start-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(17, 153, 142, 0.4);
+    background: linear-gradient(135deg, #0f8a7e 0%, #32d96d 100%);
+}
+
+.start-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.start-btn i {
+    font-size: 14px;
+}
+
+/* Update launch button for consistency */
+.launch-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.launch-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+}
+
+.launch-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.launch-btn i {
+    font-size: 14px;
+}
+
 /* Empty State Responsive */
 .entertainment-empty-state {
     text-align: center;
@@ -16636,7 +17135,6 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
     </div>
 </div>
      
-
 <!-- Host Entertainment Event Popup -->
 <div class="host-entertainment-popup-overlay" id="hostEntertainmentPopup">
     <div class="host-entertainment-popup-container">
@@ -16660,7 +17158,7 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
         <div class="host-entertainment-form-content">
             <form id="hostEntertainmentForm">
                 
-                <!-- Event Mode Selection (NEW) -->
+                <!-- Event Mode Selection -->
                 <div class="form-group" id="eventModeGroup">
                     <label for="eventMode">Event Mode</label>
                     <div class="event-mode-selection">
@@ -16683,10 +17181,11 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                     </div>
                 </div>
 
-                <!-- ONLINE EVENT SECTIONS (Original) -->
+                <!-- ONLINE EVENT SECTIONS -->
                 <div id="onlineEventSections">
+                    
                     <!-- Event Type Selection -->
-                    <div class="form-group" id="eventTypeGroup" style="display: none;">
+                    <div class="form-group">
                         <label for="eventType">Event Type</label>
                         <select id="eventType" class="form-select" onchange="updateEventTypeOptions()">
                             <option value="">Select Event Type</option>
@@ -16695,7 +17194,7 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                             <option value="bigRush">Big Rush</option>
                         </select>
                     </div>
-                    
+
                     <!-- Category Selection -->
                     <div class="form-group" id="categoryGroup" style="display: none;">
                         <label for="eventCategory">Category</label>
@@ -16708,7 +17207,7 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                         </div>
                         <button type="button" onclick="toggleCustomCategory()" class="custom-category-toggle">Add Custom Category</button>
                     </div>
-                    
+
                     <!-- Duration Selection -->
                     <div class="form-group" id="durationGroup" style="display: none;">
                         <label for="eventDuration">Event Duration</label>
@@ -16716,14 +17215,14 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                             <option value="">Select Duration</option>
                         </select>
                     </div>
-                    
+
                     <!-- Participants -->
                     <div class="form-group" id="participantsGroup" style="display: none;">
                         <label for="maxParticipants">Maximum Participants</label>
                         <input type="number" id="maxParticipants" class="form-input" min="10" max="50">
                         <small class="form-help" id="participantsHelp">Minimum: 10, Maximum: 50</small>
                     </div>
-                    
+
                     <!-- Entry Fee -->
                     <div class="form-group" id="entryFeeGroup" style="display: none;">
                         <label>Entry Fee</label>
@@ -16736,7 +17235,7 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                             <button type="button" class="no-fee-btn" id="noEntryFeeBtn" onclick="toggleEntryFee()">No Entry Fee</button>
                         </div>
                     </div>
-                    
+
                     <!-- Voting Fee -->
                     <div class="form-group" id="votingFeeGroup" style="display: none;">
                         <label>Voting Fee</label>
@@ -16749,10 +17248,165 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                             <button type="button" class="no-fee-btn" id="noVotingFeeBtn" onclick="toggleVotingFee()">No Voting Fee</button>
                         </div>
                     </div>
+
+                    <!-- Event Name -->
+                    <div class="form-group" id="eventNameGroup" style="display: none;">
+                        <label for="eventName">Event Name</label>
+                        <input type="text" id="eventName" class="form-input" placeholder="Enter event name" maxlength="50">
+                    </div>
+
+                    <!-- Event Description -->
+                    <div class="form-group" id="descriptionGroup" style="display: none;">
+                        <label for="eventDescription">Event Description</label>
+                        <textarea id="eventDescription" class="form-textarea" placeholder="Describe your event (20-100 words)" rows="4"></textarea>
+                        <small class="form-help">
+                            <span id="wordCount">0</span>/100 words (minimum 20 words)
+                        </small>
+                    </div>
+
+                    <!-- Background Selection -->
+                    <div class="form-group" id="backgroundGroup" style="display: none;">
+                        <label>Event Background</label>
+                        <div class="background-options">
+                            <div class="background-tabs">
+                                <button type="button" class="bg-tab active" onclick="switchBackgroundTab('image')">Image</button>
+                                <button type="button" class="bg-tab" onclick="switchBackgroundTab('color')">Color</button>
+                            </div>
+                            <div class="background-content">
+                                <div class="bg-content active" id="imageContent">
+                                    <input type="file" id="backgroundImage" accept="image/*" class="file-input">
+                                    <label for="backgroundImage" class="file-label">
+                                        <i class="fas fa-upload"></i>
+                                        Choose Background Image
+                                    </label>
+                                    
+                                    <!-- Image Preview Container -->
+                                    <div id="imagePreviewContainer" class="image-preview-container">
+                                        <img id="imagePreview" class="image-preview" alt="Preview">
+                                        <div id="imagePreviewText" class="image-preview-text"></div>
+                                        <button type="button" id="removeImageBtn" class="remove-image-btn">
+                                            <i class="fas fa-trash"></i>
+                                            Remove Image
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-content" id="colorContent">
+                                    <div class="color-palette">
+                                        <div class="color-option" style="background: #FF6B6B" onclick="selectColor('#FF6B6B')"></div>
+                                        <div class="color-option" style="background: #4ECDC4" onclick="selectColor('#4ECDC4')"></div>
+                                        <div class="color-option" style="background: #45B7D1" onclick="selectColor('#45B7D1')"></div>
+                                        <div class="color-option" style="background: #96CEB4" onclick="selectColor('#96CEB4')"></div>
+                                        <div class="color-option" style="background: #FFEAA7" onclick="selectColor('#FFEAA7')"></div>
+                                        <div class="color-option" style="background: #DDA0DD" onclick="selectColor('#DDA0DD')"></div>
+                                    </div>
+                                    <input type="color" id="customColor" class="custom-color-input" onchange="selectColor(this.value)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tags -->
+                    <div class="form-group" id="tagsGroup" style="display: none;">
+                        <label>Tags</label>
+                        <div class="tags-section">
+                            <div class="tag-input-section">
+                                <input type="text" id="hashtagInput" placeholder="Add hashtag" class="tag-input">
+                                <button type="button" onclick="addHashtag()" class="add-tag-btn"># Add</button>
+                            </div>
+                            <div class="tag-input-section">
+                                <input type="text" id="startagInput" placeholder="Add star tag" class="tag-input">
+                                <button type="button" onclick="addStartag()" class="add-tag-btn">* Add</button>
+                            </div>
+                            <div class="tags-display">
+                                <div class="hashtags" id="hashtagsDisplay"></div>
+                                <div class="startags" id="startagsDisplay"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Rules -->
+                    <div class="form-group" id="rulesGroup" style="display: none;">
+                        <label>Event Rules</label>
+                        <div class="rules-section">
+                            <div class="rule-input-section">
+                                <textarea id="ruleInput" placeholder="Enter event rule" class="rule-textarea" rows="2"></textarea>
+                                <button type="button" onclick="addRule()" class="add-rule-btn">Add Rule</button>
+                            </div>
+                            <div class="rules-list" id="rulesList"></div>
+                            <small class="form-help">
+                                <span id="rulesCount">0</span>/15 rules (minimum 1 rule required)
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- Payment Section -->
+                    <div class="form-group" id="paymentGroup" style="display: none;">
+                        <label class="form-label">Payment Method</label>
+                        
+                        <!-- Payment Method Selection -->
+                        <div class="payment-method-selection">
+                            <div class="payment-option">
+                                <input type="radio" id="tcBalancePayment" name="paymentMethod" value="tcBalance" checked>
+                                <label for="tcBalancePayment" class="payment-option-label" onclick="togglePaymentMethod('tcBalance')">
+                                    <i class="fas fa-coins"></i>
+                                    <span>Pay with TC Balance</span>
+                                </label>
+                            </div>
+                            <div class="payment-option">
+                                <input type="radio" id="promoCodePayment" name="paymentMethod" value="promoCode">
+                                <label for="promoCodePayment" class="payment-option-label" onclick="togglePaymentMethod('promoCode')">
+                                    <i class="fas fa-ticket-alt"></i>
+                                    <span>Use Promo Code</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Promo Code Input -->
+                        <div class="promo-code-section" id="promoCodeSection" style="display: none;">
+                            <input type="text" id="promoCodeInput" class="form-input" placeholder="Enter promo code (Bisask19, nig2025, Ismartdc)">
+                            <small class="form-help">Valid codes: Bisask19, nig2025, Ismartdc</small>
+                        </div>
+
+                        <!-- Payment Summary -->
+                        <div class="payment-summary">
+                            <h3>Payment Summary</h3>
+                            <div class="creation-fee-breakdown">
+                                <div class="fee-item">
+                                    <span>Event Type:</span>
+                                    <span id="selectedEventType">-</span>
+                                </div>
+                                <div class="fee-item">
+                                    <span>Creation Fee:</span>
+                                    <span id="creationFee">0 TC</span>
+                                </div>
+                                <div class="fee-item" id="feeDiscountItem" style="display: none;">
+                                    <span>Discount (No Entry/Voting Fee):</span>
+                                    <span id="discountAmount">0 TC</span>
+                                </div>
+                                <div class="fee-item total-fee">
+                                    <span>Total Creation Fee:</span>
+                                    <span id="totalCreationFee">0 TC</span>
+                                </div>
+                                <div class="fee-equivalent">
+                                    <span>≈ ₦<span id="totalCreationFeeNaira">0</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-actions" id="submitGroup" style="display: none;">
+                        <button type="submit" class="submit-btn" id="createEventBtn">
+                            <i class="fas fa-rocket"></i>
+                            Create Event
+                        </button>
+                    </div>
                 </div>
 
-                <!-- PHYSICAL EVENT SECTIONS (NEW) -->
+                <!-- PHYSICAL EVENT SECTIONS -->
                 <div id="physicalEventSections" style="display: none;">
+                    
                     <!-- Physical Event Category Selection -->
                     <div class="form-group" id="physicalCategoryGroup" style="display: none;">
                         <label for="physicalEventCategory">Event Category</label>
@@ -16787,6 +17441,66 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                             <input type="text" id="customPhysicalCategory" placeholder="Enter custom category" class="form-input">
                             <button type="button" onclick="addCustomPhysicalCategory()" class="add-category-btn">Add</button>
                         </div>
+                    </div>
+
+                   <!-- Event Name -->
+<div class="form-group" id="physicalEventNameGroup" style="display: none;">
+    <label for="physicalEventName">Event Name</label>
+    <input type="text" id="physicalEventName" class="form-input" placeholder="Enter event name" minlength="3" maxlength="50">
+    <small class="form-help">3-50 characters required</small>
+</div>
+
+<!-- Physical Event Background - MOVED HERE -->
+<div class="form-group" id="physicalBackgroundGroup" style="display: none;">
+    <label>Event Background</label>
+    <div class="background-options">
+        <div class="background-tabs">
+            <button type="button" class="bg-tab active" onclick="switchPhysicalBackgroundTab('media')">Media</button>
+            <button type="button" class="bg-tab" onclick="switchPhysicalBackgroundTab('gradient')">Gradient</button>
+        </div>
+        <div class="background-content">
+            <div class="bg-content active" id="mediaContent">
+                <input type="file" id="physicalBackgroundMedia" accept="image/*,video/mp4,video/mov,.gif" class="file-input" onchange="handlePhysicalMediaUpload(this)">
+                <label for="physicalBackgroundMedia" class="file-label">
+                    <i class="fas fa-upload"></i>
+                    Choose Media (Image, GIF, Video)
+                </label>
+                <small class="form-help">Supported: JPG, PNG, GIF, MP4, MOV | Max: 10MB | Video: 15s max</small>
+                <div id="physicalMediaPreviewContainer" class="media-preview-container" style="display: none;">
+                    <div id="physicalMediaPreview" class="media-preview"></div>
+                    <button type="button" id="removePhysicalMediaBtn" class="remove-media-btn" onclick="removePhysicalMedia()">
+                        <i class="fas fa-trash"></i>
+                        Remove Media
+                    </button>
+                </div>
+            </div>
+            <div class="bg-content" id="gradientContent">
+                <div class="gradient-picker">
+                    <div class="gradient-controls">
+                        <div class="color-input-group">
+                            <label>Color 1</label>
+                            <input type="color" id="gradientColor1" class="gradient-color-input" value="#FF6B6B" onchange="updateGradientPreview()">
+                        </div>
+                        <div class="color-input-group">
+                            <label>Color 2</label>
+                            <input type="color" id="gradientColor2" class="gradient-color-input" value="#4ECDC4" onchange="updateGradientPreview()">
+                        </div>
+                    </div>
+                    <div class="gradient-preview" id="gradientPreview"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+                    <!-- Event Description -->
+                    <div class="form-group" id="physicalDescriptionGroup" style="display: none;">
+                        <label for="physicalEventDescription">Event Description</label>
+                        <textarea id="physicalEventDescription" class="form-textarea" placeholder="Describe your event (minimum 5 words)" rows="4" onkeyup="updateWordCount()"></textarea>
+                        <small class="form-help">
+                            <span id="physicalWordCount">0</span> words (minimum 5 words required)
+                        </small>
                     </div>
 
                     <!-- Event Location -->
@@ -16860,7 +17574,7 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                                         Choose Media (Image, GIF, Video)
                                     </label>
                                     <small class="form-help">Supported: JPG, PNG, GIF, MP4, MOV | Max: 10MB | Video: 15s max</small>
-                                    
+
                                     <!-- Media Preview Container -->
                                     <div id="physicalMediaPreviewContainer" class="media-preview-container" style="display: none;">
                                         <div id="physicalMediaPreview" class="media-preview"></div>
@@ -16870,7 +17584,7 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                                         </button>
                                     </div>
                                 </div>
-                                
+
                                 <div class="bg-content" id="gradientContent">
                                     <div class="gradient-picker">
                                         <div class="gradient-controls">
@@ -16889,197 +17603,82 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- SHARED SECTIONS (Both Online & Physical) -->
-                <!-- Event Name -->
-                <div class="form-group" id="eventNameGroup" style="display: none;">
-                    <label for="eventName">Event Name</label>
-                    <input type="text" id="eventName" class="form-input" placeholder="Enter event name" minlength="3" maxlength="50">
-                    <small class="form-help">3-50 characters required</small>
-                </div>
+                  <!-- Physical Event Payment Section -->
+<div class="form-group" id="physicalPaymentGroup" >
+    <label class="form-label">Payment Method</label>
+    
+    <!-- Payment Method Selection -->
+    <div class="payment-method-selection">
+        <div class="payment-option">
+            <input type="radio" id="physicalTcBalancePayment" name="physicalPaymentMethod" value="tcBalance" checked>
+            <label for="physicalTcBalancePayment" class="payment-option-label" onclick="togglePhysicalPaymentMethod('tcBalance')">
+                <i class="fas fa-coins"></i>
+                <span>Pay with TC Balance</span>
+            </label>
+        </div>
+        <div class="payment-option">
+            <input type="radio" id="physicalPromoCodePayment" name="physicalPaymentMethod" value="promoCode">
+            <label for="physicalPromoCodePayment" class="payment-option-label" onclick="togglePhysicalPaymentMethod('promoCode')">
+                <i class="fas fa-ticket-alt"></i>
+                <span>Use Promo Code</span>
+            </label>
+        </div>
+    </div>
+    
+    <!-- Promo Code Input -->
+    <div class="promo-code-section" id="physicalPromoCodeSection" style="display: none;">
+        <input type="text" id="physicalPromoCodeInput" class="form-input" placeholder="Enter promo code (Bisask19, nig2025, Ismartdc)">
+        <small class="form-help">Valid codes: Bisask19, nig2025, Ismartdc</small>
+    </div>
+    
+    <!-- Payment Summary -->
+    <div class="payment-summary">
+        <h3>Payment Summary</h3>
+        <div class="creation-fee-breakdown" id="physicalPaymentBreakdown">
+            <div class="fee-item">
+                <span>Event Category:</span>
+                <span id="selectedPhysicalCategory">-</span>
+            </div>
+            <div class="fee-item" id="freeTicketFeeItem" style="display: none;">
+                <span>Free/Donation Tickets Fee:</span>
+                <span id="freeTicketFee">7 TC</span>
+            </div>
+            <div class="fee-item" id="paidTicketFeeItem" style="display: none;">
+                <span>Paid Tickets Fee:</span>
+                <span id="paidTicketFee">0 TC</span>
+            </div>
+            <div class="fee-item" id="ticketProcessingFeeItem" style="display: none;">
+                <span>Processing Method:</span>
+                <span id="processingMethod">-</span>
+            </div>
+            <div class="fee-item total-fee">
+                <span>Total Creation Fee:</span>
+                <span id="totalPhysicalCreationFee">0 TC</span>
+            </div>
+            <div class="fee-equivalent">
+                <span>≈ ₦<span id="totalPhysicalCreationFeeNaira">0</span></span>
+            </div>
+        </div>
+    </div>
+</div>
+
                 
-                <!-- Event Description -->
-                <div class="form-group" id="descriptionGroup" style="display: none;">
-                    <label for="eventDescription">Event Description</label>
-                    <textarea id="eventDescription" class="form-textarea" placeholder="Describe your event (minimum 5 words)" rows="4" onkeyup="updateWordCount()"></textarea>
-                    <small class="form-help">
-                        <span id="wordCount">0</span> words (minimum 5 words required)
-                    </small>
-                </div>
-                
-                <!-- Background Selection (Online Events Only) -->
-                <div class="form-group" id="backgroundGroup" style="display: none;">
-                    <label>Event Background</label>
-                    <div class="background-options">
-                        <div class="background-tabs">
-                            <button type="button" class="bg-tab active" onclick="switchBackgroundTab('image')">Image</button>
-                            <button type="button" class="bg-tab" onclick="switchBackgroundTab('color')">Color</button>
-                        </div>
-                        <div class="background-content">
-                            <div class="bg-content active" id="imageContent">
-                                <input type="file" id="backgroundImage" accept="image/*" class="file-input">
-                                <label for="backgroundImage" class="file-label">
-                                    <i class="fas fa-upload"></i>
-                                    Choose Background Image
-                                </label>
-                                
-                                <!-- Image Preview Container -->
-                                <!-- Image Preview Container -->
-                                <div id="imagePreviewContainer" class="image-preview-container" style="display: none;">
-                                    <img id="imagePreview" class="image-preview" alt="Preview">
-                                    <div id="imagePreviewText" class="image-preview-text"></div>
-                                    <button type="button" id="removeImageBtn" class="remove-image-btn">
-                                        <i class="fas fa-trash"></i>
-                                        Remove Image
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <div class="bg-content" id="colorContent">
-                                <div class="color-palette">
-                                    <div class="color-option" style="background: #FF6B6B" onclick="selectColor('#FF6B6B')"></div>
-                                    <div class="color-option" style="background: #4ECDC4" onclick="selectColor('#4ECDC4')"></div>
-                                    <div class="color-option" style="background: #45B7D1" onclick="selectColor('#45B7D1')"></div>
-                                    <div class="color-option" style="background: #96CEB4" onclick="selectColor('#96CEB4')"></div>
-                                    <div class="color-option" style="background: #FFEAA7" onclick="selectColor('#FFEAA7')"></div>
-                                    <div class="color-option" style="background: #DDA0DD" onclick="selectColor('#DDA0DD')"></div>
-                                </div>
-                                <input type="color" id="customColor" class="custom-color-input" onchange="selectColor(this.value)">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Tags -->
-                <div class="form-group" id="tagsGroup" style="display: none;">
-                    <label>Tags</label>
-                    <div class="tags-section">
-                        <div class="tag-input-section">
-                            <input type="text" id="hashtagInput" placeholder="Add hashtag" class="tag-input">
-                            <button type="button" onclick="addHashtag()" class="add-tag-btn"># Add</button>
-                        </div>
-                        <div class="tag-input-section">
-                            <input type="text" id="startagInput" placeholder="Add star tag" class="tag-input">
-                            <button type="button" onclick="addStartag()" class="add-tag-btn">* Add</button>
-                        </div>
-                        <div class="tags-display">
-                            <div class="hashtags" id="hashtagsDisplay"></div>
-                            <div class="startags" id="startagsDisplay"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Event Rules -->
-                <div class="form-group" id="rulesGroup" style="display: none;">
-                    <label>Event Rules</label>
-                    <div class="rules-section">
-                        <div class="rule-input-section">
-                            <textarea id="ruleInput" placeholder="Enter event rule" class="rule-textarea" rows="2"></textarea>
-                            <button type="button" onclick="addRule()" class="add-rule-btn">Add Rule</button>
-                        </div>
-                        <div class="rules-list" id="rulesList"></div>
-                        <small class="form-help">
-                            <span id="rulesCount">0</span>/15 rules (minimum 1 rule required)
-                        </small>
-                    </div>
-                </div>
-                
-                <!-- Payment Section -->
-                <div class="form-group" id="paymentGroup" style="display: none;">
-                    <label class="form-label">Payment Method</label>
-                    
-                    <!-- Payment Method Selection -->
-                    <div class="payment-method-selection">
-                        <div class="payment-option">
-                            <input type="radio" id="tcBalancePayment" name="paymentMethod" value="tcBalance" checked>
-                            <label for="tcBalancePayment" class="payment-option-label" onclick="togglePaymentMethod('tcBalance')">
-                                <i class="fas fa-coins"></i>
-                                <span>Pay with TC Balance</span>
-                            </label>
-                        </div>
-                        <div class="payment-option">
-                            <input type="radio" id="promoCodePayment" name="paymentMethod" value="promoCode">
-                            <label for="promoCodePayment" class="payment-option-label" onclick="togglePaymentMethod('promoCode')">
-                                <i class="fas fa-ticket-alt"></i>
-                                <span>Use Promo Code</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <!-- Promo Code Input -->
-                    <div class="promo-code-section" id="promoCodeSection" style="display: none;">
-                        <input type="text" id="promoCodeInput" class="form-input" placeholder="Enter promo code (Bisask19, nig2025, Ismartdc)">
-                        <small class="form-help">Valid codes: Bisask19, nig2025, Ismartdc</small>
-                    </div>
-                    
-                    <!-- Payment Summary -->
-                    <div class="payment-summary">
-                        <h3>Payment Summary</h3>
-                        <div class="creation-fee-breakdown" id="onlinePaymentBreakdown">
-                            <div class="fee-item">
-                                <span>Event Type:</span>
-                                <span id="selectedEventType">-</span>
-                            </div>
-                            <div class="fee-item">
-                                <span>Creation Fee:</span>
-                                <span id="creationFee">0 TC</span>
-                            </div>
-                            <div class="fee-item" id="feeDiscountItem" style="display: none;">
-                                <span>Discount (No Entry/Voting Fee):</span>
-                                <span id="discountAmount">0 TC</span>
-                            </div>
-                            <div class="fee-item total-fee">
-                                <span>Total Creation Fee:</span>
-                                <span id="totalCreationFee">0 TC</span>
-                            </div>
-                            <div class="fee-equivalent">
-                                <span>≈ ₦<span id="totalCreationFeeNaira">0</span></span>
-                            </div>
-                        </div>
-                        
-                        <!-- Physical Event Payment Breakdown -->
-                        <div class="creation-fee-breakdown" id="physicalPaymentBreakdown" style="display: none;">
-                            <div class="fee-item">
-                                <span>Event Category:</span>
-                                <span id="selectedPhysicalCategory">-</span>
-                            </div>
-                            <div class="fee-item" id="freeTicketFeeItem" style="display: none;">
-                                <span>Free/Donation Tickets Fee:</span>
-                                <span id="freeTicketFee">7 TC</span>
-                            </div>
-                            <div class="fee-item" id="paidTicketFeeItem" style="display: none;">
-                                <span>Paid Tickets Fee:</span>
-                                <span id="paidTicketFee">0 TC</span>
-                            </div>
-                            <div class="fee-item" id="ticketProcessingFeeItem" style="display: none;">
-                                <span>Processing Method:</span>
-                                <span id="processingMethod">-</span>
-                            </div>
-                            <div class="fee-item total-fee">
-                                <span>Total Creation Fee:</span>
-                                <span id="totalPhysicalCreationFee">0 TC</span>
-                            </div>
-                            <div class="fee-equivalent">
-                                <span>≈ ₦<span id="totalPhysicalCreationFeeNaira">0</span></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Submit Button -->
-                <div class="form-actions" id="submitGroup" style="display: none;">
-                    <button type="submit" class="submit-btn" id="createEventBtn">
-                        <i class="fas fa-rocket"></i>
-                        Create Event
-                    </button>
+<!-- Physical Event Submit Button -->
+<div class="form-actions" id="physicalSubmitGroup" >
+    <button type="submit" class="submit-btn" id="createPhysicalEventBtn">
+        <i class="fas fa-calendar-plus"></i>
+        Create Physical Event
+    </button>
+</div>
+
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<!-- Ticket Configuration Modal (NEW) -->
+<!-- Ticket Configuration Modal -->
 <div class="ticket-config-modal-overlay" id="ticketConfigModal" style="display: none;">
     <div class="ticket-config-modal-container">
         <div class="ticket-config-modal-header">
@@ -17088,7 +17687,7 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                 <i class="fas fa-times"></i>
             </button>
         </div>
-        
+
         <div class="ticket-config-modal-content">
             <form id="ticketConfigForm">
                 <!-- Ticket Name -->
@@ -17096,7 +17695,7 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                     <label for="ticketName">Ticket Name</label>
                     <input type="text" id="ticketName" class="form-input" placeholder="e.g., VIP, Regular, Student, Early Bird" maxlength="30">
                 </div>
-                
+
                 <!-- Ticket Type Selection -->
                 <div class="form-group">
                     <label>Ticket Type</label>
@@ -17127,7 +17726,7 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Ticket Configuration Sections -->
                 <div id="ticketConfigSections">
                     <!-- Free Ticket Config -->
@@ -17137,7 +17736,7 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                             <input type="number" id="freeTicketQuantity" class="form-input" min="1" placeholder="Number of free tickets">
                         </div>
                     </div>
-                    
+
                     <!-- Paid Ticket Config -->
                     <div id="paidTicketConfig" class="ticket-config-section" style="display: none;">
                         <div class="form-group">
@@ -17162,13 +17761,13 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                                     <input type="radio" id="oneTimeProcessing" name="processingMethod" value="oneTime">
                                     <label for="oneTimeProcessing" class="processing-option-label">
                                         <span>One-Time Payment</span>
-                                        <small>Pay 0.2 TC × quantity upfront</small>
+                                        <small>Pay 0. TC × quantity upfront</small>
                                     </label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Donation Ticket Config -->
                     <div id="donationTicketConfig" class="ticket-config-section" style="display: none;">
                         <div class="form-group">
@@ -17182,13 +17781,13 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Optional Description -->
                 <div class="form-group">
                     <label for="ticketDescription">Description (Optional)</label>
                     <textarea id="ticketDescription" class="form-textarea" placeholder="Additional ticket details" rows="2"></textarea>
                 </div>
-                
+
                 <!-- Ticket Customization -->
                 <div class="form-group">
                     <label>Ticket Design (Optional)</label>
@@ -17198,234 +17797,44 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                             <button type="button" class="custom-tab" onclick="switchTicketCustomTab('color')">Color</button>
                         </div>
                         <div class="customization-content">
-                            <div class="custom-content active" id="ticketImageContent">
-                                <input type="file" id="ticketImage" accept="image/*" class="file-input">
+                            <div class="custom-content active" id="imageCustomContent">
+                                <input type="file" id="ticketImage" accept="image/*" class="file-input" onchange="handleTicketImageUpload(this)">
                                 <label for="ticketImage" class="file-label">
-                                    <i class="fas fa-upload"></i>
-                                    Upload Ticket Image
+                                    <i class="fas fa-image"></i>
+                                    Choose Ticket Image
                                 </label>
-                            </div>
-                            <div class="custom-content" id="ticketColorContent">
-                                <div class="color-palette">
-                                    <div class="color-option" style="background: #FF6B6B" onclick="selectTicketColor('#FF6B6B')"></div
-                                    <div class="color-option" style="background: #FF6B6B" onclick="selectTicketColor('#FF6B6B')"></div>
-                                    <div class="color-option" style="background: #4ECDC4" onclick="selectTicketColor('#4ECDC4')"></div>
-                                    <div class="color-option" style="background: #45B7D1" onclick="selectTicketColor('#45B7D1')"></div>
-                                    <div class="color-option" style="background: #96CEB4" onclick="selectTicketColor('#96CEB4')"></div>
-                                    <div class="color-option" style="background: #FFEAA7" onclick="selectTicketColor('#FFEAA7')"></div>
-                                    <div class="color-option" style="background: #DDA0DD" onclick="selectTicketColor('#DDA0DD')"></div>
-                                    <div class="color-option" style="background: #FF9F43" onclick="selectTicketColor('#FF9F43')"></div>
-                                    <div class="color-option" style="background: #A29BFE" onclick="selectTicketColor('#A29BFE')"></div>
+                                <small class="form-help">JPG, PNG | Max: 2MB | Recommended: 400x200px</small>
+                                
+                                <div id="ticketImagePreview" class="ticket-image-preview" style="display: none;">
+                                    <img id="ticketImagePreviewImg" src="" alt="Ticket Preview">
+                                    <button type="button" onclick="removeTicketImage()" class="remove-ticket-image-btn">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
                                 </div>
-                                <input type="color" id="customTicketColor" class="custom-color-input" onchange="selectTicketColor(this.value)">
+                            </div>
+
+                            <div class="custom-content" id="colorCustomContent">
+                                <div class="color-picker-section">
+                                    <div class="color-input-group">
+                                        <label>Ticket Color</label>
+                                        <input type="color" id="ticketColor" class="ticket-color-input" value="#3498db" onchange="updateTicketColorPreview()">
+                                    </div>
+                                    <div class="ticket-color-preview" id="ticketColorPreview"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Ticket Preview -->
-                <div class="form-group">
-                    <label>Ticket Preview</label>
-                    <div class="ticket-preview" id="ticketPreview">
-                        <div class="ticket-preview-content">
-                            <div class="ticket-preview-header">
-                                <span class="ticket-preview-name" id="ticketPreviewName">Ticket Name</span>
-                                <span class="ticket-preview-type" id="ticketPreviewType">FREE</span>
-                            </div>
-                            <div class="ticket-preview-price" id="ticketPreviewPrice">Free Entry</div>
-                            <div class="ticket-preview-quantity" id="ticketPreviewQuantity">0 available</div>
-                        </div>
-                    </div>
-                </div>
-                
+
                 <!-- Modal Actions -->
-                <div class="ticket-config-actions">
+                <div class="ticket-config-modal-actions">
                     <button type="button" class="cancel-ticket-btn" onclick="closeTicketConfigModal()">Cancel</button>
-                    <button type="button" class="save-ticket-btn" onclick="saveTicketConfiguration()">
-                        <i class="fas fa-save"></i>
-                        Save Ticket
-                    </button>
+                    <button type="button" class="save-ticket-btn" onclick="saveTicketConfiguration()">Save Ticket</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-<!-- Ticket Edit Modal (for editing existing tickets) -->
-<div class="ticket-edit-modal-overlay" id="ticketEditModal" style="display: none;">
-    <div class="ticket-edit-modal-container">
-        <div class="ticket-edit-modal-header">
-            <h3>Edit Ticket Type</h3>
-            <button class="close-ticket-edit-btn" onclick="closeTicketEditModal()">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        
-        <div class="ticket-edit-modal-content">
-            <!-- Same form structure as ticket config modal but for editing -->
-            <form id="ticketEditForm">
-                <!-- Hidden field to store ticket index -->
-                <input type="hidden" id="editTicketIndex" value="">
-                
-                <!-- Edit Ticket Name -->
-                <div class="form-group">
-                    <label for="editTicketName">Ticket Name</label>
-                    <input type="text" id="editTicketName" class="form-input" placeholder="e.g., VIP, Regular, Student, Early Bird" maxlength="30">
-                </div>
-                
-                <!-- Edit Ticket Type Selection -->
-                <div class="form-group">
-                    <label>Ticket Type</label>
-                    <div class="ticket-type-options">
-                        <div class="ticket-type-option">
-                            <input type="radio" id="editFreeTicket" name="editTicketType" value="free">
-                            <label for="editFreeTicket" class="ticket-type-label" onclick="selectEditTicketType('free')">
-                                <i class="fas fa-gift"></i>
-                                <span>Free</span>
-                                <small>No cost to attendees</small>
-                            </label>
-                        </div>
-                        <div class="ticket-type-option">
-                            <input type="radio" id="editPaidTicket" name="editTicketType" value="paid">
-                            <label for="editPaidTicket" class="ticket-type-label" onclick="selectEditTicketType('paid')">
-                                <i class="fas fa-money-bill"></i>
-                                <span>Paid</span>
-                                <small>Standard paid tickets</small>
-                            </label>
-                        </div>
-                        <div class="ticket-type-option">
-                            <input type="radio" id="editDonationTicket" name="editTicketType" value="donation">
-                            <label for="editDonationTicket" class="ticket-type-label" onclick="selectEditTicketType('donation')">
-                                <i class="fas fa-heart"></i>
-                                <span>Donation</span>
-                                <small>Pay-what-you-want</small>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Edit Ticket Configuration Sections -->
-                <div id="editTicketConfigSections">
-                    <!-- Edit Free Ticket Config -->
-                    <div id="editFreeTicketConfig" class="ticket-config-section">
-                        <div class="form-group">
-                            <label for="editFreeTicketQuantity">Quantity</label>
-                            <input type="number" id="editFreeTicketQuantity" class="form-input" min="1" placeholder="Number of free tickets">
-                        </div>
-                    </div>
-                    
-                    <!-- Edit Paid Ticket Config -->
-                    <div id="editPaidTicketConfig" class="ticket-config-section" style="display: none;">
-                        <div class="form-group">
-                            <label for="editTicketPrice">Price (₦)</label>
-                            <input type="number" id="editTicketPrice" class="form-input" min="1" placeholder="Ticket price in Naira">
-                        </div>
-                        <div class="form-group">
-                            <label for="editPaidTicketQuantity">Quantity</label>
-                            <input type="number" id="editPaidTicketQuantity" class="form-input" min="1" placeholder="Number of paid tickets">
-                        </div>
-                        <div class="form-group">
-                            <label>Payment Processing Method</label>
-                            <div class="processing-method-options">
-                                <div class="processing-option">
-                                    <input type="radio" id="editPerTicketProcessing" name="editProcessingMethod" value="perTicket">
-                                    <label for="editPerTicketProcessing" class="processing-option-label">
-                                        <span>Per-Ticket Processing</span>
-                                        <small>4 TC added to each purchase (Free to create)</small>
-                                    </label>
-                                </div>
-                                <div class="processing-option">
-                                    <input type="radio" id="editOneTimeProcessing" name="editProcessingMethod" value="oneTime">
-                                    <label for="editOneTimeProcessing" class="processing-option-label">
-                                        <span>One-Time Payment</span>
-                                        <small>Pay 0.2 TC × quantity upfront</small>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Edit Donation Ticket Config -->
-                    <div id="editDonationTicketConfig" class="ticket-config-section" style="display: none;">
-                        <div class="form-group">
-                            <label for="editSuggestedDonation">Suggested Donation (₦)</label>
-                            <input type="number" id="editSuggestedDonation" class="form-input" min="0" placeholder="Optional suggested amount">
-                            <small class="form-help">Leave empty for completely open donations</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="editDonationTicketQuantity">Quantity</label>
-                            <input type="number" id="editDonationTicketQuantity" class="form-input" min="1" placeholder="Number of donation tickets">
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Edit Optional Description -->
-                <div class="form-group">
-                    <label for="editTicketDescription">Description (Optional)</label>
-                    <textarea id="editTicketDescription" class="form-textarea" placeholder="Additional ticket details" rows="2"></textarea>
-                </div>
-                
-                <!-- Edit Ticket Customization -->
-                <div class="form-group">
-                    <label>Ticket Design (Optional)</label>
-                    <div class="ticket-customization">
-                        <div class="customization-tabs">
-                            <button type="button" class="custom-tab active" onclick="switchEditTicketCustomTab('image')">Image</button>
-                            <button type="button" class="custom-tab" onclick="switchEditTicketCustomTab('color')">Color</button>
-                        </div>
-                        <div class="customization-content">
-                            <div class="custom-content active" id="editTicketImageContent">
-                                <input type="file" id="editTicketImage" accept="image/*" class="file-input">
-                                <label for="editTicketImage" class="file-label">
-                                    <i class="fas fa-upload"></i>
-                                    Upload Ticket Image
-                                </label>
-                            </div>
-                            <div class="custom-content" id="editTicketColorContent">
-                                <div class="color-palette">
-                                    <div class="color-option" style="background: #FF6B6B" onclick="selectEditTicketColor('#FF6B6B')"></div>
-                                    <div class="color-option" style="background: #4ECDC4" onclick="selectEditTicketColor('#4ECDC4')"></div>
-                                    <div class="color-option" style="background: #45B7D1" onclick="selectEditTicketColor('#45B7D1')"></div>
-                                    <div class="color-option" style="background: #96CEB4" onclick="selectEditTicketColor('#96CEB4')"></div>
-                                    <div class="color-option" style="background: #FFEAA7" onclick="selectEditTicketColor('#FFEAA7')"></div>
-                                    <div class="color-option" style="background: #DDA0DD" onclick="selectEditTicketColor('#DDA0DD')"></div>
-                                    <div class="color-option" style="background: #FF9F43" onclick="selectEditTicketColor('#FF9F43')"></div>
-                                    <div class="color-option" style="background: #A29BFE" onclick="selectEditTicketColor('#A29BFE')"></div>
-                                </div>
-                                <input type="color" id="editCustomTicketColor" class="custom-color-input" onchange="selectEditTicketColor(this.value)">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Edit Ticket Preview -->
-                <div class="form-group">
-                    <label>Ticket Preview</label>
-                    <div class="ticket-preview" id="editTicketPreview">
-                        <div class="ticket-preview-content">
-                            <div class="ticket-preview-header">
-                                <span class="ticket-preview-name" id="editTicketPreviewName">Ticket Name</span>
-                                <span class="ticket-preview-type" id="editTicketPreviewType">FREE</span>
-                            </div>
-                            <div class="ticket-preview-price" id="editTicketPreviewPrice">Free Entry</div>
-                            <div class="ticket-preview-quantity" id="editTicketPreviewQuantity">0 available</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Edit Modal Actions -->
-                <div class="ticket-edit-actions">
-                    <button type="button" class="cancel-edit-btn" onclick="closeTicketEditModal()">Cancel</button>
-                    <button type="button" class="update-ticket-btn" onclick="updateTicketConfiguration()">
-                        <i class="fas fa-save"></i>
-                        Update Ticket
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 
 <!-- Spin Wheel Modal -->
 <div id="spinWheelModal" class="sg-spin-wheel-modal">
@@ -24277,43 +24686,55 @@ async function processPaymentAndCreateEvent(eventData, paymentMethod, creationFe
     await db.collection('events').doc(eventData.eventId).set(eventData);
 }
 
-
+    
+ // Update the createEntertainmentCard function to check launched status
 function createEntertainmentCard(eventData) {
     const newEventsContainer = document.getElementById('newEventsContainer');
     const emptyState = newEventsContainer.querySelector('.entertainment-empty-state');
-    
+
     // Check if card already exists to prevent duplicates
     const existingCard = document.getElementById(`card-${eventData.eventId}`);
     if (existingCard) {
         console.log('Card already exists for event:', eventData.eventId);
-        return; // Don't create duplicate
+        return;
     }
-    
+
     // Hide empty state
     if (emptyState) {
         emptyState.style.display = 'none';
     }
-    
+
     // Create card element
     const cardElement = document.createElement('div');
     cardElement.className = 'entertainment-card';
     cardElement.id = `card-${eventData.eventId}`;
-    
+
     // Set background
     const backgroundStyle = eventData.backgroundImageUrl 
-        ? `background-image: url(${eventData.backgroundImageUrl}); background-size: cover; background-position: center;` 
+        ? `background-image: url(${eventData.backgroundImageUrl}); background-size: cover; background-position: center;`
         : `background: linear-gradient(135deg, ${eventData.backgroundColor || '#4ECDC4'}, ${adjustBrightness(eventData.backgroundColor || '#4ECDC4', -20)});`;
-    
+
+    // Determine which button to show based on launched status
+    const actionButton = eventData.launched === true
+        ? `<button class="start-btn" onclick="startEvent('${eventData.eventId}')">
+             <i class="fas fa-play"></i>
+             <span>Start</span>
+           </button>`
+        : `<button class="launch-btn" onclick="launchEvent('${eventData.eventId}')">
+             <i class="fas fa-rocket"></i>
+             <span>Launch</span>
+           </button>`;
+
     cardElement.innerHTML = `
         <div class="entertainment-card-inner" style="${backgroundStyle}">
             <!-- Card Overlay for better text visibility -->
             <div class="card-overlay"></div>
-            
+                        
             <!-- Event Name (Top Left) -->
             <div class="event-name-overlay">
                 <h3>${eventData.eventName}</h3>
             </div>
-            
+                        
             <!-- Action Buttons (Top Right) -->
             <div class="card-action-buttons">
                 <button class="card-btn edit-btn" onclick="editEventName('${eventData.eventId}')" title="Edit Event Name">
@@ -24323,13 +24744,13 @@ function createEntertainmentCard(eventData) {
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
-            
+                        
             <!-- Participants Counter (Top Right, below action buttons) -->
             <div class="participants-counter">
                 <i class="fas fa-users"></i>
                 <span>${eventData.currentParticipants}/${eventData.maxParticipants}</span>
             </div>
-            
+                        
             <!-- Event Info (Middle) -->
             <div class="event-info-middle">
                 <!-- Duration -->
@@ -24337,13 +24758,13 @@ function createEntertainmentCard(eventData) {
                     <i class="fas fa-clock"></i>
                     <span>${eventData.eventDuration}</span>
                 </div>
-                
+                                
                 <!-- Event Type -->
                 <div class="event-type">
                     <i class="fas fa-tag"></i>
                     <span>${eventData.eventType}</span>
                 </div>
-                
+                                
                 <!-- Entry Fee (if applicable) -->
                 ${eventData.entryFee > 0 ? `
                 <div class="event-fee">
@@ -24352,30 +24773,28 @@ function createEntertainmentCard(eventData) {
                 </div>
                 ` : ''}
             </div>
-            
+                        
             <!-- Action Buttons (Bottom) -->
             <div class="card-bottom-actions">
                 <button class="open-btn" onclick="openEntertainmentCard('${eventData.eventId}')">
                     <i class="fas fa-eye"></i>
                     <span>View Details</span>
                 </button>
-                <button class="launch-btn" onclick="launchEvent('${eventData.eventId}')">
-                    <i class="fas fa-rocket"></i>
-                    <span>Launch</span>
-                </button>
+                ${actionButton}
             </div>
         </div>
     `;
-    
-    // Add card to container (at the beginning, not before empty state)
+
+    // Add card to container
     if (emptyState) {
         newEventsContainer.insertBefore(cardElement, emptyState);
     } else {
         newEventsContainer.appendChild(cardElement);
     }
-    
-    console.log('Created card for event:', eventData.eventId);
+
+    console.log('Created card for event:', eventData.eventId, 'Launched:', eventData.launched);
 }
+   
 
 // Helper function to adjust color brightness
 function adjustBrightness(hex, percent) {
@@ -24547,13 +24966,63 @@ function openEntertainmentCard(eventId) {
     alert(`Opening entertainment card: ${eventId}`);
 }
 
-// Launch event
-function launchEvent(eventId) {
-    console.log('Launching event:', eventId);
-    // TODO: Implement event launch functionality
-    // This could start the event, make it live, etc.
-    alert(`Launching event: ${eventId}`);
+ // Launch event function with database field update
+async function launchEvent(eventId) {
+    try {
+        // Get the launch button and show loading state
+        const launchBtn = document.querySelector(`button[onclick="launchEvent('${eventId}')"]`);
+        const originalContent = launchBtn.innerHTML;
+        
+        launchBtn.disabled = true;
+        launchBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Launching...';
+
+        // Get event data from events collection
+        const eventDoc = await db.collection('events').doc(eventId).get();
+        
+        if (!eventDoc.exists) {
+            throw new Error('Event not found');
+        }
+
+        const eventData = eventDoc.data();
+
+        // Step 1: Copy event data to Neweventdatabase
+        await db.collection('Neweventdatabase').doc(eventId).set({
+            ...eventData,
+            status: 'launched',
+            launchedAt: firebase.firestore.Timestamp.now()
+        });
+
+        // Step 2: Update original event with launched field
+        await db.collection('events').doc(eventId).update({
+            launched: true,
+            launchedAt: firebase.firestore.Timestamp.now()
+        });
+
+        // Step 3: Update button to Start button
+        launchBtn.innerHTML = '<i class="fas fa-play"></i> <span>Start</span>';
+        launchBtn.className = 'start-btn';
+        launchBtn.onclick = () => startEvent(eventId);
+        launchBtn.disabled = false;
+
+        // Show success message
+        showToast(`🚀 Event "${eventData.eventName}" launched successfully!`, 'success');
+
+        console.log('Event launched successfully:', eventId);
+
+    } catch (error) {
+        console.error('Error launching event:', error);
+        
+        // Reset button on error
+        const launchBtn = document.querySelector(`button[onclick="launchEvent('${eventId}')"]`);
+        if (launchBtn) {
+            launchBtn.innerHTML = '<i class="fas fa-rocket"></i> <span>Launch</span>';
+            launchBtn.disabled = false;
+        }
+        
+        showToast('Error launching event. Please try again.', 'error');
+    }
 }
+     
 
 
 async function loadExistingEvents() {
@@ -25064,1182 +25533,107 @@ function showInfoMessage(message) {
 }
 
 
-// Global variables for physical events
-let physicalTicketTypes = [];
-let currentEditingTicketIndex = -1;
-let selectedPhysicalBackground = { type: 'gradient', value: '#FF6B6B,#4ECDC4' };
-let physicalMediaFile = null;
 
-// Event mode selection
+
+// Define all functions at the top level to avoid hoisting issues
+
+// Event Mode Selection Function
 function selectEventMode(mode) {
+    console.log('selectEventMode called with:', mode);
+    
+    // Get the radio buttons
     const onlineRadio = document.getElementById('onlineEvent');
     const physicalRadio = document.getElementById('physicalEvent');
-    const onlineSections = document.getElementById('onlineEventSections');
-    const physicalSections = document.getElementById('physicalEventSections');
+    
+    // Get the sections
+    const onlineEventSections = document.getElementById('onlineEventSections');
+    const physicalEventSections = document.getElementById('physicalEventSections');
+    
+    if (!onlineEventSections || !physicalEventSections) {
+        console.error('Required sections not found');
+        return;
+    }
     
     if (mode === 'online') {
-        onlineRadio.checked = true;
-        physicalRadio.checked = false;
-        onlineSections.style.display = 'block';
-        physicalSections.style.display = 'none';
+        // Update radio buttons
+        if (onlineRadio) onlineRadio.checked = true;
+        if (physicalRadio) physicalRadio.checked = false;
         
-        // Show online event flow
-        showFormGroup('eventTypeGroup');
-        hideFormGroup('physicalCategoryGroup');
-        hideFormGroup('locationGroup');
-        hideFormGroup('schedulingGroup');
-        hideFormGroup('ticketConfigGroup');
-        hideFormGroup('physicalBackgroundGroup');
+        // Show online sections, hide physical sections
+        onlineEventSections.style.display = 'block';
+        physicalEventSections.style.display = 'none';
         
-        // Reset physical event data
-        resetPhysicalEventData();
+        console.log('Switched to online mode');
         
     } else if (mode === 'physical') {
-        physicalRadio.checked = true;
-        onlineRadio.checked = false;
-        physicalSections.style.display = 'block';
-        onlineSections.style.display = 'none';
+        // Update radio buttons
+        if (physicalRadio) physicalRadio.checked = true;
+        if (onlineRadio) onlineRadio.checked = false;
         
-        // Show physical event flow
-        showFormGroup('physicalCategoryGroup');
-        hideFormGroup('eventTypeGroup');
-        hideFormGroup('categoryGroup');
-        hideFormGroup('durationGroup');
-        hideFormGroup('participantsGroup');
-        hideFormGroup('entryFeeGroup');
-        hideFormGroup('votingFeeGroup');
-        hideFormGroup('backgroundGroup');
+        // Show physical sections, hide online sections
+        physicalEventSections.style.display = 'block';
+        onlineEventSections.style.display = 'none';
         
-        // Reset online event data
-        resetOnlineEventData();
+        // Show the first form group for physical events
+        const physicalCategoryGroup = document.getElementById('physicalCategoryGroup');
+        if (physicalCategoryGroup) {
+            physicalCategoryGroup.style.display = 'block';
+        }
+        
+        console.log('Switched to physical mode');
     }
-    
-    // Update payment breakdown visibility
-    updatePaymentBreakdownVisibility(mode);
 }
 
-// Physical event category selection
-function updatePhysicalCategory() {
-    const category = document.getElementById('physicalEventCategory').value;
-    const customInput = document.querySelector('.custom-physical-category-input');
+// Make functions globally available
+window.selectEventMode = selectEventMode;
+
+// Initialize everything when DOM is loaded
+(function() {
+    'use strict';
     
-    if (category === 'other') {
-        customInput.style.display = 'block';
+    function initializeEventModeSelection() {
+        console.log('Initializing event mode selection...');
+        
+        // Set default to online mode
+        selectEventMode('online');
+        
+        // Add event listeners to radio buttons
+        const onlineRadio = document.getElementById('onlineEvent');
+        const physicalRadio = document.getElementById('physicalEvent');
+        
+        if (onlineRadio) {
+            onlineRadio.addEventListener('change', function() {
+                if (this.checked) {
+                    selectEventMode('online');
+                }
+            });
+        }
+        
+        if (physicalRadio) {
+            physicalRadio.addEventListener('change', function() {
+                if (this.checked) {
+                    selectEventMode('physical');
+                }
+            });
+        }
+        
+        console.log('Event mode selection initialized');
+    }
+    
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeEventModeSelection);
     } else {
-        customInput.style.display = 'none';
+        initializeEventModeSelection();
     }
     
-    if (category) {
-        showFormGroup('locationGroup');
-        updatePhysicalPaymentSummary();
-    }
-}
+})();
 
-// Add custom physical category
-function addCustomPhysicalCategory() {
-    const customInput = document.getElementById('customPhysicalCategory');
-    const categorySelect = document.getElementById('physicalEventCategory');
+ 
+   
     
-    if (customInput.value.trim()) {
-        // Add new option to select
-        const newOption = document.createElement('option');
-        newOption.value = customInput.value.trim().toLowerCase().replace(/\s+/g, '-');
-        newOption.textContent = customInput.value.trim();
-        newOption.selected = true;
-        
-        categorySelect.appendChild(newOption);
-        
-        // Hide custom input
-        document.querySelector('.custom-physical-category-input').style.display = 'none';
-        customInput.value = '';
-        
-        // Continue flow
-        showFormGroup('locationGroup');
-        updatePhysicalPaymentSummary();
-    }
-}
-
-// Location validation and flow continuation
-function validateLocation() {
-    const location = document.getElementById('eventLocation').value.trim();
-    
-    if (location.length >= 10) {
-        showFormGroup('schedulingGroup');
-    } else {
-        hideFormGroup('schedulingGroup');
-    }
-}
-
-// Event location input handler
-document.getElementById('eventLocation').addEventListener('input', validateLocation);
-
-// Date and time calculation
-function calculateDuration() {
-    const startDate = document.getElementById('startDate').value;
-    const startTime = document.getElementById('startTime').value;
-    const endDate = document.getElementById('endDate').value;
-    const endTime = document.getElementById('endTime').value;
-    
-    if (startDate && startTime && endDate && endTime) {
-        const start = new Date(`${startDate}T${startTime}`);
-        const end = new Date(`${endDate}T${endTime}`);
-        
-        if (end > start) {
-            const diffMs = end - start;
-            const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-            const diffMinutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
-            
-            let durationText = '';
-            if (diffHours > 0) {
-                durationText += `${diffHours} hour${diffHours > 1 ? 's' : ''}`;
-            }
-            if (diffMinutes > 0) {
-                if (durationText) durationText += ' ';
-                durationText += `${diffMinutes} minute${diffMinutes > 1 ? 's' : ''}`;
-            }
-            
-            document.getElementById('calculatedDuration').textContent = durationText;
-            document.getElementById('durationDisplay').style.display = 'flex';
-            
-            // Continue to ticket configuration
-            showFormGroup('ticketConfigGroup');
-            
-            // Validation passed
-            return true;
-        } else {
-            document.getElementById('durationDisplay').style.display = 'none';
-            hideFormGroup('ticketConfigGroup');
-            alert('End date/time must be after start date/time');
-            return false;
-        }
-    } else {
-        document.getElementById('durationDisplay').style.display = 'none';
-        hideFormGroup('ticketConfigGroup');
-    }
-    return false;
-}
-
-// Ticket Configuration Functions
-function addTicketType() {
-    // Reset ticket config form
-    resetTicketConfigForm();
-    
-    // Show ticket config modal
-    document.getElementById('ticketConfigModal').style.display = 'flex';
-    
-    // Focus on ticket name
-    document.getElementById('ticketName').focus();
-}
-
-function closeTicketConfigModal() {
-    document.getElementById('ticketConfigModal').style.display = 'none';
-    resetTicketConfigForm();
-}
-
-function resetTicketConfigForm() {
-    document.getElementById('ticketConfigForm').reset();
-    document.getElementById('ticketName').value = '';
-    document.getElementById('freeTicket').checked = true;
-    selectTicketType('free');
-    updateTicketPreview();
-}
-
-function selectTicketType(type) {
-    const freeConfig = document.getElementById('freeTicketConfig');
-    const paidConfig = document.getElementById('paidTicketConfig');
-    const donationConfig = document.getElementById('donationTicketConfig');
-    
-    // Hide all configs
-    freeConfig.style.display = 'none';
-    paidConfig.style.display = 'none';
-    donationConfig.style.display = 'none';
-    
-    // Show selected config
-    if (type === 'free') {
-        freeConfig.style.display = 'block';
-        document.getElementById('freeTicket').checked = true;
-    } else if (type === 'paid') {
-        paidConfig.style.display = 'block';
-        document.getElementById('paidTicket').checked = true;
-        document.getElementById('perTicketProcessing').checked = true;
-    } else if (type === 'donation') {
-        donationConfig.style.display = 'block';
-        document.getElementById('donationTicket').checked = true;
-    }
-    
-    updateTicketPreview();
-}
-
-function updateTicketPreview() {
-    const ticketName = document.getElementById('ticketName').value || 'Ticket Name';
-    const ticketType = document.querySelector('input[name="ticketType"]:checked').value;
-    
-    const previewName = document.getElementById('ticketPreviewName');
-    const previewType = document.getElementById('ticketPreviewType');
-    const previewPrice = document.getElementById('ticketPreviewPrice');
-    const previewQuantity = document.getElementById('ticketPreviewQuantity');
-    
-    previewName.textContent = ticketName;
-    
-    if (ticketType === 'free') {
-        previewType.textContent = 'FREE';
-        previewType.className = 'ticket-preview-type free';
-        previewPrice.textContent = 'Free Entry';
-        
-        const quantity = document.getElementById('freeTicketQuantity').value || 0;
-        previewQuantity.textContent = `${quantity} available`;
-        
-    } else if (ticketType === 'paid') {
-        previewType.textContent = 'PAID';
-        previewType.className = 'ticket-preview-type paid';
-        
-        const price = document.getElementById('ticketPrice').value || 0;
-        previewPrice.textContent = `₦${price}`;
-        
-        const quantity = document.getElementById('paidTicketQuantity').value || 0;
-        previewQuantity.textContent = `${quantity} available`;
-        
-    } else if (ticketType === 'donation') {
-        previewType.textContent = 'DONATION';
-        previewType.className = 'ticket-preview-type donation';
-        
-        const suggested = document.getElementById('suggestedDonation').value;
-        previewPrice.textContent = suggested ? `Suggested: ₦${suggested}` : 'Pay What You Want';
-        
-        const quantity = document.getElementById('donationTicketQuantity').value || 0;
-        previewQuantity.textContent = `${quantity} available`;
-    }
-}
-
-// Add event listeners for ticket preview updates
-document.getElementById('ticketName').addEventListener('input', updateTicketPreview);
-document.getElementById('freeTicketQuantity').addEventListener('input', updateTicketPreview);
-document.getElementById('ticketPrice').addEventListener('input', updateTicketPreview);
-document.getElementById('paidTicketQuantity').addEventListener('input', updateTicketPreview);
-document.getElementById('suggestedDonation').addEventListener('input', updateTicketPreview);
-document.getElementById('donationTicketQuantity').addEventListener('input', updateTicketPreview);
-
-function saveTicketConfiguration() {
-    const ticketName = document.getElementById('ticketName').value.trim();
-    const ticketType = document.querySelector('input[name="ticketType"]:checked').value;
-    
-    if (!ticketName) {
-        alert('Please enter a ticket name');
-        return;
-    }
-    
-    let ticketConfig = {
-        name: ticketName,
-        type: ticketType,
-        description: document.getElementById('ticketDescription').value.trim()
-    };
-    
-    // Get type-specific configuration
-    if (ticketType === 'free') {
-        const quantity = parseInt(document.getElementById('freeTicketQuantity').value);
-        if (!quantity || quantity < 1) {
-            alert('Please enter a valid quantity for free tickets');
-            return;
-        }
-        ticketConfig.quantity = quantity;
-        
-    } else if (ticketType === 'paid') {
-        const price = parseFloat(document.getElementById('ticketPrice').value);
-        const quantity = parseInt(document.getElementById('paidTicketQuantity').value);
-        const processingMethod = document.querySelector('input[name="processingMethod"]:checked').value;
-        
-        if (!price || price < 1) {
-            alert('Please enter a valid price for paid tickets');
-            return;
-        }
-        if (!quantity || quantity < 1) {
-            alert('Please enter a valid quantity for paid tickets');
-            return;
-        }
-        
-        ticketConfig.price = price;
-        ticketConfig.quantity = quantity;
-        ticketConfig.processingMethod = processingMethod;
-        
-    } else if (ticketType === 'donation') {
-        const quantity = parseInt(document.getElementById('donationTicketQuantity').value);
-        const suggested = parseFloat(document.getElementById('suggestedDonation').value) || 0;
-        
-        if (!quantity || quantity < 1) {
-            alert('Please enter a valid quantity for donation tickets');
-            return;
-        }
-        
-        ticketConfig.quantity = quantity;
-        ticketConfig.suggestedDonation = suggested;
-    }
-    
-    // Add ticket to array
-    physicalTicketTypes.push(ticketConfig);
-    
-    // Update ticket display
-    updateTicketTypesDisplay();
-    
-    // Update payment summary
-    updatePhysicalPaymentSummary();
-    
-    // Close modal
-    closeTicketConfigModal();
-    
-    // Continue flow if this is the first ticket
-    if (physicalTicketTypes.length === 1) {
-        showFormGroup('eventNameGroup');
-    }
-}
-
-function updateTicketTypesDisplay() {
-    const container = document.getElementById('ticketTypesList');
-    container.innerHTML = '';
-    
-    physicalTicketTypes.forEach((ticket, index) => {
-        const ticketElement = document.createElement('div');
-        ticketElement.className = 'ticket-type-item';
-        
-        let priceDisplay = '';
-        if (ticket.type === 'free') {
-            priceDisplay = 'Free';
-        } else if (ticket.type === 'paid') {
-            priceDisplay = `₦${ticket.price}`;
-        } else if (ticket.type === 'donation') {
-            priceDisplay = ticket.suggestedDonation > 0 ? `Suggested: ₦${ticket.suggestedDonation}` : 'Pay What You Want';
-        }
-        
-        ticketElement.innerHTML = `
-            <div class="ticket-item-content">
-                <div class="ticket-item-header">
-                    <span class="ticket-item-name">${ticket.name}</span>
-                    <span class="ticket-item-type ${ticket.type}">${ticket.type.toUpperCase()}</span>
-                </div>
-                <div class="ticket-item-details">
-                    <span class="ticket-item-price">${priceDisplay}</span>
-                    <span class="ticket-item-quantity">${ticket.quantity} available</span>
-                </div>
-                ${ticket.description ? `<div class="ticket-item-description">${ticket.description}</div>` : ''}
-            </div>
-            <div class="ticket-item-actions">
-                <button type="button" class="edit-ticket-btn" onclick="editTicketType(${index})">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button type="button" class="delete-ticket-btn" onclick="deleteTicketType(${index})">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </div>
-        `;
-        
-        container.appendChild(ticketElement);
-    });
-}
-
-function editTicketType(index) {
-    currentEditingTicketIndex = index;
-    const ticket = physicalTicketTypes[index];
-    
-    // Populate edit form with ticket data
-    document.getElementById('editTicketIndex').value = index;
-    document.getElementById('editTicketName').value = ticket.name;
-    document.getElementById('editTicketDescription').value = ticket.description || '';
-    
-    // Select ticket type
-    document.getElementById(`edit${ticket.type.charAt(0).toUpperCase() + ticket.type.slice(1)}Ticket`).checked = true;
-    selectEditTicketType(ticket.type);
-    
-    // Populate type-specific fields
-    if (ticket.type === 'free') {
-        document.getElementById('editFreeTicketQuantity').value = ticket.quantity;
-    } else if (ticket.type === 'paid') {
-        document.getElementById('editTicketPrice').value = ticket.price;
-        document.getElementById('editPaidTicketQuantity').value = ticket.quantity;
-        document.getElementById(`edit${ticket.processingMethod.charAt(0).toUpperCase() + ticket.processingMethod.slice(1)}Processing`).checked = true;
-        } else if (ticket.type === 'donation') {
-        document.getElementById('editSuggestedDonation').value = ticket.suggestedDonation || '';
-        document.getElementById('editDonationTicketQuantity').value = ticket.quantity;
-    }
-    
-    // Update edit preview
-    updateEditTicketPreview();
-    
-    // Show edit modal
-    document.getElementById('ticketEditModal').style.display = 'flex';
-}
-
-function deleteTicketType(index) {
-    if (confirm('Are you sure you want to delete this ticket type?')) {
-        physicalTicketTypes.splice(index, 1);
-        updateTicketTypesDisplay();
-        updatePhysicalPaymentSummary();
-        
-        // Hide subsequent form groups if no tickets remain
-        if (physicalTicketTypes.length === 0) {
-            hideFormGroup('eventNameGroup');
-            hideFormGroup('descriptionGroup');
-            hideFormGroup('physicalBackgroundGroup');
-            hideFormGroup('tagsGroup');
-            hideFormGroup('rulesGroup');
-            hideFormGroup('paymentGroup');
-            hideFormGroup('submitGroup');
-        }
-    }
-}
-
-function selectEditTicketType(type) {
-    const freeConfig = document.getElementById('editFreeTicketConfig');
-    const paidConfig = document.getElementById('editPaidTicketConfig');
-    const donationConfig = document.getElementById('editDonationTicketConfig');
-    
-    // Hide all configs
-    freeConfig.style.display = 'none';
-    paidConfig.style.display = 'none';
-    donationConfig.style.display = 'none';
-    
-    // Show selected config
-    if (type === 'free') {
-        freeConfig.style.display = 'block';
-    } else if (type === 'paid') {
-        paidConfig.style.display = 'block';
-    } else if (type === 'donation') {
-        donationConfig.style.display = 'block';
-    }
-    
-    updateEditTicketPreview();
-}
-
-function updateEditTicketPreview() {
-    const ticketName = document.getElementById('editTicketName').value || 'Ticket Name';
-    const ticketType = document.querySelector('input[name="editTicketType"]:checked')?.value || 'free';
-    
-    const previewName = document.getElementById('editTicketPreviewName');
-    const previewType = document.getElementById('editTicketPreviewType');
-    const previewPrice = document.getElementById('editTicketPreviewPrice');
-    const previewQuantity = document.getElementById('editTicketPreviewQuantity');
-    
-    previewName.textContent = ticketName;
-    
-    if (ticketType === 'free') {
-        previewType.textContent = 'FREE';
-        previewType.className = 'ticket-preview-type free';
-        previewPrice.textContent = 'Free Entry';
-        
-        const quantity = document.getElementById('editFreeTicketQuantity').value || 0;
-        previewQuantity.textContent = `${quantity} available`;
-        
-    } else if (ticketType === 'paid') {
-        previewType.textContent = 'PAID';
-        previewType.className = 'ticket-preview-type paid';
-        
-        const price = document.getElementById('editTicketPrice').value || 0;
-        previewPrice.textContent = `₦${price}`;
-        
-        const quantity = document.getElementById('editPaidTicketQuantity').value || 0;
-        previewQuantity.textContent = `${quantity} available`;
-        
-    } else if (ticketType === 'donation') {
-        previewType.textContent = 'DONATION';
-        previewType.className = 'ticket-preview-type donation';
-        
-        const suggested = document.getElementById('editSuggestedDonation').value;
-        previewPrice.textContent = suggested ? `Suggested: ₦${suggested}` : 'Pay What You Want';
-        
-        const quantity = document.getElementById('editDonationTicketQuantity').value || 0;
-        previewQuantity.textContent = `${quantity} available`;
-    }
-}
-
-// Add event listeners for edit ticket preview updates
-document.getElementById('editTicketName').addEventListener('input', updateEditTicketPreview);
-document.getElementById('editFreeTicketQuantity').addEventListener('input', updateEditTicketPreview);
-document.getElementById('editTicketPrice').addEventListener('input', updateEditTicketPreview);
-document.getElementById('editPaidTicketQuantity').addEventListener('input', updateEditTicketPreview);
-document.getElementById('editSuggestedDonation').addEventListener('input', updateEditTicketPreview);
-document.getElementById('editDonationTicketQuantity').addEventListener('input', updateEditTicketPreview);
-
-function closeTicketEditModal() {
-    document.getElementById('ticketEditModal').style.display = 'none';
-    currentEditingTicketIndex = -1;
-}
-
-function updateTicketConfiguration() {
-    const index = currentEditingTicketIndex;
-    if (index === -1) return;
-    
-    const ticketName = document.getElementById('editTicketName').value.trim();
-    const ticketType = document.querySelector('input[name="editTicketType"]:checked').value;
-    
-    if (!ticketName) {
-        alert('Please enter a ticket name');
-        return;
-    }
-    
-    let ticketConfig = {
-        name: ticketName,
-        type: ticketType,
-        description: document.getElementById('editTicketDescription').value.trim()
-    };
-    
-    // Get type-specific configuration
-    if (ticketType === 'free') {
-        const quantity = parseInt(document.getElementById('editFreeTicketQuantity').value);
-        if (!quantity || quantity < 1) {
-            alert('Please enter a valid quantity for free tickets');
-            return;
-        }
-        ticketConfig.quantity = quantity;
-        
-    } else if (ticketType === 'paid') {
-        const price = parseFloat(document.getElementById('editTicketPrice').value);
-        const quantity = parseInt(document.getElementById('editPaidTicketQuantity').value);
-        const processingMethod = document.querySelector('input[name="editProcessingMethod"]:checked').value;
-        
-        if (!price || price < 1) {
-            alert('Please enter a valid price for paid tickets');
-            return;
-        }
-        if (!quantity || quantity < 1) {
-            alert('Please enter a valid quantity for paid tickets');
-            return;
-        }
-        
-        ticketConfig.price = price;
-        ticketConfig.quantity = quantity;
-        ticketConfig.processingMethod = processingMethod;
-        
-    } else if (ticketType === 'donation') {
-        const quantity = parseInt(document.getElementById('editDonationTicketQuantity').value);
-        const suggested = parseFloat(document.getElementById('editSuggestedDonation').value) || 0;
-        
-        if (!quantity || quantity < 1) {
-            alert('Please enter a valid quantity for donation tickets');
-            return;
-        }
-        
-        ticketConfig.quantity = quantity;
-        ticketConfig.suggestedDonation = suggested;
-    }
-    
-    // Update ticket in array
-    physicalTicketTypes[index] = ticketConfig;
-    
-    // Update display and payment summary
-    updateTicketTypesDisplay();
-    updatePhysicalPaymentSummary();
-    
-    // Close modal
-    closeTicketEditModal();
-}
-
-// Physical Event Background Functions
-function switchPhysicalBackgroundTab(tab) {
-    const mediaTabs = document.querySelectorAll('.bg-tab');
-    const mediaContents = document.querySelectorAll('.bg-content');
-    
-    // Remove active class from all tabs and contents
-    mediaTabs.forEach(t => t.classList.remove('active'));
-    mediaContents.forEach(c => c.classList.remove('active'));
-    
-    // Add active class to selected tab and content
-    event.target.classList.add('active');
-    document.getElementById(tab === 'media' ? 'mediaContent' : 'gradientContent').classList.add('active');
-    
-    // Update selected background type
-    selectedPhysicalBackground.type = tab;
-}
-
-function handlePhysicalMediaUpload(input) {
-    const file = input.files[0];
-    if (!file) return;
-    
-    // Validate file size (10MB max)
-    if (file.size > 10 * 1024 * 1024) {
-        alert('File size must be less than 10MB');
-        input.value = '';
-        return;
-    }
-    
-    // Validate file type
-    const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'video/mp4', 'video/quicktime'];
-    if (!validTypes.includes(file.type)) {
-        alert('Please upload a valid image (JPG, PNG, GIF) or video (MP4, MOV) file');
-        input.value = '';
-        return;
-    }
-    
-    // For videos, validate duration (15 seconds max)
-    if (file.type.startsWith('video/')) {
-        const video = document.createElement('video');
-        video.preload = 'metadata';
-        
-        video.onloadedmetadata = function() {
-            if (video.duration > 15) {
-                alert('Video duration must be 15 seconds or less');
-                input.value = '';
-                return;
-            }
-            
-            // Process valid video
-            processPhysicalMedia(file);
-        };
-        
-        video.src = URL.createObjectURL(file);
-    } else {
-        // Process image/gif
-        processPhysicalMedia(file);
-    }
-}
-
-function processPhysicalMedia(file) {
-    physicalMediaFile = file;
-    const previewContainer = document.getElementById('physicalMediaPreviewContainer');
-    const previewElement = document.getElementById('physicalMediaPreview');
-    
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        previewElement.innerHTML = '';
-        
-        if (file.type.startsWith('image/')) {
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            img.className = 'media-preview-image';
-            previewElement.appendChild(img);
-        } else if (file.type.startsWith('video/')) {
-            const video = document.createElement('video');
-            video.src = e.target.result;
-            video.className = 'media-preview-video';
-            video.controls = true;
-            video.muted = true;
-            previewElement.appendChild(video);
-        }
-        
-        previewContainer.style.display = 'block';
-        selectedPhysicalBackground = { type: 'media', value: file };
-    };
-    
-    reader.readAsDataURL(file);
-}
-
-function removePhysicalMedia() {
-    physicalMediaFile = null;
-    document.getElementById('physicalBackgroundMedia').value = '';
-    document.getElementById('physicalMediaPreviewContainer').style.display = 'none';
-    document.getElementById('physicalMediaPreview').innerHTML = '';
-    
-    // Reset to gradient background
-    selectedPhysicalBackground = { type: 'gradient', value: '#FF6B6B,#4ECDC4' };
-    updateGradientPreview();
-}
-
-function updateGradientPreview() {
-    const color1 = document.getElementById('gradientColor1').value;
-    const color2 = document.getElementById('gradientColor2').value;
-    const preview = document.getElementById('gradientPreview');
-    
-    const gradient = `linear-gradient(135deg, ${color1}, ${color2})`;
-    preview.style.background = gradient;
-    
-    selectedPhysicalBackground = { type: 'gradient', value: `${color1},${color2}` };
-}
-
-// Ticket customization functions
-function switchTicketCustomTab(tab) {
-    const tabs = document.querySelectorAll('.custom-tab');
-    const contents = document.querySelectorAll('.custom-content');
-    
-    tabs.forEach(t => t.classList.remove('active'));
-    contents.forEach(c => c.classList.remove('active'));
-    
-    event.target.classList.add('active');
-    document.getElementById(tab === 'image' ? 'ticketImageContent' : 'ticketColorContent').classList.add('active');
-}
-
-function switchEditTicketCustomTab(tab) {
-    const tabs = document.querySelectorAll('.custom-tab');
-    const contents = document.querySelectorAll('.custom-content');
-    
-    tabs.forEach(t => t.classList.remove('active'));
-    contents.forEach(c => c.classList.remove('active'));
-    
-    event.target.classList.add('active');
-    document.getElementById(tab === 'image' ? 'editTicketImageContent' : 'editTicketColorContent').classList.add('active');
-}
-
-function selectTicketColor(color) {
-    // Update ticket preview background color
-    const preview = document.getElementById('ticketPreview');
-    preview.style.backgroundColor = color;
-    
-    // Remove active class from all color options
-    document.querySelectorAll('#ticketColorContent .color-option').forEach(option => {
-        option.classList.remove('active');
-    });
-    
-    // Add active class to selected color
-    event.target.classList.add('active');
-}
-
-function selectEditTicketColor(color) {
-    // Update edit ticket preview background color
-    const preview = document.getElementById('editTicketPreview');
-    preview.style.backgroundColor = color;
-    
-    // Remove active class from all color options
-    document.querySelectorAll('#editTicketColorContent .color-option').forEach(option => {
-        option.classList.remove('active');
-    });
-    
-    // Add active class to selected color
-    event.target.classList.add('active');
-}
-
-// Payment calculation for physical events
-function updatePhysicalPaymentSummary() {
-    const category = document.getElementById('physicalEventCategory').value;
-    const selectedCategoryElement = document.getElementById('selectedPhysicalCategory');
-    const freeTicketFeeElement = document.getElementById('freeTicketFee');
-    const paidTicketFeeElement = document.getElementById('paidTicketFee');
-    const processingMethodElement = document.getElementById('processingMethod');
-    const totalFeeElement = document.getElementById('totalPhysicalCreationFee');
-    const totalNairaElement = document.getElementById('totalPhysicalCreationFeeNaira');
-    
-    // Show category
-    if (category) {
-        const categoryText = document.getElementById('physicalEventCategory').selectedOptions[0].textContent;
-        selectedCategoryElement.textContent = categoryText;
-    } else {
-        selectedCategoryElement.textContent = '-';
-    }
-    
-    let totalFee = 0;
-    let hasFreeTickets = false;
-    let hasPaidTickets = false;
-    let paidTicketFee = 0;
-    let processingMethods = [];
-    
-    // Calculate fees based on ticket types
-    physicalTicketTypes.forEach(ticket => {
-        if (ticket.type === 'free' || ticket.type === 'donation') {
-            hasFreeTickets = true;
-        } else if (ticket.type === 'paid') {
-            hasPaidTickets = true;
-            
-            if (ticket.processingMethod === 'oneTime') {
-                paidTicketFee += 0.2 * ticket.quantity;
-                processingMethods.push('One-time');
-            } else {
-                processingMethods.push('Per-ticket');
-            }
-        }
-    });
-    
-    // Show/hide fee items
-    const freeTicketFeeItem = document.getElementById('freeTicketFeeItem');
-    const paidTicketFeeItem = document.getElementById('paidTicketFeeItem');
-    const processingFeeItem = document.getElementById('ticketProcessingFeeItem');
-    
-    if (hasFreeTickets) {
-        freeTicketFeeItem.style.display = 'flex';
-               freeTicketFeeElement.textContent = '7 TC';
-        totalFee += 7;
-    } else {
-        freeTicketFeeItem.style.display = 'none';
-    }
-    
-    if (hasPaidTickets) {
-        paidTicketFeeItem.style.display = 'flex';
-        paidTicketFeeElement.textContent = `${paidTicketFee} TC`;
-        totalFee += paidTicketFee;
-        
-        processingFeeItem.style.display = 'flex';
-        processingMethodElement.textContent = [...new Set(processingMethods)].join(', ');
-    } else {
-        paidTicketFeeItem.style.display = 'none';
-        processingFeeItem.style.display = 'none';
-    }
-    
-    // Update total
-    totalFeeElement.textContent = `${totalFee} TC`;
-    totalNairaElement.textContent = (totalFee * 50).toLocaleString();
-}
-
-// Payment breakdown visibility
-function updatePaymentBreakdownVisibility(mode) {
-    const onlineBreakdown = document.getElementById('onlinePaymentBreakdown');
-    const physicalBreakdown = document.getElementById('physicalPaymentBreakdown');
-    
-    if (mode === 'online') {
-        onlineBreakdown.style.display = 'block';
-        physicalBreakdown.style.display = 'none';
-    } else if (mode === 'physical') {
-        onlineBreakdown.style.display = 'none';
-        physicalBreakdown.style.display = 'block';
-    }
-}
-
-// Reset functions
-function resetPhysicalEventData() {
-    physicalTicketTypes = [];
-    physicalMediaFile = null;
-    selectedPhysicalBackground = { type: 'gradient', value: '#FF6B6B,#4ECDC4' };
-    
-    // Reset form fields
-    document.getElementById('physicalEventCategory').value = '';
-    document.getElementById('eventLocation').value = '';
-    document.getElementById('startDate').value = '';
-    document.getElementById('startTime').value = '';
-    document.getElementById('endDate').value = '';
-    document.getElementById('endTime').value = '';
-    
-    // Reset displays
-    document.getElementById('ticketTypesList').innerHTML = '';
-    document.getElementById('durationDisplay').style.display = 'none';
-    document.querySelector('.custom-physical-category-input').style.display = 'none';
-    document.getElementById('physicalMediaPreviewContainer').style.display = 'none';
-}
-
-function resetOnlineEventData() {
-    // Reset online event specific data
-    document.getElementById('eventType').value = '';
-    document.getElementById('category').value = '';
-    document.getElementById('duration').value = '';
-    document.getElementById('participants').value = '';
-    document.getElementById('entryFee').value = '';
-    document.getElementById('votingFee').value = '';
-    
-    // Reset background
-    selectedBackground = { type: 'color', value: '#FF6B6B' };
-    imageFile = null;
-    
-    // Reset displays
-    document.querySelector('.custom-category-input').style.display = 'none';
-    document.getElementById('imagePreviewContainer').style.display = 'none';
-}
-
-// Enhanced form validation for physical events
-function validatePhysicalEventForm() {
-    const mode = document.querySelector('input[name="eventMode"]:checked').value;
-    
-    if (mode === 'physical') {
-        // Validate category
-        const category = document.getElementById('physicalEventCategory').value;
-        if (!category) {
-            alert('Please select an event category');
-            return false;
-        }
-        
-        // Validate location
-        const location = document.getElementById('eventLocation').value.trim();
-        if (location.length < 10) {
-            alert('Please provide a detailed event location (minimum 10 characters)');
-            return false;
-        }
-        
-        // Validate dates
-        const startDate = document.getElementById('startDate').value;
-        const startTime = document.getElementById('startTime').value;
-        const endDate = document.getElementById('endDate').value;
-        const endTime = document.getElementById('endTime').value;
-        
-        if (!startDate || !startTime || !endDate || !endTime) {
-            alert('Please fill in all date and time fields');
-            return false;
-        }
-        
-        const start = new Date(`${startDate}T${startTime}`);
-        const end = new Date(`${endDate}T${endTime}`);
-        const now = new Date();
-        
-        if (start <= now) {
-            alert('Event start time must be in the future');
-            return false;
-        }
-        
-        if (end <= start) {
-            alert('Event end time must be after start time');
-            return false;
-        }
-        
-        // Validate tickets
-        if (physicalTicketTypes.length === 0) {
-            alert('Please add at least one ticket type');
-            return false;
-        }
-        
-        // Validate ticket configurations
-        for (let ticket of physicalTicketTypes) {
-            if (!ticket.name || ticket.name.trim().length === 0) {
-                alert('All tickets must have a name');
-                return false;
-            }
-            
-            if (!ticket.quantity || ticket.quantity < 1) {
-                alert(`Ticket "${ticket.name}" must have a valid quantity`);
-                return false;
-            }
-            
-            if (ticket.type === 'paid' && (!ticket.price || ticket.price < 1)) {
-                alert(`Paid ticket "${ticket.name}" must have a valid price`);
-                return false;
-            }
-        }
-    }
-    
-    return true;
-}
-
-// Enhanced form submission
-function handleFormSubmission(event) {
-    event.preventDefault();
-    
-    const mode = document.querySelector('input[name="eventMode"]:checked').value;
-    
-    // Validate based on event mode
-    if (mode === 'online') {
-        if (!validateOnlineEventForm()) return;
-    } else if (mode === 'physical') {
-        if (!validatePhysicalEventForm()) return;
-    }
-    
-    // Common validations
-    const eventName = document.getElementById('eventName').value.trim();
-    const eventDescription = document.getElementById('eventDescription').value.trim();
-    
-    if (eventName.length < 5) {
-        alert('Event name must be at least 5 characters long');
-        return;
-    }
-    
-    if (eventDescription.length < 20) {
-        alert('Event description must be at least 20 characters long');
-        return;
-    }
-    
-    // Payment validation
-    const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
-    if (paymentMethod === 'promoCode') {
-        const promoCode = document.getElementById('promoCodeInput').value.trim();
-        const validCodes = ['Bisask19', 'nig2025', 'Ismartdc'];
-        
-        if (!validCodes.includes(promoCode)) {
-            alert('Please enter a valid promo code');
-            return;
-        }
-    }
-    
-    // Create event data object
-    const eventData = createEventDataObject(mode);
-    
-    // Submit event
-    submitEvent(eventData);
-}
-
-function createEventDataObject(mode) {
-    const eventData = {
-        mode: mode,
-        name: document.getElementById('eventName').value.trim(),
-        description: document.getElementById('eventDescription').value.trim(),
-        background: mode === 'online' ? selectedBackground : selectedPhysicalBackground,
-        hashtags: hashtags,
-        startags: startags,
-        rules: rules,
-        paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value
-    };
-    
-    if (mode === 'online') {
-        eventData.type = document.getElementById('eventType').value;
-        eventData.category = document.getElementById('category').value;
-        eventData.duration = document.getElementById('duration').value;
-        eventData.participants = document.getElementById('participants').value;
-        eventData.entryFee = document.getElementById('entryFee').value;
-        eventData.votingFee = document.getElementById('votingFee').value;
-        
-        if (imageFile) {
-            eventData.backgroundImage = imageFile;
-        }
-        
-    } else if (mode === 'physical') {
-        eventData.category = document.getElementById('physicalEventCategory').value;
-        eventData.location = document.getElementById('eventLocation').value.trim();
-        eventData.startDate = document.getElementById('startDate').value;
-        eventData.startTime = document.getElementById('startTime').value;
-        eventData.endDate = document.getElementById('endDate').value;
-        eventData.endTime = document.getElementById('endTime').value;
-        eventData.tickets = physicalTicketTypes;
-        
-        if (physicalMediaFile) {
-            eventData.backgroundMedia = physicalMediaFile;
-        }
-    }
-    
-    if (eventData.paymentMethod === 'promoCode') {
-        eventData.promoCode = document.getElementById('promoCodeInput').value.trim();
-    }
-    
-    return eventData;
-}
-
-function submitEvent(eventData) {
-    // Show loading state
-    const submitBtn = document.getElementById('createEventBtn');
-    const originalText = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Event...';
-    submitBtn.disabled = true;
-    
-    // Simulate API call
-    setTimeout(() => {
-        console.log('Event Data:', eventData);
-        
-        // Show success message
-        alert('Event created successfully!');
-        
-        // Reset form
-        resetForm();
-        
-        // Reset button
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-        
-        // Redirect or close modal
-        closeModal();
-        
-    }, 2000);
-}
-
-function resetForm() {
-    // Reset all form fields
-    document.getElementById('eventCreationForm').reset();
-    
-    // Reset global variables
-    physicalTicketTypes = [];
-    currentEditingTicketIndex = -1;
-    selectedPhysicalBackground = { type: 'gradient', value: '#FF6B6B,#4ECDC4' };
-    physicalMediaFile = null;
-    hashtags = [];
-    startags = [];
-    rules = [];
-    
-    // Reset displays
-    document.getElementById('ticketTypesList').innerHTML = '';
-    document.getElementById('hashtagsDisplay').innerHTML = '';
-    document.getElementById('startagsDisplay').innerHTML = '';
-    document.getElementById('rulesList').innerHTML = '';
-    document.getElementById('durationDisplay').style.display = 'none';
-    document.getElementById('physicalMediaPreviewContainer').style.display = 'none';
-    document.getElementById('imagePreviewContainer').style.display = 'none';
-    
-    // Hide all form groups except mode selection
-    hideAllFormGroups();
-    showFormGroup('eventModeGroup');
-    
-    // Reset to online mode by default
-    document.getElementById('onlineEvent').checked = true;
-    selectEventMode('online');
-}
-
-function hideAllFormGroups() {
-    const formGroups = [
-        'eventTypeGroup', 'categoryGroup', 'durationGroup', 'participantsGroup',
-        'entryFeeGroup', 'votingFeeGroup', 'physicalCategoryGroup', 'locationGroup',
-        'schedulingGroup', 'ticketConfigGroup', 'eventNameGroup', 'descriptionGroup',
-        'backgroundGroup', 'physicalBackgroundGroup', 'tagsGroup', 'rulesGroup',
-        'paymentGroup', 'submitGroup'
-    ];
-    
-    formGroups.forEach(groupId => {
-        hideFormGroup(groupId);
-    });
-}
-
-// Initialize physical event functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Add event listeners for date/time inputs
-    ['startDate', 'startTime', 'endDate', 'endTime'].forEach(id => {
-        document.getElementById(id).addEventListener('change', calculateDuration);
-    });
-    
-    // Add event listeners for gradient colors
-    document.getElementById('gradientColor1').addEventListener('change', updateGradientPreview);
-    document.getElementById('gradientColor2').addEventListener('change', updateGradientPreview);
-    
-    // Initialize gradient preview
-    updateGradientPreview();
-    
-    // Add form submission handler
-    document.getElementById('eventCreationForm').addEventListener('submit', handleFormSubmission);
-    
-    // Set default event mode to online
-    document.getElementById('onlineEvent').checked = true;
-    selectEventMode('online');
-});
-
-// Utility functions for form group management
-function showFormGroup(groupId) {
-    const group = document.getElementById(groupId);
-    if (group) {
-        group.style.display = 'block';
-    }
-}
-
-function hideFormGroup(groupId) {
-    const group = document.getElementById(groupId);
-    if (group) {
-        group.style.display = 'none';
-    }
-}
-
-// Enhanced validation for online events (existing function enhancement)
-function validateOnlineEventForm() {
-    const eventType = document.getElementById('eventType').value;
-    const category = document.getElementById('category').value;
-    const duration = document.getElementById('duration').value;
-    const participants = document.getElementById('participants').value;
-    const entryFee = document.getElementById('entryFee').value;
-    const votingFee = document.getElementById('votingFee').value;
-    
-    if (!eventType) {
-        alert('Please select an event type');
-        return false;
-    }
-    
-    if (!category) {
-        alert('Please select a category');
-        return false;
-    }
-    
-    if (!duration) {
-        alert('Please select event duration');
-        return false;
-    }
-    
-    if (!participants) {
-        alert('Please select number of participants');
-        return false;
-    }
-    
-    if (!entryFee) {
-        alert('Please set entry fee');
-        return false;
-    }
-    
-    if (!votingFee) {
-        alert('Please set voting fee');
-        return false;
-    }
-    
-    return true;
-}
-
-// Close modal function
-function closeModal() {
-    const modal = document.querySelector('.modal-overlay');
-    if (modal) {
-        modal.style.display = 'none';
-    }
-}
 
 
-    
 
        document.addEventListener('DOMContentLoaded', function() {
     // Get the button and the live events page
@@ -26442,164 +25836,615 @@ function closeModal() {
 });
 
 
-   
-// Tab switching functionality for New Events page
-document.addEventListener('DOMContentLoaded', function() {
-    setupNewEventTabs();
-});
 
-function setupNewEventTabs() {
-    const tabButtons = document.querySelectorAll('.newevent-tab-btn');
-    const tabContents = document.querySelectorAll('.newevent-tab-content');
-    
-    tabButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const targetTab = this.getAttribute('data-tab');
+   
+     
+     
+       
+// NewEvent Page Class - Updated for Firebase v8 compat
+class NewEventPage {
+    constructor() {
+        this.currentFilter = 'latest';
+        this.currentSearchFilter = 'all';
+        this.currentTab = 'talent';
+        this.allEvents = [];
+        this.filteredEvents = [];
+        this.validCodes = ['Biask19', 'nig2025', 'Ismartdc'];
+        this.init();
+    }
+
+    init() {
+        this.bindEvents();
+        this.loadAllEvents();
+        this.switchToTalentTab();
+    }
+
+    switchToTalentTab() {
+        // Auto-activate talent tab
+        document.querySelectorAll('.newevent-tab-btn').forEach(btn => {
+            btn.classList.remove('newevent-active');
+        });
+        const talentBtn = document.querySelector('[data-tab="talent"]');
+        if (talentBtn) talentBtn.classList.add('newevent-active');
+
+        document.querySelectorAll('.newevent-tab-content').forEach(content => {
+            content.classList.remove('newevent-active');
+        });
+        const talentTab = document.getElementById('newevent-talent-tab');
+        if (talentTab) talentTab.classList.add('newevent-active');
+    }
+
+    bindEvents() {
+        // Tab switching
+        document.querySelectorAll('.newevent-tab-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => this.switchTab(e));
+        });
+
+        // Filter buttons
+        document.querySelectorAll('.newevent-filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => this.applyFilter(e));
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.newevent-search-input');
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => this.handleSearch(e));
+        }
+
+        // Search filter buttons
+        document.querySelectorAll('.newevent-search-filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => this.switchSearchFilter(e));
+        });
+
+        // Talent icons filtering
+        document.querySelectorAll('.newevent-talent-icon').forEach(icon => {
+            icon.addEventListener('click', (e) => this.filterByCategory(e));
+        });
+
+        // Close button
+        const closeBtn = document.querySelector('.newevent-close-btn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => this.closePage());
+        }
+    }
+
+    async loadAllEvents() {
+        try {
+            this.showLoading(true);
             
-            // Remove active class from all tab buttons
-            tabButtons.forEach(btn => btn.classList.remove('newevent-active'));
-            
-            // Remove active class from all tab contents
-            tabContents.forEach(content => content.classList.remove('newevent-active'));
-            
-            // Add active class to clicked button
-            this.classList.add('newevent-active');
-            
-            // Show corresponding tab content
-            const targetContent = document.getElementById(`newevent-${targetTab}-tab`);
-            if (targetContent) {
-                targetContent.classList.add('newevent-active');
+            // Check if user is authenticated
+            if (!auth.currentUser) {
+                this.showError('Please log in to view events.');
+                return;
             }
             
-            // Load content for the active tab
-            loadTabContent(targetTab);
+            // Get all events from Neweventdatabase collection using Firebase v8 syntax
+            const eventsRef = db.collection('Neweventdatabase');
+            const query = eventsRef.orderBy('createdAt', 'desc');
             
-            console.log(`Switched to ${targetTab} tab`);
-        });
-    });
-    
-    // Load initial content for the default active tab (sports)
-    loadTabContent('sports');
-}
-
-function loadTabContent(tabType) {
-    console.log(`Loading content for ${tabType} tab`);
-    
-    if (tabType === 'sports') {
-        loadSportsEvents();
-    } else if (tabType === 'talent') {
-        loadTalentEvents();
-    }
-}
-
-function loadSportsEvents() {
-    const sportsContainer = document.getElementById('newevent-sports-cards');
-    if (!sportsContainer) return;
-    
-    // Show loading message
-    sportsContainer.innerHTML = `
-        <div class="newevent-loading-message">
-            <i class="fas fa-spinner fa-spin"></i>
-            <p>Loading sports events...</p>
-        </div>
-    `;
-    
-    // Load sports events from database
-    // This will be implemented when we have sports events
-    setTimeout(() => {
-        sportsContainer.innerHTML = `
-            <div class="newevent-empty-message">
-                <i class="fas fa-futbol"></i>
-                <p>No sports events available yet</p>
-            </div>
-        `;
-    }, 1000);
-}
-
-function loadTalentEvents() {
-    const talentContainer = document.getElementById('newevent-talent-cards');
-    if (!talentContainer) return;
-    
-    // Show loading message
-    talentContainer.innerHTML = `
-        <div class="newevent-loading-message">
-            <i class="fas fa-spinner fa-spin"></i>
-            <p>Loading talent shows...</p>
-        </div>
-    `;
-    
-    // Load launched entertainment events (they go to talent tab)
-    loadLaunchedEvents('talent');
-}
-
-function loadLaunchedEvents(category) {
-    const container = document.getElementById(`newevent-${category}-cards`);
-    if (!container) return;
-    
-    try {
-        // Query launched events for this category
-        db.collection('launchedEvents')
-            .where('feedCategory', '==', category)
-            .orderBy('launchedAt', 'desc')
-            .limit(20)
-            .get()
-            .then(querySnapshot => {
-                if (querySnapshot.empty) {
-                    container.innerHTML = `
-                        <div class="newevent-empty-message">
-                            <i class="fas fa-star"></i>
-                            <p>No ${category} events launched yet</p>
-                            <small>Events will appear here when users launch them</small>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                // Clear loading message
-                container.innerHTML = '';
-                
-                // Create cards for each launched event
-                querySnapshot.forEach(doc => {
-                    const eventData = { ...doc.data(), launchedEventId: doc.id };
-                    createNewEventPost(eventData, container);
+            // Use onSnapshot for real-time updates
+            this.unsubscribe = query.onSnapshot((snapshot) => {
+                this.allEvents = [];
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    this.allEvents.push({
+                        id: doc.id,
+                        ...data,
+                        // Convert Firestore timestamp to JavaScript Date
+                        createdAt: data.createdAt?.toDate?.() || new Date()
+                    });
                 });
                 
-                console.log(`Loaded ${querySnapshot.size} ${category} events`);
-            })
-            .catch(error => {
-                console.error(`Error loading ${category} events:`, error);
-                container.innerHTML = `
-                    <div class="newevent-error-message">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <p>Error loading ${category} events</p>
-                        <button onclick="loadTabContent('${category}')" class="retry-btn">
-                            <i class="fas fa-redo"></i> Retry
+                this.filteredEvents = [...this.allEvents];
+                this.renderEventCards();
+                this.showLoading(false);
+                
+                console.log(`Loaded ${this.allEvents.length} events from Neweventdatabase`);
+            }, (error) => {
+                console.error('Error loading events:', error);
+                if (error.code === 'permission-denied') {
+                    this.showError('Access denied. Please check your login status.');
+                } else {
+                    this.showError('Failed to load events. Please try again.');
+                }
+                this.showLoading(false);
+            });
+            
+        } catch (error) {
+            console.error('Error in loadAllEvents:', error);
+            this.showError('An unexpected error occurred. Please try again.');
+            this.showLoading(false);
+        }
+    }
+
+    renderEventCards() {
+        const container = document.getElementById('newevent-talent-cards');
+        if (!container) return;
+
+        if (this.filteredEvents.length === 0) {
+            container.innerHTML = `
+                <div class="newevent-no-events">
+                    <i class="fas fa-calendar-times"></i>
+                    <p>No events found matching your criteria</p>
+                </div>
+            `;
+            return;
+        }
+
+        const cardsHTML = this.filteredEvents.map(event => this.createEventCard(event)).join('');
+        container.innerHTML = cardsHTML;
+
+        // Bind check event buttons
+        container.querySelectorAll('.newevent-check-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const eventId = e.target.closest('.newevent-card').dataset.eventId;
+                this.openEventDetails(eventId);
+            });
+        });
+    }
+
+    createEventCard(event) {
+        const creationDate = new Date(event.createdAt).toLocaleDateString();
+        const backgroundStyle = event.backgroundImage ? 
+            `background-image: url(${event.backgroundImage})` : 
+            `background-color: ${event.backgroundColor || '#6c5ce7'}`;
+
+        return `
+            <div class="newevent-card" data-event-id="${event.id}">
+                <div class="newevent-card-background" style="${backgroundStyle}">
+                    <div class="newevent-card-overlay"></div>
+                </div>
+                
+                <div class="newevent-card-content">
+                    <h3 class="newevent-card-title">${event.eventName || 'Untitled Event'}</h3>
+                    
+                    <div class="newevent-card-details">
+                        <div class="newevent-detail-item">
+                            <i class="fas fa-ticket-alt"></i>
+                            <span>${event.entryFee ? `₦${event.entryFee}` : 'No Entry Fee'}</span>
+                        </div>
+                        <div class="newevent-detail-item">
+                            <i class="fas fa-vote-yea"></i>
+                            <span>${event.votingFee ? `₦${event.votingFee}` : 'No Voting Fee'}</span>
+                        </div>
+                        <div class="newevent-detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>${event.duration || 'Not specified'}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="newevent-card-footer">
+                        <span class="newevent-creation-date">
+                            <i class="fas fa-calendar-plus"></i>
+                            ${creationDate}
+                        </span>
+                        <button class="newevent-check-btn">
+                            <i class="fas fa-eye"></i>
+                            Check Event
                         </button>
                     </div>
-                `;
+                </div>
+            </div>
+        `;
+    }
+
+    openEventDetails(eventId) {
+        const event = this.allEvents.find(e => e.id === eventId);
+        if (!event) return;
+
+        // Create and show event details modal
+        this.showEventDetailsModal(event);
+    }
+
+    showEventDetailsModal(event) {
+        const modal = document.createElement('div');
+        modal.className = 'newevent-details-modal';
+        modal.innerHTML = `
+            <div class="newevent-details-container">
+                <div class="newevent-details-header">
+                    <h2>${event.eventName || 'Untitled Event'}</h2>
+                    <button class="newevent-details-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="newevent-details-content">
+                    <div class="newevent-details-description">
+                        <p>${event.eventDescription || 'No description available for this event.'}</p>
+                    </div>
+                    
+                    <div class="newevent-details-fee">
+                        <h4>Entry Requirements:</h4>
+                        <p>${event.entryFee ? `Entry Fee: ₦${event.entryFee}` : 'No Entry Fee Required'}</p>
+                    </div>
+                    
+                    <div class="newevent-payment-section">
+                        <h4>Select Payment Method:</h4>
+                        <div class="newevent-payment-options">
+                            <div class="newevent-payment-option disabled">
+                                <input type="radio" id="tc-balance-${event.id}" name="payment-${event.id}" disabled>
+                                <label for="tc-balance-${event.id}">
+                                    <i class="fas fa-wallet"></i>
+                                    Pay with TC Balance (Coming Soon)
+                                </label>
+                            </div>
+                            
+                            <div class="newevent-payment-option">
+                                <input type="radio" id="free-pass-${event.id}" name="payment-${event.id}" checked>
+                                <label for="free-pass-${event.id}">
+                                    <i class="fas fa-ticket-alt"></i>
+                                    Entry Free Pass
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="newevent-free-pass-section">
+                            <p>Enter one of these valid codes:</p>
+                            <div class="newevent-valid-codes">
+                                <span class="newevent-code">Biask19</span>
+                                <span class="newevent-code">nig2025</span>
+                                <span class="newevent-code">Ismartdc</span>
+                            </div>
+                            <input type="text" class="newevent-code-input" placeholder="Enter free pass code...">
+                        </div>
+                    </div>
+                    
+                    <div class="newevent-details-actions">
+                        <button class="newevent-join-btn" disabled data-event-id="${event.id}">
+                            <i class="fas fa-users"></i>
+                            Join Event (Coming Soon)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        // Bind close event
+        modal.querySelector('.newevent-details-close').addEventListener('click', () => {
+            document.body.removeChild(modal);
+        });
+
+        // Close on backdrop click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                document.body.removeChild(modal);
+            }
+        });
+
+        // Handle code validation
+        const codeInput = modal.querySelector('.newevent-code-input');
+        const joinBtn = modal.querySelector('.newevent-join-btn');
+
+        codeInput.addEventListener('input', (e) => {
+            const code = e.target.value.trim();
+            if (this.validCodes.includes(code)) {
+                joinBtn.disabled = false;
+                joinBtn.innerHTML = '<i class="fas fa-check"></i> Valid Code - Join Event';
+                joinBtn.onclick = () => this.joinEvent(event.id, 'free_pass', code);
+                codeInput.style.borderColor = '#00b894';
+            } else {
+                joinBtn.disabled = true;
+                joinBtn.innerHTML = '<i class="fas fa-users"></i> Join Event (Coming Soon)';
+                joinBtn.onclick = null;
+                codeInput.style.borderColor = code ? '#e17055' : '#ddd';
+            }
+        });
+    }
+
+    // Join event using Firebase v8 syntax
+    async joinEvent(eventId, paymentMethod, freePassCode = null) {
+        try {
+            if (!auth.currentUser) {
+                throw new Error('User not authenticated');
+            }
+            
+            const userId = auth.currentUser.uid;
+            
+            // Create participant document in EventParticipants collection
+            const participantRef = db.collection('EventParticipants').doc(eventId).collection('participants').doc(userId);
+            
+            const participantData = {
+                joinedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                paymentMethod: paymentMethod,
+                userId: userId
+            };
+            
+            if (paymentMethod === 'free_pass' && freePassCode) {
+                if (!this.validateFreePassCode(freePassCode)) {
+                    throw new Error('Invalid free pass code');
+                }
+                participantData.freePassCode = freePassCode;
+            }
+            
+            await participantRef.set(participantData);
+            
+            // Show success message
+            this.showSuccessMessage('Successfully joined the event!');
+            
+            // Close modal
+            const modal = document.querySelector('.newevent-details-modal');
+            if (modal) {
+                document.body.removeChild(modal);
+            }
+            
+            return true;
+        } catch (error) {
+            console.error('Error joining event:', error);
+            this.showError(`Failed to join event: ${error.message}`);
+                    return false;
+        }
+    }
+
+    validateFreePassCode(code) {
+        return this.validCodes.includes(code.trim());
+    }
+
+    applyFilter(e) {
+        const filterType = e.target.dataset.filter;
+        this.currentFilter = filterType;
+
+        // Update active button
+        document.querySelectorAll('.newevent-filter-btn').forEach(btn => {
+            btn.classList.remove('newevent-active');
+        });
+        e.target.classList.add('newevent-active');
+
+        this.filterEvents();
+    }
+
+    filterEvents() {
+        const now = new Date();
+        
+        switch (this.currentFilter) {
+            case 'latest':
+                this.filteredEvents = this.allEvents.sort((a, b) => 
+                    new Date(b.createdAt) - new Date(a.createdAt)
+                );
+                break;
+            case 'old':
+                this.filteredEvents = this.allEvents.sort((a, b) => 
+                    new Date(a.createdAt) - new Date(b.createdAt)
+                );
+                break;
+            case '48hrs':
+                this.filteredEvents = this.allEvents.filter(event => {
+                    const eventDate = new Date(event.createdAt);
+                    const diffHours = (now - eventDate) / (1000 * 60 * 60);
+                    return diffHours <= 48;
+                });
+                break;
+            case '3days':
+                this.filteredEvents = this.allEvents.filter(event => {
+                    const eventDate = new Date(event.createdAt);
+                    const diffDays = (now - eventDate) / (1000 * 60 * 60 * 24);
+                    return diffDays <= 3;
+                });
+                break;
+            case '14days':
+                this.filteredEvents = this.allEvents.filter(event => {
+                    const eventDate = new Date(event.createdAt);
+                    const diffDays = (now - eventDate) / (1000 * 60 * 60 * 24);
+                    return diffDays <= 14;
+                });
+                break;
+            default:
+                this.filteredEvents = [...this.allEvents];
+        }
+
+        this.renderEventCards();
+    }
+
+    handleSearch(e) {
+        const searchTerm = e.target.value.toLowerCase().trim();
+        
+        if (!searchTerm) {
+            this.filteredEvents = [...this.allEvents];
+        } else {
+            this.filteredEvents = this.allEvents.filter(event => {
+                const eventName = (event.eventName || '').toLowerCase();
+                const eventDescription = (event.eventDescription || '').toLowerCase();
+                const eventType = (event.eventType || '').toLowerCase();
+                
+                switch (this.currentSearchFilter) {
+                    case 'name':
+                        return eventName.includes(searchTerm);
+                    case 'description':
+                        return eventDescription.includes(searchTerm);
+                    case 'type':
+                        return eventType.includes(searchTerm);
+                    case 'all':
+                    default:
+                        return eventName.includes(searchTerm) || 
+                               eventDescription.includes(searchTerm) || 
+                               eventType.includes(searchTerm);
+                }
             });
-    } catch (error) {
-        console.error(`Error in loadLaunchedEvents for ${category}:`, error);
+        }
+        
+        this.renderEventCards();
+    }
+
+    switchSearchFilter(e) {
+        const filterType = e.target.dataset.searchFilter;
+        this.currentSearchFilter = filterType;
+
+        // Update active button
+        document.querySelectorAll('.newevent-search-filter-btn').forEach(btn => {
+            btn.classList.remove('newevent-active');
+        });
+        e.target.classList.add('newevent-active');
+
+        // Re-apply current search
+        const searchInput = document.querySelector('.newevent-search-input');
+        if (searchInput && searchInput.value) {
+            this.handleSearch({ target: searchInput });
+        }
+    }
+
+    filterByCategory(e) {
+        const category = e.target.dataset.category;
+        
+        // Update active icon
+        document.querySelectorAll('.newevent-talent-icon').forEach(icon => {
+            icon.classList.remove('newevent-active');
+        });
+        e.target.classList.add('newevent-active');
+
+        if (category === 'all') {
+            this.filteredEvents = [...this.allEvents];
+        } else {
+            this.filteredEvents = this.allEvents.filter(event => 
+                event.eventType === category || 
+                event.eventCategory === category
+            );
+        }
+
+        this.renderEventCards();
+    }
+
+    switchTab(e) {
+        const tabName = e.target.dataset.tab;
+        this.currentTab = tabName;
+
+        // Update active tab button
+        document.querySelectorAll('.newevent-tab-btn').forEach(btn => {
+            btn.classList.remove('newevent-active');
+        });
+        e.target.classList.add('newevent-active');
+
+        // Update active tab content
+        document.querySelectorAll('.newevent-tab-content').forEach(content => {
+            content.classList.remove('newevent-active');
+        });
+        document.getElementById(`newevent-${tabName}-tab`).classList.add('newevent-active');
+
+        // Load appropriate content based on tab
+        if (tabName === 'talent') {
+            this.loadAllEvents();
+        }
+    }
+
+    showLoading(show) {
+        const container = document.getElementById('newevent-talent-cards');
+        if (!container) return;
+
+        if (show) {
+            container.innerHTML = `
+                <div class="newevent-loading-message">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading events...</p>
+                </div>
+            `;
+        }
+    }
+
+    showError(message) {
+        const container = document.getElementById('newevent-talent-cards');
+        if (!container) return;
+
+        container.innerHTML = `
+            <div class="newevent-error-message">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>${message}</p>
+                <button class="newevent-retry-btn" onclick="window.newEventPageInstance.loadAllEvents()">
+                    Try Again
+                </button>
+            </div>
+        `;
+    }
+
+    showNoEvents() {
+        const container = document.getElementById('newevent-talent-cards');
+        if (!container) return;
+
+        container.innerHTML = `
+            <div class="newevent-no-events">
+                <i class="fas fa-calendar-times"></i>
+                <p>No events available at the moment</p>
+            </div>
+        `;
+    }
+
+    showSuccessMessage(message) {
+        // Create temporary success notification
+        const notification = document.createElement('div');
+        notification.className = 'newevent-success-notification';
+        notification.innerHTML = `
+            <i class="fas fa-check-circle"></i>
+            <span>${message}</span>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Remove after 3 seconds
+        setTimeout(() => {
+            if (document.body.contains(notification)) {
+                document.body.removeChild(notification);
+            }
+        }, 3000);
+    }
+
+    closePage() {
+        const newEventPage = document.querySelector('.newevent-page');
+        if (newEventPage) {
+            newEventPage.style.display = 'none';
+        }
+        
+        // Clean up listener
+        if (this.unsubscribe) {
+            this.unsubscribe();
+        }
+    }
+
+    // Clean up method
+    destroy() {
+        if (this.unsubscribe) {
+            this.unsubscribe();
+        }
     }
 }
 
-// Close New Events page
-function closeNewEventsPage() {
+// Function to open New Event Page from main navigation
+function openNewEventPage() {
     const newEventPage = document.querySelector('.newevent-page');
     if (newEventPage) {
-        newEventPage.style.display = 'none';
-        document.body.style.overflow = 'auto';
+        newEventPage.style.display = 'flex';
+        
+        // Initialize if not already done
+        if (!window.newEventPageInstance) {
+            window.newEventPageInstance = new NewEventPage();
+        } else {
+            // Reload events when page is opened
+            window.newEventPageInstance.loadAllEvents();
+        }
     }
 }
 
-// Add event listener for close button
-document.addEventListener('DOMContentLoaded', function() {
-    const closeBtn = document.querySelector('.newevent-close-btn');
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeNewEventsPage);
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Wait for Firebase to be ready
+    if (typeof firebase !== 'undefined') {
+        // Only initialize if the new event page exists
+        if (document.querySelector('.newevent-page')) {
+            window.newEventPageInstance = new NewEventPage();
+        }
+    } else {
+        console.error('Firebase not loaded. Make sure Firebase scripts are included before this script.');
     }
 });
- 
+
+// Clean up on page unload
+window.addEventListener('beforeunload', () => {
+    if (window.newEventPageInstance) {
+        window.newEventPageInstance.destroy();
+    }
+});
+
+// Make functions globally available
+window.openNewEventPage = openNewEventPage;
+
 
        document.addEventListener('DOMContentLoaded', function() {
     // Get the button and the live events page
