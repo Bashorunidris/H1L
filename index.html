@@ -13393,6 +13393,590 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
     border-radius: 10px;
 }
 
+
+
+/* Sport Event Page */
+.sport-event-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1a1a2e;
+    z-index: 1000;
+    overflow-y: auto;
+    display: none;
+}
+
+/* Page Header */
+.sport-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    background: rgba(22, 33, 62, 0.3);
+    border-bottom: 1px solid #16213e;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.sport-page-header h2 {
+    color: white;
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.close-sport-event-page-btn {
+    background: rgba(22, 33, 62, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 1.3rem;
+}
+
+.close-sport-event-page-btn:hover {
+    background: rgba(22, 33, 62, 0.8);
+    transform: rotate(90deg);
+}
+
+/* Banner Ad */
+.sport-banner-ad {
+    width: 480px;
+    height: 65px;
+    margin: 20px auto;
+    padding: 10px 15px;
+    background: linear-gradient(135deg, #16213e, #0f3460);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: 1px solid #008B8B;
+}
+
+.sport-ad-content {
+    text-align: center;
+}
+
+.sport-ad-label {
+    background: #0f3460;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.sport-ad-content p {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+/* Action Buttons */
+.sport-action-buttons {
+    display: flex;
+    gap: 20px;
+    padding: 0 25px;
+    margin: 20px 0;
+    justify-content: center;
+}
+
+.sport-action-btn {
+    background: rgba(22, 33, 62, 0.3);
+    border: 2px solid #008B8B;
+    border-radius: 15px;
+    padding: 15px 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-weight: 600;
+    min-width: 120px;
+    justify-content: center;
+}
+
+.sport-action-btn:hover {
+    background: rgba(0, 139, 139, 0.1);
+    border-color: #20B2AA;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 139, 139, 0.2);
+}
+
+.sport-btn-icon {
+    font-size: 1.2rem;
+}
+
+/* Sponsors Footer */
+.sport-sponsors-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(22, 33, 62, 0.9);
+    border-top: 1px solid #16213e;
+    padding: 15px 0;
+    backdrop-filter: blur(10px);
+}
+
+.sport-sponsors-container {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+}
+
+.sport-sponsors-scroll {
+    display: inline-flex;
+    animation: scrollSponsors 30s linear infinite;
+    gap: 30px;
+    align-items: center;
+}
+
+.sport-sponsor-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    min-width: 100px;
+    padding: 0 10px;
+}
+
+.sport-sponsor-item img {
+    width: 80px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 139, 139, 0.3);
+}
+
+.sport-sponsor-item span {
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* Scrolling Animation */
+@keyframes scrollSponsors {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sport-page-header {
+        padding: 15px 20px;
+    }
+    
+    .sport-page-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .sport-banner-ad {
+        width: 100%;
+        max-width: 480px;
+        margin: 15px auto;
+        padding: 8px 12px;
+    }
+    
+    .sport-action-buttons {
+        padding: 0 20px;
+        gap: 15px;
+    }
+    
+    .sport-action-btn {
+        padding: 12px 20px;
+        min-width: 100px;
+    }
+    
+    .sport-sponsors-footer {
+        padding: 12px 0;
+    }
+    
+    .sport-sponsor-item {
+        min-width: 80px;
+        gap: 3px;
+    }
+    
+    .sport-sponsor-item img {
+        width: 60px;
+        height: 30px;
+    }
+    
+    .sport-sponsor-item span {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .sport-page-header {
+        padding: 12px 15px;
+    }
+    
+    .sport-page-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .sport-banner-ad {
+        height: 55px;
+        padding: 8px 10px;
+    }
+    
+    .sport-ad-content p {
+        font-size: 0.8rem;
+    }
+    
+    .sport-action-buttons {
+        flex-direction: column;
+        padding: 0 15px;
+        gap: 10px;
+    }
+    
+    .sport-action-btn {
+        width: 100%;
+    }
+    
+    .sport-sponsors-footer {
+        padding: 10px 0;
+    }
+    
+    .sport-sponsor-item {
+        min-width: 70px;
+    }
+    
+    .sport-sponsor-item img {
+        width: 50px;
+        height: 25px;
+    }
+    
+    .sport-sponsor-item span {
+        font-size: 0.65rem;
+    }
+}
+
+/* Host Sport Event Popup */
+.host-sport-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 1001;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.host-sport-popup {
+    background: #1a1a2e;
+    border: 2px solid #008B8B;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: popupSlideIn 0.3s ease;
+}
+
+.host-sport-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    background: rgba(22, 33, 62, 0.3);
+    border-bottom: 1px solid #16213e;
+    border-radius: 18px 18px 0 0;
+}
+
+.host-sport-popup-header h3 {
+    color: white;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.close-host-sport-popup-btn {
+    background: rgba(22, 33, 62, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.close-host-sport-popup-btn:hover {
+    background: rgba(22, 33, 62, 0.8);
+    transform: rotate(90deg);
+}
+
+.host-sport-popup-content {
+    padding: 25px;
+}
+
+.host-sport-category-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.host-sport-category-title h4 {
+    color: white;
+    margin: 0 0 10px 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.host-sport-category-title p {
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.host-sport-categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.host-sport-category-card {
+    background: rgba(22, 33, 62, 0.3);
+    border: 2px solid #16213e;
+    border-radius: 12px;
+    padding: 20px 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.host-sport-category-card.accessible {
+    border-color: #008B8B;
+}
+
+.host-sport-category-card.accessible:hover {
+    background: rgba(0, 139, 139, 0.1);
+    border-color: #20B2AA;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 139, 139, 0.2);
+}
+
+.host-sport-category-card.coming-soon {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.host-sport-category-card.coming-soon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255, 255, 255, 0.05) 10px,
+        rgba(255, 255, 255, 0.05) 20px
+    );
+    pointer-events: none;
+}
+
+.host-sport-category-icon {
+    margin-bottom: 15px;
+}
+
+.host-sport-category-icon i {
+    font-size: 2.5rem;
+    color: #008B8B;
+    transition: all 0.3s ease;
+}
+
+.host-sport-category-card.accessible:hover .host-sport-category-icon i {
+    color: #20B2AA;
+    transform: scale(1.1);
+}
+
+.host-sport-category-card.coming-soon .host-sport-category-icon i {
+    color: rgba(0, 139, 139, 0.5);
+}
+
+.host-sport-category-info h5 {
+    color: white;
+    margin: 0 0 8px 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.host-sport-category-card.coming-soon .host-sport-category-info h5 {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.host-sport-category-status {
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.host-sport-category-status.available {
+    background: rgba(0, 139, 139, 0.2);
+    color: #20B2AA;
+    border: 1px solid rgba(0, 139, 139, 0.3);
+}
+
+.host-sport-category-status.coming-soon {
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+/* Popup Animation */
+@keyframes popupSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .host-sport-popup {
+        margin: 10px;
+        max-width: calc(100% - 20px);
+    }
+    
+    .host-sport-popup-header {
+        padding: 15px 20px;
+    }
+    
+    .host-sport-popup-header h3 {
+        font-size: 1.3rem;
+    }
+    
+    .host-sport-popup-content {
+        padding: 20px;
+    }
+    
+    .host-sport-categories-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 12px;
+    }
+    
+    .host-sport-category-card {
+        padding: 15px 10px;
+    }
+    
+    .host-sport-category-icon i {
+        font-size: 2rem;
+    }
+    
+    .host-sport-category-info h5 {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .host-sport-popup-overlay {
+        padding: 10px;
+    }
+    
+    .host-sport-popup-header {
+        padding: 12px 15px;
+    }
+    
+    .host-sport-popup-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .host-sport-popup-content {
+        padding: 15px;
+    }
+    
+    .host-sport-categories-grid {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 10px;
+    }
+    
+    .host-sport-category-card {
+        padding: 12px 8px;
+    }
+    
+    .host-sport-category-icon {
+        margin-bottom: 10px;
+    }
+    
+    .host-sport-category-icon i {
+        font-size: 1.8rem;
+    }
+    
+    .host-sport-category-info h5 {
+        font-size: 0.85rem;
+        margin-bottom: 6px;
+    }
+    
+    .host-sport-category-status {
+        font-size: 0.7rem;
+        padding: 3px 8px;
+    }
+}
+
+/* Custom scrollbar for popup */
+.host-sport-popup::-webkit-scrollbar {
+    width: 6px;
+}
+
+.host-sport-popup::-webkit-scrollbar-track {
+    background: rgba(22, 33, 62, 0.3);
+    border-radius: 3px;
+}
+
+.host-sport-popup::-webkit-scrollbar-thumb {
+    background: #008B8B;
+    border-radius: 3px;
+}
+
+.host-sport-popup::-webkit-scrollbar-thumb:hover {
+    background: #20B2AA;
+}
+
+
+
 .spinner {
     width: 30px;
     height: 30px;
@@ -17832,6 +18416,326 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                     <button type="button" class="save-ticket-btn" onclick="saveTicketConfiguration()">Save Ticket</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="sport-event-page">
+    <div class="sport-event-container">
+        <!-- Page Header -->
+        <header class="sport-page-header">
+            <h2><i class="fas fa-trophy"></i> Sport Events</h2>
+            <button class="close-sport-event-page-btn" type="button" aria-label="Close Sport Events">
+                <i class="fas fa-times"></i>
+            </button>
+        </header>
+
+        <!-- Banner Ad -->
+        <div class="sport-banner-ad">
+            <div class="sport-ad-content">
+                <span class="sport-ad-label">Advertisement</span>
+                <p>Your sports ad here - 480px x 65px</p>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="sport-action-buttons">
+            <button class="sport-action-btn" id="host-sport-event">
+                <i class="sport-btn-icon fas fa-plus-circle"></i>
+                <span>Host Event</span>
+            </button>
+            <button class="sport-action-btn" id="joined-sport-event">
+                <i class="sport-btn-icon fas fa-users"></i>
+                <span>Joined Event</span>
+            </button>
+        </div>
+
+        <!-- Sponsors Footer -->
+        <div class="sport-sponsors-footer">
+            <div class="sport-sponsors-container">
+                <div class="sport-sponsors-scroll">
+                    <div class="sport-sponsor-item">
+                        <img src="https://via.placeholder.com/80x40/008B8B/white?text=Nike" alt="Nike">
+                        <span>Nike</span>
+                    </div>
+                    <div class="sport-sponsor-item">
+                        <img src="https://via.placeholder.com/80x40/008B8B/white?text=Adidas" alt="Adidas">
+                        <span>Adidas</span>
+                    </div>
+                    <div class="sport-sponsor-item">
+                        <img src="https://via.placeholder.com/80x40/008B8B/white?text=Puma" alt="Puma">
+                        <span>Puma</span>
+                    </div>
+                    <div class="sport-sponsor-item">
+                        <img src="https://via.placeholder.com/80x40/008B8B/white?text=FIFA" alt="FIFA">
+                        <span>FIFA</span>
+                    </div>
+                    <div class="sport-sponsor-item">
+                        <img src="https://via.placeholder.com/80x40/008B8B/white?text=UEFA" alt="UEFA">
+                        <span>UEFA</span>
+                    </div>
+                    <div class="sport-sponsor-item">
+                        <img src="https://via.placeholder.com/80x40/008B8B/white?text=ESPN" alt="ESPN">
+                        <span>ESPN</span>
+                    </div>
+                    <div class="sport-sponsor-item">
+                        <img src="https://via.placeholder.com/80x40/008B8B/white?text=NBC" alt="NBC Sports">
+                        <span>NBC Sports</span>
+                    </div>
+                    <div class="sport-sponsor-item">
+                        <img src="https://via.placeholder.com/80x40/008B8B/white?text=FOX" alt="FOX Sports">
+                        <span>FOX Sports</span>
+                    </div>
+                    <!-- Duplicate for seamless loop -->
+                    <div class="sport-sponsor-item">
+                        <img src="https://via.placeholder.com/80x40/008B8B/white?text=Nike" alt="Nike">
+                        <span>Nike</span>
+                    </div>
+                    <div class="sport-sponsor-item">
+                        <img src="https://via.placeholder.com/80x40/008B8B/white?text=Adidas" alt="Adidas">
+                        <span>Adidas</span>
+                    </div>
+                    <div class="sport-sponsor-item">
+                        <img src="https://via.placeholder.com/80x40/008B8B/white?text=Puma" alt="Puma">
+                        <span>Puma</span>
+                    </div>
+                    <div class="sport-sponsor-item">
+                        <img src="https://via.placeholder.com/80x40/008B8B/white?text=FIFA" alt="FIFA">
+                        <span>FIFA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Host Sport Event Popup -->
+<div class="host-sport-popup-overlay" id="host-sport-popup">
+    <div class="host-sport-popup">
+        <div class="host-sport-popup-header">
+            <h3><i class="fas fa-plus-circle"></i> Host Sport Event</h3>
+            <button class="close-host-sport-popup-btn" type="button">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="host-sport-popup-content">
+            <div class="host-sport-category-title">
+                <h4>Select Sport Category</h4>
+                <p>Choose the type of sport event you want to host</p>
+            </div>
+            
+            <div class="host-sport-categories-grid">
+                <!-- Football - Accessible -->
+                <div class="host-sport-category-card accessible" data-sport="football">
+                    <div class="host-sport-category-icon">
+                        <i class="fas fa-futbol"></i>
+                    </div>
+                    <div class="host-sport-category-info">
+                        <h5>Football</h5>
+                        <span class="host-sport-category-status available">Available</span>
+                    </div>
+                </div>
+                
+                <!-- Basketball - Coming Soon -->
+                <div class="host-sport-category-card coming-soon" data-sport="basketball">
+                    <div class="host-sport-category-icon">
+                        <i class="fas fa-basketball-ball"></i>
+                    </div>
+                    <div class="host-sport-category-info">
+                        <h5>Basketball</h5>
+                        <span class="host-sport-category-status coming-soon">Coming Soon</span>
+                    </div>
+                </div>
+                
+                <!-- Table Tennis - Coming Soon -->
+                <div class="host-sport-category-card coming-soon" data-sport="table-tennis">
+                    <div class="host-sport-category-icon">
+                        <i class="fas fa-ping-pong-paddle-ball"></i>
+                    </div>
+                    <div class="host-sport-category-info">
+                        <h5>Table Tennis</h5>
+                        <span class="host-sport-category-status coming-soon">Coming Soon</span>
+                    </div>
+                </div>
+                
+                <!-- Tennis - Coming Soon -->
+                <div class="host-sport-category-card coming-soon" data-sport="tennis">
+                    <div class="host-sport-category-icon">
+                        <i class="fas fa-table-tennis"></i>
+                    </div>
+                    <div class="host-sport-category-info">
+                        <h5>Tennis</h5>
+                        <span class="host-sport-category-status coming-soon">Coming Soon</span>
+                    </div>
+                </div>
+                
+                <!-- Volleyball - Coming Soon -->
+                <div class="host-sport-category-card coming-soon" data-sport="volleyball">
+                    <div class="host-sport-category-icon">
+                        <i class="fas fa-volleyball-ball"></i>
+                    </div>
+                    <div class="host-sport-category-info">
+                        <h5>Volleyball</h5>
+                        <span class="host-sport-category-status coming-soon">Coming Soon</span>
+                    </div>
+                </div>
+                
+                <!-- Badminton - Coming Soon -->
+                <div class="host-sport-category-card coming-soon" data-sport="badminton">
+                    <div class="host-sport-category-icon">
+                        <i class="fas fa-shuttlecock"></i>
+                    </div>
+                    <div class="host-sport-category-info">
+                        <h5>Badminton</h5>
+                        <span class="host-sport-category-status coming-soon">Coming Soon</span>
+                    </div>
+                </div>
+                
+                <!-- Running - Coming Soon -->
+                <div class="host-sport-category-card coming-soon" data-sport="running">
+                    <div class="host-sport-category-icon">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <div class="host-sport-category-info">
+                        <h5>Running</h5>
+                        <span class="host-sport-category-status coming-soon">Coming Soon</span>
+                    </div>
+                </div>
+                
+                <!-- Swimming - Coming Soon -->
+                <div class="host-sport-category-card coming-soon" data-sport="swimming">
+                    <div class="host-sport-category-icon">
+                        <i class="fas fa-swimmer"></i>
+                    </div>
+                    <div class="host-sport-category-info">
+                        <h5>Swimming</h5>
+                        <span class="host-sport-category-status coming-soon">Coming Soon</span>
+                    </div>
+                </div>
+                
+                <!-- Cycling - Coming Soon -->
+                <div class="host-sport-category-card coming-soon" data-sport="cycling">
+                    <div class="host-sport-category-icon">
+                        <i class="fas fa-biking"></i>
+                    </div>
+                    <div class="host-sport-category-info">
+                        <h5>Cycling</h5>
+                        <span class="host-sport-category-status coming-soon">Coming Soon</span>
+                    </div>
+                </div>
+                
+                <!-- Boxing - Coming Soon -->
+                <div class="host-sport-category-card coming-soon" data-sport="boxing">
+                    <div class="host-sport-category-icon">
+                        <i class="fas fa-fist-raised"></i>
+                    </div>
+                    <div class="host-sport-category-info">
+                        <h5>Boxing</h5>
+                        <span class="host-sport-category-status coming-soon">Coming Soon</span>
+                    </div>
+                </div>
+                
+                <!-- Wrestling - Coming Soon -->
+                <div class="host-sport-category-card coming-soon" data-sport="wrestling">
+                    <div class="host-sport-category-icon">
+                        <i class="fas fa-hand-rock"></i>
+                    </div>
+                    <div class="host-sport-category-info">
+                        <h5>Wrestling</h5>
+                        <span class="host-sport-category-status coming-soon">Coming Soon</span>
+                    </div>
+                </div>
+                
+                <!-- Golf - Coming Soon -->
+                <div class="host-sport-category-card coming-soon" data-sport="golf">
+                    <div class="host-sport-category-icon">
+                        <i class="fas fa-golf-ball"></i>
+                    </div>
+                    <div class="host-sport-category-info">
+                        <h5>Golf</h5>
+                        <span class="host-sport-category-status coming-soon">Coming Soon</span>
+                    </div>
+                </div>
+                
+                <!-- Baseball - Coming Soon -->
+                <div class="host-sport-category-card coming-soon" data-sport="baseball">
+                    <div class="host-sport-category-icon">
+                        <i class="fas fa-baseball-ball"></i>
+                    </div>
+                    <div class="host-sport-category-info">
+                        <h5>Baseball</h5>
+                        <span class="host-sport-category-status coming-soon">Coming Soon</span>
+                    </div>
+                </div>
+                
+                <!-- Hockey - Coming Soon -->
+                <div class="host-sport-category-card coming-soon" data-sport="hockey">
+                    <div class="host-sport-category-icon">
+                        <i class="fas fa-hockey-puck"></i>
+                    </div>
+                    <div class="host-sport-category-info">
+                        <h5>Hockey</h5>
+                        <span class="host-sport-category-status coming-soon">Coming Soon</span>
+                    </div>
+                </div>
+                
+                <!-- Cricket - Coming Soon -->
+                <div class="host-sport-category-card coming-soon" data-sport="cricket">
+                    <div class="host-sport-category-icon">
+                        <i class="fas fa-cricket"></i>
+                    </div>
+                    <div class="host-sport-category-info">
+                        <h5>Cricket</h5>
+                        <span class="host-sport-category-status coming-soon">Coming Soon</span>
+                    </div>
+                </div>
+                
+                <!-- Rugby - Coming Soon -->
+                <div class="host-sport-category-card coming-soon" data-sport="rugby">
+                    <div class="host-sport-category-icon">
+                        <i class="fas fa-football-ball"></i>
+                    </div>
+                    <div class="host-sport-category-info">
+                        <h5>Rugby</h5>
+                        <span class="host-sport-category-status coming-soon">Coming Soon</span>
+                    </div>
+                </div>
+                
+                <!-- Gymnastics - Coming Soon -->
+                <div class="host-sport-category-card coming-soon" data-sport="gymnastics">
+                    <div class="host-sport-category-icon">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <div class="host-sport-category-info">
+                        <h5>Gymnastics</h5>
+                        <span class="host-sport-category-status coming-soon">Coming Soon</span>
+                    </div>
+                </div>
+                
+                <!-- Indoor Sports - Coming Soon -->
+                <div class="host-sport-category-card coming-soon" data-sport="indoor-sports">
+                    <div class="host-sport-category-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="host-sport-category-info">
+                        <h5>Indoor Sports</h5>
+                        <span class="host-sport-category-status coming-soon">Coming Soon</span>
+                    </div>
+                </div>
+                
+                <!-- All Events - Coming Soon -->
+                <div class="host-sport-category-card coming-soon" data-sport="all-events">
+                    <div class="host-sport-category-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="host-sport-category-info">
+                        <h5>All Events</h5>
+                        <span class="host-sport-category-status coming-soon">Coming Soon</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -25532,8 +26436,903 @@ function showInfoMessage(message) {
     showToast(message, 'info', 4000);
 }
 
+// Sport Event Page JavaScript
+class SportEventPage {
+    constructor() {
+        this.isOpen = false;
+        this.init();
+    }
+
+    init() {
+        this.bindEvents();
+        this.setupSponsorScroll();
+    }
+
+    bindEvents() {
+        // Close button event
+        const closeBtn = document.querySelector('.close-sport-event-page-btn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => this.closePage());
+        }
+
+        // Action button events
+        const hostBtn = document.getElementById('host-sport-event');
+        const joinedBtn = document.getElementById('joined-sport-event');
+
+        if (hostBtn) {
+            hostBtn.addEventListener('click', () => this.handleHostEvent());
+        }
+
+        if (joinedBtn) {
+            joinedBtn.addEventListener('click', () => this.handleJoinedEvents());
+        }
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isOpen) {
+                this.closePage();
+            }
+        });
+
+        // Close on outside click
+        const sportPage = document.querySelector('.sport-event-page');
+        if (sportPage) {
+            sportPage.addEventListener('click', (e) => {
+                if (e.target === sportPage) {
+                    this.closePage();
+                }
+            });
+        }
+    }
+
+    openPage() {
+        const sportPage = document.querySelector('.sport-event-page');
+        if (sportPage) {
+            sportPage.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            this.isOpen = true;
+            
+            // Add opening animation
+            setTimeout(() => {
+                sportPage.style.opacity = '1';
+            }, 10);
+
+            // Track page view
+            this.trackPageView();
+        }
+    }
+
+    closePage() {
+        const sportPage = document.querySelector('.sport-event-page');
+        if (sportPage) {
+            sportPage.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            this.isOpen = false;
+        }
+    }
+
+    handleHostEvent() {
+        console.log('Host Sport Event clicked');
+        
+        // Add button click animation
+        const hostBtn = document.getElementById('host-sport-event');
+        this.animateButton(hostBtn);
+
+        // TODO: Navigate to sport event creation page
+        // For now, show coming soon message
+        this.showComingSoon('Host Sport Event');
+        
+        // Track button click
+        this.trackButtonClick('host_sport_event');
+    }
+
+    handleJoinedEvents() {
+        console.log('Joined Sport Events clicked');
+        
+        // Add button click animation
+        const joinedBtn = document.getElementById('joined-sport-event');
+        this.animateButton(joinedBtn);
+
+        // TODO: Show user's joined sport events
+        // For now, show coming soon message
+        this.showComingSoon('Joined Sport Events');
+        
+        // Track button click
+        this.trackButtonClick('joined_sport_events');
+    }
+
+    animateButton(button) {
+        if (!button) return;
+        
+        button.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            button.style.transform = 'translateY(-2px)';
+        }, 150);
+    }
+
+    showComingSoon(feature) {
+        // Create temporary notification
+        const notification = document.createElement('div');
+        notification.className = 'sport-coming-soon-notification';
+        notification.innerHTML = `
+            <div class="sport-notification-content">
+                <i class="fas fa-rocket"></i>
+                <h3>${feature}</h3>
+                <p>Coming Soon! This feature is under development.</p>
+            </div>
+        `;
+        
+        // Add notification styles
+        notification.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(22, 33, 62, 0.95);
+            border: 2px solid #008B8B;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            color: white;
+            z-index: 1001;
+            backdrop-filter: blur(10px);
+            animation: fadeInScale 0.3s ease;
+        `;
+
+        document.body.appendChild(notification);
+
+        // Auto remove after 3 seconds
+        setTimeout(() => {
+            notification.style.animation = 'fadeOutScale 0.3s ease';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+
+        // Add CSS animations if not already added
+        this.addNotificationStyles();
+    }
+
+    addNotificationStyles() {
+        if (document.getElementById('sport-notification-styles')) return;
+
+        const styles = document.createElement('style');
+        styles.id = 'sport-notification-styles';
+        styles.textContent = `
+            @keyframes fadeInScale {
+                from {
+                    opacity: 0;
+                    transform: translate(-50%, -50%) scale(0.8);
+                }
+                to {
+                    opacity: 1;
+                    transform: translate(-50%, -50%) scale(1);
+                }
+            }
+            
+            @keyframes fadeOutScale {
+                from {
+                    opacity: 1;
+                    transform: translate(-50%, -50%) scale(1);
+                }
+                to {
+                    opacity: 0;
+                    transform: translate(-50%, -50%) scale(0.8);
+                }
+            }
+            
+            .sport-notification-content i {
+                font-size: 2rem;
+                color: #008B8B;
+                margin-bottom: 15px;
+            }
+            
+            .sport-notification-content h3 {
+                margin: 0 0 10px 0;
+                font-size: 1.3rem;
+                color: white;
+            }
+            
+            .sport-notification-content p {
+                margin: 0;
+                color: rgba(255, 255, 255, 0.8);
+                font-size: 0.9rem;
+            }
+        `;
+        
+        document.head.appendChild(styles);
+    }
+
+    setupSponsorScroll() {
+        // Pause animation on hover
+        const sponsorContainer = document.querySelector('.sport-sponsors-scroll');
+        if (sponsorContainer) {
+            sponsorContainer.addEventListener('mouseenter', () => {
+                sponsorContainer.style.animationPlayState = 'paused';
+            });
+
+            sponsorContainer.addEventListener('mouseleave', () => {
+                sponsorContainer.style.animationPlayState = 'running';
+            });
+        }
+    }
+
+    trackPageView() {
+        // Track sport event page view
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_view', {
+                page_title: 'Sport Events',
+                page_location: window.location.href,
+                custom_parameter: 'sport_events_page'
+            });
+        }
+        
+        console.log('Sport Event Page viewed');
+    }
+
+    trackButtonClick(buttonType) {
+        // Track button clicks
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'click', {
+                event_category: 'Sport Events',
+                event_label: buttonType,
+                custom_parameter: 'sport_event_action'
+            });
+        }
+        
+        console.log(`Sport Event Button clicked: ${buttonType}`);
+    }
+
+    // Method to update sponsors dynamically
+    updateSponsors(sponsors) {
+        const scrollContainer = document.querySelector('.sport-sponsors-scroll');
+        if (!scrollContainer || !sponsors || !Array.isArray(sponsors)) return;
+
+        // Clear existing sponsors
+        scrollContainer.innerHTML = '';
+
+        // Add new sponsors (duplicate for seamless loop)
+        const sponsorItems = [...sponsors, ...sponsors];
+        
+        sponsorItems.forEach(sponsor => {
+            const sponsorElement = document.createElement('div');
+            sponsorElement.className = 'sport-sponsor-item';
+            sponsorElement.innerHTML = `
+                <img src="${sponsor.logo || 'https://via.placeholder.com/80x40/008B8B/white?text=' + sponsor.name}" 
+                     alt="${sponsor.name}" 
+                     onerror="this.src='https://via.placeholder.com/80x40/008B8B/white?text=${sponsor.name}'">
+                <span>${sponsor.name}</span>
+            `;
+            scrollContainer.appendChild(sponsorElement);
+        });
+    }
+
+    // Method to check if page is open
+    isPageOpen() {
+        return this.isOpen;
+    }
+}
+
+// Global function to open sport event page (called from your card click)
+function openSportEvent() {
+    if (window.sportEventPageInstance) {
+        window.sportEventPageInstance.openPage();
+    } else {
+        console.error('Sport Event Page not initialized');
+    }
+}
+
+// Initialize Sport Event Page when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize the sport event page
+    window.sportEventPageInstance = new SportEventPage();
+    
+    console.log('Sport Event Page initialized');
+});
+
+// Example sponsors data (you can replace with your actual sponsors)
+const defaultSponsors = [
+    { name: 'Nike', logo: 'https://via.placeholder.com/80x40/008B8B/white?text=Nike' },
+    { name: 'Adidas', logo: 'https://via.placeholder.com/80x40/008B8B/white?text=Adidas' },
+    { name: 'Puma', logo: 'https://via.placeholder.com/80x40/008B8B/white?text=Puma' },
+    { name: 'FIFA', logo: 'https://via.placeholder.com/80x40/008B8B/white?text=FIFA' },
+    { name: 'UEFA', logo: 'https://via.placeholder.com/80x40/008B8B/white?text=UEFA' },
+    { name: 'ESPN', logo: 'https://via.placeholder.com/80x40/008B8B/white?text=ESPN' },
+    { name: 'NBC Sports', logo: 'https://via.placeholder.com/80x40/008B8B/white?text=NBC' },
+    { name: 'FOX Sports', logo: 'https://via.placeholder.com/80x40/008B8B/white?text=FOX' }
+];
+
+// Auto-update sponsors on page load
+window.addEventListener('load', function() {
+    if (window.sportEventPageInstance) {
+        window.sportEventPageInstance.updateSponsors(defaultSponsors);
+    }
+});
 
 
+// Host Sport Event Popup JavaScript
+class HostSportEventPopup {
+    constructor() {
+        this.isOpen = false;
+        this.selectedSport = null;
+        this.init();
+    }
+
+    init() {
+        this.bindEvents();
+    }
+
+    bindEvents() {
+        // Close button event
+        const closeBtn = document.querySelector('.close-host-sport-popup-btn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => this.closePopup());
+        }
+
+        // Category card events
+        const categoryCards = document.querySelectorAll('.host-sport-category-card');
+        categoryCards.forEach(card => {
+            card.addEventListener('click', () => this.handleCategoryClick(card));
+        });
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isOpen) {
+                this.closePopup();
+            }
+        });
+
+        // Close on outside click
+        const popupOverlay = document.getElementById('host-sport-popup');
+        if (popupOverlay) {
+            popupOverlay.addEventListener('click', (e) => {
+                if (e.target === popupOverlay) {
+                    this.closePopup();
+                }
+            });
+        }
+    }
+
+    openPopup() {
+        const popup = document.getElementById('host-sport-popup');
+        if (popup) {
+            popup.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            this.isOpen = true;
+            
+            // Track popup open
+            this.trackPopupView();
+        }
+    }
+
+    closePopup() {
+        const popup = document.getElementById('host-sport-popup');
+        if (popup) {
+            popup.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            this.isOpen = false;
+            this.selectedSport = null;
+        }
+    }
+
+    handleCategoryClick(card) {
+        const sportType = card.getAttribute('data-sport');
+        const isAccessible = card.classList.contains('accessible');
+        
+        if (isAccessible) {
+            this.selectedSport = sportType;
+            this.handleAccessibleSport(sportType);
+        } else {
+            this.handleComingSoonSport(sportType);
+        }
+        
+        // Add click animation
+        this.animateCard(card);
+        
+        // Track category click
+        this.trackCategoryClick(sportType, isAccessible);
+    }
+
+    handleAccessibleSport(sportType) {
+        console.log(`Selected accessible sport: ${sportType}`);
+        
+        if (sportType === 'football') {
+            // Close this popup and proceed to football event creation
+            this.closePopup();
+            
+            // TODO: Open football event creation form
+            this.openFootballEventCreation();
+        }
+    }
+
+    handleComingSoonSport(sportType) {
+        console.log(`Coming soon sport clicked: ${sportType}`);
+        
+        // Show coming soon notification
+        this.showComingSoonNotification(sportType);
+    }
+
+    openFootballEventCreation() {
+        // TODO: Implement football event creation form
+        // For now, show a placeholder
+        this.showFootballCreationPlaceholder();
+    }
+
+    showFootballCreationPlaceholder() {
+        const notification = document.createElement('div');
+        notification.className = 'football-creation-notification';
+        notification.innerHTML = `
+            <div class="football-notification-content">
+                <i class="fas fa-futbol"></i>
+                <h3>Football Event Creation</h3>
+                <p>Opening football event creation form...</p>
+                <div class="football-loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                </div>
+            </div>
+        `;
+        
+        notification.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(22, 33, 62, 0.95);
+            border: 2px solid #008B8B;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            color: white;
+            z-index: 1002;
+            backdrop-filter: blur(10px);
+            animation: fadeInScale 0.3s ease;
+        `;
+
+        document.body.appendChild(notification);
+
+        // Auto remove after 2 seconds
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 2000);
+    }
+
+    showComingSoonNotification(sportType) {
+        const sportName = this.getSportDisplayName(sportType);
+        
+        const notification = document.createElement('div');
+        notification.className = 'coming-soon-notification';
+        notification.innerHTML = `
+            <div class="coming-soon-notification-content">
+                <i class="fas fa-clock"></i>
+                <h3>${sportName}</h3>
+                <p>This sport category is coming soon!</p>
+                <small>We're working hard to bring you more sports options.</small>
+            </div>
+        `;
+        
+        notification.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(22, 33, 62, 0.95);
+            border: 2px solid #ffc107;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            color: white;
+            z-index: 1002;
+            backdrop-filter: blur(10px);
+            animation: fadeInScale 0.3s ease;
+            max-width: 300px;
+        `;
+
+        document.body.appendChild(notification);
+
+        // Auto remove after 3 seconds
+        setTimeout(() => {
+            notification.style.animation = 'fadeOutScale 0.3s ease';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+
+        // Add notification styles
+        this.addComingSoonNotificationStyles();
+    }
+
+    addComingSoonNotificationStyles() {
+        if (document.getElementById('coming-soon-notification-styles')) return;
+
+        const styles = document.createElement('style');
+        styles.id = 'coming-soon-notification-styles';
+        styles.textContent = `
+            .coming-soon-notification-content i {
+                font-size: 2rem;
+                color: #ffc107;
+                margin-bottom: 15px;
+            }
+            
+            .coming-soon-notification-content h3 {
+                margin: 0 0 10px 0;
+                font-size: 1.2rem;
+                color: white;
+            }
+            
+            .coming-soon-notification-content p {
+                margin: 0 0 10px 0;
+                color: rgba(255, 255, 255, 0.9);
+                font-size: 0.9rem;
+            }
+            
+            .coming-soon-notification-content small {
+                color: rgba(255, 255, 255, 0.7);
+                font-size: 0.8rem;
+                line-height: 1.4;
+            }
+            
+            .football-notification-content i.fa-futbol {
+                font-size: 2.5rem;
+                color: #008B8B;
+                margin-bottom: 15px;
+            }
+            
+            .football-notification-content h3 {
+                margin: 0 0 10px 0;
+                font-size: 1.3rem;
+                color: white;
+            }
+            
+            .football-notification-content p {
+                margin: 0 0 15px 0;
+                color: rgba(255, 255, 255, 0.9);
+                font-size: 0.9rem;
+            }
+            
+            .football-loading-spinner i {
+                font-size: 1.5rem;
+                color: #008B8B;
+            }
+        `;
+        
+        document.head.appendChild(styles);
+    }
+
+    animateCard(card) {
+        if (!card) return;
+        
+        card.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            if (card.classList.contains('accessible')) {
+                card.style.transform = 'translateY(-3px) scale(1)';
+            } else {
+                card.style.transform = 'scale(1)';
+            }
+        }, 150);
+    }
+
+    getSportDisplayName(sportType) {
+        const sportNames = {
+            'football': 'Football',
+            'basketball': 'Basketball',
+            'table-tennis': 'Table Tennis',
+            'tennis': 'Tennis',
+            'volleyball': 'Volleyball',
+            'badminton': 'Badminton',
+            'running': 'Running',
+            'swimming': 'Swimming',
+            'cycling': 'Cycling',
+            'boxing': 'Boxing',
+            'wrestling': 'Wrestling',
+            'golf': 'Golf',
+            'baseball': 'Baseball',
+            'hockey': 'Hockey',
+            'cricket': 'Cricket',
+            'rugby': 'Rugby',
+            'gymnastics': 'Gymnastics',
+            'indoor-sports': 'Indoor Sports',
+            'all-events': 'All Events'
+        };
+        
+        return sportNames[sportType] || sportType;
+    }
+
+    trackPopupView() {
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'popup_view', {
+                event_category: 'Sport Events',
+                event_label: 'host_sport_popup',
+                custom_parameter: 'sport_category_selection'
+            });
+        }
+        
+        console.log('Host Sport Event Popup viewed');
+    }
+
+    trackCategoryClick(sportType, isAccessible) {
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'click', {
+                event_category: 'Sport Categories',
+                event_label: sportType,
+                custom_parameter: isAccessible ? 'accessible' : 'coming_soon'
+            });
+        }
+        
+        console.log(`Sport category clicked: ${sportType} (${isAccessible ? 'accessible' : 'coming soon'})`);
+    }
+
+    // Public method to check if popup is open
+    isPopupOpen() {
+        return this.isOpen;
+    }
+
+    // Public method to get selected sport
+    getSelectedSport() {
+        return this.selectedSport;
+    }
+}
+
+// Update the original SportEventPage class to integrate with popup
+// Add this to your existing sport-event-page.js file:
+// Update the handleHostEvent method in SportEventPage class:
+function updateSportEventPageHandleHostEvent() {
+    // Replace the existing handleHostEvent method in SportEventPage class with this:
+    
+    SportEventPage.prototype.handleHostEvent = function() {
+        console.log('Host Sport Event clicked');
+        
+        // Add button click animation
+        const hostBtn = document.getElementById('host-sport-event');
+        this.animateButton(hostBtn);
+
+        // Open the host sport event popup
+        if (window.hostSportEventPopupInstance) {
+            window.hostSportEventPopupInstance.openPopup();
+        } else {
+            console.error('Host Sport Event Popup not initialized');
+        }
+        
+        // Track button click
+        this.trackButtonClick('host_sport_event');
+    };
+}
+
+// Initialize Host Sport Event Popup when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize the host sport event popup
+    window.hostSportEventPopupInstance = new HostSportEventPopup();
+    
+    // Update the sport event page handler
+    updateSportEventPageHandleHostEvent();
+    
+    console.log('Host Sport Event Popup initialized');
+});
+
+// Additional utility functions for the popup
+class HostSportEventUtils {
+    static getSportIcon(sportType) {
+        const icons = {
+            'football': 'fas fa-futbol',
+            'basketball': 'fas fa-basketball-ball',
+            'table-tennis': 'fas fa-ping-pong-paddle-ball',
+            'tennis': 'fas fa-table-tennis',
+            'volleyball': 'fas fa-volleyball-ball',
+            'badminton': 'fas fa-shuttlecock',
+            'running': 'fas fa-running',
+            'swimming': 'fas fa-swimmer',
+            'cycling': 'fas fa-biking',
+            'boxing': 'fas fa-fist-raised',
+            'wrestling': 'fas fa-hand-rock',
+            'golf': 'fas fa-golf-ball',
+            'baseball': 'fas fa-baseball-ball',
+            'hockey': 'fas fa-hockey-puck',
+            'cricket': 'fas fa-cricket',
+            'rugby': 'fas fa-football-ball',
+            'gymnastics': 'fas fa-child',
+            'indoor-sports': 'fas fa-home',
+            'all-events': 'fas fa-globe'
+        };
+        
+        return icons[sportType] || 'fas fa-trophy';
+    }
+
+    static getSportDescription(sportType) {
+        const descriptions = {
+            'football': 'Create football matches, tournaments and leagues',
+            'basketball': 'Organize basketball games and competitions',
+            'table-tennis': 'Host table tennis tournaments and matches',
+            'tennis': 'Set up tennis matches and tournaments',
+            'volleyball': 'Create volleyball games and competitions',
+            'badminton': 'Organize badminton matches and tournaments',
+            'running': 'Host running events, marathons and races',
+            'swimming': 'Create swimming competitions and events',
+            'cycling': 'Organize cycling races and tours',
+            'boxing': 'Set up boxing matches and tournaments',
+            'wrestling': 'Host wrestling competitions and matches',
+            'golf': 'Create golf tournaments and competitions',
+            'baseball': 'Organize baseball games and leagues',
+            'hockey': 'Set up hockey matches and tournaments',
+            'cricket': 'Host cricket matches and tournaments',
+            'rugby': 'Create rugby games and competitions',
+            'gymnastics': 'Organize gymnastics competitions',
+            'indoor-sports': 'Host various indoor sporting events',
+            'all-events': 'Access all available sport categories'
+        };
+        
+        return descriptions[sportType] || 'Create and manage sport events';
+    }
+
+    static isAccessibleSport(sportType) {
+        // Only football is accessible for now
+        const accessibleSports = ['football'];
+        return accessibleSports.includes(sportType);
+    }
+
+    static getComingSoonMessage(sportType) {
+        const messages = {
+            'basketball': 'Basketball events coming in the next update!',
+            'table-tennis': 'Table tennis tournaments will be available soon!',
+            'tennis': 'Tennis matches coming to your area soon!',
+            'volleyball': 'Volleyball competitions launching soon!',
+            'badminton': 'Badminton tournaments in development!',
+            'running': 'Running events and marathons coming soon!',
+            'swimming': 'Swimming competitions launching next month!',
+            'cycling': 'Cycling races and tours coming soon!',
+            'boxing': 'Boxing matches will be available soon!',
+            'wrestling': 'Wrestling competitions in development!',
+            'golf': 'Golf tournaments launching soon!',
+            'baseball': 'Baseball leagues coming to your area!',
+            'hockey': 'Hockey matches will be available soon!',
+            'cricket': 'Cricket tournaments launching soon!',
+            'rugby': 'Rugby competitions in development!',
+            'gymnastics': 'Gymnastics events coming soon!',
+            'indoor-sports': 'Indoor sports categories launching soon!',
+            'all-events': 'All events access coming in future updates!'
+        };
+        
+        return messages[sportType] || 'This sport category will be available soon!';
+    }
+}
+
+// Enhanced popup with dynamic content loading
+class EnhancedHostSportEventPopup extends HostSportEventPopup {
+    constructor() {
+        super();
+        this.loadingSports = false;
+    }
+
+    // Method to dynamically load sport categories from database
+    async loadSportCategories() {
+        if (this.loadingSports) return;
+        
+        this.loadingSports = true;
+        
+        try {
+            // TODO: Replace with actual Firebase call
+            // const sportsData = await this.fetchSportsFromFirebase();
+            
+            // For now, use static data
+            const sportsData = this.getStaticSportsData();
+            this.renderSportCategories(sportsData);
+            
+        } catch (error) {
+            console.error('Error loading sport categories:', error);
+            this.showErrorMessage('Failed to load sport categories');
+        } finally {
+            this.loadingSports = false;
+        }
+    }
+
+    getStaticSportsData() {
+        return [
+            { id: 'football', name: 'Football', accessible: true, popular: true },
+            { id: 'basketball', name: 'Basketball', accessible: false, popular: true },
+            { id: 'table-tennis', name: 'Table Tennis', accessible: false, popular: false },
+            { id: 'tennis', name: 'Tennis', accessible: false, popular: true },
+            { id: 'volleyball', name: 'Volleyball', accessible: false, popular: false },
+            { id: 'badminton', name: 'Badminton', accessible: false, popular: false },
+            { id: 'running', name: 'Running', accessible: false, popular: true },
+            { id: 'swimming', name: 'Swimming', accessible: false, popular: false },
+            { id: 'cycling', name: 'Cycling', accessible: false, popular: false },
+            { id: 'boxing', name: 'Boxing', accessible: false, popular: false },
+            { id: 'wrestling', name: 'Wrestling', accessible: false, popular: false },
+            { id: 'golf', name: 'Golf', accessible: false, popular: false },
+            { id: 'baseball', name: 'Baseball', accessible: false, popular: false },
+            { id: 'hockey', name: 'Hockey', accessible: false, popular: false },
+            { id: 'cricket', name: 'Cricket', accessible: false, popular: true },
+            { id: 'rugby', name: 'Rugby', accessible: false, popular: false },
+            { id: 'gymnastics', name: 'Gymnastics', accessible: false, popular: false },
+            { id: 'indoor-sports', name: 'Indoor Sports', accessible: false, popular: false },
+            { id: 'all-events', name: 'All Events', accessible: false, popular: false }
+        ];
+    }
+
+    renderSportCategories(sportsData) {
+        const grid = document.querySelector('.host-sport-categories-grid');
+        if (!grid) return;
+
+        // Clear existing content
+        grid.innerHTML = '';
+
+        // Sort sports: accessible first, then popular, then alphabetical
+        sportsData.sort((a, b) => {
+            if (a.accessible !== b.accessible) return b.accessible - a.accessible;
+            if (a.popular !== b.popular) return b.popular - a.popular;
+            return a.name.localeCompare(b.name);
+        });
+
+        // Render each sport category
+        sportsData.forEach(sport => {
+            const card = this.createSportCard(sport);
+            grid.appendChild(card);
+        });
+    }
+
+    createSportCard(sport) {
+        const card = document.createElement('div');
+        card.className = `host-sport-category-card ${sport.accessible ? 'accessible' : 'coming-soon'}`;
+        card.setAttribute('data-sport', sport.id);
+        
+        card.innerHTML = `
+            <div class="host-sport-category-icon">
+                <i class="${HostSportEventUtils.getSportIcon(sport.id)}"></i>
+            </div>
+            <div class="host-sport-category-info">
+                <h5>${sport.name}</h5>
+                <span class="host-sport-category-status ${sport.accessible ? 'available' : 'coming-soon'}">
+                    ${sport.accessible ? 'Available' : 'Coming Soon'}
+                </span>
+            </div>
+        `;
+
+        // Add click event
+        card.addEventListener('click', () => this.handleCategoryClick(card));
+
+        return card;
+    }
+
+    showErrorMessage(message) {
+        const grid = document.querySelector('.host-sport-categories-grid');
+        if (!grid) return;
+
+        grid.innerHTML = `
+            <div class="host-sport-error-message">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h4>Error Loading Sports</h4>
+                <p>${message}</p>
+                <button class="retry-load-btn" onclick="window.hostSportEventPopupInstance.loadSportCategories()">
+                    <i class="fas fa-redo"></i> Retry
+                </button>
+            </div>
+        `;
+    }
+
+    // Override openPopup to load categories when opened
+    openPopup() {
+        super.openPopup();
+        
+        // Load sport categories if not already loaded
+        if (!this.categoriesLoaded) {
+            this.loadSportCategories();
+            this.categoriesLoaded = true;
+        }
+    }
+}
+
+// Replace the basic popup with enhanced version
+window.addEventListener('load', function() {
+    // Replace basic popup with enhanced version
+    if (window.hostSportEventPopupInstance) {
+        window.hostSportEventPopupInstance = new EnhancedHostSportEventPopup();
+        console.log('Enhanced Host Sport Event Popup initialized');
+    }
+});
 
 // Define all functions at the top level to avoid hoisting issues
 
@@ -25841,609 +27640,8 @@ window.selectEventMode = selectEventMode;
      
      
        
-// NewEvent Page Class - Updated for Firebase v8 compat
-class NewEventPage {
-    constructor() {
-        this.currentFilter = 'latest';
-        this.currentSearchFilter = 'all';
-        this.currentTab = 'talent';
-        this.allEvents = [];
-        this.filteredEvents = [];
-        this.validCodes = ['Biask19', 'nig2025', 'Ismartdc'];
-        this.init();
-    }
+   
 
-    init() {
-        this.bindEvents();
-        this.loadAllEvents();
-        this.switchToTalentTab();
-    }
-
-    switchToTalentTab() {
-        // Auto-activate talent tab
-        document.querySelectorAll('.newevent-tab-btn').forEach(btn => {
-            btn.classList.remove('newevent-active');
-        });
-        const talentBtn = document.querySelector('[data-tab="talent"]');
-        if (talentBtn) talentBtn.classList.add('newevent-active');
-
-        document.querySelectorAll('.newevent-tab-content').forEach(content => {
-            content.classList.remove('newevent-active');
-        });
-        const talentTab = document.getElementById('newevent-talent-tab');
-        if (talentTab) talentTab.classList.add('newevent-active');
-    }
-
-    bindEvents() {
-        // Tab switching
-        document.querySelectorAll('.newevent-tab-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => this.switchTab(e));
-        });
-
-        // Filter buttons
-        document.querySelectorAll('.newevent-filter-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => this.applyFilter(e));
-        });
-
-        // Search functionality
-        const searchInput = document.querySelector('.newevent-search-input');
-        if (searchInput) {
-            searchInput.addEventListener('input', (e) => this.handleSearch(e));
-        }
-
-        // Search filter buttons
-        document.querySelectorAll('.newevent-search-filter-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => this.switchSearchFilter(e));
-        });
-
-        // Talent icons filtering
-        document.querySelectorAll('.newevent-talent-icon').forEach(icon => {
-            icon.addEventListener('click', (e) => this.filterByCategory(e));
-        });
-
-        // Close button
-        const closeBtn = document.querySelector('.newevent-close-btn');
-        if (closeBtn) {
-            closeBtn.addEventListener('click', () => this.closePage());
-        }
-    }
-
-    async loadAllEvents() {
-        try {
-            this.showLoading(true);
-            
-            // Check if user is authenticated
-            if (!auth.currentUser) {
-                this.showError('Please log in to view events.');
-                return;
-            }
-            
-            // Get all events from Neweventdatabase collection using Firebase v8 syntax
-            const eventsRef = db.collection('Neweventdatabase');
-            const query = eventsRef.orderBy('createdAt', 'desc');
-            
-            // Use onSnapshot for real-time updates
-            this.unsubscribe = query.onSnapshot((snapshot) => {
-                this.allEvents = [];
-                snapshot.forEach((doc) => {
-                    const data = doc.data();
-                    this.allEvents.push({
-                        id: doc.id,
-                        ...data,
-                        // Convert Firestore timestamp to JavaScript Date
-                        createdAt: data.createdAt?.toDate?.() || new Date()
-                    });
-                });
-                
-                this.filteredEvents = [...this.allEvents];
-                this.renderEventCards();
-                this.showLoading(false);
-                
-                console.log(`Loaded ${this.allEvents.length} events from Neweventdatabase`);
-            }, (error) => {
-                console.error('Error loading events:', error);
-                if (error.code === 'permission-denied') {
-                    this.showError('Access denied. Please check your login status.');
-                } else {
-                    this.showError('Failed to load events. Please try again.');
-                }
-                this.showLoading(false);
-            });
-            
-        } catch (error) {
-            console.error('Error in loadAllEvents:', error);
-            this.showError('An unexpected error occurred. Please try again.');
-            this.showLoading(false);
-        }
-    }
-
-    renderEventCards() {
-        const container = document.getElementById('newevent-talent-cards');
-        if (!container) return;
-
-        if (this.filteredEvents.length === 0) {
-            container.innerHTML = `
-                <div class="newevent-no-events">
-                    <i class="fas fa-calendar-times"></i>
-                    <p>No events found matching your criteria</p>
-                </div>
-            `;
-            return;
-        }
-
-        const cardsHTML = this.filteredEvents.map(event => this.createEventCard(event)).join('');
-        container.innerHTML = cardsHTML;
-
-        // Bind check event buttons
-        container.querySelectorAll('.newevent-check-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const eventId = e.target.closest('.newevent-card').dataset.eventId;
-                this.openEventDetails(eventId);
-            });
-        });
-    }
-
-    createEventCard(event) {
-        const creationDate = new Date(event.createdAt).toLocaleDateString();
-        const backgroundStyle = event.backgroundImage ? 
-            `background-image: url(${event.backgroundImage})` : 
-            `background-color: ${event.backgroundColor || '#6c5ce7'}`;
-
-        return `
-            <div class="newevent-card" data-event-id="${event.id}">
-                <div class="newevent-card-background" style="${backgroundStyle}">
-                    <div class="newevent-card-overlay"></div>
-                </div>
-                
-                <div class="newevent-card-content">
-                    <h3 class="newevent-card-title">${event.eventName || 'Untitled Event'}</h3>
-                    
-                    <div class="newevent-card-details">
-                        <div class="newevent-detail-item">
-                            <i class="fas fa-ticket-alt"></i>
-                            <span>${event.entryFee ? `₦${event.entryFee}` : 'No Entry Fee'}</span>
-                        </div>
-                        <div class="newevent-detail-item">
-                            <i class="fas fa-vote-yea"></i>
-                            <span>${event.votingFee ? `₦${event.votingFee}` : 'No Voting Fee'}</span>
-                        </div>
-                        <div class="newevent-detail-item">
-                            <i class="fas fa-clock"></i>
-                            <span>${event.duration || 'Not specified'}</span>
-                        </div>
-                    </div>
-                    
-                    <div class="newevent-card-footer">
-                        <span class="newevent-creation-date">
-                            <i class="fas fa-calendar-plus"></i>
-                            ${creationDate}
-                        </span>
-                        <button class="newevent-check-btn">
-                            <i class="fas fa-eye"></i>
-                            Check Event
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-
-    openEventDetails(eventId) {
-        const event = this.allEvents.find(e => e.id === eventId);
-        if (!event) return;
-
-        // Create and show event details modal
-        this.showEventDetailsModal(event);
-    }
-
-    showEventDetailsModal(event) {
-        const modal = document.createElement('div');
-        modal.className = 'newevent-details-modal';
-        modal.innerHTML = `
-            <div class="newevent-details-container">
-                <div class="newevent-details-header">
-                    <h2>${event.eventName || 'Untitled Event'}</h2>
-                    <button class="newevent-details-close">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                
-                <div class="newevent-details-content">
-                    <div class="newevent-details-description">
-                        <p>${event.eventDescription || 'No description available for this event.'}</p>
-                    </div>
-                    
-                    <div class="newevent-details-fee">
-                        <h4>Entry Requirements:</h4>
-                        <p>${event.entryFee ? `Entry Fee: ₦${event.entryFee}` : 'No Entry Fee Required'}</p>
-                    </div>
-                    
-                    <div class="newevent-payment-section">
-                        <h4>Select Payment Method:</h4>
-                        <div class="newevent-payment-options">
-                            <div class="newevent-payment-option disabled">
-                                <input type="radio" id="tc-balance-${event.id}" name="payment-${event.id}" disabled>
-                                <label for="tc-balance-${event.id}">
-                                    <i class="fas fa-wallet"></i>
-                                    Pay with TC Balance (Coming Soon)
-                                </label>
-                            </div>
-                            
-                            <div class="newevent-payment-option">
-                                <input type="radio" id="free-pass-${event.id}" name="payment-${event.id}" checked>
-                                <label for="free-pass-${event.id}">
-                                    <i class="fas fa-ticket-alt"></i>
-                                    Entry Free Pass
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <div class="newevent-free-pass-section">
-                            <p>Enter one of these valid codes:</p>
-                            <div class="newevent-valid-codes">
-                                <span class="newevent-code">Biask19</span>
-                                <span class="newevent-code">nig2025</span>
-                                <span class="newevent-code">Ismartdc</span>
-                            </div>
-                            <input type="text" class="newevent-code-input" placeholder="Enter free pass code...">
-                        </div>
-                    </div>
-                    
-                    <div class="newevent-details-actions">
-                        <button class="newevent-join-btn" disabled data-event-id="${event.id}">
-                            <i class="fas fa-users"></i>
-                            Join Event (Coming Soon)
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        document.body.appendChild(modal);
-
-        // Bind close event
-        modal.querySelector('.newevent-details-close').addEventListener('click', () => {
-            document.body.removeChild(modal);
-        });
-
-        // Close on backdrop click
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                document.body.removeChild(modal);
-            }
-        });
-
-        // Handle code validation
-        const codeInput = modal.querySelector('.newevent-code-input');
-        const joinBtn = modal.querySelector('.newevent-join-btn');
-
-        codeInput.addEventListener('input', (e) => {
-            const code = e.target.value.trim();
-            if (this.validCodes.includes(code)) {
-                joinBtn.disabled = false;
-                joinBtn.innerHTML = '<i class="fas fa-check"></i> Valid Code - Join Event';
-                joinBtn.onclick = () => this.joinEvent(event.id, 'free_pass', code);
-                codeInput.style.borderColor = '#00b894';
-            } else {
-                joinBtn.disabled = true;
-                joinBtn.innerHTML = '<i class="fas fa-users"></i> Join Event (Coming Soon)';
-                joinBtn.onclick = null;
-                codeInput.style.borderColor = code ? '#e17055' : '#ddd';
-            }
-        });
-    }
-
-    // Join event using Firebase v8 syntax
-    async joinEvent(eventId, paymentMethod, freePassCode = null) {
-        try {
-            if (!auth.currentUser) {
-                throw new Error('User not authenticated');
-            }
-            
-            const userId = auth.currentUser.uid;
-            
-            // Create participant document in EventParticipants collection
-            const participantRef = db.collection('EventParticipants').doc(eventId).collection('participants').doc(userId);
-            
-            const participantData = {
-                joinedAt: firebase.firestore.FieldValue.serverTimestamp(),
-                paymentMethod: paymentMethod,
-                userId: userId
-            };
-            
-            if (paymentMethod === 'free_pass' && freePassCode) {
-                if (!this.validateFreePassCode(freePassCode)) {
-                    throw new Error('Invalid free pass code');
-                }
-                participantData.freePassCode = freePassCode;
-            }
-            
-            await participantRef.set(participantData);
-            
-            // Show success message
-            this.showSuccessMessage('Successfully joined the event!');
-            
-            // Close modal
-            const modal = document.querySelector('.newevent-details-modal');
-            if (modal) {
-                document.body.removeChild(modal);
-            }
-            
-            return true;
-        } catch (error) {
-            console.error('Error joining event:', error);
-            this.showError(`Failed to join event: ${error.message}`);
-                    return false;
-        }
-    }
-
-    validateFreePassCode(code) {
-        return this.validCodes.includes(code.trim());
-    }
-
-    applyFilter(e) {
-        const filterType = e.target.dataset.filter;
-        this.currentFilter = filterType;
-
-        // Update active button
-        document.querySelectorAll('.newevent-filter-btn').forEach(btn => {
-            btn.classList.remove('newevent-active');
-        });
-        e.target.classList.add('newevent-active');
-
-        this.filterEvents();
-    }
-
-    filterEvents() {
-        const now = new Date();
-        
-        switch (this.currentFilter) {
-            case 'latest':
-                this.filteredEvents = this.allEvents.sort((a, b) => 
-                    new Date(b.createdAt) - new Date(a.createdAt)
-                );
-                break;
-            case 'old':
-                this.filteredEvents = this.allEvents.sort((a, b) => 
-                    new Date(a.createdAt) - new Date(b.createdAt)
-                );
-                break;
-            case '48hrs':
-                this.filteredEvents = this.allEvents.filter(event => {
-                    const eventDate = new Date(event.createdAt);
-                    const diffHours = (now - eventDate) / (1000 * 60 * 60);
-                    return diffHours <= 48;
-                });
-                break;
-            case '3days':
-                this.filteredEvents = this.allEvents.filter(event => {
-                    const eventDate = new Date(event.createdAt);
-                    const diffDays = (now - eventDate) / (1000 * 60 * 60 * 24);
-                    return diffDays <= 3;
-                });
-                break;
-            case '14days':
-                this.filteredEvents = this.allEvents.filter(event => {
-                    const eventDate = new Date(event.createdAt);
-                    const diffDays = (now - eventDate) / (1000 * 60 * 60 * 24);
-                    return diffDays <= 14;
-                });
-                break;
-            default:
-                this.filteredEvents = [...this.allEvents];
-        }
-
-        this.renderEventCards();
-    }
-
-    handleSearch(e) {
-        const searchTerm = e.target.value.toLowerCase().trim();
-        
-        if (!searchTerm) {
-            this.filteredEvents = [...this.allEvents];
-        } else {
-            this.filteredEvents = this.allEvents.filter(event => {
-                const eventName = (event.eventName || '').toLowerCase();
-                const eventDescription = (event.eventDescription || '').toLowerCase();
-                const eventType = (event.eventType || '').toLowerCase();
-                
-                switch (this.currentSearchFilter) {
-                    case 'name':
-                        return eventName.includes(searchTerm);
-                    case 'description':
-                        return eventDescription.includes(searchTerm);
-                    case 'type':
-                        return eventType.includes(searchTerm);
-                    case 'all':
-                    default:
-                        return eventName.includes(searchTerm) || 
-                               eventDescription.includes(searchTerm) || 
-                               eventType.includes(searchTerm);
-                }
-            });
-        }
-        
-        this.renderEventCards();
-    }
-
-    switchSearchFilter(e) {
-        const filterType = e.target.dataset.searchFilter;
-        this.currentSearchFilter = filterType;
-
-        // Update active button
-        document.querySelectorAll('.newevent-search-filter-btn').forEach(btn => {
-            btn.classList.remove('newevent-active');
-        });
-        e.target.classList.add('newevent-active');
-
-        // Re-apply current search
-        const searchInput = document.querySelector('.newevent-search-input');
-        if (searchInput && searchInput.value) {
-            this.handleSearch({ target: searchInput });
-        }
-    }
-
-    filterByCategory(e) {
-        const category = e.target.dataset.category;
-        
-        // Update active icon
-        document.querySelectorAll('.newevent-talent-icon').forEach(icon => {
-            icon.classList.remove('newevent-active');
-        });
-        e.target.classList.add('newevent-active');
-
-        if (category === 'all') {
-            this.filteredEvents = [...this.allEvents];
-        } else {
-            this.filteredEvents = this.allEvents.filter(event => 
-                event.eventType === category || 
-                event.eventCategory === category
-            );
-        }
-
-        this.renderEventCards();
-    }
-
-    switchTab(e) {
-        const tabName = e.target.dataset.tab;
-        this.currentTab = tabName;
-
-        // Update active tab button
-        document.querySelectorAll('.newevent-tab-btn').forEach(btn => {
-            btn.classList.remove('newevent-active');
-        });
-        e.target.classList.add('newevent-active');
-
-        // Update active tab content
-        document.querySelectorAll('.newevent-tab-content').forEach(content => {
-            content.classList.remove('newevent-active');
-        });
-        document.getElementById(`newevent-${tabName}-tab`).classList.add('newevent-active');
-
-        // Load appropriate content based on tab
-        if (tabName === 'talent') {
-            this.loadAllEvents();
-        }
-    }
-
-    showLoading(show) {
-        const container = document.getElementById('newevent-talent-cards');
-        if (!container) return;
-
-        if (show) {
-            container.innerHTML = `
-                <div class="newevent-loading-message">
-                    <i class="fas fa-spinner fa-spin"></i>
-                    <p>Loading events...</p>
-                </div>
-            `;
-        }
-    }
-
-    showError(message) {
-        const container = document.getElementById('newevent-talent-cards');
-        if (!container) return;
-
-        container.innerHTML = `
-            <div class="newevent-error-message">
-                <i class="fas fa-exclamation-triangle"></i>
-                <p>${message}</p>
-                <button class="newevent-retry-btn" onclick="window.newEventPageInstance.loadAllEvents()">
-                    Try Again
-                </button>
-            </div>
-        `;
-    }
-
-    showNoEvents() {
-        const container = document.getElementById('newevent-talent-cards');
-        if (!container) return;
-
-        container.innerHTML = `
-            <div class="newevent-no-events">
-                <i class="fas fa-calendar-times"></i>
-                <p>No events available at the moment</p>
-            </div>
-        `;
-    }
-
-    showSuccessMessage(message) {
-        // Create temporary success notification
-        const notification = document.createElement('div');
-        notification.className = 'newevent-success-notification';
-        notification.innerHTML = `
-            <i class="fas fa-check-circle"></i>
-            <span>${message}</span>
-        `;
-        
-        document.body.appendChild(notification);
-        
-        // Remove after 3 seconds
-        setTimeout(() => {
-            if (document.body.contains(notification)) {
-                document.body.removeChild(notification);
-            }
-        }, 3000);
-    }
-
-    closePage() {
-        const newEventPage = document.querySelector('.newevent-page');
-        if (newEventPage) {
-            newEventPage.style.display = 'none';
-        }
-        
-        // Clean up listener
-        if (this.unsubscribe) {
-            this.unsubscribe();
-        }
-    }
-
-    // Clean up method
-    destroy() {
-        if (this.unsubscribe) {
-            this.unsubscribe();
-        }
-    }
-}
-
-// Function to open New Event Page from main navigation
-function openNewEventPage() {
-    const newEventPage = document.querySelector('.newevent-page');
-    if (newEventPage) {
-        newEventPage.style.display = 'flex';
-        
-        // Initialize if not already done
-        if (!window.newEventPageInstance) {
-            window.newEventPageInstance = new NewEventPage();
-        } else {
-            // Reload events when page is opened
-            window.newEventPageInstance.loadAllEvents();
-        }
-    }
-}
-
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    // Wait for Firebase to be ready
-    if (typeof firebase !== 'undefined') {
-        // Only initialize if the new event page exists
-        if (document.querySelector('.newevent-page')) {
-            window.newEventPageInstance = new NewEventPage();
-        }
-    } else {
-        console.error('Firebase not loaded. Make sure Firebase scripts are included before this script.');
-    }
-});
-
-// Clean up on page unload
-window.addEventListener('beforeunload', () => {
-    if (window.newEventPageInstance) {
-        window.newEventPageInstance.destroy();
-    }
-});
-
-// Make functions globally available
-window.openNewEventPage = openNewEventPage;
 
 
        document.addEventListener('DOMContentLoaded', function() {
