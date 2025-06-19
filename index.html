@@ -31753,35 +31753,31 @@ class SportEventsLoader {
 // CSS Styles for the sport events cards and modals
 const sportEventsStyles = `
 <style>
+/* Reset and base styles */
+* {
+    box-sizing: border-box;
+}
 
-   /* Sport Event Cards */
+/* Sport Event Card Container */
 .sport-event-card {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     overflow: hidden;
     margin-bottom: 20px;
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    /* Mobile optimization */
-    -webkit-backdrop-filter: blur(10px);
     will-change: transform;
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    width: 100%;
+    max-width: 100%;
 }
 
-.sport-event-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-}
-
-/* Disable hover effects on touch devices */
-@media (hover: none) and (pointer: coarse) {
-    .sport-event-card:hover {
-        transform: none;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    }
-}
-
+/* Card Header */
 .sport-card-header {
     height: clamp(100px, 15vw, 120px);
     position: relative;
@@ -31789,6 +31785,9 @@ const sportEventsStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .sport-card-overlay {
@@ -31813,6 +31812,9 @@ const sportEventsStyles = `
     line-height: 1.2;
     word-break: break-word;
     hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    text-align: center;
 }
 
 .sport-card-status {
@@ -31822,8 +31824,10 @@ const sportEventsStyles = `
     font-weight: bold;
     text-transform: uppercase;
     white-space: nowrap;
+    display: inline-block;
 }
 
+/* Status Colors */
 .sport-card-status.status-active {
     background: rgba(39, 174, 96, 0.9);
     color: white;
@@ -31849,10 +31853,12 @@ const sportEventsStyles = `
     color: white;
 }
 
+/* Card Body */
 .sport-card-body {
     padding: clamp(15px, 4vw, 20px);
 }
 
+/* Card Info Grid */
 .sport-card-info {
     display: grid;
     grid-template-columns: 1fr;
@@ -31867,14 +31873,22 @@ const sportEventsStyles = `
     color: rgba(255, 255, 255, 0.9);
     font-size: clamp(12px, 3vw, 14px);
     word-break: break-word;
+    line-height: 1.4;
 }
 
 .sport-info-item i {
     color: #3498db;
     width: 16px;
     flex-shrink: 0;
+    text-align: center;
 }
 
+.sport-info-item span {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Description */
 .sport-card-description {
     margin-bottom: 15px;
 }
@@ -31890,8 +31904,11 @@ const sportEventsStyles = `
     overflow: hidden;
     word-break: break-word;
     hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
 }
 
+/* Stats Section */
 .sport-card-stats {
     display: flex;
     justify-content: space-around;
@@ -31906,6 +31923,7 @@ const sportEventsStyles = `
 .stat-item {
     text-align: center;
     min-width: 60px;
+    flex: 1;
 }
 
 .stat-number {
@@ -31913,14 +31931,18 @@ const sportEventsStyles = `
     font-size: clamp(16px, 4vw, 18px);
     font-weight: bold;
     color: #3498db;
+    line-height: 1.2;
 }
 
 .stat-label {
     font-size: clamp(10px, 2.5vw, 12px);
     color: rgba(255, 255, 255, 0.7);
     text-transform: uppercase;
+    margin-top: 2px;
+    line-height: 1.2;
 }
 
+/* Action Buttons */
 .sport-card-actions {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
@@ -31937,26 +31959,32 @@ const sportEventsStyles = `
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 4px;
     transition: all 0.3s ease;
     text-transform: uppercase;
-    min-height: 44px; /* iOS touch target minimum */
-    justify-content: center;
+    min-height: 48px;
     -webkit-tap-highlight-color: transparent;
+    transform: translateZ(0);
+    position: relative;
+    overflow: hidden;
+    font-family: inherit;
 }
 
 .sport-card-btn i {
     font-size: clamp(14px, 3.5vw, 16px);
+    line-height: 1;
 }
 
+.sport-card-btn span {
+    line-height: 1;
+    font-size: inherit;
+}
+
+/* Button Colors */
 .sport-card-btn.edit-btn {
     background: rgba(52, 152, 219, 0.8);
     color: white;
-}
-
-.sport-card-btn.edit-btn:hover {
-    background: rgba(52, 152, 219, 1);
-    transform: translateY(-2px);
 }
 
 .sport-card-btn.delete-btn {
@@ -31964,29 +31992,14 @@ const sportEventsStyles = `
     color: white;
 }
 
-.sport-card-btn.delete-btn:hover {
-    background: rgba(231, 76, 60, 1);
-    transform: translateY(-2px);
-}
-
 .sport-card-btn.open-btn {
     background: rgba(39, 174, 96, 0.8);
     color: white;
 }
 
-.sport-card-btn.open-btn:hover {
-    background: rgba(39, 174, 96, 1);
-    transform: translateY(-2px);
-}
-
 .sport-card-btn.launch-btn {
     background: rgba(155, 89, 182, 0.8);
     color: white;
-}
-
-.sport-card-btn.launch-btn:hover:not(.disabled) {
-    background: rgba(155, 89, 182, 1);
-    transform: translateY(-2px);
 }
 
 .sport-card-btn.disabled {
@@ -31995,533 +32008,58 @@ const sportEventsStyles = `
     pointer-events: none;
 }
 
-/* Disable hover effects on touch devices */
+/* Hover Effects for Desktop */
+@media (hover: hover) and (pointer: fine) {
+    .sport-event-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    .sport-card-btn:hover:not(.disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .sport-card-btn.edit-btn:hover:not(.disabled) {
+        background: rgba(52, 152, 219, 1);
+    }
+    
+    .sport-card-btn.delete-btn:hover:not(.disabled) {
+        background: rgba(231, 76, 60, 1);
+    }
+    
+    .sport-card-btn.open-btn:hover:not(.disabled) {
+        background: rgba(39, 174, 96, 1);
+    }
+    
+    .sport-card-btn.launch-btn:hover:not(.disabled) {
+        background: rgba(155, 89, 182, 1);
+    }
+}
+
+/* Touch Device Optimizations */
 @media (hover: none) and (pointer: coarse) {
-    .sport-card-btn:hover {
+    .sport-event-card:hover {
         transform: none;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
     
-    .sport-card-btn:active {
+    .sport-card-btn:active:not(.disabled) {
         transform: scale(0.95);
-    }
-}
-
-/* Event Details Modal */
-.sport-event-details-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10000;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-
-.sport-event-details-modal.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-.sport-event-details-overlay {
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: clamp(10px, 3vw, 20px);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
-.sport-event-details-content {
-    background: rgba(20, 20, 20, 0.95);
-    border-radius: 15px;
-    max-width: 800px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    -webkit-overflow-scrolling: touch;
-}
-
-.sport-details-header {
-    height: clamp(120px, 20vw, 150px);
-    position: relative;
-    background: linear-gradient(135deg, #008B8B, #006666);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.sport-details-header .sport-card-overlay {
-    padding: clamp(20px, 5vw, 30px);
-}
-
-.sport-details-header h2 {
-    font-size: clamp(18px, 5vw, 24px);
-    margin: 0 0 10px 0;
-    line-height: 1.2;
-    word-break: break-word;
-}
-
-.close-modal-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    color: white;
-    width: 44px; /* iOS touch target minimum */
-    height: 44px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 18px;
-    transition: all 0.3s ease;
-    -webkit-tap-highlight-color: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.close-modal-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-.sport-details-body {
-    padding: clamp(20px, 5vw, 30px);
-}
-
-.sport-details-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: clamp(15px, 4vw, 30px);
-    margin-bottom: 30px;
-}
-
-.sport-detail-section {
-    background: rgba(255, 255, 255, 0.05);
-    padding: clamp(15px, 4vw, 20px);
-    border-radius: 10px;
-}
-
-.sport-detail-section.full-width {
-    grid-column: 1 / -1;
-}
-
-.sport-detail-section h4 {
-    color: #3498db;
-    margin: 0 0 15px 0;
-    font-size: clamp(14px, 3.5vw, 16px);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    word-break: break-word;
-}
-
-.sport-detail-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    gap: 10px;
-}
-
-.sport-detail-item:last-child {
-    border-bottom: none;
-}
-
-.detail-label {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: clamp(12px, 3vw, 14px);
-    flex-shrink: 0;
-    min-width: 40%;
-}
-
-.detail-value {
-    color: white;
-    font-weight: bold;
-    font-size: clamp(12px, 3vw, 14px);
-    text-align: right;
-    word-break: break-word;
-}
-
-.sport-stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 15px;
-}
-
-.sport-stat-card {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
-}
-
-.sport-stat-card .stat-number {
-    font-size: clamp(20px, 5vw, 24px);
-    color: #3498db;
-    font-weight: bold;
-    display: block;
-}
-
-.sport-stat-card .stat-label {
-    font-size: clamp(10px, 2.5vw, 12px);
-    color: rgba(255, 255, 255, 0.7);
-    text-transform: uppercase;
-    margin-top: 5px;
-}
-
-.event-description {
-    color: rgba(255, 255, 255, 0.9);
-    line-height: 1.6;
-    margin: 0;
-    font-size: clamp(12px, 3vw, 14px);
-    word-break: break-word;
-    hyphens: auto;
-}
-
-.participants-list {
-    display: grid;
-    gap: 10px;
-}
-
-.participant-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    flex-wrap: wrap;
-}
-
-.participant-item i {
-    color: #3498db;
-    width: 16px;
-    flex-shrink: 0;
-}
-
-.participant-item span:first-of-type {
-    flex: 1;
-    color: white;
-    font-size: clamp(12px, 3vw, 14px);
-    word-break: break-word;
-    min-width: 0;
-}
-
-.participant-status {
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: clamp(9px, 2vw, 11px);
-    font-weight: bold;
-    text-transform: uppercase;
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-.sport-details-actions {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    flex-wrap: wrap;
-}
-
-.sport-detail-btn {
-    padding: clamp(10px, 3vw, 12px) clamp(20px, 5vw, 24px);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    font-size: clamp(12px, 3vw, 14px);
-    min-height: 44px; /* iOS touch target minimum */
-    justify-content: center;
-    -webkit-tap-highlight-color: transparent;
-    flex: 1;
-    min-width: 120px;
-}
-
-.sport-detail-btn.edit-btn {
-    background: rgba(52, 152, 219, 0.8);
-    color: white;
-}
-
-.sport-detail-btn.edit-btn:hover {
-    background: rgba(52, 152, 219, 1);
-}
-
-.sport-detail-btn.launch-btn {
-    background: rgba(155, 89, 182, 0.8);
-    color: white;
-}
-
-.sport-detail-btn.launch-btn:hover:not(.disabled) {
-    background: rgba(155, 89, 182, 1);
-}
-
-.sport-detail-btn.delete-btn {
-    background: rgba(231, 76, 60, 0.8);
-    color: white;
-}
-
-.sport-detail-btn.delete-btn:hover {
-    background: rgba(231, 76, 60, 1);
-}
-
-/* Confirmation Modal */
-.sport-confirm-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10001;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-
-.sport-confirm-modal.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-.sport-confirm-overlay {
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: clamp(15px, 4vw, 20px);
-}
-
-.sport-confirm-content {
-    background: rgba(20, 20, 20, 0.95);
-    border-radius: 15px;
-    max-width: 400px;
-    width: 100%;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.sport-confirm-header {
-    padding: clamp(15px, 4vw, 20px) clamp(15px, 4vw, 20px) 0 clamp(15px, 4vw, 20px);
-}
-
-.sport-confirm-header h3 {
-    color: white;
-    margin: 0;
-    font-size: clamp(16px, 4vw, 18px);
-    word-break: break-word;
-}
-
-.sport-confirm-body {
-    padding: clamp(15px, 4vw, 20px);
-}
-
-.sport-confirm-body p {
-    color: rgba(255, 255, 255, 0.9);
-    margin: 0;
-    line-height: 1.5;
-    font-size: clamp(12px, 3vw, 14px);
-    word-break: break-word;
-}
-
-.sport-confirm-actions {
-    display: flex;
-    gap: 10px;
-    padding: 0 clamp(15px, 4vw, 20px) clamp(15px, 4vw, 20px) clamp(15px, 4vw, 20px);
-}
-
-.sport-confirm-btn {
-    flex: 1;
-    padding: clamp(10px, 3vw, 12px);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    font-size: clamp(12px, 3vw, 14px);
-    min-height: 44px; /* iOS touch target minimum */
-    -webkit-tap-highlight-color: transparent;
-}
-
-.sport-confirm-btn.cancel-btn {
-    background: rgba(149, 165, 166, 0.8);
-    color: white;
-}
-
-.sport-confirm-btn.cancel-btn:hover {
-    background: rgba(149, 165, 166, 1);
-}
-
-.sport-confirm-btn.confirm-btn {
-    background: rgba(231, 76, 60, 0.8);
-    color: white;
-}
-
-.sport-confirm-btn.confirm-btn:hover {
-    background: rgba(231, 76, 60, 1);
-}
-
-/* Toast Notifications */
-.sport-toast {
-    position: fixed;
-    top: clamp(15px, 4vw, 20px);
-    right: clamp(15px, 4vw, 20px);
-    left: clamp(15px, 4vw, 20px);
-    background: rgba(20, 20, 20, 0.95);
-    color: white;
-    padding: clamp(12px, 3vw, 15px) clamp(15px, 4vw, 20px);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    z-index: 10002;
-    transform: translateY(-100px);
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    font-size: clamp(12px, 3vw, 14px);
-    word-break: break-word;
-}
-
-.sport-toast.show {
-    transform: translateY(0);
-}
-
-.sport-toast.success {
-    border-left: 4px solid #27ae60;
-}
-
-.sport-toast.error {
-    border-left: 4px solid #e74c3c;
-}
-
-.sport-toast.warning {
-    border-left: 4px solid #f39c12;
-}
-
-.sport-toast.info {
-    border-left: 4px solid #3498db;
-}
-
-.sport-toast i {
-    font-size: clamp(16px, 4vw, 18px);
-    flex-shrink: 0;
-}
-
-.sport-toast.success i {
-    color: #27ae60;
-}
-
-.sport-toast.error i {
-    color: #e74c3c;
-}
-
-.sport-toast.warning i {
-    color: #f39c12;
-}
-
-.sport-toast.info i {
-    color: #3498db;
-}
-
-/* Error State */
-.sport-events-error {
-    text-align: center;
-    padding: clamp(30px, 8vw, 40px) clamp(15px, 4vw, 20px);
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.error-state-icon {
-    font-size: clamp(40px, 10vw, 48px);
-    color: #e74c3c;
-    margin-bottom: 20px;
-}
-
-.sport-events-error h4 {
-    color: white;
-    margin: 0 0 10px 0;
-    font-size: clamp(16px, 4vw, 18px);
-    word-break: break-word;
-}
-
-.sport-events-error p {
-    margin: 0 0 20px 0;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: clamp(12px, 3vw, 14px);
-    word-break: break-word;
-}
-
-.error-state-btn {
-    background: rgba(52, 152, 219, 0.8);
-    color: white;
-    border: none;
-    padding: clamp(10px, 3vw, 12px) clamp(20px, 5vw, 24px);
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: clamp(12px, 3vw, 14px);
-    min-height: 44px; /* iOS touch target minimum */
-    -webkit-tap-highlight-color: transparent;
-}
-
-.error-state-btn:hover {
-    background: rgba(52, 152, 219, 1);
-}
-
-/* Enhanced Mobile Responsive Design */
-
-/* Large tablets and small desktops */
-@media (min-width: 769px) and (max-width: 1024px) {
-    .sport-details-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
+        transition: transform 0.1s ease;
     }
     
+    .sport-card-btn {
+        min-height: 48px;
+        min-width: 48px;
+    }
+}
+
+/* Tablet Styles */
+@media (min-width: 481px) and (max-width: 768px) {
     .sport-card-info {
         grid-template-columns: 1fr 1fr;
-    }
-    
-    .sport-toast {
-        right: clamp(15px, 4vw, 20px);
-        left: auto;
-        max-width: 400px;
-        transform: translateX(100%);
-    }
-    
-    .sport-toast.show {
-        transform: translateX(0);
-    }
-}
-
-/* Tablets */
-@media (max-width: 768px) {
-    .sport-details-grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
+        gap: 10px;
     }
     
     .sport-card-actions {
@@ -32529,110 +32067,58 @@ const sportEventsStyles = `
         gap: 10px;
     }
     
-    .sport-card-btn {
-        padding: 12px 8px;
-        font-size: 11px;
+    .sport-card-stats {
+        justify-content: space-between;
     }
-    
-    .sport-details-actions {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .sport-detail-btn {
-        justify-content: center;
-        flex: none;
-        width: 100%;
-    }
-    
-    .sport-stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-    }
-    
+}
+
+/* Desktop Styles */
+@media (min-width: 769px) {
     .sport-card-info {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    
+    .sport-card-actions {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+    }
+}
+
+/* Mobile Portrait */
+@media (max-width: 480px) {
+    .sport-card-actions {
         grid-template-columns: 1fr;
         gap: 8px;
     }
     
     .sport-card-stats {
         flex-direction: column;
-        gap: 15px;
+        gap: 12px;
     }
     
     .stat-item {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px;
+        padding: 8px 12px;
         background: rgba(255, 255, 255, 0.05);
-        border-radius: 8px;
-    }
-}
-
-/* Mobile phones */
-@media (max-width: 480px) {
-    .sport-event-details-overlay {
-        padding: 5px;
-        align-items: flex-start;
-        padding-top: 20px;
-    }
-    
-    .sport-event-details-content {
-        max-height: 95vh;
-        margin: 0;
-    }
-    
-    .sport-details-body {
-        padding: 15px;
-    }
-    
-    .sport-card-actions {
-        grid-template-columns: 1fr;
-        gap: 8px;
-    }
-    
-    .sport-confirm-actions {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .sport-stats-grid {
-        grid-template-columns: 1fr;
-        gap: 8px;
-    }
-    
-    .sport-details-actions {
-        gap: 8px;
-    }
-    
-    .participant-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-    
-    .participant-item span:first-of-type {
-        width: 100%;
-    }
-    
-    .sport-detail-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
-    }
-    
-    .detail-label {
-        min-width: auto;
-    }
-    
-    .detail-value {
+        border-radius: 6px;
         text-align: left;
-        width: 100%;
+    }
+    
+    .stat-number {
+        order: 2;
+    }
+    
+    .stat-label {
+        order: 1;
+        margin-top: 0;
+        text-align: left;
     }
 }
 
-/* Very small screens */
+/* Very Small Screens */
 @media (max-width: 360px) {
     .sport-card-overlay {
         padding: 10px;
@@ -32642,229 +32128,79 @@ const sportEventsStyles = `
         padding: 12px;
     }
     
-    .sport-details-body {
+    .sport-card-stats {
+        padding: 8px;
+    }
+}
+
+/* Landscape Mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .sport-card-header {
+        height: 80px;
+    }
+    
+    .sport-card-body {
         padding: 12px;
     }
     
     .sport-card-stats {
+        flex-direction: row;
         padding: 8px;
     }
     
-    .sport-detail-section {
-        padding: 12px;
+    .stat-item {
+        flex-direction: column;
+        text-align: center;
+        padding: 4px;
     }
 }
 
-/* Landscape orientation on mobile */
-@media (max-height: 500px) and (orientation: landscape) {
-    .sport-event-details-content {
-        max-height: 98vh;
-    }
-    
-    .sport-details-header {
-        height: 80px;
-    }
-    
-    .sport-card-header {
-        height: 80px;
-    }
-    
-    .sport-details-body {
-        padding: 15px;
+/* Safe Area Support for iPhone X+ */
+@supports (padding: max(0px)) {
+    .sport-event-card {
+        margin-left: max(0px, env(safe-area-inset-left));
+        margin-right: max(0px, env(safe-area-inset-right));
     }
 }
 
-/* High DPI displays */
+/* High DPI Displays */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     .sport-event-card {
         border-width: 0.5px;
     }
-    
-    .sport-detail-item {
-        border-bottom-width: 0.5px;
-    }
 }
 
-/* iOS Safari specific fixes */
-@supports (-webkit-touch-callout: none) {
-    .sport-event-details-content {
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    .sport-card-btn:active {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
-}
-
-/* Android Chrome specific fixes */
-@media screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: .001dpcm) {
-    .sport-event-card {
-        transform: translateZ(0);
-    }
-    
-    .sport-card-btn {
-        transform: translateZ(0);
-    }
-}
-
-/* Focus states for accessibility */
-.sport-card-btn:focus,
-.sport-detail-btn:focus,
-.sport-confirm-btn:focus,
-.close-modal-btn:focus,
-.error-state-btn:focus {
+/* Accessibility */
+.sport-card-btn:focus {
     outline: 2px solid #3498db;
     outline-offset: 2px;
 }
 
+/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
     .sport-event-card,
-    .sport-card-btn,
-    .sport-detail-btn,
-    .sport-confirm-btn,
-    .sport-toast,
-    .sport-event-details-modal {
+    .sport-card-btn {
         transition: none;
-        animation: none;
     }
     
     .sport-event-card:hover,
-    .sport-card-btn:hover,
-    .sport-detail-btn:hover {
+    .sport-card-btn:hover {
         transform: none;
     }
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
     .sport-event-card {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: rgba(255, 255, 255, 0.15);
+        border: 2px solid white;
     }
     
-    .sport-card-overlay {
-        background: rgba(0, 0, 0, 0.6);
-    }
-    
-    .sport-detail-section {
-        background: rgba(255, 255, 255, 0.03);
+    .sport-card-btn {
+        border: 1px solid white;
     }
 }
 
-/* Print styles */
-@media print {
-    .sport-event-card {
-        background: white;
-        color: black;
-        box-shadow: none;
-        border: 1px solid #ccc;
-        break-inside: avoid;
-    }
-    
-    .sport-card-header {
-        background: #f5f5f5;
-    }
-    
-    .sport-card-title,
-    .sport-info-item,
-    .detail-value {
-        color: black;
-    }
-    
-    .sport-card-actions,
-    .sport-details-actions {
-        display: none;
-    }
-}
-
-/* Additional mobile optimizations */
-
-/* Safe area insets for iPhone X and newer */
-@supports (padding: max(0px)) {
-    .sport-event-details-overlay {
-        padding-left: max(20px, env(safe-area-inset-left));
-        padding-right: max(20px, env(safe-area-inset-right));
-        padding-top: max(20px, env(safe-area-inset-top));
-        padding-bottom: max(20px, env(safe-area-inset-bottom));
-    }
-    
-    .sport-toast {
-        top: max(20px, env(safe-area-inset-top));
-        right: max(20px, env(safe-area-inset-right));
-        left: max(20px, env(safe-area-inset-left));
-    }
-}
-
-/* Foldable devices support */
-@media (spanning: single-fold-vertical) {
-    .sport-details-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-    }
-}
-
-@media (spanning: single-fold-horizontal) {
-    .sport-event-details-content {
-        max-height: 45vh;
-    }
-}
-
-/* Ultra-wide screens */
-@media (min-width: 1400px) {
-    .sport-event-details-content {
-        max-width: 900px;
-    }
-    
-    .sport-details-grid {
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-}
-
-/* Hover capability detection */
-@media (hover: hover) and (pointer: fine) {
-    .sport-event-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-    }
-    
-    .sport-card-btn:hover,
-    .sport-detail-btn:hover {
-        transform: translateY(-2px);
-    }
-}
-
-/* Touch device optimizations */
-@media (hover: none) and (pointer: coarse) {
-    .sport-card-btn:active {
-        transform: scale(0.95);
-        transition: transform 0.1s ease;
-    }
-    
-    .sport-detail-btn:active {
-        transform: scale(0.98);
-        transition: transform 0.1s ease;
-    }
-    
-    .close-modal-btn:active {
-        transform: scale(0.9);
-        transition: transform 0.1s ease;
-    }
-    
-    /* Increase touch targets */
-    .sport-card-btn,
-    .sport-detail-btn,
-    .sport-confirm-btn {
-        min-height: 48px;
-        min-width: 48px;
-    }
-    
-    .close-modal-btn {
-        width: 48px;
-        height: 48px;
-    }
-}
-
-/* Container queries for modern browsers */
+/* Container Queries for Modern Browsers */
 @supports (container-type: inline-size) {
     .sport-event-card {
         container-type: inline-size;
@@ -32875,90 +32211,420 @@ const sportEventsStyles = `
             grid-template-columns: 1fr;
         }
         
-        .sport-card-stats {
-            flex-direction: column;
+        .sport-card-info {
+            grid-template-columns: 1fr;
         }
     }
     
-    @container (min-width: 400px) {
+    @container (min-width: 400px) and (max-width: 600px) {
+        .sport-card-actions {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
         .sport-card-info {
             grid-template-columns: 1fr 1fr;
         }
     }
+    
+    @container (min-width: 600px) {
+        .sport-card-actions {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
 }
 
-/* Performance optimizations */
-.sport-event-card,
-.sport-card-btn,
-.sport-event-details-modal {
-    will-change: transform;
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-}
-
-/* Scrollbar styling for webkit browsers */
-.sport-event-details-content::-webkit-scrollbar {
-    width: 8px;
-}
-
-.sport-event-details-content::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-}
-
-.sport-event-details-content::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
-}
-
-.sport-event-details-content::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.5);
-}
-
-/* Loading states */
+/* Loading State */
 .sport-event-card.loading {
     opacity: 0.7;
     pointer-events: none;
+    position: relative;
+    overflow: hidden;
 }
 
 .sport-event-card.loading::after {
     content: '';
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
     animation: shimmer 1.5s infinite;
 }
-
 @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    0% { left: -100%; }
+    100% { left: 100%; }
 }
 
-/* Error handling for images */
-.sport-card-header img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+/* Error State */
+.sport-event-card.error {
+    border: 1px solid rgba(231, 76, 60, 0.5);
+    background: rgba(231, 76, 60, 0.05);
 }
 
-.sport-card-header img:not([src]) {
-    display: none;
+.sport-event-card.error .sport-card-header {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
 }
 
-/* Accessibility improvements */
-.sport-card-btn[aria-disabled="true"],
-.sport-detail-btn[aria-disabled="true"] {
-    opacity: 0.5;
-    cursor: not-allowed;
+/* Success State */
+.sport-event-card.success {
+    border: 1px solid rgba(39, 174, 96, 0.5);
+    background: rgba(39, 174, 96, 0.05);
+}
+
+/* Warning State */
+.sport-event-card.warning {
+    border: 1px solid rgba(241, 196, 15, 0.5);
+    background: rgba(241, 196, 15, 0.05);
+}
+
+/* Button Loading State */
+.sport-card-btn.loading {
+    position: relative;
+    color: transparent;
     pointer-events: none;
 }
 
-/* Screen reader only content */
+.sport-card-btn.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    color: white;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Ripple Effect for Touch */
+.sport-card-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.sport-card-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+    pointer-events: none;
+}
+
+.sport-card-btn:active::before {
+    width: 100px;
+    height: 100px;
+}
+
+/* Improved Typography */
+.sport-card-title {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+}
+
+.sport-info-item span,
+.stat-label,
+.sport-card-description p {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Enhanced Focus States */
+.sport-card-btn:focus-visible {
+    outline: 2px solid #3498db;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
+}
+
+/* Improved Button States */
+.sport-card-btn:disabled,
+.sport-card-btn[aria-disabled="true"] {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+    filter: grayscale(50%);
+}
+
+/* Enhanced Status Indicators */
+.sport-card-status {
+    position: relative;
+    overflow: hidden;
+}
+
+.sport-card-status::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.sport-card-status.status-active::before {
+    animation: statusGlow 2s ease-in-out infinite;
+}
+
+@keyframes statusGlow {
+    0%, 100% { left: -100%; }
+    50% { left: 100%; }
+}
+
+/* Card Entrance Animation */
+.sport-event-card {
+    animation: cardEnter 0.5s ease-out;
+}
+
+@keyframes cardEnter {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Staggered Animation for Multiple Cards */
+.sport-event-card:nth-child(1) { animation-delay: 0s; }
+.sport-event-card:nth-child(2) { animation-delay: 0.1s; }
+.sport-event-card:nth-child(3) { animation-delay: 0.2s; }
+.sport-event-card:nth-child(4) { animation-delay: 0.3s; }
+.sport-event-card:nth-child(5) { animation-delay: 0.4s; }
+
+/* Improved Scrollbar for Webkit */
+.sport-card-description::-webkit-scrollbar {
+    width: 4px;
+}
+
+.sport-card-description::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+}
+
+.sport-card-description::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+}
+
+/* Dark Mode Enhancements */
+@media (prefers-color-scheme: dark) {
+    .sport-event-card {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.15);
+    }
+    
+    .sport-card-stats {
+        background: rgba(255, 255, 255, 0.03);
+    }
+    
+    .stat-item {
+        background: rgba(255, 255, 255, 0.05);
+    }
+}
+
+/* Light Mode Support */
+@media (prefers-color-scheme: light) {
+    .sport-event-card {
+        background: rgba(0, 0, 0, 0.05);
+        border-color: rgba(0, 0, 0, 0.1);
+        color: #333;
+    }
+    
+    .sport-card-title {
+        color: white;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+    }
+    
+    .sport-info-item {
+        color: rgba(0, 0, 0, 0.8);
+    }
+    
+    .sport-card-description p {
+        color: rgba(0, 0, 0, 0.7);
+    }
+    
+    .stat-label {
+        color: rgba(0, 0, 0, 0.6);
+    }
+}
+
+/* Foldable Device Support */
+@media (spanning: single-fold-vertical) {
+    .sport-card-info {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .sport-card-actions {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (spanning: single-fold-horizontal) {
+    .sport-card-header {
+        height: 80px;
+    }
+    
+    .sport-card-body {
+        padding: 12px;
+    }
+}
+
+/* Ultra-wide Screen Support */
+@media (min-width: 1400px) {
+    .sport-event-card {
+        max-width: 600px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .sport-event-card {
+        background: white !important;
+        color: black !important;
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        break-inside: avoid;
+        margin-bottom: 20px;
+    }
+    
+    .sport-card-header {
+        background: #f5f5f5 !important;
+        color: black !important;
+    }
+    
+    .sport-card-title {
+        color: black !important;
+        text-shadow: none !important;
+    }
+    
+    .sport-card-status {
+        background: #ddd !important;
+        color: black !important;
+    }
+    
+    .sport-info-item,
+    .sport-card-description p,
+    .stat-number,
+    .stat-label {
+        color: black !important;
+    }
+    
+    .sport-card-actions {
+        display: none !important;
+    }
+    
+    .sport-card-stats {
+        background: #f9f9f9 !important;
+    }
+}
+
+/* Performance Optimizations */
+.sport-event-card * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* GPU Acceleration for Smooth Animations */
+.sport-card-btn,
+.sport-card-status,
+.sport-event-card {
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+/* Improved Touch Targets for Accessibility */
+@media (max-width: 768px) {
+    .sport-card-btn {
+        min-height: 48px;
+        min-width: 48px;
+        padding: 12px 8px;
+    }
+    
+    .sport-card-btn i {
+        font-size: 16px;
+    }
+    
+    .sport-card-btn span {
+        font-size: 11px;
+    }
+}
+
+/* Enhanced Visual Feedback */
+.sport-card-btn:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+}
+
+/* Improved Button Spacing on Small Screens */
+@media (max-width: 320px) {
+    .sport-card-actions {
+        gap: 6px;
+    }
+    
+    .sport-card-btn {
+        padding: 8px 4px;
+        min-height: 44px;
+    }
+    
+    .sport-card-btn span {
+        font-size: 10px;
+    }
+}
+
+/* Enhanced Status Animation */
+.sport-card-status.status-active {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(39, 174, 96, 0);
+    }
+}
+
+/* Improved Card Hover Effect */
+@media (hover: hover) {
+    .sport-event-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        border-radius: 15px;
+    }
+    
+    .sport-event-card:hover::before {
+        opacity: 1;
+    }
+}
+
+/* Screen Reader Support */
 .sr-only {
     position: absolute;
     width: 1px;
@@ -32971,38 +32637,75 @@ const sportEventsStyles = `
     border: 0;
 }
 
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-    .sport-event-card {
-        border: 2px solid white;
+/* Enhanced Button Icons */
+.sport-card-btn i {
+    transition: transform 0.2s ease;
+}
+
+.sport-card-btn:hover i {
+    transform: scale(1.1);
+}
+
+.sport-card-btn.launch-btn:hover i {
+    transform: scale(1.1) rotate(15deg);
+}
+
+.sport-card-btn.delete-btn:hover i {
+    transform: scale(1.1) rotate(10deg);
+}
+
+/* Improved Text Readability */
+.sport-card-description p {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+/* Enhanced Mobile Landscape */
+@media (max-height: 600px) and (orientation: landscape) and (max-width: 900px) {
+    .sport-card-header {
+        height: 60px;
     }
     
-    .sport-card-btn,
-    .sport-detail-btn {
-        border: 1px solid white;
+    .sport-card-body {
+        padding: 10px;
     }
     
-    .sport-card-status {
-        border: 1px solid white;
+    .sport-card-stats {
+        flex-direction: row;
+        padding: 8px;
+        margin-bottom: 10px;
+    }
+    
+    .sport-card-actions {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+    }
+    
+    .sport-card-btn {
+        padding: 6px 4px;
+        min-height: 40px;
+    }
+    
+    .sport-card-btn span {
+        font-size: 10px;
     }
 }
 
-/* Reduced transparency for better readability */
-@media (prefers-reduced-transparency: reduce) {
-    .sport-event-card {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-    }
-    
-    .sport-event-details-content,
-    .sport-confirm-content {
-        background: rgba(20, 20, 20, 0.98);
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-    }
+/* Final Performance Optimization */
+.sport-event-card {
+    contain: layout style paint;
 }
 
+/* Ensure proper stacking context */
+.sport-event-card {
+    position: relative;
+    z-index: 1;
+}
+
+.sport-card-btn:focus,
+.sport-card-btn:active {
+    z-index: 2;
+}
 
 
 </style>
