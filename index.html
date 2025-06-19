@@ -15469,7 +15469,604 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
         gap: 10px;
     }
     
+/* Football Control Match Page Styles */
+#football-control-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    z-index: 1000;
+    overflow-y: auto;
+}
 
+/* Header Styles */
+.control-header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.back-btn {
+    background: rgba(102, 126, 234, 0.1);
+    border: none;
+    color: #667eea;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: rgba(102, 126, 234, 0.2);
+    transform: translateX(-2px);
+}
+
+.header-info h1 {
+    font-size: 24px;
+    color: #333;
+    margin: 0;
+}
+
+.header-info p {
+    color: #666;
+    margin: 5px 0 0 0;
+    font-size: 14px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.event-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(39, 174, 96, 0.1);
+    border-radius: 20px;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    background: #27ae60;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.status-text {
+    color: #27ae60;
+    font-weight: 600;
+    font-size: 12px;
+}
+.settings-btn {
+    background: rgba(149, 165, 166, 0.1);
+    border: none;
+    color: #95a5a6;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.settings-btn:hover {
+    background: rgba(149, 165, 166, 0.2);
+    transform: rotate(90deg);
+}
+
+/* Banner Ads Styles */
+.banner-ads-section {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.banner-container {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.banner-slider {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.banner-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.banner-slide.active {
+    opacity: 1;
+}
+
+.banner-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.banner-overlay {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    padding: 20px;
+}
+
+.banner-overlay h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.banner-overlay p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.banner-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.banner-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.banner-indicators {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 3;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicator.active {
+    background: white;
+    transform: scale(1.2);
+}
+
+/* Main Control Panel */
+.control-main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.control-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Quick Stats */
+.quick-stats {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+}
+
+.stat-info h3 {
+    font-size: 28px;
+    color: white;
+    margin: 0;
+    font-weight: 700;
+}
+
+.stat-info p {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 5px 0 0 0;
+    font-size: 14px;
+}
+
+/* Control Buttons */
+.control-buttons {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.control-btn-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.control-btn-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.control-btn-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.control-btn-card:hover::before {
+    left: 100%;
+}
+
+.btn-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.btn-content {
+    flex: 1;
+}
+
+.btn-content h3 {
+    color: white;
+    margin: 0 0 5px 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.btn-content p {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    font-size: 14px;
+}
+
+.btn-arrow {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.control-btn-card:hover .btn-arrow {
+    transform: translateX(5px);
+    color: white;
+}
+
+/* Live Indicator */
+.live-indicator {
+    position: relative;
+}
+
+.live-dot {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 10px;
+    height: 10px;
+    background: #e74c3c;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.live-dot::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 20px;
+    height: 20px;
+    background: rgba(231, 76, 60, 0.3);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+/* Recent Activity */
+.recent-activity {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    color: white;
+    margin: 0;
+    font-size: 22px;
+}
+
+.view-all-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.view-all-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.activity-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.activity-content {
+    flex: 1;
+}
+
+.activity-content p {
+    color: white;
+    margin: 0 0 5px 0;
+    font-size: 14px;
+}
+
+.activity-time {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+}
+
+.text-success { color: #27ae60; }
+.text-info { color: #3498db; }
+.text-warning { color: #f39c12; }
+
+/* Animations */
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header-container {
+        padding: 0 15px;
+    }
+    
+    .header-info h1 {
+        font-size: 20px;
+    }
+    
+    .banner-ads-section {
+        padding: 15px;
+    }
+    
+    .banner-slider {
+        height: 150px;
+    }
+    
+    .banner-overlay h3 {
+        font-size: 22px;
+    }
+    
+    .banner-overlay p {
+        font-size: 14px;
+    }
+    
+    .control-main {
+        padding: 15px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+    }
+    
+    .buttons-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .stat-card, .control-btn-card {
+        padding: 15px;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-left {
+        gap: 10px;
+    }
+    
+    .header-info h1 {
+        font-size: 18px;
+    }
+    
+    .banner-slider {
+        height: 120px;
+    }
+    
+    .banner-overlay h3 {
+        font-size: 18px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .stat-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .control-btn-card {
+        padding: 15px;
+    }
+    
+    .btn-content h3 {
+        font-size: 16px;
+    }
+}
+   
 .spinner {
     width: 30px;
     height: 30px;
@@ -20402,6 +20999,304 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
             </div>
         </div>
     </div>
+</div>
+
+
+
+<!-- Football Control Match Page Section -->
+<div id="football-control-page" class="page-section" style="display: none;">
+    <!-- Header Section -->
+    <header class="control-header">
+        <div class="header-container">
+            <div class="header-left">
+                <button class="back-btn" onclick="closeFootballControl()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="header-info">
+                    <h1>Football Control Match</h1>
+                    <p id="event-name">Football Tournament 2024</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="event-status" id="event-status">
+                    <span class="status-indicator"></span>
+                    <span class="status-text">Active</span>
+                </div>
+                <button class="settings-btn" onclick="openSettings()">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner Ads Section -->
+    <section class="banner-ads-section">
+        <div class="banner-container">
+            <div class="banner-slider" id="bannerSlider">
+                <div class="banner-slide active">
+                    <div class="banner-content">
+                        <div class="banner-bg" style="background: linear-gradient(45deg, #FF6B6B, #FF8E8E);"></div>
+                        <div class="banner-overlay">
+                            <h3>Football Championship 2024</h3>
+                            <p>Join the biggest football tournament of the year!</p>
+                            <button class="banner-btn">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="banner-slide">
+                    <div class="banner-content">
+                        <div class="banner-bg" style="background: linear-gradient(45deg, #4ECDC4, #44A08D);"></div>
+                        <div class="banner-overlay">
+                            <h3>Premium Sports Gear</h3>
+                            <p>Get 30% off on all football equipment!</p>
+                            <button class="banner-btn">Shop Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="banner-slide">
+                    <div class="banner-content">
+                        <div class="banner-bg" style="background: linear-gradient(45deg, #45B7D1, #96C93D);"></div>
+                        <div class="banner-overlay">
+                            <h3>Live Streaming Available</h3>
+                            <p>Watch all matches live with HD quality!</p>
+                            <button class="banner-btn">Watch Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="banner-slide">
+                    <div class="banner-content">
+                        <div class="banner-bg" style="background: linear-gradient(45deg, #96CEB4, #FFEAA7);"></div>
+                        <div class="banner-overlay">
+                            <h3>Advanced Football Analytics</h3>
+                            <p>Track player performance and match statistics!</p>
+                            <button class="banner-btn">View Stats</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="banner-slide">
+                    <div class="banner-content">
+                        <div class="banner-bg" style="background: linear-gradient(45deg, #FFEAA7, #FFD93D);"></div>
+                        <div class="banner-overlay">
+                            <h3>Professional Training Programs</h3>
+                            <p>Improve your skills with expert coaches!</p>
+                            <button class="banner-btn">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="banner-indicators" id="bannerIndicators">
+                <span class="indicator active" data-slide="0"></span>
+                <span class="indicator" data-slide="1"></span>
+                <span class="indicator" data-slide="2"></span>
+                <span class="indicator" data-slide="3"></span>
+                <span class="indicator" data-slide="4"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Control Panel -->
+    <main class="control-main">
+        <div class="control-container">
+            <!-- Quick Stats Section -->
+            <section class="quick-stats">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="total-teams">8</h3>
+                            <p>Total Teams</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="total-matches">16</h3>
+                            <p>Total Matches</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="completed-matches">4</h3>
+                            <p>Completed</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="upcoming-matches">12</h3>
+                            <p>Upcoming</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Control Buttons Section -->
+            <section class="control-buttons">
+                <div class="buttons-grid">
+                    <!-- Create Match Button -->
+                    <div class="control-btn-card" onclick="openCreateMatch()">
+                        <div class="btn-icon">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <div class="btn-content">
+                            <h3>Create Match</h3>
+                            <p>Schedule new football matches</p>
+                        </div>
+                        <div class="btn-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- Find Teams/Players Button -->
+                    <div class="control-btn-card" onclick="openFindTeamsPlayers()">
+                        <div class="btn-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="btn-content">
+                            <h3>Find T/P</h3>
+                            <p>Search teams and players</p>
+                        </div>
+                        <div class="btn-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- Previous Matches Button -->
+                    <div class="control-btn-card" onclick="openPreviousMatches()">
+                        <div class="btn-icon">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <div class="btn-content">
+                            <h3>Previous Matches</h3>
+                            <p>View completed match history</p>
+                        </div>
+                        <div class="btn-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- Live Matches Button -->
+                    <div class="control-btn-card live-indicator" onclick="openLiveMatches()">
+                        <div class="btn-icon">
+                            <i class="fas fa-broadcast-tower"></i>
+                        </div>
+                        <div class="btn-content">
+                            <h3>Live Matches</h3>
+                            <p>Watch ongoing matches</p>
+                        </div>
+                        <div class="btn-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="live-dot"></div>
+                    </div>
+
+                    <!-- Set Table Button -->
+                    <div class="control-btn-card" onclick="openSetTable()">
+                        <div class="btn-icon">
+                            <i class="fas fa-table"></i>
+                        </div>
+                        <div class="btn-content">
+                            <h3>Set Table</h3>
+                            <p>Manage league standings</p>
+                        </div>
+                        <div class="btn-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Matches Button -->
+                    <div class="control-btn-card" onclick="openUpcomingMatches()">
+                        <div class="btn-icon">
+                            <i class="fas fa-calendar-plus"></i>
+                        </div>
+                        <div class="btn-content">
+                            <h3>Upcoming Matches</h3>
+                            <p>View scheduled fixtures</p>
+                        </div>
+                        <div class="btn-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- Football News Button -->
+                    <div class="control-btn-card" onclick="openFootballNews()">
+                        <div class="btn-icon">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <div class="btn-content">
+                            <h3>Football News</h3>
+                            <p>Latest football updates</p>
+                        </div>
+                        <div class="btn-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- Football Highlights Button -->
+                    <div class="control-btn-card" onclick="openFootballHighlights()">
+                        <div class="btn-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="btn-content">
+                            <h3>Football Highlights</h3>
+                            <p>Watch match highlights</p>
+                        </div>
+                        <div class="btn-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Activity Section -->
+            <section class="recent-activity">
+                <div class="section-header">
+                    <h2>Recent Activity</h2>
+                    <button class="view-all-btn" onclick="viewAllActivity()">
+                        View All <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                <div class="activity-list" id="activityList">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-plus text-success"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>New match created:</strong> Team A vs Team B</p>
+                            <span class="activity-time">2 minutes ago</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-users text-info"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Team registered:</strong> Lightning Bolts joined the tournament</p>
+                            <span class="activity-time">15 minutes ago</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-trophy text-warning"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Match completed:</strong> Thunder FC won 3-1 against Storm United</p>
+                            <span class="activity-time">1 hour ago</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
 </div>
 
 <!-- Spin Wheel Modal -->
@@ -29759,8 +30654,1403 @@ const footballToastStyles = `
 document.head.insertAdjacentHTML('beforeend', footballToastStyles);
 
 
+class SportEventsLoader {
+    constructor() {
+        this.container = document.getElementById('sport-events-container');
+        this.emptyState = document.getElementById('sport-events-empty');
+        this.events = [];
+        this.currentUser = null;
+        
+        this.init();
+    }
+    
+    async init() {
+        try {
+            // Get current user (replace with your auth system)
+            this.currentUser = this.getCurrentUser();
+            
+            if (!this.currentUser) {
+                console.log('No authenticated user found');
+                return;
+            }
+            
+            // Load events from Firebase or localStorage
+            await this.loadEvents();
+            
+            // Render the events
+            this.renderEvents();
+            
+            // Set up real-time listener if Firebase is available
+            this.setupRealtimeListener();
+            
+        } catch (error) {
+            console.error('Error initializing sport events loader:', error);
+            this.showError('Failed to load events');
+        }
+    }
+    
+    getCurrentUser() {
+        // Replace this with your actual authentication system
+        if (typeof firebase !== 'undefined' && firebase.auth && firebase.auth().currentUser) {
+            return firebase.auth().currentUser;
+        }
+        
+        // Fallback for demo purposes
+        return {
+            uid: 'demo_user_' + Date.now(),
+            email: 'demo@example.com',
+            displayName: 'Demo User'
+        };
+    }
+    
+    async loadEvents() {
+        try {
+            if (typeof db !== 'undefined') {
+                // Load from Firebase
+                await this.loadFromFirebase();
+            } else {
+                // Load from localStorage
+                this.loadFromLocalStorage();
+            }
+        } catch (error) {
+            console.error('Error loading events:', error);
+            // Fallback to localStorage
+            this.loadFromLocalStorage();
+        }
+    }
+    
+    async loadFromFirebase() {
+        try {
+            const snapshot = await db.collection('sport_events')
+                .where('createdBy', '==', this.currentUser.uid)
+                .orderBy('createdAt', 'desc')
+                .get();
+            
+            this.events = [];
+            snapshot.forEach(doc => {
+                this.events.push({
+                    id: doc.id,
+                    ...doc.data()
+                });
+            });
+            
+        } catch (error) {
+            console.error('Firebase load error:', error);
+            throw error;
+        }
+    }
+    
+    loadFromLocalStorage() {
+        const storedEvents = localStorage.getItem('footballEvents');
+        if (storedEvents) {
+            this.events = JSON.parse(storedEvents);
+        } else {
+            this.events = [];
+        }
+    }
+    
+    setupRealtimeListener() {
+        if (typeof db === 'undefined') return;
+        
+        try {
+            db.collection('sport_events')
+                .where('createdBy', '==', this.currentUser.uid)
+                .orderBy('createdAt', 'desc')
+                .onSnapshot((snapshot) => {
+                    this.events = [];
+                    snapshot.forEach(doc => {
+                        this.events.push({
+                            id: doc.id,
+                            ...doc.data()
+                        });
+                    });
+                    this.renderEvents();
+                }, (error) => {
+                    console.error('Realtime listener error:', error);
+                });
+        } catch (error) {
+            console.error('Error setting up realtime listener:', error);
+        }
+    }
+    
+    renderEvents() {
+        if (!this.events || this.events.length === 0) {
+            this.showEmptyState();
+            return;
+        }
+        
+        this.hideEmptyState();
+        this.renderEventCards();
+    }
+    
+    showEmptyState() {
+        this.emptyState.style.display = 'block';
+        // Hide any existing event cards
+        const existingCards = this.container.querySelectorAll('.sport-event-card');
+        existingCards.forEach(card => card.remove());
+    }
+    
+    hideEmptyState() {
+        this.emptyState.style.display = 'none';
+    }
+    
+    renderEventCards() {
+        // Clear existing cards
+        const existingCards = this.container.querySelectorAll('.sport-event-card');
+        existingCards.forEach(card => card.remove());
+        
+        // Create cards for each event
+        this.events.forEach(event => {
+            const card = this.createEventCard(event);
+            this.container.appendChild(card);
+        });
+    }
+    
+    createEventCard(event) {
+        const card = document.createElement('div');
+        card.className = 'sport-event-card';
+        card.setAttribute('data-event-id', event.id);
+        
+        // Set background based on event background settings
+        const backgroundStyle = this.getBackgroundStyle(event.background);
+        
+        card.innerHTML = `
+            <div class="sport-card-header" style="${backgroundStyle}">
+                <div class="sport-card-overlay">
+                    <h3 class="sport-card-title">${this.escapeHtml(event.eventName)}</h3>
+                    <span class="sport-card-status status-${event.status}">${this.formatStatus(event.status)}</span>
+                </div>
+            </div>
+            
+            <div class="sport-card-body">
+                <div class="sport-card-info">
+                    <div class="sport-info-item">
+                        <i class="fas fa-trophy"></i>
+                        <span>${this.formatMatchType(event.matchType)}</span>
+                    </div>
+                    
+                    <div class="sport-info-item">
+                        <i class="fas fa-users"></i>
+                        <span>${event.teamCount} Teams</span>
+                    </div>
+                    
+                    <div class="sport-info-item">
+                        <i class="fas fa-coins"></i>
+                        <span>${event.hasTeamFee ? event.teamFee + ' TC' : 'Free'}</span>
+                    </div>
+                    
+                    <div class="sport-info-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>${this.formatDate(event.createdAt)}</span>
+                    </div>
+                </div>
+                
+                <div class="sport-card-description">
+                    <p>${this.escapeHtml(event.description)}</p>
+                </div>
+                
+                <div class="sport-card-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">${event.participants ? event.participants.length : 0}</span>
+                        <span class="stat-label">Participants</span>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <span class="stat-number">${event.matches ? event.matches.length : 0}</span>
+                        <span class="stat-label">Matches</span>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <span class="stat-number">${event.creationFee} TC</span>
+                        <span class="stat-label">Creation Fee</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sport-card-actions">
+                <button class="sport-card-btn edit-btn" id="sport-card-editbtn-${event.id}" 
+                        onclick="sportEventsLoader.editEvent('${event.id}')" 
+                        title="Edit Event">
+                    <i class="fas fa-edit"></i>
+                    <span>Edit</span>
+                </button>
+                
+                <button class="sport-card-btn delete-btn" id="sport-card-deletebtn-${event.id}" 
+                        onclick="sportEventsLoader.deleteEvent('${event.id}')" 
+                        title="Delete Event">
+                    <i class="fas fa-trash"></i>
+                    <span>Delete</span>
+                </button>
+                
+                <button class="sport-card-btn open-btn" id="sport-card-openbtn-${event.id}" 
+                        onclick="sportEventsLoader.openEvent('${event.id}')" 
+                        title="View Event">
+                    <i class="fas fa-eye"></i>
+                    <span>Open</span>
+                </button>
+                
+                <button class="sport-card-btn launch-btn ${event.status === 'active' ? '' : 'disabled'}" 
+                        id="sport-card-launchbtn-${event.id}" 
+                        onclick="sportEventsLoader.launchEvent('${event.id}')" 
+                        title="Launch Event"
+                        ${event.status !== 'active' ? 'disabled' : ''}>
+                    <i class="fas fa-rocket"></i>
+                    <span>Launch</span>
+                </button>
+            </div>
+        `;
+        
+        return card;
+    }
+    
+    getBackgroundStyle(background) {
+        if (!background) {
+            return 'background: linear-gradient(135deg, #008B8B, #006666);';
+        }
+        
+        if (background.type === 'color') {
+            const color = background.value;
+            const darkerColor = this.adjustColor(color, -20);
+            return `background: linear-gradient(135deg, ${color}, ${darkerColor});`;
+        } else if (background.type === 'image') {
+            return `background-image: url('${background.value}'); background-size: cover; background-position: center;`;
+        }
+        
+        return 'background: linear-gradient(135deg, #008B8B, #006666);';
+    }
+    
+    adjustColor(color, amount) {
+        const usePound = color[0] === '#';
+        const col = usePound ? color.slice(1) : color;
+        const num = parseInt(col, 16);
+        let r = (num >> 16) + amount;
+        let g = (num >> 8 & 0x00FF) + amount;
+        let b = (num & 0x0000FF) + amount;
+        r = r > 255 ? 255 : r < 0 ? 0 : r;
+        g = g > 255 ? 255 : g < 0 ? 0 : g;
+        b = b > 255 ? 255 : b < 0 ? 0 : b;
+        return (usePound ? '#' : '') + (r << 16 | g << 8 | b).toString(16).padStart(6, '0');
+    }
+    
+    formatMatchType(type) {
+        const types = {
+            'single': 'Single Match',
+            'multiple': 'Multiple Match',
+            'league': 'League'
+        };
+        return types[type] || type;
+    }
+    
+    formatStatus(status) {
+        return status.charAt(0).toUpperCase() + status.slice(1);
+    }
+    
+    formatDate(dateString) {
+        try {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        } catch (error) {
+            return 'Unknown';
+        }
+    }
+    
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
+    // Event Action Methods
+    async editEvent(eventId) {
+        try {
+            const event = this.events.find(e => e.id === eventId);
+            if (!event) {
+                this.showToast('Event not found', 'error');
+                return;
+            }
+            
+            // Open the football event modal with pre-filled data
+            if (typeof footballEventModal !== 'undefined') {
+                footballEventModal.openModal();
+                footballEventModal.loadEventData(event);
+            } else {
+                this.showToast('Event editor not available', 'error');
+            }
+            
+        } catch (error) {
+            console.error('Error editing event:', error);
+            this.showToast('Failed to edit event', 'error');
+        }
+    }
+    
+    async deleteEvent(eventId) {
+        try {
+            const event = this.events.find(e => e.id === eventId);
+            if (!event) {
+                this.showToast('Event not found', 'error');
+                return;
+            }
+            
+            // Show confirmation dialog
+            const confirmed = await this.showConfirmDialog(
+                'Delete Event',
+                `Are you sure you want to delete "${event.eventName}"? This action cannot be undone.`,
+                'Delete',
+                'Cancel'
+            );
+            
+            if (!confirmed) return;
+            
+            // Delete from Firebase or localStorage
+            await this.performDelete(eventId);
+            
+            this.showToast('Event deleted successfully', 'success');
+            
+        } catch (error) {
+            console.error('Error deleting event:', error);
+            this.showToast('Failed to delete event', 'error');
+        }
+    }
+    
+    async performDelete(eventId) {
+        if (typeof db !== 'undefined') {
+            // Delete from Firebase
+            await db.collection('sport_events').doc(eventId).delete();
+        } else {
+            // Delete from localStorage
+            const events = JSON.parse(localStorage.getItem('footballEvents') || '[]');
+            const filteredEvents = events.filter(e => e.id !== eventId);
+            localStorage.setItem('footballEvents', JSON.stringify(filteredEvents));
+            
+            // Update local events array
+            this.events = this.events.filter(e => e.id !== eventId);
+            this.renderEvents();
+        }
+    }
+    
+    openEvent(eventId) {
+        try {
+            const event = this.events.find(e => e.id === eventId);
+            if (!event) {
+                this.showToast('Event not found', 'error');
+                return;
+            }
+            
+            // Open event details modal or navigate to event page
+            this.showEventDetails(event);
+            
+        } catch (error) {
+            console.error('Error opening event:', error);
+            this.showToast('Failed to open event', 'error');
+        }
+    }
+    
+    async launchEvent(eventId) {
+        try {
+            const event = this.events.find(e => e.id === eventId);
+            if (!event) {
+                this.showToast('Event not found', 'error');
+                return;
+            }
+            
+            if (event.status !== 'active') {
+                this.showToast('Only active events can be launched', 'warning');
+                return;
+            }
+            
+            // Show confirmation dialog
+            const confirmed = await this.showConfirmDialog(
+                'Launch Event',
+                `Are you sure you want to launch "${event.eventName}"? Once launched, the event will be live and participants can join.`,
+                'Launch',
+                'Cancel'
+            );
+            
+            if (!confirmed) return;
+            
+            // Update event status to launched
+            await this.updateEventStatus(eventId, 'launched');
+            
+            this.showToast('Event launched successfully!', 'success');
+            
+        } catch (error) {
+            console.error('Error launching event:', error);
+            this.showToast('Failed to launch event', 'error');
+        }
+    }
+    
+    async updateEventStatus(eventId, status) {
+        if (typeof db !== 'undefined') {
+            // Update in Firebase
+            await db.collection('sport_events').doc(eventId).update({
+                status: status,
+                launchedAt: status === 'launched' ? new Date().toISOString() : null
+            });
+        } else {
+            // Update in localStorage
+            const events = JSON.parse(localStorage.getItem('footballEvents') || '[]');
+            const eventIndex = events.findIndex(e => e.id === eventId);
+            
+            if (eventIndex !== -1) {
+                events[eventIndex].status = status;
+                if (status === 'launched') {
+                    events[eventIndex].launchedAt = new Date().toISOString();
+                }
+                localStorage.setItem('footballEvents', JSON.stringify(events));
+                
+                // Update local events array
+                this.events = events;
+                this.renderEvents();
+            }
+        }
+    }
+    
+    showEventDetails(event) {
+        // Create and show event details modal
+        const modal = this.createEventDetailsModal(event);
+        document.body.appendChild(modal);
+        
+        // Show modal with animation
+        setTimeout(() => {
+            modal.classList.add('show');
+        }, 10);
+    }
+    
+    createEventDetailsModal(event) {
+        const modal = document.createElement('div');
+        modal.className = 'sport-event-details-modal';
+        modal.innerHTML = `
+            <div class="sport-event-details-overlay" onclick="this.parentElement.remove()">
+                <div class="sport-event-details-content" onclick="event.stopPropagation()">
+                    <div class="sport-details-header" style="${this.getBackgroundStyle(event.background)}">
+                        <div class="sport-card-overlay">
+                            <h2>${this.escapeHtml(event.eventName)}</h2>
+                            <span class="sport-card-status status-${event.status}">${this.formatStatus(event.status)}</span>
+                            <button class="close-modal-btn" onclick="this.closest('.sport-event-details-modal').remove()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="sport-details-body">
+                        <div class="sport-details-grid">
+                            <div class="sport-detail-section">
+                                <h4><i class="fas fa-info-circle"></i> Event Information</h4>
+                                <div class="sport-detail-item">
+                                    <span class="detail-label">Match Type:</span>
+                                    <span class="detail-value">${this.formatMatchType(event.matchType)}</span>
+                                </div>
+                                <div class="sport-detail-item">
+                                    <span class="detail-label">Team Count:</span>
+                                    <span class="detail-value">${event.teamCount} Teams</span>
+                                </div>
+                                <div class="sport-detail-item">
+                                    <span class="detail-label">Team Fee:</span>
+                                    <span class="detail-value">${event.hasTeamFee ? event.teamFee + ' TC' : 'Free'}</span>
+                                </div>
+                                <div class="sport-detail-item">
+                                    <span class="detail-label">Creation Fee:</span>
+                                    <span class="detail-value">${event.creationFee} TC</span>
+                                </div>
+                                <div class="sport-detail-item">
+                                    <span class="detail-label">Created:</span>
+                                    <span class="detail-value">${this.formatDate(event.createdAt)}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="sport-detail-section">
+                                <h4><i class="fas fa-chart-bar"></i> Statistics</h4>
+                                <div class="sport-stats-grid">
+                                    <div class="sport-stat-card">
+                                        <div class="stat-number">${event.participants ? event.participants.length : 0}</div>
+                                        <div class="stat-label">Participants</div>
+                                    </div>
+                                    <div class="sport-stat-card">
+                                        <div class="stat-number">${event.matches ? event.matches.length : 0}</div>
+                                        <div class="stat-label">Matches</div>
+                                    </div>
+                                    <div class="sport-stat-card">
+                                        <div class="stat-number">${event.teamCount}</div>
+                                        <div class="stat-label">Max Teams</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="sport-detail-section full-width">
+                            <h4><i class="fas fa-align-left"></i> Description</h4>
+                            <p class="event-description">${this.escapeHtml(event.description)}</p>
+                        </div>
+                        
+                        ${event.participants && event.participants.length > 0 ? `
+                        <div class="sport-detail-section full-width">
+                            <h4><i class="fas fa-users"></i> Participants</h4>
+                            <div class="participants-list">
+                                ${event.participants.map(participant => `
+                                    <div class="participant-item">
+                                        <i class="fas fa-user"></i>
+                                        <span>${this.escapeHtml(participant.teamName || participant.name || 'Unknown Team')}</span>
+                                        <span class="participant-status status-${participant.status || 'joined'}">${this.formatStatus(participant.status || 'joined')}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        ` : ''}
+                        
+                        <div class="sport-details-actions">
+                            <button class="sport-detail-btn edit-btn" onclick="sportEventsLoader.editEvent('${event.id}'); this.closest('.sport-event-details-modal').remove();">
+                                <i class="fas fa-edit"></i> Edit Event
+                            </button>
+                            
+                            <button class="sport-detail-btn launch-btn ${event.status === 'active' ? '' : 'disabled'}" 
+                                    onclick="sportEventsLoader.launchEvent('${event.id}'); this.closest('.sport-event-details-modal').remove();"
+                                    ${event.status !== 'active' ? 'disabled' : ''}>
+                                <i class="fas fa-rocket"></i> Launch Event
+                            </button>
+                            
+                            <button class="sport-detail-btn delete-btn" onclick="sportEventsLoader.deleteEvent('${event.id}'); this.closest('.sport-event-details-modal').remove();">
+                                <i class="fas fa-trash"></i> Delete Event
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        return modal;
+    }
+    
+    async showConfirmDialog(title, message, confirmText = 'Confirm', cancelText = 'Cancel') {
+        return new Promise((resolve) => {
+            const modal = document.createElement('div');
+            modal.className = 'sport-confirm-modal';
+            modal.innerHTML = `
+                <div class="sport-confirm-overlay">
+                    <div class="sport-confirm-content">
+                        <div class="sport-confirm-header">
+                            <h3>${title}</h3>
+                        </div>
+                        <div class="sport-confirm-body">
+                            <p>${message}</p>
+                        </div>
+                        <div class="sport-confirm-actions">
+                            <button class="sport-confirm-btn cancel-btn" onclick="this.closest('.sport-confirm-modal').remove(); window.sportConfirmResolve(false);">
+                                ${cancelText}
+                            </button>
+                            <button class="sport-confirm-btn confirm-btn" onclick="this.closest('.sport-confirm-modal').remove(); window.sportConfirmResolve(true);">
+                                ${confirmText}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Store resolve function globally
+            window.sportConfirmResolve = resolve;
+            
+            document.body.appendChild(modal);
+            setTimeout(() => modal.classList.add('show'), 10);
+        });
+    }
+    
+    showToast(message, type = 'info') {
+        // Remove existing toast
+        const existingToast = document.querySelector('.sport-toast');
+        if (existingToast) {
+            existingToast.remove();
+        }
+        
+        // Create new toast
+        const toast = document.createElement('div');
+        toast.className = `sport-toast ${type}`;
+        toast.innerHTML = `
+            <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
+            <span>${message}</span>
+        `;
+        
+        document.body.appendChild(toast);
+        
+        // Show toast
+        setTimeout(() => toast.classList.add('show'), 100);
+        
+        // Hide toast after 3 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+    
+    showError(message) {
+        this.hideEmptyState();
+        
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'sport-events-error';
+        errorDiv.innerHTML = `
+            <div class="error-state-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h4>Error Loading Events</h4>
+            <p>${message}</p>
+            <button class="error-state-btn" onclick="sportEventsLoader.init()">
+                <i class="fas fa-refresh"></i> Try Again
+            </button>
+        `;
+        
+        this.container.appendChild(errorDiv);
+    }
+    
+    // Public method to refresh events
+    async refresh() {
+        try {
+            await this.loadEvents();
+            this.renderEvents();
+        } catch (error) {
+            console.error('Error refreshing events:', error);
+            this.showToast('Failed to refresh events', 'error');
+        }
+    }
+}
 
+// CSS Styles for the sport events cards and modals
+const sportEventsStyles = `
+<style>
+/* Sport Event Cards */
+.sport-event-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.sport-event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.sport-card-header {
+    height: 120px;
+    position: relative;
+    background: linear-gradient(135deg, #008B8B, #006666);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sport-card-overlay {
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+}
+
+.sport-card-title {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 8px 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.sport-card-status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.sport-card-status.status-active {
+    background: rgba(39, 174, 96, 0.9);
+    color: white;
+}
+
+.sport-card-status.status-draft {
+    background: rgba(241, 196, 15, 0.9);
+    color: white;
+}
+
+.sport-card-status.status-completed {
+    background: rgba(52, 152, 219, 0.9);
+    color: white;
+}
+
+.sport-card-status.status-cancelled {
+    background: rgba(231, 76, 60, 0.9);
+    color: white;
+}
+
+.sport-card-status.status-launched {
+    background: rgba(155, 89, 182, 0.9);
+    color: white;
+}
+
+.sport-card-body {
+    padding: 20px;
+}
+
+.sport-card-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.sport-info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+}
+
+.sport-info-item i {
+    color: #3498db;
+    width: 16px;
+}
+
+.sport-card-description {
+    margin-bottom: 15px;
+}
+
+.sport-card-description p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.sport-card-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    color: #3498db;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+}
+
+.sport-card-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 8px;
+}
+
+.sport-card-btn {
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.sport-card-btn i {
+    font-size: 16px;
+}
+.sport-card-btn.edit-btn {
+    background: rgba(52, 152, 219, 0.8);
+    color: white;
+}
+
+.sport-card-btn.edit-btn:hover {
+    background: rgba(52, 152, 219, 1);
+    transform: translateY(-2px);
+}
+
+.sport-card-btn.delete-btn {
+    background: rgba(231, 76, 60, 0.8);
+    color: white;
+}
+
+.sport-card-btn.delete-btn:hover {
+    background: rgba(231, 76, 60, 1);
+    transform: translateY(-2px);
+}
+
+.sport-card-btn.open-btn {
+    background: rgba(39, 174, 96, 0.8);
+    color: white;
+}
+
+.sport-card-btn.open-btn:hover {
+    background: rgba(39, 174, 96, 1);
+    transform: translateY(-2px);
+}
+
+.sport-card-btn.launch-btn {
+    background: rgba(155, 89, 182, 0.8);
+    color: white;
+}
+
+.sport-card-btn.launch-btn:hover:not(.disabled) {
+    background: rgba(155, 89, 182, 1);
+    transform: translateY(-2px);
+}
+
+.sport-card-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Event Details Modal */
+.sport-event-details-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.sport-event-details-modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.sport-event-details-overlay {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.sport-event-details-content {
+    background: rgba(20, 20, 20, 0.95);
+    border-radius: 15px;
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sport-details-header {
+    height: 150px;
+    position: relative;
+    background: linear-gradient(135deg, #008B8B, #006666);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sport-details-header .sport-card-overlay {
+    padding: 30px;
+}
+
+.sport-details-header h2 {
+    font-size: 24px;
+    margin: 0 0 10px 0;
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.close-modal-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.sport-details-body {
+    padding: 30px;
+}
+
+.sport-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.sport-detail-section {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.sport-detail-section.full-width {
+    grid-column: 1 / -1;
+}
+
+.sport-detail-section h4 {
+    color: #3498db;
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sport-detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sport-detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+}
+
+.detail-value {
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.sport-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.sport-stat-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.sport-stat-card .stat-number {
+    font-size: 24px;
+    color: #3498db;
+    font-weight: bold;
+    display: block;
+}
+
+.sport-stat-card .stat-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    margin-top: 5px;
+}
+
+.event-description {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.participants-list {
+    display: grid;
+    gap: 10px;
+}
+
+.participant-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.participant-item i {
+    color: #3498db;
+    width: 16px;
+}
+
+.participant-item span:first-of-type {
+    flex: 1;
+    color: white;
+}
+
+.participant-status {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.sport-details-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sport-detail-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.sport-detail-btn.edit-btn {
+    background: rgba(52, 152, 219, 0.8);
+    color: white;
+}
+
+.sport-detail-btn.edit-btn:hover {
+    background: rgba(52, 152, 219, 1);
+}
+
+.sport-detail-btn.launch-btn {
+    background: rgba(155, 89, 182, 0.8);
+    color: white;
+}
+
+.sport-detail-btn.launch-btn:hover:not(.disabled) {
+    background: rgba(155, 89, 182, 1);
+}
+
+.sport-detail-btn.delete-btn {
+    background: rgba(231, 76, 60, 0.8);
+    color: white;
+}
+
+.sport-detail-btn.delete-btn:hover {
+    background: rgba(231, 76, 60, 1);
+}
+
+/* Confirmation Modal */
+.sport-confirm-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10001;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.sport-confirm-modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.sport-confirm-overlay {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.sport-confirm-content {
+    background: rgba(20, 20, 20, 0.95);
+    border-radius: 15px;
+    max-width: 400px;
+    width: 100%;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sport-confirm-header {
+    padding: 20px 20px 0 20px;
+}
+
+.sport-confirm-header h3 {
+    color: white;
+    margin: 0;
+    font-size: 18px;
+}
+
+.sport-confirm-body {
+    padding: 20px;
+}
+
+.sport-confirm-body p {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.sport-confirm-actions {
+    display: flex;
+    gap: 10px;
+    padding: 0 20px 20px 20px;
+}
+
+.sport-confirm-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.sport-confirm-btn.cancel-btn {
+    background: rgba(149, 165, 166, 0.8);
+    color: white;
+}
+
+.sport-confirm-btn.cancel-btn:hover {
+    background: rgba(149, 165, 166, 1);
+}
+
+.sport-confirm-btn.confirm-btn {
+    background: rgba(231, 76, 60, 0.8);
+    color: white;
+}
+
+.sport-confirm-btn.confirm-btn:hover {
+    background: rgba(231, 76, 60, 1);
+}
+
+/* Toast Notifications */
+.sport-toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(20, 20, 20, 0.95);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 10002;
+    transform: translateX(100%);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sport-toast.show {
+    transform: translateX(0);
+}
+
+.sport-toast.success {
+    border-left: 4px solid #27ae60;
+}
+
+.sport-toast.error {
+    border-left: 4px solid #e74c3c;
+}
+
+.sport-toast.warning {
+    border-left: 4px solid #f39c12;
+}
+
+.sport-toast.info {
+    border-left: 4px solid #3498db;
+}
+
+.sport-toast i {
+    font-size: 18px;
+}
+
+.sport-toast.success i {
+    color: #27ae60;
+}
+
+.sport-toast.error i {
+    color: #e74c3c;
+}
+
+.sport-toast.warning i {
+    color: #f39c12;
+}
+
+.sport-toast.info i {
+    color: #3498db;
+}
+
+/* Error State */
+.sport-events-error {
+    text-align: center;
+    padding: 40px 20px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.error-state-icon {
+    font-size: 48px;
+    color: #e74c3c;
+    margin-bottom: 20px;
+}
+
+.sport-events-error h4 {
+    color: white;
+    margin: 0 0 10px 0;
+}
+
+.sport-events-error p {
+    margin: 0 0 20px 0;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.error-state-btn {
+    background: rgba(52, 152, 219, 0.8);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.error-state-btn:hover {
+    background: rgba(52, 152, 219, 1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sport-details-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .sport-card-actions {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    
+    .sport-card-btn {
+        padding: 12px 8px;
+        font-size: 11px;
+    }
+    
+    .sport-details-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .sport-detail-btn {
+        justify-content: center;
+    }
+    
+    .sport-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .sport-card-info {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sport-event-details-overlay {
+        padding: 10px;
+    }
+    
+    .sport-details-body {
+        padding: 20px;
+    }
+    
+    .sport-card-actions {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    
+    .sport-confirm-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+</style>
+`;
+
+// Initialize the sport events loader when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    // Inject styles
+    document.head.insertAdjacentHTML('beforeend', sportEventsStyles);
+    
+    // Initialize the sport events loader
+    window.sportEventsLoader = new SportEventsLoader();
+});
+
+// Export for use in other modules
+if (typeof
+    module !== 'undefined' && module.exports) {
+        module.exports = {
+            SportEventsLoader
+        };
+    } else {
+        window.SportEventsLoader = SportEventsLoader;
+    }
    
+
+
+
+    
 // Define all functions at the top level to avoid hoisting issues
 
 // Event Mode Selection Function
