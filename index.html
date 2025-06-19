@@ -19440,7 +19440,7 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                             </div>
                             <div class="background-content">
                                 <div class="bg-content active" id="imageContent">
-                                    <input type="file" id="backgroundImage" accept="image/*" class="file-input">
+                                    <input type="file" id="backgroundImage" accept="image" class="file-input">
                                     <label for="backgroundImage" class="file-label">
                                         <i class="fas fa-upload"></i>
                                         Choose Background Image
@@ -19626,7 +19626,7 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
         </div>
         <div class="background-content">
             <div class="bg-content active" id="mediaContent">
-                <input type="file" id="physicalBackgroundMedia" accept="image/*,video/mp4,video/mov,.gif" class="file-input" onchange="handlePhysicalMediaUpload(this)">
+                <input type="file" id="physicalBackgroundMedia" accept="image,video/mp4,video/mov,.gif" class="file-input" onchange="handlePhysicalMediaUpload(this)">
                 <label for="physicalBackgroundMedia" class="file-label">
                     <i class="fas fa-upload"></i>
                     Choose Media (Image, GIF, Video)
@@ -19734,7 +19734,7 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                             </div>
                             <div class="background-content">
                                 <div class="bg-content active" id="mediaContent">
-                                    <input type="file" id="physicalBackgroundMedia" accept="image/*,video/mp4,video/mov,.gif" class="file-input" onchange="handlePhysicalMediaUpload(this)">
+                                    <input type="file" id="physicalBackgroundMedia" accept="image,video/mp4,video/mov,.gif" class="file-input" onchange="handlePhysicalMediaUpload(this)">
                                     <label for="physicalBackgroundMedia" class="file-label">
                                         <i class="fas fa-upload"></i>
                                         Choose Media (Image, GIF, Video)
@@ -19964,7 +19964,7 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                         </div>
                         <div class="customization-content">
                             <div class="custom-content active" id="imageCustomContent">
-                                <input type="file" id="ticketImage" accept="image/*" class="file-input" onchange="handleTicketImageUpload(this)">
+                                <input type="file" id="ticketImage" accept="image" class="file-input" onchange="handleTicketImageUpload(this)">
                                 <label for="ticketImage" class="file-label">
                                     <i class="fas fa-image"></i>
                                     Choose Ticket Image
@@ -20270,7 +20270,7 @@ rgb(81, 67, 55)rgb(81, 61, 55)rgb(81, 58, 55)rgb(184, 50, 32);
                         <input type="color" id="footballBgColor" value="#008B8B">
                     </div>
                     <div class="football-image-upload" id="footballImageUpload" style="display: none;">
-                        <input type="file" id="footballBgImage" accept="image/*">
+                        <input type="file" id="footballBgImage" accept="image">
                         <label for="footballBgImage">
                             <i class="fas fa-upload"></i>
                             Choose Image
@@ -29006,139 +29006,187 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-// Football Event Creation System
-class FootballEventManager {
+     
+ // Football Event Modal JavaScript
+class FootballEventModal {
     constructor() {
         this.currentStep = 1;
-        this.eventData = {};
-        this.selectedMatchType = null;
-        this.selectedTeamCount = null;
-        this.selectedPaymentMethod = null;
-        this.isPromoValid = false;
+        this.eventData = {
+            eventName: '',
+            background: {
+                type: 'color',
+                value: '#008B8B'
+            },
+            description: '',
+            matchType: '',
+            teamCount: 0,
+            teamFee: 0,
+            hasTeamFee: true,
+            creationFee: 0,
+            paymentMethod: ''
+        };
         
-        // Valid promo codes (50 unique codes)
+        // Valid promo codes (50 codes)
         this.validPromoCodes = [
-            'Tuc5us31', 'Bisask19', 'Lasusu35', 'Kemfol42', 'Ridmax28', 'Volten33', 'Maxpro17',
-            'Zenith24', 'Alphas56', 'Betaxi41', 'Gammax29', 'Deltro38', 'Epsilm47', 'Zetaph22',
-            'Etamax36', 'Thetro43', 'Iotaxi27', 'Kappro52', 'Lambda31', 'Muphax45', 'Numaxi39',
-            'Xiprox34', 'Omicro48', 'Pimaxi26', 'Rhopro51', 'Sigmax37', 'Taumax44', 'Upsilm32',
-            'Phimax49', 'Chimax25', 'Psimax40', 'Omegax46', 'Alphro23', 'Betmax50', 'Gamfol35',
-            'Delmax41', 'Epsmax28', 'Zetmax53', 'Etamax47', 'Themax33', 'Iotmax29', 'Kapmax42',
-            'Lammax38', 'Mumax54', 'Numax31', 'Ximax45', 'Omimax27', 'Pimax52', 'Rhomax36', 'Sigfol43'
+            'Tuc5us31', 'Bisask19', 'Lasusu35', 'Gam3r45x', 'Spo7rt89', 'Win2ner1', 'Cha9mp67',
+            'Pla8yer23', 'Tea4m567', 'Goa3l890', 'Sco2re45', 'Mat5ch78', 'Lea6gue9', 'Cup7final',
+            'Tro9phy12', 'Med4al56', 'Vic8tory3', 'Def2eat78', 'Att6ack90', 'Mid5field',
+            'Goa1lkeep', 'Str7iker4', 'Win8g567', 'Def9ender', 'Cap5tain2', 'Coa3ch890',
+            'Ref6eree1', 'Fan4s567', 'Sta8dium9', 'Fie3ld123', 'Bal7l456', 'Boo2ts789',
+            'Jer5sey12', 'Whi9stle3', 'Car7d456', 'Pen2alty8', 'Fre5ekick', 'Cor6ner90',
+            'Off4side1', 'Thr5owin2', 'Sub8stitut', 'Inj3ury45', 'Ext6ra789', 'Sho2otout',
+            'Cel9ebrat', 'Cha4nt567', 'Sup8port9', 'Loy3al123', 'Pas5sion7', 'Dre2am890'
         ];
         
-        this.usedPromoCodes = JSON.parse(localStorage.getItem('usedPromoCodes')) || [];
+        this.usedPromoCodes = JSON.parse(localStorage.getItem('usedPromoCodes') || '[]');
         
         this.init();
     }
-
+    
     init() {
         this.bindEvents();
-        this.setupBackgroundOptions();
-        this.setupMatchTypes();
+        this.setupTeamOptions();
     }
-
+    
     bindEvents() {
         // Modal controls
         document.getElementById('closeFootballEventBtn').addEventListener('click', () => this.closeModal());
-        document.getElementById('footballEventOverlay').addEventListener('click', (e) => {
-            if (e.target.id === 'footballEventOverlay') this.closeModal();
-        });
-
-        // Step navigation
-        document.getElementById('footballNextBtn').addEventListener('click', () => this.nextStep());
-        document.getElementById('footballBackBtn').addEventListener('click', () => this.previousStep());
-        document.getElementById('footballSummaryBtn').addEventListener('click', () => this.showSummary());
-        document.getElementById('footballBackToStep2').addEventListener('click', () => this.goToStep(2));
-
-        // Form inputs
+        
+        // Step 1 events
         document.getElementById('footballEventName').addEventListener('input', () => this.validateStep1());
         document.getElementById('footballEventDescription').addEventListener('input', () => this.validateStep1());
-        document.getElementById('footballTeamFee').addEventListener('input', () => this.validateStep2());
-
+        document.getElementById('footballBgColor').addEventListener('change', (e) => this.updateBackground('color', e.target.value));
+        document.getElementById('footballBgImage').addEventListener('change', (e) => this.handleImageUpload(e));
+        
         // Background options
         document.querySelectorAll('.football-bg-option').forEach(option => {
-            option.addEventListener('click', () => this.selectBackgroundOption(option));
+            option.addEventListener('click', (e) => this.selectBackgroundType(e.currentTarget.dataset.bg));
         });
-
-        document.getElementById('footballBgColor').addEventListener('change', () => this.validateStep1());
-        document.getElementById('footballBgImage').addEventListener('change', () => this.handleImageUpload());
-
+        
+        // Match type selection
+        document.querySelectorAll('.football-match-type').forEach(type => {
+            type.addEventListener('click', (e) => this.selectMatchType(e.currentTarget.dataset.type));
+        });
+        
+        // Navigation buttons
+        document.getElementById('footballNextBtn').addEventListener('click', () => this.nextStep());
+        document.getElementById('footballBackBtn').addEventListener('click', () => this.prevStep());
+        document.getElementById('footballSummaryBtn').addEventListener('click', () => this.showSummary());
+        document.getElementById('footballBackToStep2').addEventListener('click', () => this.goToStep(2));
+        
+        // Step 2 events
+        document.getElementById('footballTeamFee').addEventListener('input', () => this.validateStep2());
+        
         // Fee options
         document.querySelectorAll('.football-fee-option').forEach(option => {
-            option.addEventListener('click', () => this.selectFeeOption(option));
+            option.addEventListener('click', (e) => this.selectFeeOption(e.currentTarget.dataset.fee));
         });
-
+        
         // Payment options
         document.querySelectorAll('.football-payment-option').forEach(option => {
-            option.addEventListener('click', () => this.selectPaymentOption(option));
+            option.addEventListener('click', (e) => this.selectPaymentMethod(e.currentTarget.dataset.payment));
         });
-
+        
         // Promo code verification
         document.getElementById('footballVerifyBtn').addEventListener('click', () => this.verifyPromoCode());
         document.getElementById('footballPromoCode').addEventListener('input', () => this.resetPromoStatus());
-
-        // Create event
-        document.getElementById('footballCreateBtn').addEventListener('click', () => this.createEvent());
-    }
-
-    setupBackgroundOptions() {
-        const colorOption = document.querySelector('[data-bg="color"]');
-        const imageOption = document.querySelector('[data-bg="image"]');
         
-        colorOption.addEventListener('click', () => {
+        // Create event button
+        document.getElementById('footballCreateBtn').addEventListener('click', () => this.createEvent());
+        
+        // Close modal when clicking outside
+        document.getElementById('footballEventOverlay').addEventListener('click', (e) => {
+            if (e.target.id === 'footballEventOverlay') {
+                this.closeModal();
+            }
+        });
+    }
+    
+    // Step 1 Methods
+    validateStep1() {
+        const eventName = document.getElementById('footballEventName').value.trim();
+        const description = document.getElementById('footballEventDescription').value.trim();
+        const matchTypeSelected = document.querySelector('.football-match-type.selected');
+        
+        const isValid = eventName.length >= 3 && description.length >= 10 && matchTypeSelected;
+        
+        document.getElementById('footballNextBtn').disabled = !isValid;
+        
+        if (isValid) {
+            this.eventData.eventName = eventName;
+            this.eventData.description = description;
+        }
+    }
+    
+    selectBackgroundType(type) {
+        document.querySelectorAll('.football-bg-option').forEach(opt => opt.classList.remove('active'));
+        document.querySelector(`[data-bg="${type}"]`).classList.add('active');
+        
+        if (type === 'color') {
             document.getElementById('footballColorPicker').style.display = 'block';
             document.getElementById('footballImageUpload').style.display = 'none';
-        });
-
-        imageOption.addEventListener('click', () => {
+            this.updateBackground('color', document.getElementById('footballBgColor').value);
+        } else {
             document.getElementById('footballColorPicker').style.display = 'none';
             document.getElementById('footballImageUpload').style.display = 'block';
-        });
+        }
     }
-
-    setupMatchTypes() {
-        document.querySelectorAll('.football-match-type').forEach(type => {
-            type.addEventListener('click', () => this.selectMatchType(type));
-        });
-    }
-
-    selectBackgroundOption(option) {
-        document.querySelectorAll('.football-bg-option').forEach(opt => opt.classList.remove('active'));
-        option.classList.add('active');
-        this.validateStep1();
-    }
-
-    handleImageUpload() {
-        const fileInput = document.getElementById('footballBgImage');
-        const file = fileInput.files[0];
+    
+    updateBackground(type, value) {
+        this.eventData.background = { type, value };
         
+        // Update modal background preview
+        const modal = document.querySelector('.football-event-popup');
+        if (type === 'color') {
+            modal.style.background = `linear-gradient(135deg, ${value}, ${this.adjustColor(value, -20)})`;
+            modal.style.backgroundImage = 'none';
+        } else {
+            modal.style.backgroundImage = `url(${value})`;
+            modal.style.backgroundSize = 'cover';
+            modal.style.backgroundPosition = 'center';
+        }
+    }
+    
+    handleImageUpload(event) {
+        const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
-                this.eventData.backgroundImage = e.target.result;
-                this.validateStep1();
+                this.updateBackground('image', e.target.result);
             };
             reader.readAsDataURL(file);
         }
     }
-
-    selectMatchType(typeElement) {
-        document.querySelectorAll('.football-match-type').forEach(type => type.classList.remove('active'));
-        typeElement.classList.add('active');
+    
+    adjustColor(color, amount) {
+        const usePound = color[0] === '#';
+        const col = usePound ? color.slice(1) : color;
+        const num = parseInt(col, 16);
+        let r = (num >> 16) + amount;
+        let g = (num >> 8 & 0x00FF) + amount;
+        let b = (num & 0x0000FF) + amount;
+        r = r > 255 ? 255 : r < 0 ? 0 : r;
+        g = g > 255 ? 255 : g < 0 ? 0 : g;
+        b = b > 255 ? 255 : b < 0 ? 0 : b;
+        return (usePound ? '#' : '') + (r << 16 | g << 8 | b).toString(16).padStart(6, '0');
+    }
+    
+    selectMatchType(type) {
+        document.querySelectorAll('.football-match-type').forEach(t => t.classList.remove('selected'));
+        document.querySelector(`[data-type="${type}"]`).classList.add('selected');
         
-        this.selectedMatchType = typeElement.dataset.type;
-        this.populateTeamOptions();
+        this.eventData.matchType = type;
+        this.setupTeamOptions();
         this.validateStep1();
     }
-
-    populateTeamOptions() {
-        const teamOptionsContainer = document.getElementById('footballTeamOptions');
-        teamOptionsContainer.innerHTML = '';
-
+    
+    setupTeamOptions() {
+        const container = document.getElementById('footballTeamOptions');
+        const matchType = this.eventData.matchType;
+        
         let teamOptions = [];
         
-        switch(this.selectedMatchType) {
+        switch (matchType) {
             case 'single':
                 teamOptions = [2, 3, 4, 5, 6];
                 break;
@@ -29149,488 +29197,568 @@ class FootballEventManager {
                 teamOptions = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
                 break;
         }
-
-        teamOptions.forEach(count => {
-            const teamOption = document.createElement('div');
-            teamOption.className = 'football-team-option';
-            teamOption.dataset.teams = count;
-            teamOption.innerHTML = `<span>${count} Teams</span>`;
-            
-            teamOption.addEventListener('click', () => this.selectTeamCount(teamOption));
-            teamOptionsContainer.appendChild(teamOption);
+        
+        container.innerHTML = teamOptions.map(count => `
+            <div class="football-team-option" data-teams="${count}">
+                <i class="fas fa-users"></i>
+                <span>${count} Teams</span>
+            </div>
+        `).join('');
+        
+        // Bind team selection events
+        container.querySelectorAll('.football-team-option').forEach(option => {
+            option.addEventListener('click', (e) => this.selectTeamCount(parseInt(e.currentTarget.dataset.teams)));
         });
     }
-
-    selectTeamCount(teamElement) {
-        document.querySelectorAll('.football-team-option').forEach(option => option.classList.remove('active'));
-        teamElement.classList.add('active');
+    
+    // Step 2 Methods
+    selectTeamCount(count) {
+        document.querySelectorAll('.football-team-option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelector(`[data-teams="${count}"]`).classList.add('selected');
         
-        this.selectedTeamCount = parseInt(teamElement.dataset.teams);
+        this.eventData.teamCount = count;
         this.validateStep2();
     }
-
-    selectFeeOption(feeElement) {
-        document.querySelectorAll('.football-fee-option').forEach(option => option.classList.remove('active'));
-        feeElement.classList.add('active');
-
+    
+    selectFeeOption(feeType) {
+        document.querySelectorAll('.football-fee-option').forEach(opt => opt.classList.remove('active'));
+        document.querySelector(`[data-fee="${feeType}"]`).classList.add('active');
+        
+        this.eventData.hasTeamFee = feeType === 'paid';
+        
         const feeInput = document.getElementById('footballFeeInput');
-        if (feeElement.dataset.fee === 'paid') {
+        if (feeType === 'paid') {
             feeInput.style.display = 'block';
             document.getElementById('footballTeamFee').required = true;
         } else {
             feeInput.style.display = 'none';
             document.getElementById('footballTeamFee').required = false;
-            document.getElementById('footballTeamFee').value = '';
+            this.eventData.teamFee = 0;
         }
         
+        this.calculateCreationFee();
         this.validateStep2();
     }
-
-    selectPaymentOption(paymentElement) {
-        if (paymentElement.dataset.payment === 'tc') {
-            // TC Balance is coming soon, don't allow selection
+    
+    calculateCreationFee() {
+        const { matchType, hasTeamFee } = this.eventData;
+        
+        if (hasTeamFee) {
+            switch (matchType) {
+                case 'single':
+                    this.eventData.creationFee = 16;
+                    break;
+                case 'multiple':
+                    this.eventData.creationFee = 20;
+                    break;
+                case 'league':
+                    this.eventData.creationFee = 30;
+                    break;
+            }
+        } else {
+            switch (matchType) {
+                case 'single':
+                    this.eventData.creationFee = 20;
+                    break;
+                case 'multiple':
+                    this.eventData.creationFee = 50;
+                    break;
+                case 'league':
+                    this.eventData.creationFee = 70;
+                    break;
+            }
+        }
+    }
+    
+    validateStep2() {
+        const teamSelected = document.querySelector('.football-team-option.selected');
+        const teamFee = document.getElementById('footballTeamFee').value;
+        
+        let isValid = teamSelected;
+        
+        if (this.eventData.hasTeamFee) {
+            const fee = parseInt(teamFee);
+            isValid = isValid && fee >= 10 && fee <= 8000;
+            if (isValid) {
+                this.eventData.teamFee = fee;
+            }
+        }
+        
+        document.getElementById('footballSummaryBtn').disabled = !isValid;
+    }
+    
+    // Step 3 Methods
+    showSummary() {
+        this.updateSummary();
+        this.goToStep(3);
+    }
+    
+    updateSummary() {
+        document.getElementById('summaryEventName').textContent = this.eventData.eventName;
+        document.getElementById('summaryMatchType').textContent = this.formatMatchType(this.eventData.matchType);
+        document.getElementById('summaryTeamCount').textContent = `${this.eventData.teamCount} Teams`;
+        document.getElementById('summaryTeamFee').textContent = this.eventData.hasTeamFee ? 
+            `${this.eventData.teamFee} TC` : 'Free';
+        document.getElementById('summaryCreationFee').textContent = `${this.eventData.creationFee} TC`;
+        
+        // Show/hide payment section based on creation fee
+        const paymentSection = document.getElementById('footballPaymentSection');
+        if (this.eventData.creationFee > 0) {
+            paymentSection.style.display = 'block';
+        } else {
+            paymentSection.style.display = 'none';
+            document.getElementById('footballCreateBtn').disabled = false;
+        }
+    }
+    
+    formatMatchType(type) {
+        const types = {
+            'single': 'Single Match',
+            'multiple': 'Multiple Match',
+            'league': 'League'
+        };
+        return types[type] || type;
+    }
+    
+    selectPaymentMethod(method) {
+        document.querySelectorAll('.football-payment-option').forEach(opt => opt.classList.remove('selected'));
+        
+        if (method === 'tc') {
+            // TC Balance is coming soon, don't select
+            this.showToast('TC Balance payment coming soon!', 'info');
             return;
         }
-
-        document.querySelectorAll('.football-payment-option').forEach(option => option.classList.remove('active'));
-        paymentElement.classList.add('active');
-
-        this.selectedPaymentMethod = paymentElement.dataset.payment;
+        
+        document.querySelector(`[data-payment="${method}"]`).classList.add('selected');
+        this.eventData.paymentMethod = method;
         
         const promoInput = document.getElementById('footballPromoInput');
-        if (this.selectedPaymentMethod === 'promo') {
+        if (method === 'promo') {
             promoInput.style.display = 'block';
         } else {
             promoInput.style.display = 'none';
         }
-
+        
         this.validateStep3();
     }
-
+    
     verifyPromoCode() {
         const promoCode = document.getElementById('footballPromoCode').value.trim();
         const statusDiv = document.getElementById('footballPromoStatus');
-
+        
         if (!promoCode) {
             this.showPromoStatus('Please enter a promo code', 'error');
             return;
         }
-
+        
         if (this.usedPromoCodes.includes(promoCode)) {
             this.showPromoStatus('This promo code has already been used', 'error');
-            this.isPromoValid = false;
-        } else if (this.validPromoCodes.includes(promoCode)) {
-            this.showPromoStatus('Promo code verified successfully!', 'success');
-            this.isPromoValid = true;
+            return;
+          }
+        
+        if (this.validPromoCodes.includes(promoCode)) {
+            this.showPromoStatus('✓ Valid promo code! Creation fee waived.', 'success');
+            this.eventData.creationFee = 0;
+            this.eventData.promoCode = promoCode;
+            document.getElementById('summaryCreationFee').textContent = '0 TC (Promo Applied)';
+            document.getElementById('footballCreateBtn').disabled = false;
         } else {
             this.showPromoStatus('Invalid promo code', 'error');
-            this.isPromoValid = false;
+            document.getElementById('footballCreateBtn').disabled = true;
         }
-
-        this.validateStep3();
     }
-
+    
     showPromoStatus(message, type) {
         const statusDiv = document.getElementById('footballPromoStatus');
         statusDiv.textContent = message;
         statusDiv.className = `football-promo-status ${type}`;
         statusDiv.style.display = 'block';
     }
-
+    
     resetPromoStatus() {
         const statusDiv = document.getElementById('footballPromoStatus');
         statusDiv.style.display = 'none';
-        this.isPromoValid = false;
+        this.eventData.creationFee = this.calculateOriginalCreationFee();
+        document.getElementById('summaryCreationFee').textContent = `${this.eventData.creationFee} TC`;
         this.validateStep3();
     }
-
-    calculateCreationFee() {
-        const isTeamFeePaid = document.querySelector('.football-fee-option.active').dataset.fee === 'paid';
+    
+    calculateOriginalCreationFee() {
+        const { matchType, hasTeamFee } = this.eventData;
         
-        let creationFee = 0;
-        
-        switch(this.selectedMatchType) {
-            case 'single':
-                creationFee = isTeamFeePaid ? 16 : 20;
-                break;
-            case 'multiple':
-                creationFee = isTeamFeePaid ? 20 : 50;
-                break;
-            case 'league':
-                creationFee = isTeamFeePaid ? 30 : 70;
-                break;
+        if (hasTeamFee) {
+            switch (matchType) {
+                case 'single': return 16;
+                case 'multiple': return 20;
+                case 'league': return 30;
+            }
+        } else {
+            switch (matchType) {
+                case 'single': return 20;
+                case 'multiple': return 50;
+                case 'league': return 70;
+            }
         }
-        
-        return creationFee;
+        return 0;
     }
-
-    validateStep1() {
-        const eventName = document.getElementById('footballEventName').value.trim();
-        const description = document.getElementById('footballEventDescription').value.trim();
-        const hasBackground = document.getElementById('footballBgColor').value || this.eventData.backgroundImage;
-        
-        const isValid = eventName && description && this.selectedMatchType && hasBackground;
-        document.getElementById('footballNextBtn').disabled = !isValid;
-        
-        return isValid;
-    }
-
-    validateStep2() {
-        const feeOption = document.querySelector('.football-fee-option.active');
-        let isValid = this.selectedTeamCount && feeOption;
-        
-        if (feeOption && feeOption.dataset.fee === 'paid') {
-            const teamFee = document.getElementById('footballTeamFee').value;
-            isValid = isValid && teamFee && teamFee >= 10 && teamFee <= 8000;
-        }
-        
-        document.getElementById('footballSummaryBtn').disabled = !isValid;
-        return isValid;
-    }
-
+    
     validateStep3() {
-        let isValid = false;
+        const hasPaymentMethod = this.eventData.paymentMethod;
+        const isPromoValid = this.eventData.paymentMethod === 'promo' && this.eventData.creationFee === 0;
+        const isFree = this.eventData.creationFee === 0;
         
-        if (this.selectedPaymentMethod === 'promo') {
-            isValid = this.isPromoValid;
-        }
-        
-        document.getElementById('footballCreateBtn').disabled = !isValid;
-        return isValid;
+        document.getElementById('footballCreateBtn').disabled = !(hasPaymentMethod && (isPromoValid || isFree));
     }
-
+    
+    // Navigation Methods
     nextStep() {
-        if (this.currentStep === 1 && this.validateStep1()) {
-            this.goToStep(2);
+        if (this.currentStep < 3) {
+            this.goToStep(this.currentStep + 1);
         }
     }
-
-    previousStep() {
-        if (this.currentStep === 2) {
-            this.goToStep(1);
+    
+    prevStep() {
+        if (this.currentStep > 1) {
+            this.goToStep(this.currentStep - 1);
         }
     }
-
-    showSummary() {
-        if (this.validateStep2()) {
-            this.updateSummary();
-            this.goToStep(3);
-        }
-    }
-
-    goToStep(stepNumber) {
-        // Hide all steps
-        document.querySelectorAll('.football-step').forEach(step => step.classList.remove('active'));
+    
+    goToStep(step) {
+        // Hide current step
+        document.getElementById(`footballStep${this.currentStep}`).classList.remove('active');
         
         // Show target step
-        document.getElementById(`footballStep${stepNumber}`).classList.add('active');
+        document.getElementById(`footballStep${step}`).classList.add('active');
         
-        this.currentStep = stepNumber;
+        this.currentStep = step;
+        
+        // Update step-specific logic
+        if (step === 2) {
+            this.calculateCreationFee();
+        } else if (step === 3) {
+            this.updateSummary();
+        }
     }
-
-    updateSummary() {
-        const eventName = document.getElementById('footballEventName').value;
-        const matchType = this.selectedMatchType.charAt(0).toUpperCase() + this.selectedMatchType.slice(1);
-        const teamCount = this.selectedTeamCount;
-        const feeOption = document.querySelector('.football-fee-option.active');
-        const teamFee = feeOption.dataset.fee === 'paid' ? 
-            `${document.getElementById('footballTeamFee').value} TC` : 'Free';
-        const creationFee = this.calculateCreationFee();
-
-        document.getElementById('summaryEventName').textContent = eventName;
-        document.getElementById('summaryMatchType').textContent = matchType + ' Match';
-        document.getElementById('summaryTeamCount').textContent = teamCount;
-        document.getElementById('summaryTeamFee').textContent = teamFee;
-        document.getElementById('summaryCreationFee').textContent = `${creationFee} TC (₦${creationFee * 15})`;
-    }
-
+    
+    // Event Creation
     async createEvent() {
-        if (!this.validateStep3()) return;
-
         try {
-            // Collect all event data
-            const eventData = {
-                eventName: document.getElementById('footballEventName').value,
-                description: document.getElementById('footballEventDescription').value,
-                matchType: this.selectedMatchType,
-                teamCount: this.selectedTeamCount,
-                teamFee: document.querySelector('.football-fee-option.active').dataset.fee === 'paid' ? 
-                    parseInt(document.getElementById('footballTeamFee').value) : 0,
-                creationFee: this.calculateCreationFee(),
-                paymentMethod: this.selectedPaymentMethod,
-                background: {
-                    type: document.querySelector('.football-bg-option.active').dataset.bg,
-                    value: document.querySelector('.football-bg-option.active').dataset.bg === 'color' ? 
-                        document.getElementById('footballBgColor').value : this.eventData.backgroundImage
-                },
-                timestamp: new Date().toISOString(),
-                status: 'active'
-            };
-
+            document.getElementById('footballCreateBtn').disabled = true;
+            document.getElementById('footballCreateBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
+            
             // Mark promo code as used if applicable
-            if (this.selectedPaymentMethod === 'promo') {
-                const promoCode = document.getElementById('footballPromoCode').value.trim();
-                this.usedPromoCodes.push(promoCode);
+            if (this.eventData.promoCode) {
+                this.usedPromoCodes.push(this.eventData.promoCode);
                 localStorage.setItem('usedPromoCodes', JSON.stringify(this.usedPromoCodes));
             }
-            // Create event card
-            this.createEventCard(eventData);
-
-            // Store in Firebase
+            
+            // Prepare event data for Firebase
+            const eventData = {
+                eventName: this.eventData.eventName,
+                background: this.eventData.background,
+                description: this.eventData.description,
+                matchType: this.eventData.matchType,
+                teamCount: this.eventData.teamCount,
+                teamFee: this.eventData.teamFee,
+                hasTeamFee: this.eventData.hasTeamFee,
+                creationFee: this.eventData.creationFee,
+                paymentMethod: this.eventData.paymentMethod,
+                promoCode: this.eventData.promoCode || null,
+                status: 'active',
+                createdAt: new Date().toISOString(),
+                createdBy: 'current_user', // Replace with actual user ID
+                participants: [],
+                matches: []
+            };
+            
+            // Save to Firebase
             await this.saveToFirebase(eventData);
-
-            // Close modal and reset
+            
+            this.showToast('Football event created successfully!', 'success');
             this.closeModal();
             this.resetForm();
-
-            // Show success message
-            this.showSuccessMessage('Football event created successfully!');
-
+            
         } catch (error) {
             console.error('Error creating event:', error);
-            this.showErrorMessage('Failed to create event. Please try again.');
+            this.showToast('Failed to create event. Please try again.', 'error');
+            document.getElementById('footballCreateBtn').disabled = false;
+            document.getElementById('footballCreateBtn').innerHTML = 'Create Event';
         }
     }
-
-    createEventCard(eventData) {
-        // Hide empty state
-        const emptyState = document.getElementById('sport-events-empty');
-        if (emptyState) {
-            emptyState.style.display = 'none';
-        }
-
-        // Create event card element
-        const eventCard = document.createElement('div');
-        eventCard.className = 'sport-event-card football-event-card';
-        
-        // Set background
-        let backgroundStyle = '';
-        if (eventData.background.type === 'color') {
-            backgroundStyle = `background: ${eventData.background.value};`;
-        } else {
-            backgroundStyle = `background: url('${eventData.background.value}') center/cover;`;
-        }
-
-        eventCard.innerHTML = `
-            <div class="sport-event-overlay" style="${backgroundStyle}">
-                <div class="sport-event-content">
-                    <div class="sport-event-header">
-                        <h3 class="sport-event-name">${eventData.eventName}</h3>
-                        <div class="sport-event-type">
-                            <i class="fas fa-futbol"></i>
-                            <span>Football</span>
-                        </div>
-                    </div>
-                    
-                    <div class="sport-event-details">
-                        <div class="sport-event-info">
-                            <div class="sport-info-item">
-                                <i class="fas fa-users"></i>
-                                <span>${eventData.teamCount} Teams</span>
-                            </div>
-                            <div class="sport-info-item">
-                                <i class="fas fa-trophy"></i>
-                                <span>${eventData.matchType.charAt(0).toUpperCase() + eventData.matchType.slice(1)} Match</span>
-                            </div>
-                            <div class="sport-info-item">
-                                <i class="fas fa-coins"></i>
-                                <span>${eventData.teamFee > 0 ? eventData.teamFee + ' TC' : 'Free'}</span>
-                            </div>
-                        </div>
-                        
-                        <div class="sport-event-description">
-                            <p>${eventData.description}</p>
-                        </div>
-                    </div>
-                    
-                    <div class="sport-event-actions">
-                        <button class="sport-event-btn primary" id="opensporteventbtn">
-                            <i class="fas fa-door-open"></i>
-                            <span>Open</span>
-                        </button>
-                        <button class="sport-event-btn secondary" id="launch sport event">
-                            <i class="fas fa-rocket"></i>
-                            <span>Launch</span>
-                        </button>
-                    </div>
-                    
-                    <div class="sport-event-footer">
-                        <div class="sport-event-date">
-                            <i class="fas fa-calendar"></i>
-                            <span>${new Date(eventData.timestamp).toLocaleDateString()}</span>
-                        </div>
-                        <div class="sport-event-status active">
-                            <i class="fas fa-circle"></i>
-                            <span>Active</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        // Insert card into container
-        const container = document.getElementById('sport-events-container');
-        container.appendChild(eventCard);
-
-        // Add animation
-        setTimeout(() => {
-            eventCard.classList.add('sport-event-card-animate');
-        }, 100);
-    }
-
+    
     async saveToFirebase(eventData) {
+        // Check if Firebase is available
+        if (typeof db === 'undefined') {
+            console.log('Firebase not available, saving to localStorage for demo');
+            this.saveToLocalStorage(eventData);
+            return;
+        }
+        
         try {
-            // Initialize Firebase if not already done
-            if (typeof firebase === 'undefined') {
-                throw new Error('Firebase not initialized');
-            }
-
-            const db = firebase.firestore();
+            // Save to Firebase Firestore
+            const docRef = await db.collection('sport_events').add(eventData);
+            console.log('Event saved with ID:', docRef.id);
             
-            // Add event to Sport events collection
-            await db.collection('Sport events').add({
-                ...eventData,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                userId: firebase.auth().currentUser?.uid || 'anonymous'
-            });
-
-            console.log('Event saved to Firebase successfully');
+            // Also save to localStorage as backup
+            this.saveToLocalStorage({...eventData, id: docRef.id});
+            
         } catch (error) {
             console.error('Firebase save error:', error);
-            throw error;
+            // Fallback to localStorage
+            this.saveToLocalStorage(eventData);
         }
     }
-
+    
+    saveToLocalStorage(eventData) {
+        const events = JSON.parse(localStorage.getItem('footballEvents') || '[]');
+        eventData.id = eventData.id || 'event_' + Date.now();
+        events.push(eventData);
+        localStorage.setItem('footballEvents', JSON.stringify(events));
+    }
+    
+    // Utility Methods
+    showToast(message, type = 'info') {
+        // Remove existing toast
+        const existingToast = document.querySelector('.football-toast');
+        if (existingToast) {
+            existingToast.remove();
+        }
+        
+        // Create new toast
+        const toast = document.createElement('div');
+        toast.className = `football-toast ${type}`;
+        toast.innerHTML = `
+            <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+            <span>${message}</span>
+        `;
+        
+        document.body.appendChild(toast);
+        
+        // Show toast
+        setTimeout(() => toast.classList.add('show'), 100);
+        
+        // Hide toast after 3 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+    
     closeModal() {
         document.getElementById('footballEventOverlay').style.display = 'none';
+        this.resetForm();
     }
-
+    
+    openModal() {
+        document.getElementById('footballEventOverlay').style.display = 'flex';
+        this.goToStep(1);
+    }
+    
     resetForm() {
-        // Reset all form inputs
+        // Reset to step 1
+        this.currentStep = 1;
+        document.querySelectorAll('.football-step').forEach(step => step.classList.remove('active'));
+        document.getElementById('footballStep1').classList.add('active');
+        
+        // Reset form data
+        this.eventData = {
+            eventName: '',
+            background: {
+                type: 'color',
+                value: '#008B8B'
+            },
+            description: '',
+            matchType: '',
+            teamCount: 0,
+            teamFee: 0,
+            hasTeamFee: true,
+            creationFee: 0,
+            paymentMethod: ''
+        };
+        
+        // Reset form inputs
         document.getElementById('footballEventName').value = '';
         document.getElementById('footballEventDescription').value = '';
         document.getElementById('footballBgColor').value = '#008B8B';
         document.getElementById('footballBgImage').value = '';
         document.getElementById('footballTeamFee').value = '';
         document.getElementById('footballPromoCode').value = '';
-
+        
         // Reset selections
-        document.querySelectorAll('.football-match-type').forEach(type => type.classList.remove('active'));
-        document.querySelectorAll('.football-team-option').forEach(option => option.classList.remove('active'));
-        document.querySelectorAll('.football-payment-option').forEach(option => option.classList.remove('active'));
-
-        // Reset background options
+        document.querySelectorAll('.football-match-type').forEach(t => t.classList.remove('selected'));
+        document.querySelectorAll('.football-team-option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('.football-fee-option').forEach(opt => opt.classList.remove('active'));
+        document.querySelectorAll('.football-payment-option').forEach(opt => opt.classList.remove('selected'));
         document.querySelectorAll('.football-bg-option').forEach(opt => opt.classList.remove('active'));
+        
+        // Reset to defaults
         document.querySelector('[data-bg="color"]').classList.add('active');
+        document.querySelector('[data-fee="paid"]').classList.add('active');
         document.getElementById('footballColorPicker').style.display = 'block';
         document.getElementById('footballImageUpload').style.display = 'none';
-
-        // Reset fee options
-        document.querySelectorAll('.football-fee-option').forEach(opt => opt.classList.remove('active'));
-        document.querySelector('[data-fee="paid"]').classList.add('active');
         document.getElementById('footballFeeInput').style.display = 'block';
-
-        // Reset step
-        this.goToStep(1);
-
-        // Reset internal state
-        this.currentStep = 1;
-        this.eventData = {};
-        this.selectedMatchType = null;
-        this.selectedTeamCount = null;
-        this.selectedPaymentMethod = null;
-        this.isPromoValid = false;
-
-        // Reset button states
+        document.getElementById('footballPromoInput').style.display = 'none';
+        document.getElementById('footballPromoStatus').style.display = 'none';
+        
+        // Reset buttons
         document.getElementById('footballNextBtn').disabled = true;
         document.getElementById('footballSummaryBtn').disabled = true;
         document.getElementById('footballCreateBtn').disabled = true;
-
-        // Hide promo status
-        document.getElementById('footballPromoStatus').style.display = 'none';
-        document.getElementById('footballPromoInput').style.display = 'none';
-    }
-
-    showSuccessMessage(message) {
-        // Create success notification
-        const notification = document.createElement('div');
-        notification.className = 'football-notification success';
-        notification.innerHTML = `
-            <i class="fas fa-check-circle"></i>
-            <span>${message}</span>
-        `;
-
-        document.body.appendChild(notification);
-
-        // Remove after 3 seconds
-        setTimeout(() => {
-            notification.remove();
-        }, 3000);
-    }
-
-    showErrorMessage(message) {
-        // Create error notification
-        const notification = document.createElement('div');
-        notification.className = 'football-notification error';
-        notification.innerHTML = `
-            <i class="fas fa-exclamation-circle"></i>
-            <span>${message}</span>
-        `;
-
-        document.body.appendChild(notification);
-
-        // Remove after 3 seconds
-        setTimeout(() => {
-            notification.remove();
-        }, 3000);
-    }
-
-    // Load existing events from Firebase on page load
-    async loadExistingEvents() {
-        try {
-            if (typeof firebase === 'undefined') return;
-
-            const db = firebase.firestore();
-            const eventsSnapshot = await db.collection('Sport events')
-                .orderBy('createdAt', 'desc')
-                .get();
-
-            if (!eventsSnapshot.empty) {
-                // Hide empty state
-                const emptyState = document.getElementById('sport-events-empty');
-                if (emptyState) {
-                    emptyState.style.display = 'none';
-                }
-
-                // Create cards for existing events
-                eventsSnapshot.forEach(doc => {
-                    const eventData = doc.data();
-                    this.createEventCard(eventData);
-                });
-            }
-        } catch (error) {
-            console.error('Error loading existing events:', error);
-        }
+        document.getElementById('footballCreateBtn').innerHTML = 'Create Event';
+        
+        // Reset modal background
+        const modal = document.querySelector('.football-event-popup');
+        modal.style.background = 'linear-gradient(135deg, #008B8B, #006666)';
+        modal.style.backgroundImage = 'none';
     }
 }
 
-// Initialize the Football Event Manager
-document.addEventListener('DOMContentLoaded', () => {
-    const footballEventManager = new FootballEventManager();
-    
-    // Load existing events
-    footballEventManager.loadExistingEvents();
+// Initialize the football event modal
+let footballEventModal;
 
-    // Handle opening the football event modal
-    document.addEventListener('click', (e) => {
-        if (e.target.closest('[data-type="football"]') || 
-            e.target.closest('.host-sport-category-card.accessible[data-sport="football"]')) {
-            document.getElementById('footballEventOverlay').style.display = 'flex';
-        }
-    });
+// Wait for DOM to be ready
+document.addEventListener('DOMContentLoaded', function() {
+    footballEventModal = new FootballEventModal();
 });
 
-     
+// Global function to open the modal
+function openFootballEventModal() {
+    if (footballEventModal) {
+        footballEventModal.openModal();
+    }
+}
+
+// Export for global access
+window.openFootballEventModal = openFootballEventModal;
+window.footballEventModal = footballEventModal;
+
+// Additional CSS for toast notifications
+const footballToastStyles = `
+<style>
+.football-toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(45deg, #27ae60, #2ecc71);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    transform: translateX(400px);
+    transition: transform 0.3s ease;
+    backdrop-filter: blur(10px);
+    max-width: 350px;
+}
+
+.football-toast.show {
+    transform: translateX(0);
+}
+
+.football-toast.error {
+    background: linear-gradient(45deg, #e74c3c, #c0392b);
+}
+
+.football-toast.info {
+    background: linear-gradient(45deg, #3498db, #2980b9);
+}
+
+.football-toast.success {
+    background: linear-gradient(45deg, #27ae60, #2ecc71);
+}
+
+.football-promo-status {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    display: none;
+}
+
+.football-promo-status.success {
+    background: rgba(39, 174, 96, 0.2);
+    color: #27ae60;
+    border: 1px solid #27ae60;
+}
+
+.football-promo-status.error {
+    background: rgba(231, 76, 60, 0.2);
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+/* Team option styles */
+.football-team-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.football-team-option:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.football-team-option.selected {
+    border-color: #3498db;
+    background: rgba(52, 152, 219, 0.2);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.football-team-option i {
+    font-size: 24px;
+    color: #3498db;
+}
+
+.football-team-option span {
+    font-weight: bold;
+    color: white;
+}
+
+/* Match type selection styles */
+.football-match-type.selected {
+    border-color: #3498db;
+    background: rgba(52, 152, 219, 0.2);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+/* Payment option styles */
+.football-payment-option.selected {
+    border-color: #27ae60;
+    background: rgba(39, 174, 96, 0.2);
+    box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.2);
+}
+
+.football-payment-option .coming-soon {
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: bold;
+    margin-left: auto;
+}
+</style>
+`;
+
+// Inject the styles
+document.head.insertAdjacentHTML('beforeend', footballToastStyles);
+
+
 
    
 // Define all functions at the top level to avoid hoisting issues
