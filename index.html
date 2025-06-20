@@ -31760,37 +31760,11 @@ class SportEventsLoader {
                         <span>${event.teamCount} Teams</span>
                     </div>
                     
-                    <div class="sport-info-item">
-                        <i class="fas fa-coins"></i>
-                        <span>${event.hasTeamFee ? event.teamFee + ' TC' : 'Free'}</span>
-                    </div>
                     
-                    <div class="sport-info-item">
-                        <i class="fas fa-calendar"></i>
-                        <span>${this.formatDate(event.createdAt)}</span>
-                    </div>
                 </div>
                 
-                <div class="sport-card-description">
-                    <p>${this.escapeHtml(event.description)}</p>
-                </div>
+               
                 
-                <div class="sport-card-stats">
-                    <div class="stat-item">
-                        <span class="stat-number">${event.participants ? event.participants.length : 0}</span>
-                        <span class="stat-label">Participants</span>
-                    </div>
-                    
-                    <div class="stat-item">
-                        <span class="stat-number">${event.matches ? event.matches.length : 0}</span>
-                        <span class="stat-label">Matches</span>
-                    </div>
-                    
-                    <div class="stat-item">
-                        <span class="stat-number">${event.creationFee} TC</span>
-                        <span class="stat-label">Creation Fee</span>
-                    </div>
-                </div>
             </div>
             
             <div class="sport-card-actions">
@@ -32455,6 +32429,8 @@ const sportEventsStyles = `
     transition: all 0.3s ease;
     text-transform: uppercase;
     min-height: 48px;
+    min-width: 48px;
+    color: inherit;
     -webkit-tap-highlight-color: transparent;
     transform: translateZ(0);
     position: relative;
