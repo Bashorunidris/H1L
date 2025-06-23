@@ -466,30 +466,59 @@ async function exportToPDF() {
     
     try {
         // Fetch all student data
-        const snapshot = await db.collection('hisnames').orderBy('name').get();
-        const students = [];
+        const snapshot = await db.collection('hisnames').orderBy('timestamp', 'desc').get();
+        const allStudents = [];
+        const uniqueStudents = [];
+        const seenMatricNumbers = new Set();
         
+        // Collect all students
         snapshot.forEach(doc => {
             const data = doc.data();
-            students.push({
+            allStudents.push({
                 name: data.name,
-                matricNumber: data.matricNumber
+                matricNumber: data.matricNumber,
+                userEmail: data.userEmail,
+                userId: data.userId,
+                timestamp: data.timestamp
             });
         });
         
-        // Sort alphabetically by name (additional sorting in case Firestore ordering fails)
-        students.sort((a, b) => a.name.localeCompare(b.name));
+        // Remove duplicates - keep the latest submission for each matric number
+        allStudents.forEach(student => {
+            const matricKey = student.matricNumber.toLowerCase().trim();
+            
+            if (!seenMatricNumbers.has(matricKey)) {
+                seenMatricNumbers.add(matricKey);
+                uniqueStudents.push({
+                    name: student.name,
+                    matricNumber: student.matricNumber
+                });
+            }
+        });
+        
+        // Sort alphabetically by name
+        uniqueStudents.sort((a, b) => a.name.localeCompare(b.name));
         
         // Generate PDF
-        generatePDF(students);
+        generatePDF(uniqueStudents);
         closePasswordModal();
+        
+        // Show summary
+        const totalSubmissions = allStudents.length;
+        const uniqueCount = uniqueStudents.length;
+        const duplicates = totalSubmissions - uniqueCount;
+        
+        if (duplicates > 0) {
+            alert(`PDF exported successfully!\n\nTotal submissions: ${totalSubmissions}\nUnique students: ${uniqueCount}\nDuplicate submissions removed: ${duplicates}`);
+        } else {
+            alert(`PDF exported successfully!\nTotal students: ${uniqueCount}`);
+        }
         
     } catch (error) {
         alert('Export failed: ' + error.message);
     }
 }
 
-   
      function generatePDF(students) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
