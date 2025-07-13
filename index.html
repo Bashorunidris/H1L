@@ -332,7 +332,22 @@
         totalCount += item.count;
         subtotal += item.count * item.price;
       }
-      const serviceFee = totalCount * 70;
+
+      let serviceFee = 0;
+      for (const key in selectedTickets) {
+        const item = selectedTickets[key];
+        if (item.count > 0) {
+          const unitPrice = item.price;
+          let fee = 0;
+          if (unitPrice <= 100) fee = 50;
+          else if (unitPrice <= 1500) fee = 70;
+          else if (unitPrice <= 5000) fee = 100;
+          else if (unitPrice <= 9999) fee = 200;
+          else fee = 300;
+          serviceFee += fee * item.count;
+        }
+      }
+
       const total = subtotal + serviceFee;
       document.getElementById("totalTickets").innerText = totalCount;
       document.getElementById("subtotal").innerText = subtotal.toLocaleString();
