@@ -355,6 +355,8 @@
       document.getElementById("totalToPay").innerText = total.toLocaleString();
     }
 
+         
+   
     function payWithFlutterwave() {
       const amount = parseInt(document.getElementById("totalToPay").innerText.replace(/,/g, ''));
       if (amount === 0) return alert("Select at least one ticket");
@@ -371,6 +373,34 @@
         },
         callback: function(response) {
           alert("Payment complete! Ref: " + response.transaction_id);
+          // 1. Save to Firestore
+          const db = firebase.firestore();
+          const eventId = "Afrobeats Music Fest"; // or another unique event ID
+          const eventRef = db.collection("events").doc(eventId);
+          eventRef.get().then(doc => {
+            if (doc.exists) {
+              const data = doc.data();
+              const updates = { ...data };
+              updates.totalBuyers = (updates.totalBuyers || 0) + 1;
+              updates.totalRevenue = (updates.totalRevenue || 0) + amount;
+              for (const key in selectedTickets) {
+                updates[key] = (updates[key] || 0) + selectedTickets[key].count;
+              }
+              eventRef.set(updates);
+            }
+          });
+
+          // 2. Generate ticket file
+          const ticketDetails = `Event: ${document.getElementById("modalTitle").innerText}\nAmount Paid: ₦${amount}\nRef: ${response.transaction_id}`;
+          const blob = new Blob([ticketDetails], { type: "text/plain" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "ticket.txt";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+
           closeModal();
         },
         customizations: {
