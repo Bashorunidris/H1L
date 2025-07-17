@@ -36713,16 +36713,22 @@ function processBoostPayment(eventId) {
             logo: "https://i.ibb.co/VpC27tbt/Rewarder-logo.png"
         },
         callback: (response) => {
-            console.log('Flutterwave callback response:', response);
+            console.log('🔔 Flutterwave callback response:', response);
             if (response.status === "successful") {
                 // Payment completed - wait for webhook to process
                 showNotification('Payment successful! Processing your ad package...', 'success');
+                
+                // Add debugging
+                console.log('💳 Payment successful, transaction ID:', response.transaction_id);
+                console.log('📍 Event ID:', eventId);
+                
                 showPaymentProcessingModal(eventId, response.transaction_id);
                 closeBoostEventModal();
                 
                 // Listen for webhook-processed package
                 listenForWebhookPackage(eventId, response.transaction_id);
             } else {
+                console.log('❌ Payment failed:', response);
                 showNotification('Payment failed. Please try again.', 'error');
             }
         },
@@ -36744,7 +36750,7 @@ function processBoostPayment(eventId) {
 
 // Listen for webhook-processed packages
 function listenForWebhookPackage(eventId, transactionId) {
-    console.log('🔍 Listening for webhook package:', { eventId, transactionId });
+    console.log('🔍 Starting to listen for webhook package:', { eventId, transactionId });
     
     const packagesRef = db.collection('physicalEvents').doc(eventId).collection('adsPackages');
     
@@ -36752,6 +36758,8 @@ function listenForWebhookPackage(eventId, transactionId) {
     const unsubscribe = packagesRef
         .where('paymentId', '==', transactionId)
         .onSnapshot((snapshot) => {
+            console.log('📡 Firebase listener triggered, snapshot size:', snapshot.size);
+            
             if (!snapshot.empty) {
                 // Package found - webhook processed successfully
                 const packageDoc = snapshot.docs[0];
@@ -36764,15 +36772,32 @@ function listenForWebhookPackage(eventId, transactionId) {
                 showWebhookSuccessModal(packageData, eventId);
                 
                 showNotification('🎉 Payment processed successfully!', 'success');
+            } else {
+                console.log('⏳ No package found yet, still listening...');
+                
+                // Also check all packages for debugging
+                packagesRef.get().then(allSnapshot => {
+                    console.log('📊 All packages in event:', allSnapshot.size);
+                    allSnapshot.forEach(doc => {
+                        const data = doc.data();
+                        console.log('📦 Package found:', {
+                            id: doc.id,
+                            paymentId: data.paymentId,
+                            adCode: data.adCode,
+                            status: data.status
+                        });
+                    });
+                });
             }
         }, (error) => {
-            console.error('Error listening for package:', error);
+            console.error('❌ Error listening for package:', error);
             unsubscribe();
             showNotification('Error checking payment status. Please contact support.', 'error');
         });
     
     // Stop listening after 2 minutes if no package found
     setTimeout(() => {
+        console.log('⏰ Timeout reached, stopping listener');
         unsubscribe();
         showNotification('Payment verification timeout. Please contact support if amount was deducted.', 'warning');
     }, 120000); // 2 minutes
