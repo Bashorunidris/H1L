@@ -2,143 +2,155 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Mock Event Ticket</title>
-  <!-- jsPDF for PDF creation -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <!-- QRCode.js for QR generation -->
+  <title>Admin Dashboard - Tickets</title>
+
+  <!-- Firebase -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-firestore-compat.min.js"></script>
+
+  <!-- QRCode Generator -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f5f8ff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+      background: #f8faff;
+      padding: 20px;
     }
-    .container {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      width: 350px;
+    h2 { color: #1a1a2e; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
       text-align: center;
     }
-    h2 {
-      color: #1e3a8a;
-      margin-bottom: 10px;
+    th {
+      background: #1a1a2e;
+      color: white;
     }
-    p {
-      color: #555;
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
-    label {
-      display: block;
-      text-align: left;
-      font-size: 14px;
-      margin: 10px 0 5px;
-      color: #1e3a8a;
-    }
-    input, select {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      font-size: 14px;
+    td input {
+      width: 80%;
+      padding: 5px;
     }
     button {
-      width: 100%;
-      background: #1e3a8a;
+      padding: 6px 12px;
+      background: #007bff;
       color: white;
-      padding: 12px;
-      font-size: 16px;
       border: none;
-      border-radius: 8px;
+      border-radius: 5px;
       cursor: pointer;
-      transition: background 0.3s;
     }
     button:hover {
-      background: #3b82f6;
+      background: #3399ff;
+    }
+    .qrcode {
+      width: 80px;
+      height: 80px;
+      margin: auto;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>🎉 Buy Mock Ticket</h2>
-    <p>Enter your details and download your ticket instantly</p>
-
-    <label>Email:</label>
-    <input id="email" type="email" placeholder="Enter your email">
-
-    <label>Ticket Type:</label>
-    <select id="type">
-      <option value="Regular">Regular - ₦5000</option>
-      <option value="VIP">VIP - ₦10000</option>
-    </select>
-
-    <label>Quantity:</label>
-    <input id="qty" type="number" value="1" min="1">
-
-    <button onclick="buyTicket()">💳 Pay (Mock) & Download</button>
-  </div>
+  <h2>🎟 Admin Dashboard - Rewarder Tickets</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Ticket Type</th>
+        <th>Amount</th>
+        <th>Tx Ref</th>
+        <th>QR Code</th>
+        <th>Change Name</th>
+        <th>Send Email</th>
+      </tr>
+    </thead>
+    <tbody id="ticketTable"></tbody>
+  </table>
 
   <script>
-    // 🚀 Mock "payment" just generates a fake ticket
-    function simulatePayment(email, type, qty, price) {
-      const total = price * qty;
-      const ticketId = "TICKET-" + Math.floor(Math.random() * 1000000);
-      const tx_ref = "TX-" + Date.now();
+    // 🔹 Firebase Config
+    const firebaseConfig = {
+    apiKey: "AIzaSyDW8V2SjNITrA4LcdmeILh944mTbOKnM0c",
+    authDomain: "rewarderhub.firebaseapp.com",
+    projectId: "rewarderhub",
+    storageBucket: "rewarderhub.firebasestorage.app",
+    messagingSenderId: "85965945106",
+    appId: "1:85965945106:web:fa0a57d8968926e1041bcb",
+    measurementId: "G-F2ERB5NGN0"
+};
 
-      // Generate ticket PDF
-      generateTicket(ticketId, email, type, qty, total, tx_ref);
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    const ticketTable = document.getElementById("ticketTable");
+
+    // Fetch tickets
+    async function loadTickets() {
+      const snapshot = await db.collection("tickets").get();
+      ticketTable.innerHTML = "";
+
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const row = document.createElement("tr");
+
+        // Ticket data row
+        row.innerHTML = `
+          <td>${data.name}</td>
+          <td>${data.email}</td>
+          <td>${data.ticketType}</td>
+          <td>₦${data.amount}</td>
+          <td>${data.txRef}</td>
+          <td><div id="qr-${doc.id}" class="qrcode"></div></td>
+          <td>
+            <input type="text" id="name-${doc.id}" value="${data.name}">
+            <button onclick="updateName('${doc.id}')">Save</button>
+          </td>
+          <td>
+            <button onclick="sendEmail('${data.email}', '${data.name}', '${data.txRef}')">📧 Send</button>
+          </td>
+        `;
+
+        ticketTable.appendChild(row);
+
+        // Generate QR
+        new QRCode(document.getElementById("qr-" + doc.id), {
+          text: data.txRef,
+          width: 80,
+          height: 80
+        });
+      });
     }
 
-    // 🎟 Generate Ticket PDF with QR
-    function generateTicket(ticketId, email, type, qty, total, tx_ref) {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-
-      doc.setFontSize(18);
-      doc.text("🎟 EVENT TICKET", 20, 20);
-      doc.setFontSize(12);
-      doc.text(`Ticket ID: ${ticketId}`, 20, 40);
-      doc.text(`Transaction Ref: ${tx_ref}`, 20, 50);
-      doc.text(`Email: ${email}`, 20, 60);
-      doc.text(`Ticket Type: ${type}`, 20, 70);
-      doc.text(`Quantity: ${qty}`, 20, 80);
-      doc.text(`Amount Paid: ₦${total}`, 20, 90);
-      doc.text("Show this QR code at the gate:", 20, 110);
-
-      // Generate QR code in a temporary div
-      const qrDiv = document.createElement("div");
-      new QRCode(qrDiv, { text: ticketId, width: 100, height: 100 });
-      const qrImg = qrDiv.querySelector("img");
-      const imgData = qrImg.src;
-
-      // Add QR code to PDF
-      doc.addImage(imgData, "PNG", 20, 120, 50, 50);
-
-      // Save PDF
-      doc.save("ticket.pdf");
+    // Update Name
+    async function updateName(id) {
+      const newName = document.getElementById("name-" + id).value;
+      await db.collection("tickets").doc(id).update({ name: newName });
+      alert("✅ Name updated!");
+      loadTickets();
     }
 
-    // Button handler
-    function buyTicket() {
-      const email = document.getElementById("email").value;
-      const type = document.getElementById("type").value;
-      const qty = parseInt(document.getElementById("qty").value);
-      const price = type === "VIP" ? 10000 : 5000;
-
-      if (!email) {
-        alert("⚠ Please enter your email");
-        return;
+    // Send Email via Google Apps Script
+    async function sendEmail(email, name, txRef) {
+      const scriptURL = "https://script.google.com/macros/s/AKfycbxALG8J-bOUjqOYSiZBY3fqv-AukRm3rO-1rin_XnAEhYYtVVJkkhJXKRhpC5hQxU78/exec";
+      try {
+        await fetch(scriptURL, {
+          method: "POST",
+          body: JSON.stringify({ email, name, txRef }),
+          headers: { "Content-Type": "application/json" }
+        });
+        alert("📩 Email sent to " + email);
+      } catch (err) {
+        alert("❌ Error sending email: " + err.message);
       }
-
-      simulatePayment(email, type, qty, price);
     }
+
+    loadTickets();
   </script>
 </body>
 </html>
