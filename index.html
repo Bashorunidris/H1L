@@ -1,152 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin Dashboard - Tickets</title>
-
-  <!-- Firebase -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-firestore-compat.min.js"></script>
-
-  <!-- QRCode Generator -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rewarder Admin - Send Tickets</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f8faff;
+      background: #f5f8ff;
       padding: 20px;
+      color: #1a1a2e;
     }
-    h2 { color: #1a1a2e; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: center;
-    }
-    th {
-      background: #1a1a2e;
-      color: white;
-    }
-    td input {
-      width: 80%;
-      padding: 5px;
+    h1 {
+      color: #0056d2;
     }
     button {
-      padding: 6px 12px;
-      background: #007bff;
-      color: white;
+      padding: 10px 15px;
       border: none;
-      border-radius: 5px;
+      background: #0056d2;
+      color: white;
+      border-radius: 8px;
       cursor: pointer;
     }
     button:hover {
       background: #3399ff;
     }
-    .qrcode {
-      width: 80px;
-      height: 80px;
-      margin: auto;
+    .ticket-card {
+      background: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+    }
+    .ticket-card p {
+      margin: 4px 0;
     }
   </style>
 </head>
 <body>
-  <h2>🎟 Admin Dashboard - Rewarder Tickets</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Ticket Type</th>
-        <th>Amount</th>
-        <th>Tx Ref</th>
-        <th>QR Code</th>
-        <th>Change Name</th>
-        <th>Send Email</th>
-      </tr>
-    </thead>
-    <tbody id="ticketTable"></tbody>
-  </table>
+  <h1>🎟 Rewarder Admin - Send Tickets</h1>
+  <p>Below are the purchased tickets. Click "Send Email" to deliver to user.</p>
+  <div id="ticket-list"></div>
+
+  <!-- Firebase -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-firestore-compat.min.js"></script>
 
   <script>
-    // 🔹 Firebase Config
+    // ✅ Firebase Config
     const firebaseConfig = {
-    apiKey: "AIzaSyDW8V2SjNITrA4LcdmeILh944mTbOKnM0c",
-    authDomain: "rewarderhub.firebaseapp.com",
-    projectId: "rewarderhub",
-    storageBucket: "rewarderhub.firebasestorage.app",
-    messagingSenderId: "85965945106",
-    appId: "1:85965945106:web:fa0a57d8968926e1041bcb",
-    measurementId: "G-F2ERB5NGN0"
-};
-
+      apiKey: "AIzaSyD2wVNyVlIglCbD1iClmnv29tNPq34TQj4",
+      authDomain: "tap-to-pay-31743.firebaseapp.com",
+      projectId: "tap-to-pay-31743",
+      storageBucket: "tap-to-pay-31743.appspot.com",
+      messagingSenderId: "645810581024",
+      appId: "1:645810581024:web:b456bcf200bafe905ad645",
+      measurementId: "G-XK4X797BD5"
+    };
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    const ticketTable = document.getElementById("ticketTable");
+    // ✅ Your Google Script URL
+    const googleScriptURL = "https://script.google.com/macros/s/AKfycbzOOkpKW-jrEpby3R5-sIBY2WYm1gVwm3C6hhmEle4nmPPpeSLhuU2QOy7YGMIl45ZK0Q/exec";
 
-    // Fetch tickets
+    // Load tickets
     async function loadTickets() {
+      const ticketList = document.getElementById("ticket-list");
+      ticketList.innerHTML = "Loading tickets...";
+
       const snapshot = await db.collection("tickets").get();
-      ticketTable.innerHTML = "";
+      ticketList.innerHTML = "";
 
       snapshot.forEach(doc => {
         const data = doc.data();
-        const row = document.createElement("tr");
-
-        // Ticket data row
-        row.innerHTML = `
-          <td>${data.name}</td>
-          <td>${data.email}</td>
-          <td>${data.ticketType}</td>
-          <td>₦${data.amount}</td>
-          <td>${data.txRef}</td>
-          <td><div id="qr-${doc.id}" class="qrcode"></div></td>
-          <td>
-            <input type="text" id="name-${doc.id}" value="${data.name}">
-            <button onclick="updateName('${doc.id}')">Save</button>
-          </td>
-          <td>
-            <button onclick="sendEmail('${data.email}', '${data.name}', '${data.txRef}')">📧 Send</button>
-          </td>
+        const div = document.createElement("div");
+        div.className = "ticket-card";
+        div.innerHTML = `
+          <p><b>Name:</b> ${data.name}</p>
+          <p><b>Email:</b> ${data.email}</p>
+          <p><b>Ticket:</b> ${data.ticketType} (x${data.qty})</p>
+          <p><b>Amount:</b> ₦${data.amount}</p>
+          <p><b>Ref:</b> ${data.txRef}</p>
+          <button onclick="sendEmail('${doc.id}')">Send Email</button>
         `;
-
-        ticketTable.appendChild(row);
-
-        // Generate QR
-        new QRCode(document.getElementById("qr-" + doc.id), {
-          text: data.txRef,
-          width: 80,
-          height: 80
-        });
+        ticketList.appendChild(div);
       });
     }
 
-    // Update Name
-    async function updateName(id) {
-      const newName = document.getElementById("name-" + id).value;
-      await db.collection("tickets").doc(id).update({ name: newName });
-      alert("✅ Name updated!");
-      loadTickets();
-    }
-
-    // Send Email via Google Apps Script
-    async function sendEmail(email, name, txRef) {
-      const scriptURL = "https://script.google.com/macros/s/AKfycbxALG8J-bOUjqOYSiZBY3fqv-AukRm3rO-1rin_XnAEhYYtVVJkkhJXKRhpC5hQxU78/exec";
+    // Send email via Google Apps Script
+    async function sendEmail(ticketId) {
       try {
-        await fetch(scriptURL, {
+        const doc = await db.collection("tickets").doc(ticketId).get();
+        if (!doc.exists) return alert("Ticket not found");
+
+        const data = doc.data();
+
+        const response = await fetch(googleScriptURL, {
           method: "POST",
-          body: JSON.stringify({ email, name, txRef }),
-          headers: { "Content-Type": "application/json" }
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
         });
-        alert("📩 Email sent to " + email);
+
+        const result = await response.json();
+        if (result.success) {
+          alert(`✅ Email sent to ${data.email}`);
+        } else {
+          alert("❌ Failed: " + JSON.stringify(result));
+        }
       } catch (err) {
-        alert("❌ Error sending email: " + err.message);
+        console.error(err);
+        alert("Error sending email. Check console.");
       }
     }
 
