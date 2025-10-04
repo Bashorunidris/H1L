@@ -1,120 +1,1758 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rewarder Admin - Send Tickets</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f8ff;
-      padding: 20px;
-      color: #1a1a2e;
-    }
-    h1 {
-      color: #0056d2;
-    }
-    button {
-      padding: 10px 15px;
-      border: none;
-      background: #0056d2;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #3399ff;
-    }
-    .ticket-card {
-      background: white;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 10px;
-      box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
-    }
-    .ticket-card p {
-      margin: 4px 0;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALTE 25 - Admin Dashboard</title>
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- QR Code Scanner -->
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/minified/html5-qrcode.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2c5f8d;
+            --secondary: #ff6b35;
+            --bg-dark: #0a0e1a;
+            --bg-card: #141824;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --border: rgba(255, 255, 255, 0.1);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #0f1419 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Auth Screen */
+        .auth-screen {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0a0e1a 0%, #141824 100%);
+            z-index: 9999;
+        }
+
+        .auth-screen.hidden {
+            display: none;
+        }
+
+        .auth-card {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            max-width: 420px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .auth-logo {
+            width: 120px;
+            height: auto;
+            margin: 0 auto 20px;
+            display: block;
+        }
+
+        .auth-card h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+
+        .auth-card p {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-size: 0.9em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-size: 0.9em;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1em;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #1e4a6b);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(44, 95, 141, 0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .auth-error {
+            color: var(--danger);
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+
+        /* Dashboard Layout */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        .dashboard.hidden {
+            display: none;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--bg-card);
+            border-right: 1px solid var(--border);
+            padding: 30px 20px;
+            position: fixed;
+            width: 280px;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sidebar-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .sidebar-title h3 {
+            font-size: 1.1em;
+            margin-bottom: 2px;
+        }
+
+        .sidebar-title p {
+            font-size: 0.8em;
+            color: var(--text-secondary);
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .nav-link.active {
+            background: rgba(44, 95, 141, 0.2);
+            color: var(--primary);
+        }
+
+        .nav-icon {
+            font-size: 1.2em;
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .user-details p {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            padding: 30px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .page-title h1 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .page-title p {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+        }
+
+        .topbar-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        .stat-change {
+            font-size: 0.85em;
+            margin-top: 8px;
+        }
+
+        .stat-change.positive {
+            color: var(--success);
+        }
+
+        /* Charts */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+        }
+
+        .chart-card h3 {
+            margin-bottom: 20px;
+        }
+
+        /* Table */
+        .table-card {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            margin-bottom: 30px;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 15px 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tbody tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+        }
+
+        .badge-danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.85em;
+        }
+
+        /* Scanner */
+        .scanner-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .scanner-video {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+        }
+
+        #qr-reader {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .scanner-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .verification-result {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+        }
+
+        .result-empty {
+            text-align: center;
+            color: var(--text-secondary);
+            padding: 40px 20px;
+        }
+
+        .result-success {
+            border: 2px solid var(--success);
+        }
+
+        .result-error {
+            border: 2px solid var(--danger);
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .result-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+        }
+
+        .result-details {
+            margin: 15px 0;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                transition: left 0.3s;
+                z-index: 1000;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .scanner-container {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 20px 15px;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .search-box {
+                max-width: 100%;
+            }
+
+            .table-container {
+                font-size: 0.9em;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+        }
+
+        @media (max-width: 1024px) {
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+        }
+
+        /* Panel visibility */
+        .panel {
+            display: none;
+        }
+
+        .panel.active {
+            display: block;
+        }
+    </style>
 </head>
 <body>
-  <h1>🎟 Rewarder Admin - Send Tickets</h1>
-  <p>Below are the purchased tickets. Click "Send Email" to deliver to user.</p>
-  <div id="ticket-list"></div>
+    <!-- Auth Screen -->
+    <div id="authScreen" class="auth-screen">
+        <div class="auth-card">
+            <img src="https://i.ibb.co/vvHMtY3H/1000082209-removebg-preview.png" alt="Logo" class="auth-logo">
+            <h2>Admin Sign In</h2>
+            <p>Access the ALTE 25 Fest admin dashboard</p>
+            
+            <form onsubmit="signIn(event)">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="authEmail" required placeholder="admin@alte25.com">
+                </div>
+                
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="authPassword" required placeholder="••••••••">
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="signInBtn">
+                    Sign In
+                </button>
+            </form>
+            
+            <div id="authError" class="auth-error"></div>
+        </div>
+    </div>
 
-  <!-- Firebase -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-firestore-compat.min.js"></script>
+    <!-- Dashboard -->
+    <div id="dashboard" class="dashboard hidden">
+        <!-- Mobile Menu Toggle -->
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        <div class="overlay" onclick="toggleSidebar()"></div>
 
-  <script>
-    // ✅ Firebase Config
-    const firebaseConfig = {
-      apiKey: "AIzaSyD2wVNyVlIglCbD1iClmnv29tNPq34TQj4",
-      authDomain: "tap-to-pay-31743.firebaseapp.com",
-      projectId: "tap-to-pay-31743",
-      storageBucket: "tap-to-pay-31743.appspot.com",
-      messagingSenderId: "645810581024",
-      appId: "1:645810581024:web:b456bcf200bafe905ad645",
-      measurementId: "G-XK4X797BD5"
-    };
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="https://i.ibb.co/vvHMtY3H/1000082209-removebg-preview.png" alt="Logo" class="sidebar-logo">
+                <div class="sidebar-title">
+                    <h3>ALTE 25</h3>
+                    <p>Admin Dashboard</p>
+                </div>
+            </div>
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a class="nav-link active" onclick="showPanel('overview')">
+                        <span class="nav-icon">📊</span>
+                        <span>Overview</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showPanel('tickets')">
+                        <span class="nav-icon">🎫</span>
+                        <span>Tickets</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showPanel('scanner')">
+                        <span class="nav-icon">📷</span>
+                        <span>Scanner</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showPanel('buyers')">
+                        <span class="nav-icon">👥</span>
+                        <span>Buyers</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showPanel('settings')">
+                        <span class="nav-icon">⚙️</span>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
 
-    // ✅ Your Google Script URL
-    const googleScriptURL = "https://script.google.com/macros/s/AKfycbzOOkpKW-jrEpby3R5-sIBY2WYm1gVwm3C6hhmEle4nmPPpeSLhuU2QOy7YGMIl45ZK0Q/exec";
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">A</div>
+                    <div class="user-details">
+                        <strong id="userEmail">Admin</strong>
+                        <p>Administrator</p>
+                    </div>
+                </div>
+                <button class="btn btn-secondary" style="width: 100%;" onclick="signOut()">Sign Out</button>
+            </div>
+        </aside>
 
-    // Load tickets
-    async function loadTickets() {
-      const ticketList = document.getElementById("ticket-list");
-      ticketList.innerHTML = "Loading tickets...";
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Overview Panel -->
+            <div id="panel-overview" class="panel active">
+                <div class="topbar">
+                    <div class="page-title">
+                        <h1>Dashboard Overview</h1>
+                        <p>Welcome back! Here's what's happening with your event.</p>
+                    </div>
+                    <div class="topbar-actions">
+                        <button class="btn btn-secondary" onclick="refreshData()">🔄 Refresh</button>
+                        <button class="btn btn-primary" onclick="exportCSV()">📥 Export Data</button>
+                    </div>
+                </div>
 
-      const snapshot = await db.collection("tickets").get();
-      ticketList.innerHTML = "";
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon" style="background: rgba(16, 185, 129, 0.2); color: var(--success);">🎫</div>
+                        </div>
+                        <div class="stat-label">Total Tickets Sold</div>
+                        <div class="stat-value" id="totalTickets">0</div>
+                        <div class="stat-change positive" id="ticketsChange">+0% from last week</div>
+                    </div>
 
-      snapshot.forEach(doc => {
-        const data = doc.data();
-        const div = document.createElement("div");
-        div.className = "ticket-card";
-        div.innerHTML = `
-          <p><b>Name:</b> ${data.name}</p>
-          <p><b>Email:</b> ${data.email}</p>
-          <p><b>Ticket:</b> ${data.ticketType} (x${data.qty})</p>
-          <p><b>Amount:</b> ₦${data.amount}</p>
-          <p><b>Ref:</b> ${data.txRef}</p>
-          <button onclick="sendEmail('${doc.id}')">Send Email</button>
-        `;
-        ticketList.appendChild(div);
-      });
-    }
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon" style="background: rgba(44, 95, 141, 0.2); color: var(--primary);">💰</div>
+                        </div>
+                        <div class="stat-label">Total Revenue</div>
+                        <div class="stat-value" id="totalRevenue">₦0</div>
+                        <div class="stat-change positive" id="revenueChange">+0% from last week</div>
+                    </div>
 
-    // Send email via Google Apps Script
-    async function sendEmail(ticketId) {
-      try {
-        const doc = await db.collection("tickets").doc(ticketId).get();
-        if (!doc.exists) return alert("Ticket not found");
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon" style="background: rgba(255, 107, 53, 0.2); color: var(--secondary);">👥</div>
+                        </div>
+                        <div class="stat-label">Unique Buyers</div>
+                        <div class="stat-value" id="uniqueBuyers">0</div>
+                        <div class="stat-change positive" id="buyersChange">+0 new buyers</div>
+                    </div>
 
-        const data = doc.data();
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon" style="background: rgba(245, 158, 11, 0.2); color: var(--warning);">✅</div>
+                        </div>
+                        <div class="stat-label">Tickets Used</div>
+                        <div class="stat-value" id="usedTickets">0</div>
+                        <div class="stat-change" id="usedChange">0% attendance rate</div>
+                    </div>
+                </div>
 
-        const response = await fetch(googleScriptURL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data)
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Daily Sales Trend</h3>
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <h3>Revenue by Type</h3>
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3>Recent Transactions</h3>
+                    </div>
+                    <div class="table-container" id="recentTransactions">
+                        <div class="loading">Loading transactions...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tickets Panel -->
+            <div id="panel-tickets" class="panel">
+                <div class="topbar">
+                    <div class="page-title">
+                        <h1>Ticket Management</h1>
+                        <p>View, search, and manage all event tickets</p>
+                    </div>
+                </div>
+
+                <div class="table-card">
+                    <div class="table-header">
+                        <div class="search-box">
+                            <input type="text" id="ticketSearch" placeholder="Search by name, email, or ticket ID..." onkeyup="searchTickets()">
+                            <button class="btn btn-secondary" onclick="searchTickets()">Search</button>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <select id="filterType" onchange="filterTickets()" style="padding: 10px; border-radius: 10px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.05); color: var(--text-primary);">
+                                <option value="">All Types</option>
+                                <option value="Early Bird">Early Bird</option>
+                                <option value="Stage Access">Stage Access</option>
+                            </select>
+                            <select id="filterStatus" onchange="filterTickets()" style="padding: 10px; border-radius: 10px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.05); color: var(--text-primary);">
+                                <option value="">All Status</option>
+                                <option value="used">Used</option>
+                                <option value="unused">Unused</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="table-container" id="ticketsTable">
+                        <div class="loading">Loading tickets...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scanner Panel -->
+            <div id="panel-scanner" class="panel">
+                <div class="topbar">
+                    <div class="page-title">
+                        <h1>Ticket Scanner</h1>
+                        <p>Verify tickets using QR code or manual entry</p>
+                    </div>
+                </div>
+
+                <div class="scanner-container">
+                    <div class="scanner-video">
+                        <h3 style="margin-bottom: 15px;">QR Code Scanner</h3>
+                        <div id="qr-reader" style="min-height: 300px;"></div>
+                        <div class="scanner-controls">
+                            <button class="btn btn-primary" onclick="startScanner()">Start Scan</button>
+                            <button class="btn btn-secondary" onclick="stopScanner()">Stop Scan</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="table-card" style="margin-bottom: 20px;">
+                            <h3 style="margin-bottom: 15px;">Manual Verification</h3>
+                            <div style="display: flex; gap: 10px;">
+                                <input type="text" id="manualTicketId" placeholder="Enter Ticket ID or Transaction Ref" style="flex: 1; padding: 12px; border-radius: 10px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.05); color: var(--text-primary);">
+                                <button class="btn btn-primary" onclick="manualVerify()">Verify</button>
+                            </div>
+                        </div>
+
+                        <div id="verificationResult" class="verification-result result-empty">
+                            <div class="result-empty">
+                                <p>📷 Scan a QR code or enter a ticket ID to verify</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buyers Panel -->
+            <div id="panel-buyers" class="panel">
+                <div class="topbar">
+                    <div class="page-title">
+                        <h1>Buyers Management</h1>
+                        <p>View all customers and their purchase history</p>
+                    </div>
+                </div>
+
+                <div class="table-card">
+                    <div class="table-header">
+                        <div class="search-box">
+                            <input type="text" id="buyerSearch" placeholder="Search by name or email..." onkeyup="searchBuyers()">
+                            <button class="btn btn-secondary" onclick="searchBuyers()">Search</button>
+                        </div>
+                    </div>
+                    <div class="table-container" id="buyersTable">
+                        <div class="loading">Loading buyers...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Panel -->
+            <div id="panel-settings" class="panel">
+                <div class="topbar">
+                    <div class="page-title">
+                        <h1>Settings</h1>
+                        <p>Manage admin access and system preferences</p>
+                    </div>
+                </div>
+
+                <div class="table-card">
+                    <h3 style="margin-bottom: 20px;">Admin Management</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">Add or remove administrators who can access this dashboard</p>
+                    
+                    <div style="display: flex; gap: 10px; margin-bottom: 30px;">
+                        <input type="email" id="newAdminEmail" placeholder="admin@example.com" style="flex: 1; padding: 12px; border-radius: 10px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.05); color: var(--text-primary);">
+                        <button class="btn btn-primary" onclick="addAdmin()">Add Admin</button>
+                    </div>
+
+                    <h4 style="margin-bottom: 15px;">Current Admins</h4>
+                    <div id="adminsList" class="table-container">
+                        <div class="loading">Loading admins...</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Firebase Configuration - REPLACE WITH YOUR ACTUAL CONFIG
+        const firebaseConfig = {
+    apiKey: "AIzaSyDW8V2SjNITrA4LcdmeILh944mTbOKnM0c",
+    authDomain: "rewarderhub.firebaseapp.com",
+    projectId: "rewarderhub",
+    storageBucket: "rewarderhub.firebasestorage.app",
+    messagingSenderId: "85965945106",
+    appId: "1:85965945106:web:fa0a57d8968926e1041bcb",
+    measurementId: "G-F2ERB5NGN0"
+};
+
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Admin Access Control
+        let allowedAdmins = ['bashorunidris01@gmail.com', 'bashxidr@gmail.com'];
+        let currentUser = null;
+        let allTickets = [];
+        let allBuyers = [];
+        let html5QrCode = null;
+
+        // Charts
+        let salesChart = null;
+        let revenueChart = null;
+
+        // Auth State
+        auth.onAuthStateChanged(async (user) => {
+            if (user && user.email) {
+                await loadAdminsFromFirestore();
+                if (allowedAdmins.includes(user.email)) {
+                    currentUser = user;
+                    showDashboard(user);
+                } else {
+                    await auth.signOut();
+                    showError('Access denied. Your account is not authorized.');
+                }
+            } else {
+                showAuthScreen();
+            }
         });
 
-        const result = await response.json();
-        if (result.success) {
-          alert(`✅ Email sent to ${data.email}`);
-        } else {
-          alert("❌ Failed: " + JSON.stringify(result));
+        async function loadAdminsFromFirestore() {
+            try {
+                const doc = await db.collection('settings').doc('admins').get();
+                if (doc.exists) {
+                    const data = doc.data();
+                    if (Array.isArray(data.list)) {
+                        allowedAdmins = data.list;
+                    }
+                }
+            } catch (e) {
+                console.warn('Could not load admins from Firestore', e);
+            }
         }
-      } catch (err) {
-        console.error(err);
-        alert("Error sending email. Check console.");
-      }
-    }
 
-    loadTickets();
-  </script>
-</body>
-</html>
+        async function signIn(event) {
+            event.preventDefault();
+            const email = document.getElementById('authEmail').value.trim();
+            const password = document.getElementById('authPassword').value;
+            const btn = document.getElementById('signInBtn');
+            
+            btn.disabled = true;
+            btn.textContent = 'Signing in...';
+            document.getElementById('authError').textContent = '';
+
+            try {
+                await loadAdminsFromFirestore();
+                await auth.signInWithEmailAndPassword(email, password);
+            } catch (error) {
+                console.error('Sign in error:', error);
+                showError('Invalid credentials. Please check your email and password.');
+                btn.disabled = false;
+                btn.textContent = 'Sign In';
+            }
+        }
+
+        async function signOut() {
+            try {
+                await auth.signOut();
+                showAuthScreen();
+            } catch (error) {
+                console.error('Sign out error:', error);
+            }
+        }
+
+        function showAuthScreen() {
+            document.getElementById('authScreen').classList.remove('hidden');
+            document.getElementById('dashboard').classList.add('hidden');
+        }
+
+        function showDashboard(user) {
+            document.getElementById('authScreen').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+            
+            const email = user.email;
+            document.getElementById('userEmail').textContent = email;
+            document.getElementById('userAvatar').textContent = email.charAt(0).toUpperCase();
+            
+            loadAllData();
+            subscribeToUpdates();
+        }
+
+        function showError(message) {
+            document.getElementById('authError').textContent = message;
+        }
+
+        // Navigation
+        function showPanel(panelName) {
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            document.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'));
+            
+            document.querySelector(`[onclick="showPanel('${panelName}')"]`).classList.add('active');
+            document.getElementById(`panel-${panelName}`).classList.add('active');
+            
+            if (window.innerWidth <= 1024) {
+                toggleSidebar();
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // Data Loading
+        async function loadAllData() {
+            await Promise.all([
+                loadOverviewData(),
+                loadTicketsData(),
+                loadBuyersData(),
+                loadAdminsList()
+            ]);
+        }
+
+        async function loadOverviewData() {
+            try {
+                const snapshot = await db.collection('alte25_tickets')
+                    .orderBy('createdAt', 'desc')
+                    .limit(500)
+                    .get();
+
+                let totalTickets = 0;
+                let totalRevenue = 0;
+                let usedTickets = 0;
+                const buyersSet = new Set();
+                const dailySales = new Map();
+                const revenueByType = {};
+                const recentTransactions = [];
+
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const ticketCount = data.ticketCount || (data.tickets && data.tickets.length) || 1;
+                    const amount = data.paymentAmount || data.amount || 0;
+                    
+                    totalTickets += ticketCount;
+                    totalRevenue += amount;
+                    if (data.used) usedTickets += ticketCount;
+                    if (data.buyerEmail) buyersSet.add(data.buyerEmail);
+
+                    // Daily sales
+                    const date = data.createdAt ? (data.createdAt.toDate ? data.createdAt.toDate() : new Date(data.createdAt)) : new Date();
+                    const dateStr = date.toISOString().split('T')[0];
+                    dailySales.set(dateStr, (dailySales.get(dateStr) || 0) + ticketCount);
+
+                    // Revenue by type
+                    const type = data.ticketType || 'Unknown';
+                    revenueByType[type] = (revenueByType[type] || 0) + amount;
+
+                    // Recent transactions
+                    if (recentTransactions.length < 10) {
+                        recentTransactions.push({
+                            id: doc.id,
+                            ...data,
+                            date: date
+                        });
+                    }
+                });
+
+                // Update stats
+                document.getElementById('totalTickets').textContent = totalTickets.toLocaleString();
+                document.getElementById('totalRevenue').textContent = '₦' + totalRevenue.toLocaleString();
+                document.getElementById('uniqueBuyers').textContent = buyersSet.size.toLocaleString();
+                document.getElementById('usedTickets').textContent = usedTickets.toLocaleString();
+
+                // Attendance rate
+                const attendanceRate = totalTickets > 0 ? ((usedTickets / totalTickets) * 100).toFixed(1) : 0;
+                document.getElementById('usedChange').textContent = `${attendanceRate}% attendance rate`;
+
+                // Update charts
+                updateCharts(dailySales, revenueByType);
+
+                // Update recent transactions table
+                updateRecentTransactions(recentTransactions);
+
+            } catch (error) {
+                console.error('Error loading overview data:', error);
+            }
+        }
+
+        function updateCharts(dailySales, revenueByType) {
+            // Sales Chart
+            const last14Days = Array.from({length: 14}, (_, i) => {
+                const date = new Date();
+                date.setDate(date.getDate() - 13 + i);
+                return date.toISOString().split('T')[0];
+            });
+
+            const salesData = last14Days.map(date => dailySales.get(date) || 0);
+            const labels = last14Days.map(date => new Date(date).toLocaleDateString('en-US', {month: 'short', day: 'numeric'}));
+
+            const ctx1 = document.getElementById('salesChart').getContext('2d');
+            if (salesChart) salesChart.destroy();
+            
+            salesChart = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Tickets Sold',
+                        data: salesData,
+                        borderColor: '#2c5f8d',
+                        backgroundColor: 'rgba(44, 95, 141, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Revenue Chart
+            const ctx2 = document.getElementById('revenueChart').getContext('2d');
+            if (revenueChart) revenueChart.destroy();
+
+            revenueChart = new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(revenueByType),
+                    datasets: [{
+                        data: Object.values(revenueByType),
+                        backgroundColor: ['#2c5f8d', '#ff6b35', '#10b981', '#f59e0b']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.7)',
+                                padding: 15
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateRecentTransactions(transactions) {
+            const container = document.getElementById('recentTransactions');
+            
+            if (transactions.length === 0) {
+                container.innerHTML = '<div class="loading">No transactions yet</div>';
+                return;
+            }
+
+            let html = '<table><thead><tr><th>Date</th><th>Buyer</th><th>Type</th><th>Amount</th><th>Status</th></tr></thead><tbody>';
+            
+            transactions.forEach(t => {
+                const status = t.used ? '<span class="badge badge-success">Used</span>' : '<span class="badge badge-warning">Unused</span>';
+                const date = t.date ? t.date.toLocaleDateString() : 'N/A';
+                
+                html += `
+                    <tr>
+                        <td>${date}</td>
+                        <td>${t.buyerName || 'N/A'}</td>
+                        <td>${t.ticketType || 'N/A'}</td>
+                        <td>₦${(t.paymentAmount || t.amount || 0).toLocaleString()}</td>
+                        <td>${status}</td>
+                    </tr>
+                `;
+            });
+            
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        async function loadTicketsData() {
+            try {
+                const snapshot = await db.collection('alte25_tickets')
+                    .orderBy('createdAt', 'desc')
+                    .limit(500)
+                    .get();
+
+                allTickets = [];
+                snapshot.forEach(doc => {
+                    allTickets.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+
+                renderTickets(allTickets);
+            } catch (error) {
+                console.error('Error loading tickets:', error);
+            }
+        }
+
+        function renderTickets(tickets) {
+            const container = document.getElementById('ticketsTable');
+            
+            if (tickets.length === 0) {
+                container.innerHTML = '<div class="loading">No tickets found</div>';
+                return;
+            }
+
+            let html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ticket ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            tickets.forEach(ticket => {
+                const status = ticket.used ? 
+                    '<span class="badge badge-success">Used</span>' : 
+                    '<span class="badge badge-warning">Unused</span>';
+                
+                const ticketId = ticket.transactionRef || ticket.txRef || ticket.id;
+                
+                html += `
+                    <tr>
+                        <td>${ticketId.substring(0, 15)}...</td>
+                        <td>${ticket.buyerName || 'N/A'}</td>
+                        <td>${ticket.buyerEmail || 'N/A'}</td>
+                        <td>${ticket.ticketType || 'N/A'}</td>
+                        <td>₦${(ticket.paymentAmount || ticket.amount || 0).toLocaleString()}</td>
+                        <td>${status}</td>
+                        <td class="action-buttons">
+                            <button class="btn btn-sm btn-secondary" onclick="downloadTicket('${ticketId}')">Download</button>
+                            <button class="btn btn-sm btn-primary" onclick="toggleTicketUsed('${ticketId}')">Toggle Used</button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        function searchTickets() {
+            const searchTerm = document.getElementById('ticketSearch').value.toLowerCase();
+            const filtered = allTickets.filter(ticket => {
+                const name = (ticket.buyerName || '').toLowerCase();
+                const email = (ticket.buyerEmail || '').toLowerCase();
+                const id = (ticket.transactionRef || ticket.txRef || ticket.id || '').toLowerCase();
+                
+                return name.includes(searchTerm) || email.includes(searchTerm) || id.includes(searchTerm);
+            });
+            
+            renderTickets(filtered);
+        }
+
+        function filterTickets() {
+            const typeFilter = document.getElementById('filterType').value;
+            const statusFilter = document.getElementById('filterStatus').value;
+            
+            let filtered = allTickets;
+            
+            if (typeFilter) {
+                filtered = filtered.filter(t => (t.ticketType || '').includes(typeFilter));
+            }
+            
+            if (statusFilter === 'used') {
+                filtered = filtered.filter(t => t.used === true);
+            } else if (statusFilter === 'unused') {
+                filtered = filtered.filter(t => !t.used);
+            }
+            
+            renderTickets(filtered);
+        }
+
+        async function toggleTicketUsed(ticketId) {
+            try {
+                let query = await db.collection('alte25_tickets').where('transactionRef', '==', ticketId).limit(1).get();
+                
+                if (query.empty) {
+                    query = await db.collection('alte25_tickets').where('txRef', '==', ticketId).limit(1).get();
+                }
+                
+                if (query.empty) {
+                    const doc = await db.collection('alte25_tickets').doc(ticketId).get();
+                    if (doc.exists) query = {docs: [doc]};
+                }
+                
+                if (query.docs && query.docs.length > 0) {
+                    const doc = query.docs[0];
+                    const currentStatus = doc.data().used || false;
+                    
+                    await db.collection('alte25_tickets').doc(doc.id).update({
+                        used: !currentStatus,
+                        usedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    
+                    alert(`Ticket ${!currentStatus ? 'marked as used' : 'marked as unused'}`);
+                    loadTicketsData();
+                }
+            } catch (error) {
+                console.error('Error toggling ticket status:', error);
+                alert('Error updating ticket status');
+            }
+        }
+
+        async function downloadTicket(ticketId) {
+            try {
+                let query = await db.collection('alte25_tickets').where('transactionRef', '==', ticketId).limit(1).get();
+                
+                if (query.empty) {
+                    query = await db.collection('alte25_tickets').where('txRef', '==', ticketId).limit(1).get();
+                }
+                
+                if (query.empty) {
+                    const doc = await db.collection('alte25_tickets').doc(ticketId).get();
+                    if (doc.exists) query = {docs: [doc]};
+                }
+                
+                if (query.docs && query.docs.length > 0) {
+                    const data = query.docs[0].data();
+                    
+                    const canvas = document.createElement('canvas');
+                    canvas.width = 1000;
+                    canvas.height = 500;
+                    const ctx = canvas.getContext('2d');
+                    
+                    ctx.fillStyle = '#0a0e1a';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    ctx.fillStyle = '#2c5f8d';
+                    ctx.fillRect(0, 0, canvas.width, 100);
+                    
+                    ctx.fillStyle = '#ffffff';
+                    ctx.font = 'bold 40px Arial';
+                    ctx.fillText('ALTE 25 FEST', 40, 65);
+                    
+                    ctx.font = '24px Arial';
+                    ctx.fillText('Ticket ID: ' + ticketId, 40, 160);
+                    ctx.fillText('Name: ' + (data.buyerName || 'N/A'), 40, 200);
+                    ctx.fillText('Type: ' + (data.ticketType || 'N/A'), 40, 240);
+                    ctx.fillText('Amount: ₦' + (data.paymentAmount || data.amount || 0).toLocaleString(), 40, 280);
+                    ctx.fillText('Date: Nov 7, 2025 | 9:00 PM', 40, 320);
+                    
+                    canvas.toBlob(blob => {
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `alte25-ticket-${ticketId}.png`;
+                        a.click();
+                        URL.revokeObjectURL(url);
+                    });
+                }
+            } catch (error) {
+                console.error('Error downloading ticket:', error);
+                alert('Error downloading ticket');
+            }
+        }
+
+        async function loadBuyersData() {
+            try {
+                const snapshot = await db.collection('alte25_tickets')
+                    .orderBy('createdAt', 'desc')
+                    .limit(1000)
+                    .get();
+
+                const buyersMap = new Map();
+                
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const email = data.buyerEmail || 'unknown';
+                    
+                    if (!buyersMap.has(email)) {
+                        buyersMap.set(email, {
+                            name: data.buyerName || 'N/A',
+                            email: email,
+                            tickets: 0,
+                            totalSpent: 0,
+                            lastPurchase: null
+                        });
+                    }
+                    
+                    const buyer = buyersMap.get(email);
+                    buyer.tickets += data.ticketCount || (data.tickets && data.tickets.length) || 1;
+                    buyer.totalSpent += data.paymentAmount || data.amount || 0;
+                    
+                    const date = data.createdAt ? (data.createdAt.toDate ? data.createdAt.toDate() : new Date(data.createdAt)) : null;
+                    if (date && (!buyer.lastPurchase || date > buyer.lastPurchase)) {
+                        buyer.lastPurchase = date;
+                    }
+                });
+
+                allBuyers = Array.from(buyersMap.values());
+                renderBuyers(allBuyers);
+            } catch (error) {
+                console.error('Error loading buyers:', error);
+            }
+        }
+
+        function renderBuyers(buyers) {
+            const container = document.getElementById('buyersTable');
+            
+            if (buyers.length === 0) {
+                container.innerHTML = '<div class="loading">No buyers found</div>';
+                return;
+            }
+
+            let html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Tickets</th>
+                            <th>Total Spent</th>
+                            <th>Last Purchase</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            buyers.forEach(buyer => {
+                const lastPurchase = buyer.lastPurchase ? buyer.lastPurchase.toLocaleDateString() : 'N/A';
+                
+                html += `
+                    <tr>
+                        <td>${buyer.name}</td>
+                        <td>${buyer.email}</td>
+                        <td>${buyer.tickets}</td>
+                        <td>₦${buyer.totalSpent.toLocaleString()}</td>
+                        <td>${lastPurchase}</td>
+                    </tr>
+                `;
+            });
+
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        function searchBuyers() {
+            const searchTerm = document.getElementById('buyerSearch').value.toLowerCase();
+            const filtered = allBuyers.filter(buyer => {
+                const name = buyer.name.toLowerCase();
+                const email = buyer.email.toLowerCase();
+                return name.includes(searchTerm) || email.includes(searchTerm);
+            });
+            
+            renderBuyers(filtered);
+        }
+
+        async function loadAdminsList() {
+            const container = document.getElementById('adminsList');
+            
+            let html = '<table><thead><tr><th>Email</th><th>Actions</th></tr></thead><tbody>';
+            
+            allowedAdmins.forEach(email => {
+                html += `
+                    <tr>
+                        <td>${email}</td>
+                        <td>
+                            <button class="btn btn-sm btn-danger" onclick="removeAdmin('${email}')">Remove</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        async function addAdmin() {
+            const email = document.getElementById('newAdminEmail').value.trim();
+            
+            if (!email) {
+                alert('Please enter an email address');
+                return;
+            }
+            
+            if (allowedAdmins.includes(email)) {
+                alert('This email is already an admin');
+                return;
+            }
+            
+            allowedAdmins.push(email);
+            
+            try {
+                await db.collection('settings').doc('admins').set({
+                    list: allowedAdmins
+                });
+                
+                alert('Admin added successfully');
+                document.getElementById('newAdminEmail').value = '';
+                loadAdminsList();
+            } catch (error) {
+                console.error('Error adding admin:', error);
+                alert('Error adding admin');
+            }
+        }
+
+        async function removeAdmin(email) {
+            if (!confirm(`Remove ${email} from admin list?`)) return;
+            
+            allowedAdmins = allowedAdmins.filter(e => e !== email);
+            
+            try {
+                await db.collection('settings').doc('admins').set({
+                    list: allowedAdmins
+                });
+                
+                alert('Admin removed successfully');
+                loadAdminsList();
+            } catch (error) {
+                console.error('Error removing admin:', error);
+                alert('Error removing admin');
+            }
+        }
+
+        // Scanner Functions
+        async function startScanner() {
+            if (html5QrCode) {
+                try {
+                    await html5QrCode.stop();
+                } catch (e) {}
+            }
+
+            html5QrCode = new Html5Qrcode("qr-reader");
+            
+            try {
+                await html5QrCode.start(
+                    { facingMode: "environment" },
+                    {
+                        fps: 10,
+                        qrbox: { width: 250, height: 250 }
+                    },
+                    (decodedText) => {
+                        verifyTicket(decodedText);
+                    }
+                );
+            } catch (error) {
+                console.error('Error starting scanner:', error);
+                alert('Error starting camera. Please check permissions.');
+            }
+        }
+
+        async function stopScanner() {
+            if (html5QrCode) {
+                try {
+                    await html5QrCode.stop();
+                    html5QrCode = null;
+                } catch (error) {
+                    console.error('Error stopping scanner:', error);
+                }
+            }
+        }
+
+        async function manualVerify() {
+            const ticketId = document.getElementById('manualTicketId').value.trim();
+            if (!ticketId) {
+                alert('Please enter a ticket ID');
+                return;
+            }
+            await verifyTicket(ticketId);
+        }
+
+        async function verifyTicket(ticketId) {
+            const resultContainer = document.getElementById('verificationResult');
+            resultContainer.innerHTML = '<div class="loading">Verifying ticket...</div>';
+
+            try {
+                let query = await db.collection('alte25_tickets').where('transactionRef', '==', ticketId).limit(1).get();
+                
+                if (query.empty) {
+                    query = await db.collection('alte25_tickets').where('txRef', '==', ticketId).limit(1).get();
+                }
+                
+                if (query.empty) {
+                    const doc = await db.collection('alte25_tickets').doc(ticketId).get();
+                    if (doc.exists) query = {docs: [doc]};
+                }
+
+                if (!query.docs || query.docs.length === 0) {
+                    resultContainer.className = 'verification-result result-error';
+                    resultContainer.innerHTML = `
+                        <div class="result-header">
+                            <div class="result-icon" style="background: rgba(239, 68, 68, 0.2); color: var(--danger);">❌</div>
+                            <div>
+                                <h3>Ticket Not Found</h3>
+                                <p style="color: var(--text-secondary);">This ticket ID does not exist in the system</p>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const doc = query.docs[0];
+                const data = doc.data();
+                const isUsed = data.used || false;
+
+                resultContainer.className = `verification-result ${isUsed ? 'result-error' : 'result-success'}`;
+                
+                resultContainer.innerHTML = `
+                    <div class="result-header">
+                        <div class="result-icon" style="background: rgba(${isUsed ? '239, 68, 68' : '16, 185, 129'}, 0.2); color: var(--${isUsed ? 'danger' : 'success'});">
+                            ${isUsed ? '⚠️' : '✅'}
+                        </div>
+                        <div>
+                            <h3>${isUsed ? 'Ticket Already Used' : 'Valid Ticket'}</h3>
+                            <p style="color: var(--text-secondary);">${data.buyerName || 'N/A'}</p>
+                        </div>
+                    </div>
+                    <div class="result-details">
+                        <div class="result-item">
+                            <span>Email:</span>
+                            <strong>${data.buyerEmail || 'N/A'}</strong>
+                        </div>
+                        <div class="result-item">
+                            <span>Ticket Type:</span>
+                            <strong>${data.ticketType || 'N/A'}</strong>
+                        </div>
+                        <div class="result-item">
+                            <span>Amount Paid:</span>
+                            <strong>₦${(data.paymentAmount || data.amount || 0).toLocaleString()}</strong>
+                        </div>
+                        <div class="result-item">
+                            <span>Status:</span>
+                            <strong style="color: var(--${isUsed ? 'danger' : 'success'})">${isUsed ? 'USED' : 'UNUSED'}</strong>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="toggleTicketUsed('${ticketId}')">
+                        ${isUsed ? 'Mark as Unused' : 'Mark as Used'}
+                    </button>
+                `;
+
+            } catch (error) {
+                console.error('Error verifying ticket:', error);
+                resultContainer.className = 'verification-result result-error';
+                resultContainer.innerHTML = `
+                    <div class="result-header">
+                        <div class="result-icon" style="background: rgba(239, 68, 68, 0.2); color: var(--danger);">❌</div>
+                        <div>
+                            <h3>Verification Error</h3>
+                            <p style="color: var(--text-secondary);">An error occurred while verifying the ticket</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Real-time Updates
+        function subscribeToUpdates() {
+            db.collection('alte25_tickets')
+                .orderBy('createdAt', 'desc')
+                .limit(500)
+                .onSnapshot(() => {
+                    loadAllData();
+                });
+        }
+
+        </script>
+        </body>
+  </html>
