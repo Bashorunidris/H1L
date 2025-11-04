@@ -1,2235 +1,2057 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lecturer Portal - History & Int'l Studies</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-      min-height: 100vh;
-      padding: 20px;
-    }
-
-    /* AUTH PAGE STYLES */
-    .auth-page {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-    }
-
-    .auth-container {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 24px;
-      padding: 48px;
-      width: 100%;
-      max-width: 480px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    }
-
-    .auth-header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .auth-logo {
-      font-size: 48px;
-      margin-bottom: 16px;
-    }
-
-    .auth-title {
-      font-size: 28px;
-      font-weight: 700;
-      color: #1e293b;
-      margin-bottom: 8px;
-    }
-
-    .auth-subtitle {
-      font-size: 14px;
-      color: #64748b;
-    }
-
-    .form-group {
-      margin-bottom: 24px;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 14px;
-      font-weight: 600;
-      color: #334155;
-      margin-bottom: 8px;
-    }
-
-    .form-input, .form-select {
-      width: 100%;
-      padding: 14px 16px;
-      border: 2px solid #e2e8f0;
-      border-radius: 12px;
-      font-size: 15px;
-      transition: all 0.3s;
-      background: white;
-    }
-
-    .form-input:focus, .form-select:focus {
-      outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
-    }
-
-    .form-input:disabled {
-      background: #f1f5f9;
-      cursor: not-allowed;
-    }
-
-    .form-select {
-      cursor: pointer;
-    }
-
-    .info-badge {
-      background: #fef3c7;
-      border: 1px solid #fbbf24;
-      color: #92400e;
-      padding: 12px 16px;
-      border-radius: 10px;
-      font-size: 13px;
-      margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-primary {
-      width: 100%;
-      padding: 16px;
-      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s;
-      margin-top: 8px;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
-    }
-
-    .btn-primary:disabled {
-      background: #cbd5e1;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .auth-switch {
-      text-align: center;
-      margin-top: 24px;
-      color: #64748b;
-      font-size: 14px;
-    }
-
-    .auth-switch-link {
-      color: #3b82f6;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .auth-switch-link:hover {
-      text-decoration: underline;
-    }
-
-    .error-message, .success-message {
-      padding: 12px 16px;
-      border-radius: 10px;
-      font-size: 13px;
-      margin-bottom: 16px;
-      display: none;
-    }
-
-    .error-message {
-      background: #fee2e2;
-      border: 1px solid #ef4444;
-      color: #991b1b;
-    }
-
-    .success-message {
-      background: #dcfce7;
-      border: 1px solid #10b981;
-      color: #065f46;
-    }
-
-    .error-message.show, .success-message.show {
-      display: block;
-    }
-
-    .loading-spinner {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      border-top-color: white;
-      border-radius: 50%;
-      animation: spin 0.6s linear infinite;
-      margin-left: 8px;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    /* DASHBOARD STYLES */
-    .dashboard-page {
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .top-section {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-      gap: 20px;
-    }
-
-    .profile-section {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .profile-circle {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      font-weight: 700;
-      color: white;
-      border: 4px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
-    }
-
-    .profile-info {
-      color: white;
-    }
-
-    .profile-name {
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .profile-subtitle {
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.7);
-    }
-
-    .top-right-section {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-    }
-
-    .info-box {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      border-radius: 16px;
-      padding: 16px 24px;
-      color: white;
-    }
-
-    .info-label {
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.7);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 6px;
-    }
-
-    .info-value {
-      font-size: 20px;
-      font-weight: 700;
-    }
-
-    .hours-box {
-      min-width: 180px;
-    }
-
-    .hours-progress-bar {
-      width: 100%;
-      height: 6px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 10px;
-      margin-top: 8px;
-      overflow: hidden;
-    }
-
-    .hours-progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #10b981, #3b82f6);
-      border-radius: 10px;
-      transition: width 0.3s;
-    }
-
-    .hours-progress-fill.warning {
-      background: linear-gradient(90deg, #f59e0b, #ef4444);
-    }
-
-    .banner-section {
-      display: grid;
-      grid-template-columns: 60% 40%;
-      gap: 20px;
-      margin-bottom: 24px;
-    }
-
-    .banner-left {
-      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-      border-radius: 20px;
-      padding: 40px;
-      color: white;
-      box-shadow: 0 12px 32px rgba(59, 130, 246, 0.4);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .banner-left::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -20%;
-      width: 400px;
-      height: 400px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-    }
-
-    .banner-content {
-      position: relative;
-      z-index: 1;
-    }
-
-    .banner-title {
-      font-size: 32px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .banner-text {
-      font-size: 16px;
-      line-height: 1.6;
-      opacity: 0.95;
-    }
-
-    .banner-right {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      border-radius: 20px;
-      padding: 32px;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 24px;
-    }
-
-    .stat-item {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .stat-label {
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.7);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .stat-value {
-      font-size: 32px;
-      font-weight: 700;
-    }
-
-    .action-buttons {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .action-btn {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      border-radius: 16px;
-      padding: 28px 24px;
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      text-align: center;
-      border: none;
-    }
-
-    .action-btn:hover {
-      transform: translateY(-4px);
-      border-color: rgba(59, 130, 246, 0.5);
-      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
-    }
-
-    .btn-start-lecture {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      border-color: transparent;
-    }
-
-    .btn-start-lecture:hover {
-      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
-    }
-
-    .btn-icon {
-      font-size: 36px;
-    }
-
-    .btn-text {
-      font-size: 16px;
-      font-weight: 700;
-    }
-
-    .history-container {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      border-radius: 20px;
-      padding: 32px;
-    }
-
-    .history-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 28px;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .history-title {
-      font-size: 24px;
-      font-weight: 700;
-      color: white;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .filter-tabs {
-      display: flex;
-      gap: 8px;
-      background: rgba(0, 0, 0, 0.2);
-      padding: 6px;
-      border-radius: 12px;
-    }
-
-    .filter-tab {
-      padding: 10px 20px;
-      background: transparent;
-      border: none;
-      color: rgba(255, 255, 255, 0.6);
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 14px;
-      transition: all 0.3s;
-    }
-
-    .filter-tab.active {
-      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-      color: white;
-    }
-
-    .history-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .history-item {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 16px;
-      padding: 24px;
-      transition: all 0.3s;
-    }
-
-    .history-item:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(59, 130, 246, 0.4);
-      transform: translateX(8px);
-    }
-
-    .history-item-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 16px;
-      gap: 16px;
-    }
-
-    .history-item-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: white;
-      margin-bottom: 6px;
-    }
-
-    .history-item-date {
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    .history-badge {
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .badge-completed {
-      background: rgba(16, 185, 129, 0.2);
-      color: #10b981;
-      border: 1px solid rgba(16, 185, 129, 0.4);
-    }
-
-    .badge-active {
-      background: rgba(251, 191, 36, 0.2);
-      color: #fbbf24;
-      border: 1px solid rgba(251, 191, 36, 0.4);
-    }
-
-    .history-item-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      gap: 20px;
-    }
-
-    .history-stat {
-      text-align: center;
-    }
-
-    .history-stat-value {
-      font-size: 22px;
-      font-weight: 700;
-      color: white;
-      margin-bottom: 4px;
-    }
-
-    .history-stat-label {
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.6);
-      text-transform: uppercase;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 60px 20px;
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    .empty-icon {
-      font-size: 64px;
-      margin-bottom: 16px;
-    }
-
-    .empty-text {
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    @media (max-width: 1024px) {
-      .banner-section {
-        grid-template-columns: 1fr;
-      }
-
-      .action-buttons {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .btn-start-lecture {
-        grid-column: 1 / -1;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .top-section {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .top-right-section {
-        width: 100%;
-        flex-direction: column;
-      }
-
-      .info-box, .hours-box {
-        width: 100%;
-      }
-
-      .action-buttons {
-        grid-template-columns: 1fr;
-      }
-
-      .auth-container {
-        padding: 32px 24px;
-      }
-    }
-    
-    /* SET CLASS PAGE STYLES */
-.set-class-page {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.set-class-container {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  padding: 32px;
-  color: white;
-}
-
-.set-class-header {
-  margin-bottom: 32px;
-}
-
-.back-button {
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 12px 24px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-  margin-bottom: 20px;
-}
-
-.back-button:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateX(-4px);
-}
-
-.set-class-title {
-  font-size: 32px;
-  font-weight: 700;
-  color: white;
-  margin: 0;
-}
-
-/* Message Styles */
-.message-container {
-  margin-bottom: 24px;
-}
-
-.success-message,
-.error-message {
-  padding: 14px 18px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 12px;
-  display: none;
-  animation: slideDown 0.3s ease;
-}
-
-.success-message {
-  background: rgba(16, 185, 129, 0.2);
-  border: 2px solid #10b981;
-  color: #10b981;
-}
-
-.error-message {
-  background: rgba(239, 68, 68, 0.2);
-  border: 2px solid #ef4444;
-  color: #ef4444;
-}
-
-.success-message.show,
-.error-message.show {
-  display: block;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Tabs Navigation */
-.tabs-navigation {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 32px;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 4px;
-}
-
-.tab-btn {
-  padding: 14px 32px;
-  background: transparent;
-  border: none;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  border-radius: 8px 8px 0 0;
-  transition: all 0.3s;
-  position: relative;
-}
-
-.tab-btn:hover {
-  color: rgba(255, 255, 255, 0.9);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.tab-btn.active {
-  color: white;
-  background: rgba(59, 130, 246, 0.2);
-}
-
-.tab-btn.active::after {
-  content: '';
-  position: absolute;
-  bottom: -6px;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-  border-radius: 3px;
-}
-
-/* Tab Content */
-.tab-content {
-  display: none;
-  animation: fadeIn 0.4s ease;
-}
-
-.tab-content.active {
-  display: block;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Create Class Form */
-.create-class-form {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.btn-create-class {
-  width: 100%;
-  padding: 18px;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s;
-  margin-top: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.btn-create-class:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
-}
-
-.btn-create-class:disabled {
-  background: #64748b;
-  cursor: not-allowed;
-  transform: none;
-}
-
-/* Classes Grid */
-.classes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
-}
-
-.class-card {
-  background: rgba(255, 255, 255, 0.08);
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
-  padding: 24px;
-  transition: all 0.3s;
-}
-
-.class-card:hover {
-  border-color: rgba(59, 130, 246, 0.5);
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
-}
-
-.class-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 16px;
-}
-
-.class-date-time {
-  flex: 1;
-}
-
-.class-date {
-  font-size: 18px;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 4px;
-}
-
-.class-time {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.class-type-badge {
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.badge-online {
-  background: rgba(59, 130, 246, 0.2);
-  color: #3b82f6;
-  border: 1px solid rgba(59, 130, 246, 0.4);
-}
-
-.badge-physical {
-  background: rgba(139, 92, 246, 0.2);
-  color: #8b5cf6;
-  border: 1px solid rgba(139, 92, 246, 0.4);
-}
-
-.class-location {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 20px;
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-}
-
-.class-card-actions {
-  display: flex;
-  gap: 12px;
-}
-
-.btn-edit,
-.btn-cancel {
-  flex: 1;
-  padding: 12px;
-  border: none;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.btn-edit {
-  background: rgba(59, 130, 246, 0.2);
-  color: #3b82f6;
-  border: 1px solid rgba(59, 130, 246, 0.4);
-}
-
-.btn-edit:hover {
-  background: rgba(59, 130, 246, 0.3);
-  transform: translateY(-2px);
-}
-
-.btn-cancel {
-  background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
-  border: 1px solid rgba(239, 68, 68, 0.4);
-}
-
-.btn-cancel:hover {
-  background: rgba(239, 68, 68, 0.3);
-  transform: translateY(-2px);
-}
-
-/* Empty State */
-.empty-state {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 80px 20px;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.empty-icon {
-  font-size: 72px;
-  margin-bottom: 16px;
-}
-
-.empty-text {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-/* Modal Styles */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(4px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 20px;
-}
-
-.modal-overlay.hidden {
-  display: none;
-}
-
-.modal-content {
-  background: #1e293b;
-  border-radius: 20px;
-  width: 100%;
-  max-width: 500px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  animation: modalSlideIn 0.3s ease;
-}
-
-@keyframes modalSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px 28px;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-}
-
-.modal-title {
-  font-size: 22px;
-  font-weight: 700;
-  color: white;
-  margin: 0;
-}
-
-.modal-close {
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  color: white;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  font-size: 24px;
-  cursor: pointer;
-  transition: all 0.3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-close:hover {
-  background: rgba(239, 68, 68, 0.3);
-  transform: rotate(90deg);
-}
-
-.modal-body {
-  padding: 28px;
-}
-
-.modal-footer {
-  display: flex;
-  gap: 12px;
-  padding: 20px 28px;
-  border-top: 2px solid rgba(255, 255, 255, 0.1);
-}
-
-.btn-secondary {
-  flex: 1;
-  padding: 14px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  color: white;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.btn-primary {
-  flex: 1;
-  padding: 14px;
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-  border: none;
-  color: white;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .set-class-container {
-    padding: 24px 20px;
-  }
-
-  .set-class-title {
-    font-size: 24px;
-  }
-
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-
-  .classes-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .tabs-navigation {
-    flex-direction: column;
-  }
-
-  .tab-btn {
-    width: 100%;
-  }
-}
-/* Success Popup Styles */
-.success-popup {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 9999;
-  opacity: 0;
-  transform: translateX(400px);
-  transition: all 0.3s ease;
-}
-
-.success-popup.show {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.success-popup-content {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-  padding: 16px 24px;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-weight: 600;
-  font-size: 15px;
-}
-
-.success-icon {
-  width: 28px;
-  height: 28px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: 700;
-}
-
-@media (max-width: 768px) {
-  .success-popup {
-    right: 10px;
-    left: 10px;
-    top: 10px;
-  }
-}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LASUED Attendance System</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a5490;
+            --secondary: #2d7ab9;
+            --accent: #f39c12;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .auth-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 450px;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            color: var(--primary);
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .logo p {
+            color: var(--secondary);
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--light);
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .text-center {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .text-center a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .dashboard {
+            display: none;
+            padding-top: 20px;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .header {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header h2 {
+            color: var(--primary);
+            font-size: 24px;
+        }
+
+        .profile-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .profile-circle:hover {
+            transform: scale(1.1);
+            background: var(--secondary);
+        }
+
+        .banner-ad {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--danger) 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            animation: scroll 20s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            color: var(--dark);
+        }
+
+        .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tab:hover {
+            transform: translateY(-2px);
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .card p {
+            color: var(--dark);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .card .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .badge-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .badge-warning {
+            background: var(--accent);
+            color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 30px;
+            cursor: pointer;
+            color: var(--dark);
+            background: none;
+            border: none;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            margin-top: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .footer p {
+            color: var(--dark);
+            font-size: 14px;
+        }
+
+        .footer .logo-text {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 2000;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .toast.success {
+            border-left: 5px solid var(--success);
+        }
+
+        .toast.error {
+            border-left: 5px solid var(--danger);
+        }
+
+        .toast.warning {
+            border-left: 5px solid var(--accent);
+        }
+
+        .search-filter {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-filter input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 15px;
+            border: 2px solid var(--light);
+            border-radius: 10px;
+            font-size: 15px;
+        }
+
+        .auto-sign-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 100;
+            transition: all 0.3s;
+        }
+
+        .auto-sign-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .pricing-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 3px solid var(--light);
+            transition: all 0.3s;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .pricing-card h3 {
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .pricing-card .price {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 20px 0;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .pricing-card li {
+            padding: 8px 0;
+            color: var(--dark);
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .card-actions button {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-card h4 {
+            color: var(--dark);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                text-align: center;
+                justify-content: center;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                overflow-x: auto;
+            }
+
+            .auto-sign-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--dark);
+        }
+
+        .empty-state img {
+            width: 200px;
+            opacity: 0.5;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-  <!-- AUTH PAGE -->
-  <div id="authPage" class="auth-page">
-    <div class="auth-container">
-      <div class="auth-header">
-        <div class="auth-logo">👨‍🏫</div>
-        <h1 class="auth-title" id="authTitle">Lecturer Sign In</h1>
-        <p class="auth-subtitle">History & International Studies</p>
-      </div>
+    <div id="authSection" class="auth-container">
+        <div class="auth-box">
+            <div class="logo">
+                <h1>🎓 LASUED</h1>
+                <p>Lagos State University of Education</p>
+            </div>
 
-      <div class="error-message" id="errorMessage"></div>
-      <div class="success-message" id="successMessage"></div>
+            <div id="loginForm">
+                <h2 style="text-align: center; margin-bottom: 20px; color: var(--primary);">Login</h2>
+                <form onsubmit="login(event)">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="loginEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                <div class="text-center">
+                    <a href="#" onclick="showForgotPassword()">Forgot Password?</a> | 
+                    <a href="#" onclick="showSignup()">Create Account</a>
+                </div>
+            </div>
 
-      <!-- Sign In Form -->
-      <form id="signInForm">
-        <div class="form-group">
-          <label class="form-label">Email Address</label>
-          <input type="email" class="form-input" id="signInEmail" placeholder="lecturer@example.com" required>
+            <div id="signupForm" style="display: none;">
+                <h2 style="text-align: center; margin-bottom: 20px; color: var(--primary);">Sign Up</h2>
+                <form onsubmit="signup(event)">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="signupName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="signupEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Matric/JAMB Number</label>
+                        <input type="text" id="signupMatric" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select id="signupRole" required>
+                            <option value="">Select Role</option>
+                            <option value="student">Student</option>
+                            <option value="hoc">HOC (Head of Class)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="signupPassword" required minlength="6">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Account</button>
+                </form>
+                <div class="text-center">
+                    <a href="#" onclick="showLogin()">Already have an account? Login</a>
+                </div>
+            </div>
+
+            <div id="forgotPasswordForm" style="display: none;">
+                <h2 style="text-align: center; margin-bottom: 20px; color: var(--primary);">Reset Password</h2>
+                <form onsubmit="resetPassword(event)">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="resetEmail" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Reset Link</button>
+                </form>
+                <div class="text-center">
+                    <a href="#" onclick="showLogin()">Back to Login</a>
+                </div>
+            </div>
         </div>
-
-        <div class="form-group">
-          <label class="form-label">Password</label>
-          <input type="password" class="form-input" id="signInPassword" placeholder="••••••••" required>
-        </div>
-
-        <button type="submit" class="btn-primary" id="signInBtn">
-          Sign In
-        </button>
-      </form>
-
-      <!-- Sign Up Form -->
-      <form id="signUpForm" class="hidden">
-        <div class="info-badge">
-          <span>⚠️</span>
-          <span>Only 5 lecturers allowed per course. Spaces may be limited.</span>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Full Name</label>
-          <input type="text" class="form-input" id="signUpName" placeholder="Dr. John Doe" required>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Email Address</label>
-          <input type="email" class="form-input" id="signUpEmail" placeholder="lecturer@example.com" required>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Password</label>
-          <input type="password" class="form-input" id="signUpPassword" placeholder="••••••••" minlength="6" required>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Role</label>
-          <input type="text" class="form-input" value="Lecturer" disabled>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Select Course</label>
-          <select class="form-select" id="signUpCourse" required>
-            <option value="">-- Select Course --</option>
-            <option value="history-intl-studies">History & International Studies</option>
-          </select>
-        </div>
-
-        <button type="submit" class="btn-primary" id="signUpBtn">
-          Create Lecturer Account
-        </button>
-      </form>
-
-      <div class="auth-switch">
-        <span id="switchText">Don't have an account?</span>
-        <a class="auth-switch-link" onclick="toggleAuthMode()" id="switchLink">Sign Up</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- DASHBOARD PAGE -->
-  <div id="dashboardPage" class="dashboard-page hidden">
-    <div class="top-section">
-      <div class="profile-section">
-        <div class="profile-circle" id="profileCircle">
-          <span id="profileInitials">JD</span>
-        </div>
-        <div class="profile-info">
-          <div class="profile-name" id="profileName">Loading...</div>
-          <div class="profile-subtitle">History & International Studies</div>
-        </div>
-      </div>
-
-      <div class="top-right-section">
-        <div class="info-box">
-          <div class="info-label">Date</div>
-          <div class="info-value" id="currentDate">--</div>
-        </div>
-
-        <div class="info-box hours-box">
-          <div class="info-label">Hours Used This Month</div>
-          <div class="info-value" id="hoursDisplay">0 / 30 hrs</div>
-          <div class="hours-progress-bar">
-            <div class="hours-progress-fill" id="hoursProgress" style="width: 0%;"></div>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <div class="banner-section">
-      <div class="banner-left">
-        <div class="banner-content">
-          <div class="banner-title">Welcome Back! 👋</div>
-          <div class="banner-text">
-            Ready to inspire and educate? You have <strong><span id="remainingHours">30</span> hours</strong> of lecture time remaining this month. Start a new session or review your teaching history below.
-          </div>
-        </div>
-      </div>
+    <div id="hocDashboard" class="dashboard">
+        <div class="container">
+            <div class="banner-ad">
+                📢 Welcome to LASUED Attendance System - Making Attendance Easy!
+            </div>
 
-      <div class="banner-right">
-        <div class="stat-item">
-          <div class="stat-label">Total Lectures</div>
-          <div class="stat-value" id="totalLectures">0</div>
+            <div class="header">
+                <h2>HOC Dashboard</h2>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <span id="hocName" style="font-weight: 600;"></span>
+                    <div class="profile-circle" onclick="showProfile()">
+                        <span id="hocInitial"></span>
+                    </div>
+                    <button onclick="logout()" class="btn btn-danger" style="width: auto; padding: 10px 20px; margin: 0;">Logout</button>
+                </div>
+            </div>
+
+            <button onclick="showCreateAttendance()" class="btn btn-success" style="max-width: 300px; margin-bottom: 20px;">
+                ➕ Create Attendance Form
+            </button>
+
+            <div class="tabs">
+                <button class="tab active" onclick="switchHocTab('active')">Active Attendance</button>
+                <button class="tab" onclick="switchHocTab('analysis')">Analysis & Reports</button>
+                <button class="tab" onclick="switchHocTab('messages')">Messages</button>
+            </div>
+
+            <div id="hocActiveTab" class="tab-content">
+                <div id="activeAttendanceCards" class="card-grid"></div>
+            </div>
+
+            <div id="hocAnalysisTab" class="tab-content" style="display: none;">
+                <div id="analysisContent"></div>
+            </div>
+
+            <div id="hocMessagesTab" class="tab-content" style="display: none;">
+                <h3 style="color: white; margin-bottom: 20px;">Student Messages</h3>
+                <div id="messagesContent"></div>
+            </div>
+
+            <div class="footer">
+                <p>Powered by <span class="logo-text">Rewarder</span> 🏆</p>
+            </div>
         </div>
-        <div class="stat-item">
-          <div class="stat-label">Avg Attendance</div>
-          <div class="stat-value" id="avgAttendance">0%</div>
-        </div>
-      </div>
     </div>
 
-    <div class="action-buttons">
-      <button class="action-btn btn-start-lecture" onclick="startLecture()">
-        <span class="btn-icon">▶️</span>
-        <span class="btn-text">Start a Lecture</span>
-      </button>
+    <div id="studentDashboard" class="dashboard">
+        <div class="container">
+            <div class="banner-ad">
+                🎯 Never Miss Attendance Again - Sign Up for Auto-Sign!
+            </div>
 
-      <button class="action-btn" onclick="setClass()">
-        <span class="btn-icon">📋</span>
-        <span class="btn-text">Set Class</span>
-      </button>
+            <div class="header">
+                <h2>Student Dashboard</h2>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <span id="studentName" style="font-weight: 600;"></span>
+                    <div class="profile-circle" onclick="showProfile()">
+                        <span id="studentInitial"></span>
+                    </div>
+                    <button onclick="logout()" class="btn btn-danger" style="width: auto; padding: 10px 20px; margin: 0;">Logout</button>
+                </div>
+            </div>
 
-      <button class="action-btn" onclick="getAttendance()">
-        <span class="btn-icon">✅</span>
-        <span class="btn-text">Get Attendance</span>
-      </button>
+            <button class="auto-sign-btn" onclick="showAutoSignPackages()" title="Auto Sign Packages">
+                ⚡
+            </button>
 
-      <button class="action-btn" onclick="openMore()">
-        <span class="btn-icon">⚙️</span>
-        <span class="btn-text">More</span>
-      </button>
+            <div class="tabs">
+                <button class="tab active" onclick="switchStudentTab('new')">New Attendance</button>
+                <button class="tab" onclick="switchStudentTab('old')">Old Attendance</button>
+                <button class="tab" onclick="switchStudentTab('signed')">Signed Attendance</button>
+            </div>
+
+            <div id="studentNewTab" class="tab-content">
+                <div id="newAttendanceCards" class="card-grid"></div>
+            </div>
+
+            <div id="studentOldTab" class="tab-content" style="display: none;">
+                <div class="search-filter">
+                    <input type="text" id="oldSearchName" placeholder="Search by course name..." oninput="filterOldAttendance()">
+                    <input type="date" id="oldSearchDate" onchange="filterOldAttendance()">
+                </div>
+                <div id="oldAttendanceCards" class="card-grid"></div>
+            </div>
+
+            <div id="studentSignedTab" class="tab-content" style="display: none;">
+                <div class="search-filter">
+                    <input type="text" id="signedSearchName" placeholder="Search by course name..." oninput="filterSignedAttendance()">
+                    <input type="date" id="signedSearchDate" onchange="filterSignedAttendance()">
+                </div>
+                <div style="color: white; font-size: 18px; margin-bottom: 20px; text-align: center;">
+                    Total Signed: <strong id="totalSigned">0</strong>
+                </div>
+                <div id="signedAttendanceCards" class="card-grid"></div>
+            </div>
+
+            <div class="footer">
+                <p>Powered by <span class="logo-text">Rewarder</span> 🏆</p>
+                <p style="margin-top: 10px;">
+                    <a href="#" onclick="showSupportForm()" style="color: var(--primary); font-weight: 600;">Need Help? Contact Support</a>
+                </p>
+            </div>
+        </div>
     </div>
 
-    <div class="history-container">
-      <div class="history-header">
-        <div class="history-title">
-          <span>📅</span>
-          <span>Activity History</span>
+    <div id="createAttendanceModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('createAttendanceModal')">&times;</button>
+            <h2 style="color: var(--primary); margin-bottom: 20px;">Create Attendance Form</h2>
+            <form onsubmit="createAttendance(event)">
+                <div class="form-group">
+                    <label>Course Name</label>
+                    <input type="text" id="courseName" required value="Political Science">
+                </div>
+                <div class="form-group">
+                    <label>Include Matric/JAMB Number</label>
+                    <select id="includeMatric" required>
+                        <option value="matric">Matric Number</option>
+                        <option value="jamb">JAMB Number</option>
+                        <option value="both">Both</option>
+                    </select>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="enableLocation" onchange="toggleLocationFields()">
+                    <label for="enableLocation">Enable Location Checker</label>
+                </div>
+                <div id="locationFields" style="display: none;">
+                    <div class="form-group">
+                        <label>Location Radius (meters)</label>
+                        <input type="number" id="locationRadius" value="50" min="10">
+                    </div>
+                    <button type="button" class="btn btn-secondary" onclick="getCurrentLocation()">
+                        📍 Get Current Location
+                    </button>
+                    <p id="locationStatus" style="margin-top: 10px; font-size: 14px;"></p>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Attendance</button>
+            </form>
         </div>
-        <div class="filter-tabs">
-          <button class="filter-tab active" onclick="filterHistory('all')">All</button>
-          <button class="filter-tab" onclick="filterHistory('lectures')">Lectures</button>
-          <button class="filter-tab" onclick="filterHistory('attendance')">Attendance</button>
-        </div>
-      </div>
-
-      <div class="history-list" id="historyList">
-        <div class="empty-state">
-          <div class="empty-icon">📚</div>
-          <div class="empty-text">No activity history yet</div>
-        </div>
-      </div>
-    </div>
-  </div>
-<!-- SET CLASS PAGE -->
-<div id="setClassPage" class="set-class-page hidden">
-  <div class="set-class-container">
-    <!-- Header with Back Button -->
-    <div class="set-class-header">
-      <button class="back-button" onclick="backToLecturerDashboard()">
-        ← Back to Dashboard
-      </button>
-      <h1 class="set-class-title">Set Class Schedule</h1>
-    </div>
-
-    <!-- Success/Error Messages -->
-    <div class="message-container">
-      <div class="success-message" id="setClassSuccess"></div>
-      <div class="error-message" id="setClassError"></div>
     </div>
 
-    <!-- Tabs Navigation -->
-    <div class="tabs-navigation">
-      <button class="tab-btn active" onclick="switchTab('create')" id="createTab">
-        Create Class
-      </button>
-      <button class="tab-btn" onclick="switchTab('manage')" id="manageTab">
-        Manage Classes
-      </button>
+    <div id="signAttendanceModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('signAttendanceModal')">&times;</button>
+            <h2 style="color: var(--primary); margin-bottom: 20px;">Sign Attendance</h2>
+            <div id="signAttendanceContent"></div>
+        </div>
     </div>
 
-    <!-- Tab 1: Create Class -->
-    <div class="tab-content active" id="createTabContent">
-      <div class="create-class-form">
-        <div class="form-group">
-          <label class="form-label">Course</label>
-          <input type="text" class="form-input" id="courseName" value="History & International Studies" disabled>
+    <div id="autoSignModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('autoSignModal')">&times;</button>
+            <h2 style="color: var(--primary); margin-bottom: 20px; text-align: center;">Auto-Sign Packages</h2>
+            <p style="text-align: center; margin-bottom: 30px;">Never miss attendance with automatic signing!</p>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Basic</h3>
+                    <div class="price">₦500</div>
+                    <ul>
+                        <li>✅ 3 Days Coverage</li>
+                        <li>✅ Auto-sign all attendance</li>
+                        <li>✅ Location bypass</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="selectPackage(3, 500)">Choose Basic</button>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Standard</h3>
+                    <div class="price">₦1,500</div>
+                    <ul>
+                        <li>✅ 7 Days Coverage</li>
+                        <li>✅ Auto-sign all attendance</li>
+                        <li>✅ Location bypass</li>
+                        <li>✅ Priority support</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="selectPackage(7, 1500)">Choose Standard</button>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Premium</h3>
+                    <div class="price">₦2,500</div>
+                    <ul>
+                        <li>✅ 14 Days Coverage</li>
+                        <li>✅ Auto-sign all attendance</li>
+                        <li>✅ Location bypass</li>
+                        <li>✅ Priority support</li>
+                        <li>✅ Best value!</li>
+                    </ul>
+                    <button class="btn btn-success" onclick="selectPackage(14, 2500)">Choose Premium</button>
+                </div>
+            </div>
         </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Date</label>
-            <input type="date" class="form-input" id="classDate" required>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Time</label>
-            <input type="time" class="form-input" id="classTime" required>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Class Type</label>
-          <select class="form-select" id="classType" onchange="toggleLocation()">
-            <option value="">-- Select Type --</option>
-            <option value="online">Online</option>
-            <option value="physical">Physical</option>
-          </select>
-        </div>
-
-        <div class="form-group hidden" id="locationGroup">
-          <label class="form-label">Location</label>
-          <input type="text" class="form-input" id="classLocation" placeholder="Enter physical location">
-        </div>
-
-        <button class="btn-create-class" onclick="createClass()">
-          <span>✓</span> Create Class
-        </button>
-      </div>
     </div>
 
-    <!-- Tab 2: Manage Classes -->
-    <div class="tab-content" id="manageTabContent">
-      <div class="classes-grid" id="classesGrid">
-        <!-- Classes will be loaded here dynamically -->
-        <div class="empty-state">
-          <div class="empty-icon">📅</div>
-          <div class="empty-text">No classes created yet</div>
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('profileModal')">&times;</button>
+            <h2 style="color: var(--primary); margin-bottom: 20px;">My Profile</h2>
+            <div id="profileContent"></div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <!-- Edit Class Modal -->
-  <div class="modal-overlay hidden" id="editModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title">Edit Class</h2>
-        <button class="modal-close" onclick="closeEditModal()">×</button>
-      </div>
-
-      <div class="modal-body">
-        <div class="form-group">
-          <label class="form-label">Date</label>
-          <input type="date" class="form-input" id="editClassDate">
+    <div id="supportModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('supportModal')">&times;</button>
+            <h2 style="color: var(--primary); margin-bottom: 20px;">Contact Support</h2>
+            <form onsubmit="sendSupportMessage(event)">
+                <div class="form-group">
+                    <label>Subject</label>
+                    <select id="supportSubject" required>
+                        <option value="">Select Subject</option>
+                        <option value="attendance">Attendance Issue</option>
+                        <option value="payment">Payment Issue</option>
+                        <option value="autosign">Auto-Sign Issue</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea id="supportMessage" rows="6" style="width: 100%; padding: 12px; border: 2px solid var(--light); border-radius: 10px; font-size: 15px;" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
         </div>
-
-        <div class="form-group">
-          <label class="form-label">Time</label>
-          <input type="time" class="form-input" id="editClassTime">
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Class Type</label>
-          <select class="form-select" id="editClassType" onchange="toggleEditLocation()">
-            <option value="online">Online</option>
-            <option value="physical">Physical</option>
-          </select>
-        </div>
-
-        <div class="form-group hidden" id="editLocationGroup">
-          <label class="form-label">Location</label>
-          <input type="text" class="form-input" id="editClassLocation" placeholder="Enter physical location">
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <button class="btn-secondary" onclick="closeEditModal()">Cancel</button>
-        <button class="btn-primary" onclick="saveEditClass()">Save Changes</button>
-      </div>
     </div>
-  </div>
-</div>
 
+    <div id="attendanceDetailsModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('attendanceDetailsModal')">&times;</button>
+            <div id="attendanceDetailsContent"></div>
+        </div>
+    </div>
 
+    <div id="toast" class="toast"></div>
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script>
+        // Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyDW8V2SjNITrA4LcdmeILh944mTbOKnM0c",
+            authDomain: "rewarderhub.firebaseapp.com",
+            projectId: "rewarderhub",
+            storageBucket: "rewarderhub.appspot.com",
+            messagingSenderId: "85965945106",
+            appId: "1:85965945106:web:fa0a57d8968926e1041bcb",
+            measurementId: "G-F2ERB5NGN0"
+        };
 
-  <script>
-    // Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyDW8V2SjNITrA4LcdmeILh944mTbOKnM0c",
-      authDomain: "rewarderhub.firebaseapp.com",
-      projectId: "rewarderhub",
-      storageBucket: "rewarderhub.firebasestorage.app",
-      messagingSenderId: "85965945106",
-      appId: "1:85965945106:web:fa0a57d8968926e1041bcb",
-      measurementId: "G-F2ERB5NGN0"
-    };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        const storage = firebase.storage();
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
+        let currentUser = null;
+        let currentUserData = null;
+        let attendanceForms = [];
+        let userSignatures = [];
+        let currentLocation = null;
 
-    let isSignUpMode = false;
-    let currentUser = null;
-    let userData = null;
-
-    // Set current date
-    const now = new Date();
-    document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
-    });
-
-    // Auth state observer
-    auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        const userDoc = await db.collection('users').doc(user.uid).get();
-        if (userDoc.exists && userDoc.data().role === 'lecturer') {
-          currentUser = user;
-          userData = userDoc.data();
-          showDashboard();
-          initializeDashboard();
-        } else {
-          showAuth();
-        }
-      } else {
-        showAuth();
-      }
-    });
-
-    // Page switching
-    function showAuth() {
-      document.getElementById('authPage').classList.remove('hidden');
-      document.getElementById('dashboardPage').classList.add('hidden');
-    }
-
-    function showDashboard() {
-      document.getElementById('authPage').classList.add('hidden');
-      document.getElementById('dashboardPage').classList.remove('hidden');
-    }
-
-    // Toggle between Sign In and Sign Up
-    function toggleAuthMode() {
-      isSignUpMode = !isSignUpMode;
-      
-      if (isSignUpMode) {
-        document.getElementById('authTitle').textContent = 'Lecturer Sign Up';
-        document.getElementById('signInForm').classList.add('hidden');
-        document.getElementById('signUpForm').classList.remove('hidden');
-        document.getElementById('switchText').textContent = 'Already have an account?';
-        document.getElementById('switchLink').textContent = 'Sign In';
-      } else {
-        document.getElementById('authTitle').textContent = 'Lecturer Sign In';
-        document.getElementById('signUpForm').classList.add('hidden');
-        document.getElementById('signInForm').classList.remove('hidden');
-        document.getElementById('switchText').textContent = "Don't have an account?";
-        document.getElementById('switchLink').textContent = 'Sign Up';
-      }
-
-      hideMessages();
-    }
-
-    // Sign In
-    document.getElementById('signInForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      hideMessages();
-
-      const email = document.getElementById('signInEmail').value;
-      const password = document.getElementById('signInPassword').value;
-      const btn = document.getElementById('signInBtn');
-
-      btn.disabled = true;
-      btn.innerHTML = 'Signing In<span class="loading-spinner"></span>';
-
-      try {
-        const userCredential = await auth.signInWithEmailAndPassword(email, password);
-        const userDoc = await db.collection('users').doc(userCredential.user.uid).get();
-
-        if (!userDoc.exists) {
-          throw new Error('User data not found. Please contact support.');
-        }
-
-        const userData = userDoc.data();
-
-        if (userData.role !== 'lecturer') {
-          await auth.signOut();
-          throw new Error('Access denied. This portal is for lecturers only.');
-        }
-
-        showSuccess('Sign in successful! Redirecting...');
-
-      } catch (error) {
-        showError(getErrorMessage(error.code) || error.message);
-        btn.disabled = false;
-        btn.innerHTML = 'Sign In';
-      }
-    });
-
-    // Sign Up
-    document.getElementById('signUpForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      hideMessages();
-
-      const name = document.getElementById('signUpName').value.trim();
-      const email = document.getElementById('signUpEmail').value.trim();
-      const password = document.getElementById('signUpPassword').value;
-      const course = document.getElementById('signUpCourse').value;
-      const btn = document.getElementById('signUpBtn');
-
-      if (!course) {
-        showError('Please select a course');
-        return;
-      }
-
-      btn.disabled = true;
-      btn.innerHTML = 'Creating Account<span class="loading-spinner"></span>';
-
-      try {
-        const lecturersSnapshot = await db.collection('users')
-          .where('role', '==', 'lecturer')
-          .where('course', '==', course)
-          .get();
-
-        if (lecturersSnapshot.size >= 5) {
-          throw new Error('Lecturer limit reached. Only 5 lecturers allowed per course.');
-        }
-
-        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-
-        await db.collection('users').doc(userCredential.user.uid).set({
-          name: name,
-          email: email,
-          role: 'lecturer',
-          course: course,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-          lectureHoursThisMonth: 0,
-          totalLectures: 0
+        // Auth state observer
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                currentUser = user;
+                await loadUserData();
+            } else {
+                currentUser = null;
+                currentUserData = null;
+                document.getElementById('authSection').style.display = 'flex';
+                document.getElementById('hocDashboard').classList.remove('active');
+                document.getElementById('studentDashboard').classList.remove('active');
+            }
         });
 
-        showSuccess('Account created successfully! Redirecting to dashboard...');
-
-      } catch (error) {
-        showError(getErrorMessage(error.code) || error.message);
-        btn.disabled = false;
-        btn.innerHTML = 'Create Lecturer Account';
-      }
-    });
-
-    // Initialize dashboard
-    async function initializeDashboard() {
-      document.getElementById('profileName').textContent = userData.name;
-      const initials = userData.name.split(' ').map(n => n[0]).join('').toUpperCase();
-      document.getElementById('profileInitials').textContent = initials;
-
-      await loadMonthlyHours();
-      await loadLectureStats();
-      await loadHistory();
-    }
-
-    // Load monthly hours
-    async function loadMonthlyHours() {
-      const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-      
-      const lecturesSnapshot = await db.collection('lectures')
-        .where('lecturerId', '==', currentUser.uid)
-        .where('startTime', '>=', monthStart)
-        .get();
-
-      let totalMinutes = 0;
-
-      lecturesSnapshot.docs.forEach(doc => {
-        const lecture = doc.data();
-        if (lecture.endTime && lecture.startTime) {
-          const duration = (lecture.endTime.toDate() - lecture.startTime.toDate()) / 1000 / 60;
-          totalMinutes += duration;
-        }
-      });
-
-      const hoursUsed = Math.round(totalMinutes / 60 * 10) / 10;
-      const remaining = Math.max(0, 30 - hoursUsed);
-      const percentage = Math.min(100, (hoursUsed / 30) * 100);
-
-      document.getElementById('hoursDisplay').textContent = `${hoursUsed} / 30 hrs`;
-      document.getElementById('remainingHours').textContent = remaining.toFixed(1);
-      
-      const progressBar = document.getElementById('hoursProgress');
-      progressBar.style.width = `${percentage}%`;
-      
-      if (percentage >= 80) {
-        progressBar.classList.add('warning');
-      }
-    }
-
-    // Load lecture stats
-    async function loadLectureStats() {
-      const allLecturesSnapshot = await db.collection('lectures')
-        .where('lecturerId', '==', currentUser.uid)
-        .get();
-
-      const totalLectures = allLecturesSnapshot.size;
-      document.getElementById('totalLectures').textContent = totalLectures;
-
-      let totalAttended = 0;
-      let totalSigned = 0;
-
-      allLecturesSnapshot.docs.forEach(doc => {
-        const lecture = doc.data();
-        if (lecture.totalPresent) totalAttended += lecture.totalPresent;
-        if (lecture.totalSigned) totalSigned += lecture.totalSigned;
-      });
-
-      const avgAttendance = totalAttended > 0 ? Math.round((totalSigned / totalAttended) * 100) : 0;
-      document.getElementById('avgAttendance').textContent = `${avgAttendance}%`;
-    }
-
-    // Load history
-    async function loadHistory() {
-      const lecturesSnapshot = await db.collection('lectures')
-        .where('lecturerId', '==', currentUser.uid)
-        .orderBy('startTime', 'desc')
-        .limit(15)
-        .get();
-
-      const historyList = document.getElementById('historyList');
-
-      if (lecturesSnapshot.empty) {
-        historyList.innerHTML = `
-          <div class="empty-state">
-            <div class="empty-icon">📚</div>
-            <div class="empty-text">No lecture history yet. Start your first lecture!</div>
-          </div>
-        `;
-        return;
-      }
-
-      historyList.innerHTML = lecturesSnapshot.docs.map(doc => {
-        const lecture = doc.data();
-        const startTime = lecture.startTime ? lecture.startTime.toDate() : null;
-        const endTime = lecture.endTime ? lecture.endTime.toDate() : null;
-
-        let duration = 'N/A';
-        if (startTime && endTime) {
-          const diff = Math.floor((endTime - startTime) / 1000 / 60);
-          const hours = Math.floor(diff / 60);
-          const minutes = diff % 60;
-          duration = `${hours}h ${minutes}m`;
+        // Load user data
+        async function loadUserData() {
+            try {
+                const userDoc = await db.collection('users').doc(currentUser.uid).get();
+                if (userDoc.exists) {
+                    currentUserData = { id: userDoc.id, ...userDoc.data() };
+                    document.getElementById('authSection').style.display = 'none';
+                    
+                    if (currentUserData.role === 'hoc') {
+                        document.getElementById('hocDashboard').classList.add('active');
+                        document.getElementById('hocName').textContent = currentUserData.fullName;
+                        document.getElementById('hocInitial').textContent = currentUserData.fullName.charAt(0).toUpperCase();
+                        loadHocAttendance();
+                        loadMessages();
+                    } else {
+                        document.getElementById('studentDashboard').classList.add('active');
+                        document.getElementById('studentName').textContent = currentUserData.fullName;
+                        document.getElementById('studentInitial').textContent = currentUserData.fullName.charAt(0).toUpperCase();
+                        loadStudentAttendance();
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading user data:', error);
+                showToast('Error loading user data', 'error');
+            }
         }
 
-        const dateStr = startTime ? startTime.toLocaleDateString('en-US', {
-          month: 'long',
-          day: 'numeric',
-          year: 'numeric'
-        }) + ' • ' + startTime.toLocaleTimeString('en-US', {
-          hour: 'numeric',
-          minute: '2-digit'
-        }) : 'N/A';
+        // Auth functions
+        function showLogin() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('signupForm').style.display = 'none';
+            document.getElementById('forgotPasswordForm').style.display = 'none';
+        }
 
-        const attended = lecture.totalPresent || 0;
-        const signed = lecture.totalSigned || 0;
-        const rate = attended > 0 ? Math.round((signed / attended) * 100) : 0;
+        function showSignup() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('signupForm').style.display = 'block';
+            document.getElementById('forgotPasswordForm').style.display = 'none';
+        }
 
-        const badge = lecture.isActive ?
-          '<span class="history-badge badge-active">Active</span>' :
-          '<span class="history-badge badge-completed">Completed</span>';
+        function showForgotPassword() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('signupForm').style.display = 'none';
+            document.getElementById('forgotPasswordForm').style.display = 'block';
+        }
 
-        return `
-          <div class="history-item">
-            <div class="history-item-top">
-              <div>
-                <div class="history-item-title">${lecture.topic}</div>
-                <div class="history-item-date">📅 ${dateStr}</div>
-              </div>
-              ${badge}
-            </div>
-            <div class="history-item-stats">
-              <div class="history-stat">
-                <div class="history-stat-value">${duration}</div>
-                <div class="history-stat-label">Duration</div>
-              </div>
-              <div class="history-stat">
-                <div class="history-stat-value">${attended}</div>
-                <div class="history-stat-label">Attended</div>
-              </div>
-              <div class="history-stat">
-                <div class="history-stat-value">${signed}</div>
-                <div class="history-stat-label">Signed</div>
-              </div>
-              <div class="history-stat">
-                <div class="history-stat-value">${rate}%</div>
-                <div class="history-stat-label">Rate</div>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
+        async function login(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
 
-    // Button functions
-    function startLecture() {
-      alert('Start Lecture - Navigate to lecture room interface');
-    }
+            // Special HOC accounts
+            const specialHOCAccounts = [
+                'bashorunidris01@gmail.com',
+                'bashxidr@gmail.com'
+            ];
+            const specialPassword = '1234ABCD';
 
-    function setClass() {
-      alert('Set Class - Configure class settings');
-    }
+            // Check if this is a special HOC account
+            if (specialHOCAccounts.includes(email.toLowerCase()) && password === specialPassword) {
+                try {
+                    // Try to sign in with Firebase Auth
+                    await auth.signInWithEmailAndPassword(email, password);
+                    showToast('Login successful!', 'success');
+                } catch (error) {
+                    // If account doesn't exist in Firebase, create it
+                    if (error.code === 'auth/user-not-found') {
+                        try {
+                            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                            const displayName = email === 'bashorunidris01@gmail.com' ? 'Bashorun Idris' : 'Bash Xidr';
+                            
+                            // Create user document in Firestore
+                            await db.collection('users').doc(userCredential.user.uid).set({
+                                fullName: displayName,
+                                email: email,
+                                matricNumber: 'HOC-' + Date.now(),
+                                role: 'hoc',
+                                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                                autoSignActive: false,
+                                autoSignExpiry: null
+                            });
+                            
+                            // Wait a moment for Firestore to process
+                            await new Promise(resolve => setTimeout(resolve, 500));
+                            
+                            showToast('HOC account created successfully!', 'success');
+                        } catch (createError) {
+                            showToast('Error creating HOC account: ' + createError.message, 'error');
+                        }
+                    } else if (error.code === 'auth/wrong-password') {
+                        showToast('Incorrect password', 'error');
+                    } else {
+                        showToast('Login failed: ' + error.message, 'error');
+                    }
+                }
+            } else {
+                // Regular login for other users
+                try {
+                    await auth.signInWithEmailAndPassword(email, password);
+                    showToast('Login successful!', 'success');
+                } catch (error) {
+                    showToast('Login failed: ' + error.message, 'error');
+                }
+            }
+        }
+        async function signup(e) {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const matric = document.getElementById('signupMatric').value;
+            const role = document.getElementById('signupRole').value;
+            const password = document.getElementById('signupPassword').value;
 
-    function getAttendance() {
-      alert('Get Attendance - View/Export attendance records');
-    }
+            try {
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                await db.collection('users').doc(userCredential.user.uid).set({
+                    fullName: name,
+                    email: email,
+                    matricNumber: matric,
+                    role: role,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    autoSignActive: false,
+                    autoSignExpiry: null
+                });
+                showToast('Account created successfully!', 'success');
+            } catch (error) {
+                showToast('Signup failed: ' + error.message, 'error');
+            }
+        }
 
-    function openMore() {
-      alert('More Options - Settings, Profile, Logout');
-    }
+        async function resetPassword(e) {
+            e.preventDefault();
+            const email = document.getElementById('resetEmail').value;
 
-    function filterHistory(type) {
-      document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
-      event.target.classList.add('active');
-      console.log('Filter by:', type);
-    }
+            try {
+                await auth.sendPasswordResetEmail(email);
+                showToast('Password reset email sent! Check your inbox.', 'success');
+                showLogin();
+            } catch (error) {
+                showToast('Error: ' + error.message, 'error');
+            }
+        }
 
-    // Helper functions
-    function showError(message) {
-      const errorDiv = document.getElementById('errorMessage');
-      errorDiv.textContent = message;
-      errorDiv.classList.add('show');
-    }
+        function logout() {
+            auth.signOut();
+            showToast('Logged out successfully', 'success');
+        }
 
-    function showSuccess(message) {
-      const successDiv = document.getElementById('successMessage');
-      successDiv.textContent = message;
-      successDiv.classList.add('show');
-    }
+        // HOC Functions
+        function showCreateAttendance() {
+            document.getElementById('createAttendanceModal').classList.add('active');
+        }
 
-    function hideMessages() {
-      document.getElementById('errorMessage').classList.remove('show');
-      document.getElementById('successMessage').classList.remove('show');
-    }
+        function toggleLocationFields() {
+            const enabled = document.getElementById('enableLocation').checked;
+            document.getElementById('locationFields').style.display = enabled ? 'block' : 'none';
+        }
 
-    function getErrorMessage(code) {
-      const errors = {
-        'auth/email-already-in-use': 'This email is already registered. Please sign in instead.',
-        'auth/invalid-email': 'Invalid email address format.',
-        'auth/weak-password': 'Password should be at least 6 characters.',
-        'auth/user-not-found': 'No account found with this email.',
-        'auth/wrong-password': 'Incorrect password.',
-        'auth/too-many-requests': 'Too many failed attempts. Please try again later.',
-        'auth/network-request-failed': 'Network error. Please check your connection.'
-      };
-      return errors[code] || null;
-    }
-    // SET CLASS PAGE FUNCTIONALITY
+        async function getCurrentLocation() {
+            if (!navigator.geolocation) {
+                showToast('Geolocation is not supported by your browser', 'error');
+                return;
+            }
 
-let currentEditClassId = null;
-let classesListener = null; // For real-time updates
+            document.getElementById('locationStatus').innerHTML = '<span style="color: var(--accent);">Getting location...</span>';
 
-// Show Set Class page
-function setClass() {
-  document.getElementById('dashboardPage').classList.add('hidden');
-  document.getElementById('setClassPage').classList.remove('hidden');
-  
-  // Set minimum date to today
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById('classDate').setAttribute('min', today);
-  
-  // Start real-time listener for classes
-  setupClassesListener();
-}
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    currentLocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    document.getElementById('locationStatus').innerHTML = `<span style="color: var(--success);">✓ Location captured: ${currentLocation.lat.toFixed(6)}, ${currentLocation.lng.toFixed(6)}</span>`;
+                },
+                (error) => {
+                    document.getElementById('locationStatus').innerHTML = `<span style="color: var(--danger);">Error: ${error.message}</span>`;
+                    showToast('Could not get location', 'error');
+                }
+            );
+        }
 
-// Back to dashboard
-function backToLecturerDashboard() {
-  document.getElementById('setClassPage').classList.add('hidden');
-  document.getElementById('dashboardPage').classList.remove('hidden');
-  
-  // Stop real-time listener
-  if (classesListener) {
-    classesListener();
-    classesListener = null;
-  }
-  
-  // Reset form
-  resetCreateForm();
-  hideSetClassMessages();
-}
+        async function createAttendance(e) {
+            e.preventDefault();
+            
+            const courseName = document.getElementById('courseName').value;
+            const includeMatric = document.getElementById('includeMatric').value;
+            const enableLocation = document.getElementById('enableLocation').checked;
+            const locationRadius = document.getElementById('locationRadius').value;
 
-// Setup real-time listener for classes
-function setupClassesListener() {
-  const classesGrid = document.getElementById('classesGrid');
-  classesGrid.innerHTML = '<div class="empty-state"><div class="empty-icon">⏳</div><div class="empty-text">Loading classes...</div></div>';
-  
-  // Real-time listener
-  classesListener = db.collection('classes')
-    .where('courseId', '==', userData.course)
-    .orderBy('date', 'asc')
-    .orderBy('time', 'asc')
-    .onSnapshot((snapshot) => {
-      if (snapshot.empty) {
-        classesGrid.innerHTML = '<div class="empty-state"><div class="empty-icon">📅</div><div class="empty-text">No classes created yet</div></div>';
-        return;
-      }
-      
-      classesGrid.innerHTML = snapshot.docs.map(doc => {
-        const classData = doc.data();
-        const classId = doc.id;
-        
-        // Format date
-        const dateObj = new Date(classData.date);
-        const formattedDate = dateObj.toLocaleDateString('en-US', {
-          weekday: 'short',
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric'
+            if (enableLocation && !currentLocation) {
+                showToast('Please get your current location first', 'warning');
+                return;
+            }
+
+            try {
+                const attendanceData = {
+                    courseName: courseName,
+                    university: 'Lagos State University of Education (LASUED)',
+                    location: 'Epe, Lagos',
+                    faculty: 'Faculty of Arts',
+                    department: 'Department of Political Science',
+                    includeMatric: includeMatric,
+                    enableLocation: enableLocation,
+                    locationLat: enableLocation ? currentLocation.lat : null,
+                    locationLng: enableLocation ? currentLocation.lng : null,
+                    locationRadius: enableLocation ? parseInt(locationRadius) : null,
+                    status: 'active',
+                    createdBy: currentUser.uid,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    createdDate: new Date().toISOString().split('T')[0]
+                };
+
+                await db.collection('attendance').add(attendanceData);
+                showToast('Attendance form created successfully!', 'success');
+                closeModal('createAttendanceModal');
+                currentLocation = null;
+                document.getElementById('enableLocation').checked = false;
+                document.getElementById('locationFields').style.display = 'none';
+                e.target.reset();
+                loadHocAttendance();
+            } catch (error) {
+                console.error('Error creating attendance:', error);
+                showToast('Error creating attendance form', 'error');
+            }
+        }
+
+        async function loadHocAttendance() {
+            try {
+                const snapshot = await db.collection('attendance')
+                    .where('createdBy', '==', currentUser.uid)
+                    .orderBy('createdAt', 'desc')
+                    .get();
+
+                attendanceForms = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+
+                displayHocAttendance();
+            } catch (error) {
+                console.error('Error loading attendance:', error);
+            }
+        }
+
+        function displayHocAttendance() {
+            const container = document.getElementById('activeAttendanceCards');
+            
+            if (attendanceForms.length === 0) {
+                container.innerHTML = '<div class="empty-state"><h3>No attendance forms created yet</h3><p>Click "Create Attendance Form" to get started</p></div>';
+                return;
+            }
+
+            container.innerHTML = attendanceForms.map(form => `
+                <div class="card">
+                    <h3>${form.courseName}</h3>
+                    <p><strong>📅 Created:</strong> ${form.createdDate || 'N/A'}</p>
+                    <p><strong>📍 Location:</strong> ${form.enableLocation ? 'Enabled' : 'Disabled'}</p>
+                    <span class="badge ${form.status === 'active' ? 'badge-success' : form.status === 'stopped' ? 'badge-danger' : 'badge-warning'}">
+                        ${form.status.toUpperCase()}
+                    </span>
+                    <div class="card-actions">
+                        <button class="btn-primary" onclick="viewAttendanceDetails('${form.id}')">View Details</button>
+                        ${form.status === 'active' ? `<button class="btn-danger" onclick="stopAttendance('${form.id}')">Stop</button>` : ''}
+                        <button class="btn-secondary" onclick="editAttendance('${form.id}')">Edit</button>
+                        <button class="btn-danger" onclick="deleteAttendance('${form.id}')">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function viewAttendanceDetails(formId) {
+            try {
+                const form = attendanceForms.find(f => f.id === formId);
+                const signaturesSnapshot = await db.collection('signatures')
+                    .where('attendanceId', '==', formId)
+                    .get();
+
+                const signatures = signaturesSnapshot.docs.map(doc => doc.data());
+                signatures.sort((a, b) => a.studentName.localeCompare(b.studentName));
+
+                const modal = document.getElementById('attendanceDetailsModal');
+                const content = document.getElementById('attendanceDetailsContent');
+
+                content.innerHTML = `
+                    <h2 style="color: var(--primary); margin-bottom: 20px;">${form.courseName}</h2>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h4>Total Signatures</h4>
+                            <div class="value">${signatures.length}</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Status</h4>
+                            <div class="value" style="font-size: 18px;">${form.status.toUpperCase()}</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Auto-Sign Count</h4>
+                            <div class="value">${signatures.filter(s => s.method === 'auto').length}</div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-success" onclick="exportToPDF('${formId}')" style="margin: 20px 0;">📄 Export PDF</button>
+
+                    <h3 style="margin: 20px 0; color: var(--primary);">Signed Students (${signatures.length})</h3>
+                    
+                    ${signatures.length > 0 ? `
+                        <div style="overflow-x: auto;">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <thead>
+                                    <tr style="background: var(--primary); color: white;">
+                                        <th style="padding: 12px; text-align: left;">Name</th>
+                                        <th style="padding: 12px; text-align: left;">Matric/JAMB</th>
+                                        <th style="padding: 12px; text-align: left;">Time</th>
+                                        <th style="padding: 12px; text-align: left;">Method</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${signatures.map((sig, idx) => `
+                                        <tr style="background: ${idx % 2 === 0 ? 'var(--light)' : 'white'};">
+                                            <td style="padding: 12px;">${sig.studentName}</td>
+                                            <td style="padding: 12px;">${sig.matricNumber}</td>
+                                            <td style="padding: 12px;">${new Date(sig.signedAt.seconds * 1000).toLocaleString()}</td>
+                                            <td style="padding: 12px;">
+                                                <span class="badge ${sig.method === 'auto' ? 'badge-warning' : 'badge-success'}">
+                                                    ${sig.method === 'auto' ? '⚡ AUTO' : '✓ MANUAL'}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    ` : '<p style="text-align: center; padding: 40px;">No signatures yet</p>'}
+                `;
+
+                modal.classList.add('active');
+            } catch (error) {
+                console.error('Error loading attendance details:', error);
+                showToast('Error loading details', 'error');
+            }
+        }
+
+        async function exportToPDF(formId) {
+            try {
+                const form = attendanceForms.find(f => f.id === formId);
+                const signaturesSnapshot = await db.collection('signatures')
+                    .where('attendanceId', '==', formId)
+                    .get();
+
+                const signatures = signaturesSnapshot.docs.map(doc => doc.data());
+                signatures.sort((a, b) => a.studentName.localeCompare(b.studentName));
+
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                // Header
+                doc.setFontSize(16);
+                doc.setFont(undefined, 'bold');
+                doc.text('Lagos State University of Education (LASUED)', 105, 20, { align: 'center' });
+                
+                doc.setFontSize(12);
+                doc.text('Faculty of Arts - Department of Political Science', 105, 28, { align: 'center'});
+                
+                doc.setFontSize(14);
+                doc.text(form.courseName, 105, 38, { align: 'center' });
+                
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'normal');
+                doc.text(`Date Created: ${form.createdDate}`, 105, 45, { align: 'center' });
+                doc.text(`Total Signatures: ${signatures.length}`, 105, 51, { align: 'center' });
+
+                // Table
+                const tableData = signatures.map(sig => [
+                    sig.studentName,
+                    sig.matricNumber,
+                    new Date(sig.signedAt.seconds * 1000).toLocaleString(),
+                    sig.method === 'auto' ? 'Auto' : 'Manual'
+                ]);
+
+                doc.autoTable({
+                    startY: 60,
+                    head: [['Name', 'Matric/JAMB', 'Time Signed', 'Method']],
+                    body: tableData,
+                    theme: 'grid',
+                    headStyles: { fillColor: [26, 84, 144] },
+                    styles: { fontSize: 9 }
+                });
+
+                // Footer
+                const pageCount = doc.internal.getNumberOfPages();
+                for (let i = 1; i <= pageCount; i++) {
+                    doc.setPage(i);
+                    doc.setFontSize(10);
+                    doc.text('Powered by Rewarder 🏆', 105, doc.internal.pageSize.height - 10, { align: 'center' });
+                }
+
+                doc.save(`${form.courseName}_Attendance_${form.createdDate}.pdf`);
+                showToast('PDF exported successfully!', 'success');
+            } catch (error) {
+                console.error('Error exporting PDF:', error);
+                showToast('Error exporting PDF', 'error');
+            }
+        }
+
+        async function stopAttendance(formId) {
+            if (!confirm('Are you sure you want to stop this attendance?')) return;
+
+            try {
+                await db.collection('attendance').doc(formId).update({
+                    status: 'stopped'
+                });
+                showToast('Attendance stopped', 'success');
+                loadHocAttendance();
+            } catch (error) {
+                console.error('Error stopping attendance:', error);
+                showToast('Error stopping attendance', 'error');
+            }
+        }
+
+        async function editAttendance(formId) {
+            const form = attendanceForms.find(f => f.id === formId);
+            const today = new Date().toISOString().split('T')[0];
+            
+            if (form.createdDate !== today && form.status !== 'active') {
+                showToast('Can only edit attendance created today or active attendance', 'warning');
+                return;
+            }
+
+            const newName = prompt('Enter new course name:', form.courseName);
+            if (newName && newName !== form.courseName) {
+                try {
+                    await db.collection('attendance').doc(formId).update({
+                        courseName: newName
+                    });
+                    showToast('Attendance updated', 'success');
+                    loadHocAttendance();
+                } catch (error) {
+                    showToast('Error updating attendance', 'error');
+                }
+            }
+        }
+
+        async function deleteAttendance(formId) {
+            if (!confirm('Are you sure you want to delete this attendance? This action cannot be undone.')) return;
+
+            try {
+                await db.collection('attendance').doc(formId).delete();
+                const signaturesSnapshot = await db.collection('signatures')
+                    .where('attendanceId', '==', formId)
+                    .get();
+                
+                const batch = db.batch();
+                signaturesSnapshot.docs.forEach(doc => batch.delete(doc.ref));
+                await batch.commit();
+
+                showToast('Attendance deleted', 'success');
+                loadHocAttendance();
+            } catch (error) {
+                console.error('Error deleting attendance:', error);
+                showToast('Error deleting attendance', 'error');
+            }
+        }
+
+        function switchHocTab(tab) {
+            document.querySelectorAll('#hocDashboard .tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.getElementById('hocActiveTab').style.display = tab === 'active' ? 'block' : 'none';
+            document.getElementById('hocAnalysisTab').style.display = tab === 'analysis' ? 'block' : 'none';
+            document.getElementById('hocMessagesTab').style.display = tab === 'messages' ? 'block' : 'none';
+
+            if (tab === 'analysis') {
+                loadAnalysis();
+            }
+        }
+
+        async function loadAnalysis() {
+            const content = document.getElementById('analysisContent');
+            content.innerHTML = '<div class="loading">Loading analysis...</div>';
+
+            try {
+                const allSignatures = [];
+                for (const form of attendanceForms) {
+                    const snapshot = await db.collection('signatures')
+                        .where('attendanceId', '==', form.id)
+                        .get();
+                    allSignatures.push({
+                        form: form,
+                        signatures: snapshot.docs.map(doc => doc.data())
+                    });
+                }
+
+                content.innerHTML = `
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h4>Total Forms</h4>
+                            <div class="value">${attendanceForms.length}</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Active Forms</h4>
+                            <div class="value">${attendanceForms.filter(f => f.status === 'active').length}</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Total Signatures</h4>
+                            <div class="value">${allSignatures.reduce((sum, item) => sum + item.signatures.length, 0)}</div>
+                        </div>
+                    </div>
+
+                    <h3 style="color: white; margin: 30px 0 20px;">Attendance Breakdown</h3>
+                    ${allSignatures.map(item => `
+                        <div class="card" style="margin-bottom: 15px;">
+                            <h3>${item.form.courseName}</h3>
+                            <p><strong>Signatures:</strong> ${item.signatures.length}</p>
+                            <p><strong>Auto-Sign:</strong> ${item.signatures.filter(s => s.method === 'auto').length}</p>
+                            <p><strong>Manual:</strong> ${item.signatures.filter(s => s.method === 'manual').length}</p>
+                            <button class="btn btn-primary" onclick="viewAttendanceDetails('${item.form.id}')">View Details</button>
+                        </div>
+                    `).join('')}
+                `;
+            } catch (error) {
+                console.error('Error loading analysis:', error);
+                content.innerHTML = '<p style="color: white;">Error loading analysis</p>';
+            }
+        }
+
+        async function loadMessages() {
+            try {
+                const snapshot = await db.collection('messages')
+                    .orderBy('createdAt', 'desc')
+                    .limit(20)
+                    .get();
+
+                const messages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                const content = document.getElementById('messagesContent');
+
+                if (messages.length === 0) {
+                    content.innerHTML = '<div class="empty-state" style="color: white;"><h3>No messages yet</h3></div>';
+                    return;
+                }
+
+                content.innerHTML = messages.map(msg => `
+                    <div class="card" style="margin-bottom: 15px;">
+                        <h3>${msg.subject}</h3>
+                        <p><strong>From:</strong> ${msg.senderName} (${msg.senderEmail})</p>
+                        <p><strong>Date:</strong> ${new Date(msg.createdAt.seconds * 1000).toLocaleString()}</p>
+                        <p style="margin-top: 10px;">${msg.message}</p>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading messages:', error);
+            }
+        }
+
+        // Student Functions
+        async function loadStudentAttendance() {
+            try {
+                const snapshot = await db.collection('attendance')
+                    .where('status', 'in', ['active', 'stopped'])
+                    .get();
+
+                attendanceForms = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+
+                const sigSnapshot = await db.collection('signatures')
+                    .where('studentId', '==', currentUser.uid)
+                    .get();
+
+                userSignatures = sigSnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+
+                displayStudentAttendance();
+            } catch (error) {
+                console.error('Error loading attendance:', error);
+            }
+        }
+
+        function displayStudentAttendance() {
+            const today = new Date().toISOString().split('T')[0];
+            const newForms = attendanceForms.filter(f => f.status === 'active');
+            const oldForms = attendanceForms.filter(f => f.status === 'stopped' || (f.createdDate && f.createdDate < today));
+            const signedForms = userSignatures.map(sig => {
+                const form = attendanceForms.find(f => f.id === sig.attendanceId);
+                return { ...form, signedAt: sig.signedAt };
+            }).filter(f => f);
+
+            displayNewAttendance(newForms);
+            displayOldAttendance(oldForms);
+            displaySignedAttendance(signedForms);
+            
+            document.getElementById('totalSigned').textContent = userSignatures.length;
+        }
+
+        function displayNewAttendance(forms) {
+            const container = document.getElementById('newAttendanceCards');
+            
+            if (forms.length === 0) {
+                container.innerHTML = '<div class="empty-state"><h3>No active attendance forms</h3></div>';
+                return;
+            }
+
+            container.innerHTML = forms.map(form => {
+                const alreadySigned = userSignatures.some(sig => sig.attendanceId === form.id);
+                const daysSinceCreated = Math.floor((new Date() - new Date(form.createdDate)) / (1000 * 60 * 60 * 24));
+                const needsPayment = daysSinceCreated < 3 && !currentUserData.autoSignActive && !alreadySigned;
+
+                return `
+                    <div class="card" onclick="${alreadySigned ? '' : `'showSignForm(\'${form.id}\')'`}">
+                        <h3>${form.courseName}</h3>
+                        <p><strong>📅 Date:</strong> ${form.createdDate || 'N/A'}</p>
+                        <p><strong>📍 Location:</strong> ${form.enableLocation ? 'Required' : 'Not Required'}</p>
+                        ${needsPayment ? '<p style="color: var(--accent); font-weight: 600;">₦200 to sign</p>' : ''}
+                        ${alreadySigned ? 
+                            '<span class="badge badge-success">✓ SIGNED</span>' : 
+                            '<span class="badge badge-warning">Click to Sign</span>'
+                        }
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function displayOldAttendance(forms) {
+            const container = document.getElementById('oldAttendanceCards');
+            
+            if (forms.length === 0) {
+                container.innerHTML = '<div class="empty-state"><h3>No old attendance forms</h3></div>';
+                return;
+            }
+
+            container.innerHTML = forms.map(form => `
+                <div class="card">
+                    <h3>${form.courseName}</h3>
+                    <p><strong>📅 Date:</strong> ${form.createdDate || 'N/A'}</p>
+                    <span class="badge badge-danger">ENDED</span>
+                </div>
+            `).join('');
+        }
+
+        function displaySignedAttendance(forms) {
+            const container = document.getElementById('signedAttendanceCards');
+            
+            if (forms.length === 0) {
+                container.innerHTML = '<div class="empty-state"><h3>No signed attendance yet</h3></div>';
+                return;
+            }
+
+            container.innerHTML = forms.map(form => `
+                <div class="card">
+                    <h3>${form.courseName}</h3>
+                    <p><strong>📅 Signed:</strong> ${new Date(form.signedAt.seconds * 1000).toLocaleDateString()}</p>
+                    <span class="badge badge-success">✓ SIGNED</span>
+                </div>
+            `).join('');
+        }
+
+        function filterOldAttendance() {
+            const searchName = document.getElementById('oldSearchName').value.toLowerCase();
+            const searchDate = document.getElementById('oldSearchDate').value;
+
+            const cards = document.querySelectorAll('#oldAttendanceCards .card');
+            cards.forEach(card => {
+                const courseName = card.querySelector('h3').textContent.toLowerCase();
+                const dateText = card.querySelector('p').textContent;
+                
+                const matchesName = !searchName || courseName.includes(searchName);
+                const matchesDate = !searchDate || dateText.includes(searchDate);
+                
+                card.style.display = matchesName && matchesDate ? 'block' : 'none';
+            });
+        }
+
+        function filterSignedAttendance() {
+            const searchName = document.getElementById('signedSearchName').value.toLowerCase();
+            const searchDate = document.getElementById('signedSearchDate').value;
+
+            const cards = document.querySelectorAll('#signedAttendanceCards .card');
+            cards.forEach(card => {
+                const courseName = card.querySelector('h3').textContent.toLowerCase();
+                const dateText = card.querySelector('p').textContent;
+                
+                const matchesName = !searchName || courseName.includes(searchName);
+                const matchesDate = !searchDate || dateText.includes(searchDate);
+                
+                card.style.display = matchesName && matchesDate ? 'block' : 'none';
+            });
+        }
+
+        async function showSignForm(formId) {
+            const form = attendanceForms.find(f => f.id === formId);
+            const alreadySigned = userSignatures.some(sig => sig.attendanceId === formId);
+
+            if (alreadySigned) {
+                showToast('You have already signed this attendance', 'warning');
+                return;
+            }
+
+            const daysSinceCreated = Math.floor((new Date() - new Date(form.createdDate)) / (1000 * 60 * 60 * 24));
+            const needsPayment = daysSinceCreated < 3 && !currentUserData.autoSignActive;
+
+            const modal = document.getElementById('signAttendanceModal');
+            const content = document.getElementById('signAttendanceContent');
+
+            content.innerHTML = `
+                <h3>${form.courseName}</h3>
+                <p style="margin: 15px 0;">
+                    <strong>University:</strong> ${form.university}<br>
+                    <strong>Location:</strong> ${form.location}<br>
+                    <strong>Date:</strong> ${form.createdDate}
+                </p>
+
+                ${needsPayment ? `
+                    <div style="background: var(--accent); color: white; padding: 15px; border-radius: 10px; margin: 15px 0; text-align: center;">
+                        <h3>₦200 Payment Required</h3>
+                        <p>This attendance is within the first 3 days. You need to pay ₦200 to sign or purchase an auto-sign package.</p>
+                    </div>
+                ` : ''}
+
+                <form onsubmit="signAttendance(event, '${formId}', ${needsPayment})">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="signName" value="${currentUserData.fullName}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Matric/JAMB Number</label>
+                        <input type="text" id="signMatric" value="${currentUserData.matricNumber}" required>
+                    </div>
+                    ${form.enableLocation ? `
+                        <p style="color: var(--accent); font-weight: 600; margin: 15px 0;">
+                            📍 Location verification required
+                        </p>
+                    ` : ''}
+                    <button type="submit" class="btn btn-primary">
+                        ${needsPayment ? 'Pay ₦200 & Sign' : 'Sign Attendance'}
+                    </button>
+                </form>
+            `;
+
+            modal.classList.add('active');
+        }
+
+        async function signAttendance(e, formId, needsPayment) {
+            e.preventDefault();
+
+            const form = attendanceForms.find(f => f.id === formId);
+            const name = document.getElementById('signName').value;
+            const matric = document.getElementById('signMatric').value;
+
+            // Check if auto-sign is active
+            const isAutoSign = currentUserData.autoSignActive && 
+                             currentUserData.autoSignExpiry && 
+                             new Date(currentUserData.autoSignExpiry) > new Date();
+
+            // Location check
+            if (form.enableLocation && !isAutoSign) {
+                try {
+                    const position = await new Promise((resolve, reject) => {
+                        navigator.geolocation.getCurrentPosition(resolve, reject);
+                    });
+
+                    const distance = calculateDistance(
+                        position.coords.latitude,
+                        position.coords.longitude,
+                        form.locationLat,
+                        form.locationLng
+                    );
+
+                    if (distance > form.locationRadius) {
+                        showToast('You are not in the right location to sign this attendance', 'error');
+                        return;
+                    }
+                } catch (error) {
+                    showToast('Please enable location services to sign this attendance', 'error');
+                    return;
+                }
+            }
+
+            // Payment check
+            if (needsPayment && !isAutoSign) {
+                makePayment(200, 'attendance', { formId, name, matric });
+                return;
+            }
+
+            // Sign attendance
+            try {
+                await db.collection('signatures').add({
+                    attendanceId: formId,
+                    studentId: currentUser.uid,
+                    studentName: name,
+                    matricNumber: matric,
+                    signedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    method: isAutoSign ? 'auto' : 'manual'
+                });
+
+                showToast('Attendance signed successfully!', 'success');
+                closeModal('signAttendanceModal');
+                loadStudentAttendance();
+            } catch (error) {
+                console.error('Error signing attendance:', error);
+                showToast('Error signing attendance', 'error');
+            }
+        }
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371e3; // Earth's radius in meters
+            const φ1 = lat1 * Math.PI / 180;
+            const φ2 = lat2 * Math.PI / 180;
+            const Δφ = (lat2 - lat1) * Math.PI / 180;
+            const Δλ = (lon2 - lon1) * Math.PI / 180;
+
+            const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+                     Math.cos(φ1) * Math.cos(φ2) *
+                     Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+            return R * c; // Distance in meters
+        }
+
+        function switchStudentTab(tab) {
+            document.querySelectorAll('#studentDashboard .tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.getElementById('studentNewTab').style.display = tab === 'new' ? 'block' : 'none';
+            document.getElementById('studentOldTab').style.display = tab === 'old' ? 'block' : 'none';
+            document.getElementById('studentSignedTab').style.display = tab === 'signed' ? 'block' : 'none';
+        }
+
+        // Auto-sign functions
+        function showAutoSignPackages() {
+            document.getElementById('autoSignModal').classList.add('active');
+        }
+
+        function selectPackage(days, price) {
+            makePayment(price, 'autosign', { days });
+        }
+
+        function makePayment(amount, type, metadata) {
+            FlutterwaveCheckout({
+                public_key: "FLWPUBK-d3902fdb2f80f41ada9c077eb569466a-X",
+                tx_ref: 'txref-' + Date.now(),
+                amount: amount,
+                currency: "NGN",
+                payment_options: "card, banktransfer, ussd",
+                customer: {
+                    email: currentUser.email,
+                    phone_number: "",
+                    name: currentUserData.fullName,
+                },
+                customizations: {
+                    title: type === 'autosign' ? "Auto-Sign Package" : "Attendance Payment",
+                    description: type === 'autosign' ? 
+                        `${metadata.days} days auto-sign subscription` : 
+                        "First 3 days attendance payment",
+                    logo: "",
+                },
+                callback: async function(data) {
+                    if (data.status === "successful") {
+                        if (type === 'autosign') {
+                            await activateAutoSign(metadata.days);
+                        } else if (type === 'attendance') {
+                            await completeAttendanceSign(metadata);
+                        }
+                        showToast('Payment successful!', 'success');
+                        closeModal('autoSignModal');
+                    } else {
+                        showToast('Payment failed. Please try again.', 'error');
+                    }
+                },
+                onclose: function() {
+                    console.log('Payment cancelled');
+                },
+            });
+        }
+
+        async function activateAutoSign(days) {
+            try {
+                const expiryDate = new Date();
+                expiryDate.setDate(expiryDate.getDate() + days);
+
+                await db.collection('users').doc(currentUser.uid).update({
+                    autoSignActive: true,
+                    autoSignExpiry: expiryDate.toISOString()
+                });
+
+                currentUserData.autoSignActive = true;
+                currentUserData.autoSignExpiry = expiryDate.toISOString();
+
+                // Auto-sign all active attendance
+                const activeForms = attendanceForms.filter(f => f.status === 'active');
+                for (const form of activeForms) {
+                    const alreadySigned = userSignatures.some(sig => sig.attendanceId === form.id);
+                    if (!alreadySigned) {
+                        await db.collection('signatures').add({
+                            attendanceId: form.id,
+                            studentId: currentUser.uid,
+                            studentName: currentUserData.fullName,
+                            matricNumber: currentUserData.matricNumber,
+                            signedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                            method: 'auto'
+                        });
+                    }
+                }
+
+                showToast(`Auto-sign activated for ${days} days!`, 'success');
+                loadStudentAttendance();
+            } catch (error) {
+                console.error('Error activating auto-sign:', error);
+                showToast('Error activating auto-sign', 'error');
+            }
+        }
+
+        async function completeAttendanceSign(metadata) {
+            try {
+                await db.collection('signatures').add({
+                    attendanceId: metadata.formId,
+                    studentId: currentUser.uid,
+                    studentName: metadata.name,
+                    matricNumber: metadata.matric,
+                    signedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    method: 'manual',
+                    paid: true
+                });
+
+                closeModal('signAttendanceModal');
+                loadStudentAttendance();
+            } catch (error) {
+                console.error('Error completing attendance sign:', error);
+                showToast('Error signing attendance', 'error');
+            }
+        }
+
+        // Profile functions
+        async function showProfile() {
+            const modal = document.getElementById('profileModal');
+            const content = document.getElementById('profileContent');
+
+            const autoSignStatus = currentUserData.autoSignActive && 
+                                  currentUserData.autoSignExpiry && 
+                                  new Date(currentUserData.autoSignExpiry) > new Date();
+
+            content.innerHTML = `
+                <form onsubmit="updateProfile(event)">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="profileName" value="${currentUserData.fullName}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" value="${currentUserData.email}" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Matric/JAMB Number</label>
+                        <input type="text" id="profileMatric" value="${currentUserData.matricNumber}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <input type="text" value="${currentUserData.role.toUpperCase()}" disabled>
+                    </div>
+
+                    ${currentUserData.role === 'student' ? `
+                        <div style="background: ${autoSignStatus ? 'var(--success)' : 'var(--danger)'}; color: white; padding: 15px; border-radius: 10px; margin: 15px 0; text-align: center;">
+                            <h3>Auto-Sign Status</h3>
+                            <p>${autoSignStatus ? 
+                                `✓ Active until ${new Date(currentUserData.autoSignExpiry).toLocaleDateString()}` : 
+                                '✗ Inactive'
+                            }</p>
+                        </div>
+                    ` : ''}
+
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </form>
+
+                <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid var(--light);">
+                    <h3 style="color: var(--primary); margin-bottom: 15px;">Need Help?</h3>
+                    <p style="margin-bottom: 10px;">Contact us for any issues or questions:</p>
+                    <p><strong>Email:</strong> support@lasued-attendance.edu.ng</p>
+                    <p><strong>Phone:</strong> +234 xxx xxx xxxx</p>
+                    <button class="btn btn-secondary" onclick="closeModal('profileModal'); showSupportForm();">
+                        Send Message
+                    </button>
+                </div>
+            `;
+
+            modal.classList.add('active');
+        }
+
+        async function updateProfile(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('profileName').value;
+            const matric = document.getElementById('profileMatric').value;
+
+            try {
+                await db.collection('users').doc(currentUser.uid).update({
+                    fullName: name,
+                    matricNumber: matric
+                });
+
+                currentUserData.fullName = name;
+                currentUserData.matricNumber = matric;
+
+                if (currentUserData.role === 'hoc') {
+                    document.getElementById('hocName').textContent = name;
+                    document.getElementById('hocInitial').textContent = name.charAt(0).toUpperCase();
+                } else {
+                    document.getElementById('studentName').textContent = name;
+                    document.getElementById('studentInitial').textContent = name.charAt(0).toUpperCase();
+                }
+
+                showToast('Profile updated successfully!', 'success');
+                closeModal('profileModal');
+            } catch (error) {
+                console.error('Error updating profile:', error);
+                showToast('Error updating profile', 'error');
+            }
+        }
+
+        // Support functions
+        function showSupportForm() {
+            document.getElementById('supportModal').classList.add('active');
+        }
+
+        async function sendSupportMessage(e) {
+            e.preventDefault();
+
+            const subject = document.getElementById('supportSubject').value;
+            const message = document.getElementById('supportMessage').value;
+
+            try {
+                await db.collection('messages').add({
+                    subject: subject,
+                    message: message,
+                    senderName: currentUserData.fullName,
+                    senderEmail: currentUserData.email,
+                    senderId: currentUser.uid,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                showToast('Message sent successfully! We will respond soon.', 'success');
+                closeModal('supportModal');
+                e.target.reset();
+            } catch (error) {
+                console.error('Error sending message:', error);
+                showToast('Error sending message', 'error');
+            }
+        }
+
+        // Utility functions
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.style.display = 'block';
+
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 4000);
+        }
+
+        // Auto-sign background process
+        setInterval(async () => {
+            if (!currentUser || !currentUserData || currentUserData.role !== 'student') return;
+
+            const autoSignActive = currentUserData.autoSignActive && 
+                                  currentUserData.autoSignExpiry && 
+                                  new Date(currentUserData.autoSignExpiry) > new Date();
+
+            if (!autoSignActive) return;
+
+            // Check for new active attendance forms
+            try {
+                const snapshot = await db.collection('attendance')
+                    .where('status', '==', 'active')
+                    .get();
+
+                for (const doc of snapshot.docs) {
+                    const formId = doc.id;
+                    const alreadySigned = userSignatures.some(sig => sig.attendanceId === formId);
+
+                    if (!alreadySigned) {
+                        await db.collection('signatures').add({
+                            attendanceId: formId,
+                            studentId: currentUser.uid,
+                            studentName: currentUserData.fullName,
+                            matricNumber: currentUserData.matricNumber,
+                            signedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                            method: 'auto'
+                        });
+
+                        showToast('Auto-signed new attendance!', 'success');
+                    }
+                }
+
+                if (snapshot.docs.length > 0) {
+                    loadStudentAttendance();
+                }
+            } catch (error) {
+                console.error('Error in auto-sign process:', error);
+            }
+        }, 60000); // Check every minute
+
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
         });
-        
-        // Format time
-        const timeObj = new Date(`2000-01-01T${classData.time}`);
-        const formattedTime = timeObj.toLocaleTimeString('en-US', {
-          hour: 'numeric',
-          minute: '2-digit',
-          hour12: true
-        });
-        
-        const typeBadge = classData.type === 'online' 
-          ? '<span class="class-type-badge badge-online">Online</span>'
-          : '<span class="class-type-badge badge-physical">Physical</span>';
-        
-        const locationHTML = classData.type === 'physical' && classData.location
-          ? `<div class="class-location">📍 ${classData.location}</div>`
-          : '';
-        
-        return `
-          <div class="class-card">
-            <div class="class-card-header">
-              <div class="class-date-time">
-                <div class="class-date">${formattedDate}</div>
-                <div class="class-time">🕐 ${formattedTime}</div>
-              </div>
-              ${typeBadge}
-            </div>
-            ${locationHTML}
-            <div class="class-card-actions">
-              <button class="btn-edit" onclick="openEditModal('${classId}')">
-                ✏️ Edit
-              </button>
-              <button class="btn-cancel" onclick="cancelClass('${classId}')">
-                🗑️ Cancel
-              </button>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }, (error) => {
-      console.error('Error loading classes:', error);
-      classesGrid.innerHTML = '<div class="empty-state"><div class="empty-icon">❌</div><div class="empty-text">Error loading classes. Please refresh.</div></div>';
-    });
-}
-
-// Switch between tabs
-function switchTab(tab) {
-  const createTab = document.getElementById('createTab');
-  const manageTab = document.getElementById('manageTab');
-  const createContent = document.getElementById('createTabContent');
-  const manageContent = document.getElementById('manageTabContent');
-  
-  if (tab === 'create') {
-    createTab.classList.add('active');
-    manageTab.classList.remove('active');
-    createContent.classList.add('active');
-    manageContent.classList.remove('active');
-  } else {
-    manageTab.classList.add('active');
-    createTab.classList.remove('active');
-    manageContent.classList.add('active');
-    createContent.classList.remove('active');
-  }
-  
-  hideSetClassMessages();
-}
-
-// Toggle location field based on class type
-function toggleLocation() {
-  const classType = document.getElementById('classType').value;
-  const locationGroup = document.getElementById('locationGroup');
-  const locationInput = document.getElementById('classLocation');
-  
-  if (classType === 'physical') {
-    locationGroup.classList.remove('hidden');
-    locationInput.setAttribute('required', 'required');
-  } else {
-    locationGroup.classList.add('hidden');
-    locationInput.removeAttribute('required');
-    locationInput.value = '';
-  }
-}
-
-// Toggle location field in edit modal
-function toggleEditLocation() {
-  const classType = document.getElementById('editClassType').value;
-  const locationGroup = document.getElementById('editLocationGroup');
-  const locationInput = document.getElementById('editClassLocation');
-  
-  if (classType === 'physical') {
-    locationGroup.classList.remove('hidden');
-    locationInput.setAttribute('required', 'required');
-  } else {
-    locationGroup.classList.add('hidden');
-    locationInput.removeAttribute('required');
-    locationInput.value = '';
-  }
-}
-
-// Create new class
-async function createClass() {
-  hideSetClassMessages();
-  
-  const date = document.getElementById('classDate').value;
-  const time = document.getElementById('classTime').value;
-  const type = document.getElementById('classType').value;
-  const location = document.getElementById('classLocation').value;
-  
-  // Validation
-  if (!date) {
-    showSetClassError('Please select a date');
-    return;
-  }
-  
-  if (!time) {
-    showSetClassError('Please select a time');
-    return;
-  }
-  
-  if (!type) {
-    showSetClassError('Please select class type (Online or Physical)');
-    return;
-  }
-  
-  if (type === 'physical' && !location.trim()) {
-    showSetClassError('Please enter a location for physical class');
-    return;
-  }
-  
-  // Disable button during creation
-  const btn = document.querySelector('.btn-create-class');
-  btn.disabled = true;
-  btn.innerHTML = '<span>⏳</span> Creating...';
-  
-  try {
-    // Check for time conflicts
-    const timeConflict = await checkTimeConflict(time, null);
-    
-    if (timeConflict) {
-      showSetClassError('A class is already scheduled at this time. Please choose a different time.');
-      btn.disabled = false;
-      btn.innerHTML = '<span>✓</span> Create Class';
-      return;
-    }
-    
-    // Create class in Firestore
-    const classData = {
-      courseId: userData.course,
-      courseName: 'History & International Studies',
-      lecturerId: currentUser.uid,
-      lecturerName: userData.name,
-      date: date,
-      time: time,
-      type: type,
-      location: type === 'physical' ? location.trim() : null,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-    };
-    
-    await db.collection('classes').add(classData);
-    
-    // Success with popup
-    showSetClassSuccessPopup('Class created successfully! ✓');
-    resetCreateForm();
-    
-    // Switch to manage tab after 1.5 seconds
-    setTimeout(() => {
-      switchTab('manage');
-    }, 1500);
-    
-  } catch (error) {
-    console.error('Error creating class:', error);
-    showSetClassError('Failed to create class. Please try again. Error: ' + error.message);
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = '<span>✓</span> Create Class';
-  }
-}
-
-// Check for time conflicts
-async function checkTimeConflict(time, excludeClassId) {
-  try {
-    const snapshot = await db.collection('classes')
-      .where('courseId', '==', userData.course)
-      .where('time', '==', time)
-      .get();
-    
-    // If excludeClassId is provided (for editing), exclude that class from conflict check
-    if (excludeClassId) {
-      const conflicts = snapshot.docs.filter(doc => doc.id !== excludeClassId);
-      return conflicts.length > 0;
-    }
-    
-    return !snapshot.empty;
-  } catch (error) {
-    console.error('Error checking time conflict:', error);
-    return false;
-  }
-}
-
-// Open edit modal
-async function openEditModal(classId) {
-  currentEditClassId = classId;
-  
-  try {
-    const doc = await db.collection('classes').doc(classId).get();
-    
-    if (!doc.exists) {
-      showSetClassError('Class not found');
-      return;
-    }
-    
-    const classData = doc.data();
-    
-    // Populate form
-    document.getElementById('editClassDate').value = classData.date;
-    document.getElementById('editClassTime').value = classData.time;
-    document.getElementById('editClassType').value = classData.type;
-    
-    if (classData.type === 'physical' && classData.location) {
-      document.getElementById('editClassLocation').value = classData.location;
-      document.getElementById('editLocationGroup').classList.remove('hidden');
-    } else {
-      document.getElementById('editLocationGroup').classList.add('hidden');
-    }
-    
-    // Set minimum date to today
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('editClassDate').setAttribute('min', today);
-    
-    // Show modal
-    document.getElementById('editModal').classList.remove('hidden');
-    
-  } catch (error) {
-    console.error('Error opening edit modal:', error);
-    showSetClassError('Failed to load class details. Please try again.');
-  }
-}
-
-// Close edit modal
-function closeEditModal() {
-  document.getElementById('editModal').classList.add('hidden');
-  currentEditClassId = null;
-}
-
-// Save edited class
-async function saveEditClass() {
-  if (!currentEditClassId) return;
-  
-  const date = document.getElementById('editClassDate').value;
-  const time = document.getElementById('editClassTime').value;
-  const type = document.getElementById('editClassType').value;
-  const location = document.getElementById('editClassLocation').value;
-  
-  // Validation
-  if (!date || !time) {
-    alert('Please fill in all required fields');
-    return;
-  }
-  
-  if (type === 'physical' && !location.trim()) {
-    alert('Please enter a location for physical class');
-    return;
-  }
-  
-  // Disable button
-  const btn = document.querySelector('.modal-footer .btn-primary');
-  btn.disabled = true;
-  btn.textContent = 'Saving...';
-  
-  try {
-    // Check for time conflicts (excluding current class)
-    const timeConflict = await checkTimeConflict(time, currentEditClassId);
-    
-    if (timeConflict) {
-      alert('A class is already scheduled at this time. Please choose a different time.');
-      btn.disabled = false;
-      btn.textContent = 'Save Changes';
-      return;
-    }
-    
-    // Update class
-    const updateData = {
-      date: date,
-      time: time,
-      type: type,
-      location: type === 'physical' ? location.trim() : null,
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-    };
-    
-    await db.collection('classes').doc(currentEditClassId).update(updateData);
-    
-    // Success
-    closeEditModal();
-    showSetClassSuccessPopup('Class updated successfully! ✓');
-    
-  } catch (error) {
-    console.error('Error updating class:', error);
-    alert('Failed to update class. Please try again. Error: ' + error.message);
-  } finally {
-    btn.disabled = false;
-    btn.textContent = 'Save Changes';
-  }
-}
-
-// Cancel/Delete class
-async function cancelClass(classId) {
-  const confirmed = confirm('Are you sure you want to cancel this class? This action cannot be undone.');
-  
-  if (!confirmed) return;
-  
-  try {
-    await db.collection('classes').doc(classId).delete();
-    
-    showSetClassSuccessPopup('Class cancelled successfully! ✓');
-    
-  } catch (error) {
-    console.error('Error cancelling class:', error);
-    showSetClassError('Failed to cancel class. Please try again. Error: ' + error.message);
-  }
-}
-
-// Reset create form
-function resetCreateForm() {
-  document.getElementById('classDate').value = '';
-  document.getElementById('classTime').value = '';
-  document.getElementById('classType').value = '';
-  document.getElementById('classLocation').value = '';
-  document.getElementById('locationGroup').classList.add('hidden');
-}
-
-// Show success popup (new style)
-function showSetClassSuccessPopup(message) {
-  // Create popup element
-  const popup = document.createElement('div');
-  popup.className = 'success-popup';
-  popup.innerHTML = `
-    <div class="success-popup-content">
-      <span class="success-icon">✓</span>
-      <span class="success-text">${message}</span>
-    </div>
-  `;
-  
-  document.body.appendChild(popup);
-  
-  // Trigger animation
-  setTimeout(() => popup.classList.add('show'), 10);
-  
-  // Remove after 3 seconds
-  setTimeout(() => {
-    popup.classList.remove('show');
-    setTimeout(() => popup.remove(), 300);
-  }, 3000);
-}
-
-// Show error message
-function showSetClassError(message) {
-  const errorDiv = document.getElementById('setClassError');
-  errorDiv.textContent = message;
-  errorDiv.classList.add('show');
-  
-  // Auto hide after 5 seconds
-  setTimeout(() => {
-    errorDiv.classList.remove('show');
-  }, 5000);
-}
-
-// Hide messages
-function hideSetClassMessages() {
-  document.getElementById('setClassSuccess').classList.remove('show');
-  document.getElementById('setClassError').classList.remove('show');
-}
-  </script>
+    </script>
 </body>
-</html>
+  </html>
