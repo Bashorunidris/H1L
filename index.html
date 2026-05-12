@@ -5,539 +5,380 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>NetTube — Stream Everything</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
 <style>
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  :root{
-    --red:#E50914;
-    --red-dim:#b8070f;
-    --bg:#0a0a0a;
-    --bg2:#111111;
-    --bg3:#1a1a1a;
-    --bg4:#222222;
-    --surface:#181818;
-    --border:#2a2a2a;
-    --text:#ffffff;
-    --text2:#b3b3b3;
-    --text3:#666666;
-    --accent:#E50914;
-    --sidebar:240px;
-    --topbar:64px;
-  }
-  html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden}
-  a{text-decoration:none;color:inherit}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#E50914;--red-dim:#b8070f;
+  --bg:#0a0a0a;--bg2:#111111;--bg3:#1a1a1a;--bg4:#222222;
+  --surface:#181818;--border:#2a2a2a;
+  --text:#ffffff;--text2:#b3b3b3;--text3:#666666;
+  --sidebar:220px;--topbar:60px;
+  --card-w:190px;--card-w-sm:150px;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
 
-  /* ─── Layout Shell ─── */
-  .shell{display:flex;height:100vh;overflow:hidden}
+/* ── Shell ── */
+.shell{display:flex;height:100vh;overflow:hidden}
 
-  /* ─── Sidebar ─── */
-  .sidebar{
-    width:var(--sidebar);flex-shrink:0;
-    background:var(--bg2);
-    border-right:1px solid var(--border);
-    display:flex;flex-direction:column;
-    overflow-y:auto;overflow-x:hidden;
-    position:relative;z-index:10;
-  }
-  .sidebar::-webkit-scrollbar{width:3px}
-  .sidebar::-webkit-scrollbar-thumb{background:var(--bg4)}
-  .logo{
-    padding:20px 20px 16px;
-    display:flex;align-items:center;gap:8px;
-    border-bottom:1px solid var(--border);
-  }
-  .logo-mark{
-    width:36px;height:36px;background:var(--red);
-    border-radius:8px;display:flex;align-items:center;justify-content:center;
-    flex-shrink:0;
-  }
-  .logo-mark svg{width:20px;height:20px;fill:#fff}
-  .logo-text{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px}
-  .logo-text span{color:var(--red)}
+/* ── Sidebar ── */
+.sidebar{
+  width:var(--sidebar);flex-shrink:0;
+  background:var(--bg2);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  overflow-y:auto;overflow-x:hidden;position:relative;z-index:20;
+  transition:transform .3s ease,width .3s ease;
+}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--bg4)}
 
-  .nav-section{padding:12px 0}
-  .nav-label{
-    font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
-    color:var(--text3);padding:8px 20px 4px;font-weight:600;
-  }
-  .nav-item{
-    display:flex;align-items:center;gap:12px;
-    padding:10px 20px;font-size:14px;font-weight:400;
-    color:var(--text2);cursor:pointer;border-radius:0;
-    transition:background .15s,color .15s;
-    border-left:3px solid transparent;
-  }
-  .nav-item:hover{background:var(--bg3);color:var(--text)}
-  .nav-item.active{
-    color:var(--text);background:var(--bg3);
-    border-left-color:var(--red);
-  }
-  .nav-item svg{width:18px;height:18px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.8}
-  .nav-badge{
-    margin-left:auto;font-size:10px;font-weight:600;
-    background:var(--red);color:#fff;
-    padding:2px 6px;border-radius:10px;
-  }
-  .sidebar-thumb{
-    margin:0 12px;border-radius:8px;overflow:hidden;
-    background:var(--bg4);cursor:pointer;
-    transition:opacity .15s;
-  }
-  .sidebar-thumb:hover{opacity:.8}
-  .thumb-img{
-    width:100%;aspect-ratio:16/9;
-    background:linear-gradient(135deg,var(--bg4) 0%,var(--bg3) 100%);
-    display:flex;align-items:center;justify-content:center;
-    font-size:28px;position:relative;overflow:hidden;
-  }
-  .thumb-img .play-icon{
-    position:absolute;width:36px;height:36px;
-    background:rgba(0,0,0,.7);border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    opacity:0;transition:opacity .15s;
-  }
-  .sidebar-thumb:hover .play-icon{opacity:1}
-  .thumb-info{padding:8px 10px}
-  .thumb-title{font-size:12px;font-weight:500;line-height:1.3;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .thumb-meta{font-size:11px;color:var(--text3)}
+.logo{padding:18px 16px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);flex-shrink:0}
+.logo-mark{width:34px;height:34px;background:var(--red);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-mark svg{width:18px;height:18px;fill:#fff}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:1px}
+.logo-text span{color:var(--red)}
 
-  /* ─── Main ─── */
-  .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.nav-section{padding:10px 0}
+.nav-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);padding:8px 16px 4px;font-weight:600}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;font-size:13.5px;font-weight:400;color:var(--text2);cursor:pointer;border-left:3px solid transparent;transition:background .15s,color .15s}
+.nav-item:hover{background:var(--bg3);color:var(--text)}
+.nav-item.active{color:var(--text);background:var(--bg3);border-left-color:var(--red)}
+.nav-item svg{width:17px;height:17px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.8}
+.nav-badge{margin-left:auto;font-size:10px;font-weight:700;background:var(--red);color:#fff;padding:2px 6px;border-radius:10px}
 
-  /* ─── Top Bar ─── */
-  .topbar{
-    height:var(--topbar);flex-shrink:0;
-    background:var(--bg2);border-bottom:1px solid var(--border);
-    display:flex;align-items:center;gap:16px;padding:0 24px;
-    position:sticky;top:0;z-index:9;
-  }
-  .search-wrap{
-    flex:1;max-width:600px;
-    display:flex;align-items:center;
-    background:var(--bg3);border:1px solid var(--border);
-    border-radius:24px;overflow:hidden;
-  }
-  .search-wrap:focus-within{border-color:var(--text3)}
-  .search-wrap input{
-    flex:1;background:none;border:none;outline:none;
-    padding:10px 16px;color:var(--text);font-size:14px;font-family:inherit;
-  }
-  .search-wrap input::placeholder{color:var(--text3)}
-  .search-btn{
-    background:var(--bg4);border:none;border-left:1px solid var(--border);
-    padding:10px 18px;cursor:pointer;color:var(--text2);
-    display:flex;align-items:center;transition:background .15s;
-  }
-  .search-btn:hover{background:var(--bg3);color:var(--text)}
-  .search-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2}
+.sidebar-thumb{margin:0 10px;border-radius:8px;overflow:hidden;background:var(--bg4);cursor:pointer;transition:opacity .15s}
+.sidebar-thumb:hover{opacity:.8}
+.thumb-img{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:24px;position:relative;overflow:hidden}
+.thumb-info{padding:7px 9px}
+.thumb-title{font-size:11.5px;font-weight:500;line-height:1.3;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.thumb-meta{font-size:10.5px;color:var(--text3)}
 
-  .topbar-actions{display:flex;align-items:center;gap:10px;margin-left:auto}
-  .icon-btn{
-    width:36px;height:36px;border-radius:50%;
-    background:var(--bg3);border:none;cursor:pointer;
-    display:flex;align-items:center;justify-content:center;
-    color:var(--text2);transition:background .15s,color .15s;position:relative;
-  }
-  .icon-btn:hover{background:var(--bg4);color:var(--text)}
-  .icon-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8}
-  .notif-dot{
-    position:absolute;top:5px;right:5px;
-    width:8px;height:8px;background:var(--red);border-radius:50%;
-    border:2px solid var(--bg2);
-  }
-  .avatar{
-    width:36px;height:36px;border-radius:50%;
-    background:var(--red);display:flex;align-items:center;justify-content:center;
-    font-size:14px;font-weight:600;cursor:pointer;flex-shrink:0;
-  }
-  .filter-pills{
-    display:flex;align-items:center;gap:8px;margin-left:8px;
-    overflow-x:auto;scrollbar-width:none;
-  }
-  .filter-pills::-webkit-scrollbar{display:none}
-  .pill{
-    white-space:nowrap;padding:6px 14px;border-radius:20px;
-    font-size:13px;font-weight:500;cursor:pointer;
-    background:var(--bg4);color:var(--text2);border:1px solid var(--border);
-    transition:all .15s;flex-shrink:0;
-  }
-  .pill:hover{background:var(--bg3);color:var(--text)}
-  .pill.active{background:var(--text);color:#000}
+/* ── Overlay for mobile sidebar ── */
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:19}
 
-  /* ─── Content Area ─── */
-  .content{flex:1;overflow-y:auto;overflow-x:hidden}
-  .content::-webkit-scrollbar{width:6px}
-  .content::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
+/* ── Main ── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
 
-  /* ─── Hero Banner (Netflix style) ─── */
-  .hero{
-    position:relative;height:520px;overflow:hidden;
-    margin-bottom:4px;
-  }
-  .hero-bg{
-    position:absolute;inset:0;
-    background:linear-gradient(105deg,#0d1b2a 0%,#1a0a0a 50%,#0a0a0a 100%);
-  }
-  .hero-scene{
-    position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end;
-  }
-  .hero-visual{
-    width:62%;height:100%;
-    background:linear-gradient(160deg,#1a2a3a 0%,#2d1515 60%,#0a0a0a 100%);
-    display:flex;align-items:center;justify-content:center;
-    font-size:80px;position:relative;
-    clip-path:polygon(10% 0,100% 0,100% 100%,0% 100%);
-  }
-  .hero-visual::after{
-    content:'';position:absolute;inset:0;
-    background:linear-gradient(90deg,var(--bg) 0%,transparent 40%,transparent 70%,rgba(10,10,10,.5) 100%);
-  }
-  .hero-badge{
-    position:absolute;top:24px;left:24px;
-    background:var(--red);color:#fff;
-    font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
-    padding:4px 10px;border-radius:4px;
-  }
-  .hero-rank{
-    position:absolute;bottom:24px;left:24px;
-    font-family:'Bebas Neue',sans-serif;font-size:100px;line-height:1;
-    color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.15);
-  }
-  .hero-content{
-    position:absolute;left:0;bottom:0;top:0;
-    width:50%;display:flex;flex-direction:column;
-    justify-content:center;padding:48px 40px;
-  }
-  .hero-category{
-    font-size:11px;letter-spacing:2px;text-transform:uppercase;
-    color:var(--red);font-weight:600;margin-bottom:12px;
-  }
-  .hero-title{
-    font-family:'Bebas Neue',sans-serif;
-    font-size:62px;line-height:.95;
-    color:#fff;margin-bottom:16px;letter-spacing:1px;
-  }
-  .hero-meta{
-    display:flex;align-items:center;gap:12px;
-    margin-bottom:16px;
-  }
-  .hero-meta span{font-size:13px;color:var(--text2)}
-  .hero-meta .dot{width:4px;height:4px;background:var(--text3);border-radius:50%}
-  .match{color:#46d369;font-weight:600}
-  .hero-desc{
-    font-size:15px;line-height:1.6;color:var(--text2);
-    max-width:380px;margin-bottom:28px;
-    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
-  }
-  .hero-actions{display:flex;gap:12px;align-items:center}
-  .btn-play{
-    display:flex;align-items:center;gap:8px;
-    background:#fff;color:#000;
-    border:none;padding:12px 24px;border-radius:6px;
-    font-size:15px;font-weight:600;cursor:pointer;
-    font-family:inherit;transition:background .15s;
-  }
-  .btn-play:hover{background:#ddd}
-  .btn-play svg{width:20px;height:20px;fill:#000}
-  .btn-info{
-    display:flex;align-items:center;gap:8px;
-    background:rgba(109,109,110,.7);color:#fff;
-    border:none;padding:12px 20px;border-radius:6px;
-    font-size:15px;font-weight:500;cursor:pointer;
-    font-family:inherit;transition:background .15s;backdrop-filter:blur(4px);
-  }
-  .btn-info:hover{background:rgba(109,109,110,.5)}
-  .btn-info svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2}
-  .hero-indicators{
-    position:absolute;right:40px;bottom:36px;
-    display:flex;gap:6px;
-  }
-  .indicator{
-    width:24px;height:3px;background:rgba(255,255,255,.3);border-radius:2px;cursor:pointer;transition:all .2s;
-  }
-  .indicator.active{width:32px;background:var(--red)}
+/* ── Topbar ── */
+.topbar{height:var(--topbar);flex-shrink:0;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;padding:0 16px;position:sticky;top:0;z-index:9}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;color:var(--text2)}
+.hamburger svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2}
+.search-wrap{flex:1;max-width:480px;display:flex;align-items:center;background:var(--bg3);border:1px solid var(--border);border-radius:24px;overflow:hidden}
+.search-wrap:focus-within{border-color:var(--text3)}
+.search-wrap input{flex:1;background:none;border:none;outline:none;padding:9px 14px;color:var(--text);font-size:13.5px;font-family:inherit}
+.search-wrap input::placeholder{color:var(--text3)}
+.search-btn{background:var(--bg4);border:none;border-left:1px solid var(--border);padding:9px 14px;cursor:pointer;color:var(--text2);display:flex;align-items:center;transition:background .15s}
+.search-btn:hover{background:var(--bg3);color:var(--text)}
+.search-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+.topbar-actions{display:flex;align-items:center;gap:8px;margin-left:auto}
+.icon-btn{width:34px;height:34px;border-radius:50%;background:var(--bg3);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);transition:background .15s,color .15s;position:relative;flex-shrink:0}
+.icon-btn:hover{background:var(--bg4);color:var(--text)}
+.icon-btn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8}
+.notif-dot{position:absolute;top:5px;right:5px;width:7px;height:7px;background:var(--red);border-radius:50%;border:2px solid var(--bg2)}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;cursor:pointer;flex-shrink:0}
 
-  /* ─── Section ─── */
-  .section{padding:8px 0 16px}
-  .section-head{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:0 24px;margin-bottom:12px;
-  }
-  .section-title{
-    font-size:18px;font-weight:600;color:var(--text);
-    display:flex;align-items:center;gap:10px;
-  }
-  .section-title .tag{
-    font-size:11px;font-weight:600;letter-spacing:.5px;
-    padding:3px 8px;border-radius:4px;
-    background:var(--red);color:#fff;text-transform:uppercase;
-  }
-  .see-all{font-size:13px;color:var(--text3);cursor:pointer;transition:color .15s;display:flex;align-items:center;gap:4px}
-  .see-all:hover{color:var(--red)}
-  .see-all svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+/* ── Filter Pills ── */
+.pills-bar{padding:10px 16px;background:var(--bg2);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;display:flex;gap:7px;flex-shrink:0}
+.pills-bar::-webkit-scrollbar{display:none}
+.pill{white-space:nowrap;padding:5px 13px;border-radius:20px;font-size:12.5px;font-weight:500;cursor:pointer;background:var(--bg4);color:var(--text2);border:1px solid var(--border);transition:all .15s;flex-shrink:0}
+.pill:hover{background:var(--bg3);color:var(--text)}
+.pill.active{background:var(--text);color:#000}
 
-  /* ─── Netflix Carousel ─── */
-  .carousel{position:relative}
-  .carousel-track{
-    display:flex;gap:8px;padding:4px 24px 8px;
-    overflow-x:auto;scroll-snap-type:x mandatory;
-    scrollbar-width:none;
-  }
-  .carousel-track::-webkit-scrollbar{display:none}
-  .carousel-arrow{
-    position:absolute;top:50%;transform:translateY(-50%);
-    width:40px;height:72px;
-    background:rgba(0,0,0,.75);border:none;cursor:pointer;
-    display:flex;align-items:center;justify-content:center;
-    color:#fff;z-index:5;transition:background .15s;
-  }
-  .carousel-arrow:hover{background:rgba(0,0,0,.9)}
-  .carousel-arrow svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2.5}
-  .carousel-arrow.left{left:0;border-radius:0 4px 4px 0}
-  .carousel-arrow.right{right:0;border-radius:4px 0 0 4px}
+/* ── Content ── */
+.content{flex:1;overflow-y:auto;overflow-x:hidden}
+.content::-webkit-scrollbar{width:5px}
+.content::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
 
-  /* ─── Netflix Card ─── */
-  .nf-card{
-    flex-shrink:0;width:200px;border-radius:6px;overflow:hidden;
-    cursor:pointer;transition:transform .25s,z-index .25s;
-    scroll-snap-align:start;position:relative;
-  }
-  .nf-card:hover{transform:scale(1.08);z-index:10}
-  .nf-card-img{
-    width:100%;aspect-ratio:16/9;
-    display:flex;align-items:center;justify-content:center;
-    font-size:36px;position:relative;overflow:hidden;
-  }
-  .nf-card-overlay{
-    position:absolute;inset:0;
-    background:linear-gradient(0deg,rgba(0,0,0,.85) 0%,transparent 60%);
-    opacity:0;transition:opacity .25s;
-    display:flex;flex-direction:column;justify-content:flex-end;padding:10px;
-  }
-  .nf-card:hover .nf-card-overlay{opacity:1}
-  .nf-card-actions{display:flex;gap:6px;margin-bottom:6px}
-  .mini-btn{
-    width:28px;height:28px;border-radius:50%;
-    border:1.5px solid rgba(255,255,255,.7);
-    background:rgba(0,0,0,.5);
-    display:flex;align-items:center;justify-content:center;
-    cursor:pointer;
-  }
-  .mini-btn svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2}
-  .mini-btn.play-mini{background:rgba(255,255,255,.9)}
-  .mini-btn.play-mini svg{stroke:#000}
-  .nf-card-label{font-size:11px;color:var(--text2)}
-  .progress-bar{height:3px;background:var(--bg4);border-radius:2px;margin-top:4px}
-  .progress-fill{height:100%;background:var(--red);border-radius:2px}
+/* ── Hero ── */
+.hero{position:relative;height:480px;overflow:hidden;margin-bottom:4px}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(105deg,#0d1b2a 0%,#1a0a0a 50%,#0a0a0a 100%)}
+.hero-scene{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end}
+.hero-visual{width:60%;height:100%;background:linear-gradient(160deg,#1a2a3a 0%,#2d1515 60%,#0a0a0a 100%);display:flex;align-items:center;justify-content:center;font-size:80px;position:relative;clip-path:polygon(10% 0,100% 0,100% 100%,0% 100%)}
+.hero-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 0%,transparent 40%,transparent 70%,rgba(10,10,10,.5) 100%)}
+.hero-badge{position:absolute;top:20px;left:20px;background:var(--red);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 9px;border-radius:4px}
+.hero-rank{position:absolute;bottom:20px;left:20px;font-family:'Bebas Neue',sans-serif;font-size:90px;line-height:1;color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.12)}
+.hero-content{position:absolute;left:0;bottom:0;top:0;width:52%;display:flex;flex-direction:column;justify-content:center;padding:40px 32px}
+.hero-category{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:10px}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:.95;color:#fff;margin-bottom:14px;letter-spacing:1px}
+.hero-meta{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.hero-meta span{font-size:12.5px;color:var(--text2)}
+.hero-meta .dot{width:3px;height:3px;background:var(--text3);border-radius:50%;flex-shrink:0}
+.match{color:#46d369;font-weight:600}
+.hero-desc{font-size:14px;line-height:1.6;color:var(--text2);max-width:360px;margin-bottom:24px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.hero-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn-play{display:flex;align-items:center;gap:7px;background:#fff;color:#000;border:none;padding:11px 20px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s}
+.btn-play:hover{background:#ddd}
+.btn-play svg{width:18px;height:18px;fill:#000}
+.btn-info{display:flex;align-items:center;gap:7px;background:rgba(109,109,110,.7);color:#fff;border:none;padding:11px 18px;border-radius:6px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;transition:background .15s;backdrop-filter:blur(4px)}
+.btn-info:hover{background:rgba(109,109,110,.5)}
+.btn-info svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2}
+.hero-indicators{position:absolute;right:32px;bottom:28px;display:flex;gap:5px}
+.indicator{width:22px;height:3px;background:rgba(255,255,255,.25);border-radius:2px;cursor:pointer;transition:all .2s}
+.indicator.active{width:30px;background:var(--red)}
 
-  /* ─── YouTube Grid ─── */
-  .yt-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-    gap:16px;padding:8px 24px 24px;
-  }
-  .yt-card{cursor:pointer;border-radius:8px;overflow:hidden;transition:transform .2s}
-  .yt-card:hover{transform:translateY(-2px)}
-  .yt-thumb{
-    width:100%;aspect-ratio:16/9;
-    display:flex;align-items:center;justify-content:center;
-    font-size:40px;position:relative;overflow:hidden;border-radius:8px;
-    background:var(--bg3);
-  }
-  .yt-thumb-duration{
-    position:absolute;bottom:6px;right:8px;
-    background:rgba(0,0,0,.85);color:#fff;
-    font-size:11px;font-weight:600;padding:2px 5px;border-radius:3px;
-  }
-  .yt-thumb-live{
-    position:absolute;top:8px;left:8px;
-    background:var(--red);color:#fff;
-    font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
-    padding:2px 6px;border-radius:3px;
-  }
-  .yt-info{display:flex;gap:10px;padding:10px 2px 0}
-  .yt-avatar{
-    width:36px;height:36px;border-radius:50%;
-    flex-shrink:0;display:flex;align-items:center;justify-content:center;
-    font-size:14px;font-weight:700;
-  }
-  .yt-details{flex:1;min-width:0}
-  .yt-title{
-    font-size:14px;font-weight:500;line-height:1.35;
-    margin-bottom:4px;
-    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
-  }
-  .yt-channel{font-size:12px;color:var(--text2);margin-bottom:2px}
-  .yt-stats{font-size:12px;color:var(--text3)}
-  .verified{display:inline-block;width:12px;height:12px;background:var(--text3);border-radius:50%;margin-left:3px;vertical-align:-2px;position:relative}
-  .verified::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--bg)}
+/* ── Section ── */
+.section{padding:6px 0 14px}
+.section-head{display:flex;align-items:center;justify-content:space-between;padding:0 16px;margin-bottom:10px}
+.section-title{font-size:16px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px}
+.section-title .tag{font-size:10px;font-weight:700;letter-spacing:.5px;padding:2px 7px;border-radius:4px;background:var(--red);color:#fff;text-transform:uppercase}
+.see-all{font-size:12.5px;color:var(--text3);cursor:pointer;transition:color .15s;display:flex;align-items:center;gap:3px;flex-shrink:0}
+.see-all:hover{color:var(--red)}
+.see-all svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2}
 
-  /* ─── Divider ─── */
-  .divider{height:1px;background:var(--border);margin:8px 24px}
+/* ── Ranking Logic Info Button ── */
+.rank-info-btn{
+  width:20px;height:20px;border-radius:50%;
+  background:var(--bg4);border:1px solid var(--border);
+  display:inline-flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--text3);font-size:11px;font-weight:700;
+  transition:all .2s;flex-shrink:0;position:relative;margin-left:6px;
+  font-style:italic;font-family:Georgia,serif;
+}
+.rank-info-btn:hover{background:var(--bg3);color:var(--text);border-color:var(--text3)}
+.rank-tooltip{
+  position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);
+  width:260px;background:var(--bg3);border:1px solid var(--border);
+  border-radius:10px;padding:14px;z-index:100;
+  box-shadow:0 8px 32px rgba(0,0,0,.6);
+  display:none;
+  pointer-events:none;
+}
+.rank-tooltip.open{display:block}
+.rank-tooltip::before{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:10px;height:10px;background:var(--bg3);border-top:1px solid var(--border);border-left:1px solid var(--border);transform:translateX(-50%) rotate(45deg)}
+.tooltip-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.tooltip-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.tooltip-bar-wrap{flex:1;height:4px;background:var(--bg4);border-radius:2px;overflow:hidden}
+.tooltip-bar{height:100%;border-radius:2px;background:var(--red)}
+.tooltip-label{font-size:11px;color:var(--text2);width:70px;flex-shrink:0}
+.tooltip-pct{font-size:11px;color:var(--text3);width:30px;text-align:right;flex-shrink:0}
+.tooltip-note{font-size:10.5px;color:var(--text3);margin-top:8px;line-height:1.4;border-top:1px solid var(--border);padding-top:8px}
 
-  /* ─── Top 10 Row ─── */
-  .top10-card{
-    flex-shrink:0;width:260px;cursor:pointer;
-    display:flex;align-items:flex-end;gap:0;scroll-snap-align:start;
-    transition:transform .2s;
-  }
-  .top10-card:hover{transform:scale(1.04)}
-  .top10-num{
-    font-family:'Bebas Neue',sans-serif;
-    font-size:120px;line-height:1;margin-right:-20px;
-    color:transparent;-webkit-text-stroke:3px var(--bg4);
-    flex-shrink:0;
-  }
-  .top10-img{
-    flex:1;aspect-ratio:2/3;border-radius:6px;
-    background:var(--bg3);display:flex;align-items:center;
-    justify-content:center;font-size:40px;overflow:hidden;
-  }
+/* ── Carousel ── */
+.carousel{position:relative}
+.carousel-track{display:flex;gap:7px;padding:4px 16px 8px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.carousel-track::-webkit-scrollbar{display:none}
+.carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:64px;background:rgba(0,0,0,.75);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;z-index:5;transition:background .15s}
+.carousel-arrow:hover{background:rgba(0,0,0,.9)}
+.carousel-arrow svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.5}
+.carousel-arrow.left{left:0;border-radius:0 4px 4px 0}
+.carousel-arrow.right{right:0;border-radius:4px 0 0 4px}
 
-  /* ─── Color palettes for cards ─── */
-  .c1{background:linear-gradient(135deg,#1a3a2a,#0d2a1a)}
-  .c2{background:linear-gradient(135deg,#1a1a3a,#0d0d2a)}
-  .c3{background:linear-gradient(135deg,#3a1a1a,#2a0d0d)}
-  .c4{background:linear-gradient(135deg,#2a1a3a,#1a0d2a)}
-  .c5{background:linear-gradient(135deg,#1a2a3a,#0d1a2a)}
-  .c6{background:linear-gradient(135deg,#3a2a1a,#2a1a0d)}
-  .c7{background:linear-gradient(135deg,#1a3a3a,#0d2a2a)}
-  .c8{background:linear-gradient(135deg,#3a1a2a,#2a0d1a)}
-  .a1{background:#e74c3c}
-  .a2{background:#3498db}
-  .a3{background:#9b59b6}
-  .a4{background:#1abc9c}
-  .a5{background:#e67e22}
-  .a6{background:#e91e63}
+/* ── Netflix Card ── */
+.nf-card{flex-shrink:0;width:var(--card-w);border-radius:6px;overflow:hidden;cursor:pointer;transition:transform .25s;scroll-snap-align:start;position:relative}
+.nf-card:hover{transform:scale(1.07);z-index:10}
+.nf-card-img{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:32px;position:relative;overflow:hidden}
+.nf-card-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.88) 0%,transparent 60%);opacity:0;transition:opacity .25s;display:flex;flex-direction:column;justify-content:flex-end;padding:8px}
+.nf-card:hover .nf-card-overlay{opacity:1}
+.nf-card-actions{display:flex;gap:5px;margin-bottom:5px}
+.mini-btn{width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(255,255,255,.6);background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.mini-btn svg{width:12px;height:12px;stroke:#fff;fill:none;stroke-width:2}
+.mini-btn.play-mini{background:rgba(255,255,255,.9)}
+.mini-btn.play-mini svg{stroke:#000}
+.nf-card-label{font-size:10px;color:var(--text2)}
+.progress-bar{height:3px;background:var(--bg4);border-radius:2px;margin-top:3px}
+.progress-fill{height:100%;background:var(--red);border-radius:2px}
+
+/* ── Portrait Card ── */
+.portrait-card{flex-shrink:0;width:130px;border-radius:6px;overflow:hidden;cursor:pointer;transition:transform .22s;scroll-snap-align:start}
+.portrait-card:hover{transform:scale(1.07);z-index:10}
+.portrait-card-img{width:100%;aspect-ratio:2/3;display:flex;align-items:center;justify-content:center;font-size:40px}
+
+/* ── Top 10 ── */
+.top10-card{flex-shrink:0;width:240px;cursor:pointer;display:flex;align-items:flex-end;gap:0;scroll-snap-align:start;transition:transform .2s}
+.top10-card:hover{transform:scale(1.04)}
+.top10-num{font-family:'Bebas Neue',sans-serif;font-size:110px;line-height:1;margin-right:-18px;color:transparent;-webkit-text-stroke:3px var(--bg4);flex-shrink:0}
+.top10-img{flex:1;aspect-ratio:2/3;border-radius:6px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:36px;overflow:hidden}
+
+/* ── YouTube Grid ── */
+.yt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;padding:6px 16px 20px}
+.yt-card{cursor:pointer;border-radius:8px;overflow:hidden;transition:transform .2s}
+.yt-card:hover{transform:translateY(-2px)}
+.yt-thumb{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:38px;position:relative;overflow:hidden;border-radius:8px;background:var(--bg3)}
+.yt-thumb-duration{position:absolute;bottom:5px;right:7px;background:rgba(0,0,0,.85);color:#fff;font-size:10.5px;font-weight:600;padding:2px 5px;border-radius:3px}
+.yt-thumb-live{position:absolute;top:7px;left:7px;background:var(--red);color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:2px 6px;border-radius:3px}
+.yt-info{display:flex;gap:9px;padding:9px 2px 0}
+.yt-avatar{width:34px;height:34px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.yt-details{flex:1;min-width:0}
+.yt-title{font-size:13.5px;font-weight:500;line-height:1.35;margin-bottom:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.yt-channel{font-size:11.5px;color:var(--text2);margin-bottom:2px}
+.yt-stats{font-size:11.5px;color:var(--text3)}
+.verified{display:inline-block;width:11px;height:11px;background:var(--text3);border-radius:50%;margin-left:3px;vertical-align:-2px;position:relative}
+.verified::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:7px;color:var(--bg)}
+
+/* ── Live Badge ── */
+.live-badge{display:inline-flex;align-items:center;gap:4px;background:var(--red);color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:2px 7px;border-radius:3px}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#fff;animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── Channel Card ── */
+.channel-card{flex-shrink:0;width:140px;display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 10px;background:var(--bg3);border-radius:10px;cursor:pointer;transition:background .2s;scroll-snap-align:start;flex-shrink:0}
+.channel-card:hover{background:var(--bg4)}
+.channel-avatar{width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;border:2px solid var(--border)}
+.channel-name{font-size:12.5px;font-weight:500;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
+.channel-subs{font-size:11px;color:var(--text3)}
+.sub-btn{font-size:11px;font-weight:600;padding:4px 12px;border-radius:14px;background:var(--text);color:#000;border:none;cursor:pointer;transition:opacity .15s}
+.sub-btn:hover{opacity:.85}
+
+/* ── Divider ── */
+.divider{height:1px;background:var(--border);margin:6px 16px}
+
+/* ── Category Label Row ── */
+.cat-label-row{display:flex;align-items:center;gap:8px;padding:0 16px 10px}
+.cat-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:500;background:var(--bg3);border:1px solid var(--border);color:var(--text2);cursor:pointer;transition:all .15s}
+.cat-chip:hover,.cat-chip.active{background:var(--red);border-color:var(--red);color:#fff}
+
+/* ── Color palettes ── */
+.c1{background:linear-gradient(135deg,#1a3a2a,#0d2a1a)}
+.c2{background:linear-gradient(135deg,#1a1a3a,#0d0d2a)}
+.c3{background:linear-gradient(135deg,#3a1a1a,#2a0d0d)}
+.c4{background:linear-gradient(135deg,#2a1a3a,#1a0d2a)}
+.c5{background:linear-gradient(135deg,#1a2a3a,#0d1a2a)}
+.c6{background:linear-gradient(135deg,#3a2a1a,#2a1a0d)}
+.c7{background:linear-gradient(135deg,#1a3a3a,#0d2a2a)}
+.c8{background:linear-gradient(135deg,#3a1a2a,#2a0d1a)}
+.c9{background:linear-gradient(135deg,#2a3a1a,#1a2a0d)}
+.c10{background:linear-gradient(135deg,#3a3a1a,#2a2a0d)}
+.a1{background:#e74c3c}.a2{background:#3498db}.a3{background:#9b59b6}
+.a4{background:#1abc9c}.a5{background:#e67e22}.a6{background:#e91e63}
+.a7{background:#2ecc71}.a8{background:#f39c12}.a9{background:#1565c0}
+
+/* ── Mobile Responsive ── */
+@media(max-width:768px){
+  :root{--card-w:160px;--card-w-sm:130px}
+  .sidebar{position:fixed;top:0;left:0;height:100%;transform:translateX(-100%);z-index:25;width:240px}
+  .sidebar.open{transform:translateX(0)}
+  .sidebar-overlay.show{display:block}
+  .hamburger{display:flex}
+  .hero{height:360px}
+  .hero-visual{width:100%;clip-path:none}
+  .hero-visual::after{background:linear-gradient(0deg,var(--bg) 0%,rgba(10,10,10,.7) 50%,rgba(10,10,10,.3) 100%)}
+  .hero-content{width:100%;padding:24px 16px;background:linear-gradient(0deg,rgba(10,10,10,1) 0%,transparent 100%);justify-content:flex-end}
+  .hero-title{font-size:40px}
+  .hero-desc{display:none}
+  .hero-indicators{right:16px;bottom:16px}
+  .yt-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;padding:6px 12px 16px}
+  .section-head{padding:0 12px}
+  .carousel-track{padding:4px 12px 8px}
+  .pills-bar{padding:8px 12px}
+  .top10-num{font-size:90px}
+  .top10-card{width:190px}
+  .rank-tooltip{width:220px;left:0;transform:none}
+  .rank-tooltip::before{left:18px;transform:rotate(45deg)}
+}
+
+@media(max-width:480px){
+  :root{--card-w:140px}
+  .hero{height:300px}
+  .hero-title{font-size:32px}
+  .btn-play,.btn-info{padding:9px 14px;font-size:13px}
+  .topbar{padding:0 10px;gap:8px}
+  .icon-btn{width:30px;height:30px}
+  .avatar{width:30px;height:30px;font-size:11px}
+  .section-title{font-size:14.5px}
+  .yt-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .channel-card{width:120px}
+  .portrait-card{width:110px}
+}
 </style>
 </head>
 <body>
-<div class="shell">
 
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="shell">
   <!-- ═══ SIDEBAR ═══ -->
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
     <div class="logo">
-      <div class="logo-mark">
-        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-      </div>
+      <div class="logo-mark"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
       <span class="logo-text">Net<span>Tube</span></span>
     </div>
-
     <div class="nav-section">
       <div class="nav-item active">
-        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Home
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home
       </div>
       <div class="nav-item">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        Explore
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Explore
       </div>
       <div class="nav-item">
-        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        Trending
+        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Trending
         <span class="nav-badge">Hot</span>
       </div>
       <div class="nav-item">
-        <svg viewBox="0 0 24 24"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
-        Originals
+        <svg viewBox="0 0 24 24"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>Originals
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Live Now
+        <span class="nav-badge" style="background:#46d369">Live</span>
       </div>
     </div>
-
+    <div class="nav-section" style="border-top:1px solid var(--border)">
+      <div class="nav-label">Categories</div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>Movies</div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg>TV Shows</div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Anime</div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>Documentaries</div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Music</div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M2 12h3M19 12h3M12 2v3M12 19v3M5.64 5.64l2.12 2.12M16.24 16.24l2.12 2.12M5.64 18.36l2.12-2.12M16.24 7.76l2.12-2.12"/></svg>Kids & Family</div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>Sports</div>
+    </div>
     <div class="nav-section" style="border-top:1px solid var(--border)">
       <div class="nav-label">Library</div>
-      <div class="nav-item">
-        <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        Watch Later
-      </div>
-      <div class="nav-item">
-        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-        Liked Videos
-      </div>
-      <div class="nav-item">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        My Lists
-      </div>
-      <div class="nav-item">
-        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-        Subscriptions
-      </div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Watch Later</div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>Liked Videos</div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>My Lists</div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>Subscriptions</div>
     </div>
-
     <div class="nav-section" style="border-top:1px solid var(--border)">
       <div class="nav-label">Up Next</div>
-      <div style="display:flex;flex-direction:column;gap:8px;padding:4px 12px">
-        <div class="sidebar-thumb">
-          <div class="thumb-img c3"><span>🌌</span>
-            <div class="play-icon"><svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:#fff"><polygon points="5 3 19 12 5 21"/></svg></div>
-          </div>
-          <div class="thumb-info">
-            <div class="thumb-title">Interstellar: Director's Cut</div>
-            <div class="thumb-meta">2:49:14 remaining</div>
-          </div>
-        </div>
-        <div class="sidebar-thumb">
-          <div class="thumb-img c1"><span>🦁</span>
-            <div class="play-icon"><svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:#fff"><polygon points="5 3 19 12 5 21"/></svg></div>
-          </div>
-          <div class="thumb-info">
-            <div class="thumb-title">Planet Earth III – Ep 4</div>
-            <div class="thumb-meta">44:20 remaining</div>
-          </div>
-        </div>
-        <div class="sidebar-thumb">
-          <div class="thumb-img c2"><span>🚀</span>
-            <div class="play-icon"><svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:#fff"><polygon points="5 3 19 12 5 21"/></svg></div>
-          </div>
-          <div class="thumb-info">
-            <div class="thumb-title">Mars: First Colony</div>
-            <div class="thumb-meta">1:12:08 remaining</div>
-          </div>
-        </div>
+      <div style="display:flex;flex-direction:column;gap:7px;padding:4px 10px">
+        <div class="sidebar-thumb"><div class="thumb-img c3"><span>🌌</span></div><div class="thumb-info"><div class="thumb-title">Interstellar: Director's Cut</div><div class="thumb-meta">2:49:14 remaining</div></div></div>
+        <div class="sidebar-thumb"><div class="thumb-img c1"><span>🦁</span></div><div class="thumb-info"><div class="thumb-title">Planet Earth III – Ep 4</div><div class="thumb-meta">44:20 remaining</div></div></div>
+        <div class="sidebar-thumb"><div class="thumb-img c2"><span>🚀</span></div><div class="thumb-info"><div class="thumb-title">Mars: First Colony</div><div class="thumb-meta">1:12:08 remaining</div></div></div>
       </div>
     </div>
-
-    <div style="margin-top:auto;padding:16px 20px;border-top:1px solid var(--border)">
-      <div class="nav-item" style="padding:8px 0">
-        <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93A10 10 0 105 19.07"/></svg>
-        Settings
-      </div>
-      <div class="nav-item" style="padding:8px 0">
-        <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        Help
-      </div>
+    <div style="margin-top:auto;padding:14px 16px;border-top:1px solid var(--border)">
+      <div class="nav-item" style="padding:8px 0"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93A10 10 0 105 19.07"/></svg>Settings</div>
+      <div class="nav-item" style="padding:8px 0"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Help</div>
     </div>
   </aside>
 
   <!-- ═══ MAIN ═══ -->
   <div class="main">
-
-    <!-- Top Bar -->
+    <!-- Topbar -->
     <div class="topbar">
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
       <div class="search-wrap">
         <input type="text" placeholder="Search movies, shows, creators…"/>
-        <button class="search-btn">
-          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </button>
-      </div>
-      <div class="filter-pills">
-        <div class="pill active">All</div>
-        <div class="pill">Movies</div>
-        <div class="pill">TV Shows</div>
-        <div class="pill">Creators</div>
-        <div class="pill">Documentaries</div>
-        <div class="pill">Anime</div>
-        <div class="pill">Live</div>
+        <button class="search-btn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
       </div>
       <div class="topbar-actions">
         <button class="icon-btn">
           <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
           <div class="notif-dot"></div>
         </button>
-        <button class="icon-btn">
+        <button class="icon-btn" style="display:none" class="desktop-only">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
         </button>
         <div class="avatar">A</div>
       </div>
+    </div>
+
+    <!-- Pills Bar -->
+    <div class="pills-bar">
+      <div class="pill active">All</div>
+      <div class="pill">Movies</div>
+      <div class="pill">TV Shows</div>
+      <div class="pill">Anime</div>
+      <div class="pill">Documentaries</div>
+      <div class="pill">Music</div>
+      <div class="pill">Sports</div>
+      <div class="pill">Gaming</div>
+      <div class="pill">Kids</div>
+      <div class="pill">News</div>
+      <div class="pill">Live</div>
     </div>
 
     <!-- Content -->
@@ -548,39 +389,32 @@
         <div class="hero-bg"></div>
         <div class="hero-scene">
           <div class="hero-visual">
-            <span style="position:relative;z-index:1;font-size:100px">🌌</span>
+            <span style="position:relative;z-index:1;font-size:90px" id="heroEmoji">🌌</span>
             <div class="hero-badge">NetTube Original</div>
             <div class="hero-rank">1</div>
           </div>
         </div>
         <div class="hero-content">
           <div class="hero-category">⚡ #1 in Streaming Today</div>
-          <div class="hero-title">BEYOND<br>THE COSMOS</div>
+          <div class="hero-title" id="heroTitle">BEYOND<br>THE COSMOS</div>
           <div class="hero-meta">
             <span class="match">97% Match</span>
             <div class="dot"></div>
             <span>2024</span>
             <div class="dot"></div>
-            <span style="border:1px solid var(--text3);padding:1px 5px;border-radius:3px;font-size:11px">HD</span>
+            <span style="border:1px solid var(--text3);padding:1px 5px;border-radius:3px;font-size:10.5px">HD</span>
             <div class="dot"></div>
             <span>2h 38m</span>
           </div>
-          <div class="hero-desc">
-            When humanity's last probe discovers an anomaly beyond Neptune, astronaut Dr. Kira Solano must journey farther than any human has gone — and confront what truly lies at the edge of existence.
-          </div>
+          <div class="hero-desc">When humanity's last probe discovers an anomaly beyond Neptune, astronaut Dr. Kira Solano must journey farther than any human has gone — and confront what truly lies at the edge of existence.</div>
           <div class="hero-actions">
-            <button class="btn-play">
-              <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:#000"><polygon points="5 3 19 12 5 21"/></svg>
-              Play Now
-            </button>
-            <button class="btn-info">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              More Info
-            </button>
+            <button class="btn-play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg>Play Now</button>
+            <button class="btn-info"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>More Info</button>
           </div>
         </div>
-        <div class="hero-indicators">
+        <div class="hero-indicators" id="heroIndicators">
           <div class="indicator active"></div>
+          <div class="indicator"></div>
           <div class="indicator"></div>
           <div class="indicator"></div>
           <div class="indicator"></div>
@@ -590,80 +424,52 @@
       <!-- ─── CONTINUE WATCHING ─── -->
       <div class="section">
         <div class="section-head">
-          <div class="section-title">Continue Watching</div>
+          <div class="section-title">
+            Continue Watching
+            <span class="rank-info-btn" data-tooltip="continue">i
+              <div class="rank-tooltip" id="tt-continue">
+                <div class="tooltip-title">📊 Ranking Logic</div>
+                <div class="tooltip-row"><span class="tooltip-label">Recency</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:80%"></div></div><span class="tooltip-pct">80%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">% Watched</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:60%"></div></div><span class="tooltip-pct">60%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Session freq</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:40%"></div></div><span class="tooltip-pct">40%</span></div>
+                <div class="tooltip-note">Sorted by your last watch session. Content you started recently appears first. Items &gt;90% watched are deprioritized.</div>
+              </div>
+            </span>
+          </div>
           <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
         </div>
         <div class="carousel">
           <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
           <div class="carousel-track">
-            <!-- cards -->
-            <div class="nf-card" style="width:220px">
+            <div class="nf-card" style="width:210px">
               <div class="nf-card-img c3"><span>🔥</span></div>
-              <div class="nf-card-overlay">
-                <div class="nf-card-actions">
-                  <div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div>
-                  <div class="mini-btn"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-                  <div class="mini-btn"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
-                </div>
-                <div class="nf-card-label">S3 E6 · 42m left</div>
-              </div>
-              <div style="padding:8px 0 0;background:var(--bg3)">
-                <div style="font-size:13px;font-weight:500;padding:0 8px 4px;color:var(--text)">Inferno Rising</div>
-                <div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:68%"></div></div>
-              </div>
+              <div class="nf-card-overlay"><div class="nf-card-actions"><div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div><div class="mini-btn"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div></div><div class="nf-card-label">S3 E6 · 42m left</div></div>
+              <div style="padding:7px 0 0;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500;padding:0 8px 4px;color:var(--text)">Inferno Rising</div><div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:68%"></div></div></div>
             </div>
-            <div class="nf-card" style="width:220px">
+            <div class="nf-card" style="width:210px">
               <div class="nf-card-img c1"><span>🌊</span></div>
-              <div class="nf-card-overlay">
-                <div class="nf-card-actions">
-                  <div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div>
-                  <div class="mini-btn"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-                </div>
-                <div class="nf-card-label">Episode 3 · 28m left</div>
-              </div>
-              <div style="padding:8px 0 0;background:var(--bg3)">
-                <div style="font-size:13px;font-weight:500;padding:0 8px 4px;color:var(--text)">Blue Depths</div>
-                <div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:30%"></div></div>
-              </div>
+              <div class="nf-card-overlay"><div class="nf-card-actions"><div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div></div><div class="nf-card-label">Episode 3 · 28m left</div></div>
+              <div style="padding:7px 0 0;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500;padding:0 8px 4px;color:var(--text)">Blue Depths</div><div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:30%"></div></div></div>
             </div>
-            <div class="nf-card" style="width:220px">
+            <div class="nf-card" style="width:210px">
               <div class="nf-card-img c2"><span>🚀</span></div>
-              <div class="nf-card-overlay">
-                <div class="nf-card-actions">
-                  <div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div>
-                </div>
-                <div class="nf-card-label">Film · 1h 12m left</div>
-              </div>
-              <div style="padding:8px 0 0;background:var(--bg3)">
-                <div style="font-size:13px;font-weight:500;padding:0 8px 4px;color:var(--text)">Mars: First Colony</div>
-                <div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:15%"></div></div>
-              </div>
+              <div class="nf-card-overlay"><div class="nf-card-actions"><div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div></div><div class="nf-card-label">Film · 1h 12m left</div></div>
+              <div style="padding:7px 0 0;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500;padding:0 8px 4px;color:var(--text)">Mars: First Colony</div><div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:15%"></div></div></div>
             </div>
-            <div class="nf-card" style="width:220px">
+            <div class="nf-card" style="width:210px">
               <div class="nf-card-img c5"><span>🧠</span></div>
-              <div class="nf-card-overlay">
-                <div class="nf-card-actions">
-                  <div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div>
-                </div>
-                <div class="nf-card-label">S1 E9 · 55m left</div>
-              </div>
-              <div style="padding:8px 0 0;background:var(--bg3)">
-                <div style="font-size:13px;font-weight:500;padding:0 8px 4px;color:var(--text)">Mindscape</div>
-                <div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:45%"></div></div>
-              </div>
+              <div class="nf-card-overlay"><div class="nf-card-actions"><div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div></div><div class="nf-card-label">S1 E9 · 55m left</div></div>
+              <div style="padding:7px 0 0;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500;padding:0 8px 4px;color:var(--text)">Mindscape</div><div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:45%"></div></div></div>
             </div>
-            <div class="nf-card" style="width:220px">
-              <div class="nf-card-img c4"><span>👁️</span></div>
-              <div class="nf-card-overlay">
-                <div class="nf-card-actions">
-                  <div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div>
-                </div>
-                <div class="nf-card-label">Film · 38m left</div>
-              </div>
-              <div style="padding:8px 0 0;background:var(--bg3)">
-                <div style="font-size:13px;font-weight:500;padding:0 8px 4px;color:var(--text)">The Watcher</div>
-                <div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:75%"></div></div>
-              </div>
+            <div class="nf-card" style="width:210px">
+              <div class="nf-card-img c8"><span>🐉</span></div>
+              <div class="nf-card-overlay"><div class="nf-card-actions"><div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div></div><div class="nf-card-label">S2 E1 · 1h 3m left</div></div>
+              <div style="padding:7px 0 0;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500;padding:0 8px 4px;color:var(--text)">Dragon Sovereign</div><div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:8%"></div></div></div>
+            </div>
+            <div class="nf-card" style="width:210px">
+              <div class="nf-card-img c7"><span>🔮</span></div>
+              <div class="nf-card-overlay"><div class="nf-card-actions"><div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div></div><div class="nf-card-label">Film · 38m left</div></div>
+              <div style="padding:7px 0 0;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500;padding:0 8px 4px;color:var(--text)">The Watcher</div><div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:75%"></div></div></div>
             </div>
           </div>
           <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
@@ -673,7 +479,20 @@
       <!-- ─── TOP 10 ─── -->
       <div class="section">
         <div class="section-head">
-          <div class="section-title">Top 10 <span class="tag">This Week</span></div>
+          <div class="section-title">
+            Top 10
+            <span class="tag">This Week</span>
+            <span class="rank-info-btn" data-tooltip="top10">i
+              <div class="rank-tooltip" id="tt-top10">
+                <div class="tooltip-title">📊 Ranking Logic</div>
+                <div class="tooltip-row"><span class="tooltip-label">Views (7d)</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:90%"></div></div><span class="tooltip-pct">90%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Likes</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:70%"></div></div><span class="tooltip-pct">70%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Watch time</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:65%"></div></div><span class="tooltip-pct">65%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Shares</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:50%"></div></div><span class="tooltip-pct">50%</span></div>
+                <div class="tooltip-note">Rankings refresh every 24h. Score = 0.4×views + 0.3×watch_time + 0.2×likes + 0.1×shares, all normalized within the 7-day window.</div>
+              </div>
+            </span>
+          </div>
           <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
         </div>
         <div class="carousel">
@@ -686,8 +505,8 @@
             <div class="top10-card"><div class="top10-num">6</div><div class="top10-img c6"><span>⚔️</span></div></div>
             <div class="top10-card"><div class="top10-num">7</div><div class="top10-img c7"><span>🌊</span></div></div>
             <div class="top10-card"><div class="top10-num">8</div><div class="top10-img c8"><span>🚀</span></div></div>
-            <div class="top10-card"><div class="top10-num">9</div><div class="top10-img c2"><span>🧠</span></div></div>
-            <div class="top10-card"><div class="top10-num" style="font-size:90px">10</div><div class="top10-img c3"><span>👁️</span></div></div>
+            <div class="top10-card"><div class="top10-num">9</div><div class="top10-img c9"><span>🧠</span></div></div>
+            <div class="top10-card"><div class="top10-num" style="font-size:82px">10</div><div class="top10-img c10"><span>🎭</span></div></div>
           </div>
         </div>
       </div>
@@ -695,20 +514,73 @@
       <!-- ─── NEW RELEASES ─── -->
       <div class="section">
         <div class="section-head">
-          <div class="section-title">New Releases <span class="tag">New</span></div>
+          <div class="section-title">New Releases <span class="tag">New</span>
+            <span class="rank-info-btn" data-tooltip="newrel">i
+              <div class="rank-tooltip" id="tt-newrel">
+                <div class="tooltip-title">📊 Ranking Logic</div>
+                <div class="tooltip-row"><span class="tooltip-label">Release date</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:95%"></div></div><span class="tooltip-pct">95%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Early ratings</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:55%"></div></div><span class="tooltip-pct">55%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Buzz score</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:40%"></div></div><span class="tooltip-pct">40%</span></div>
+                <div class="tooltip-note">Content released within the last 30 days. Ordered primarily by release date, then by early audience rating signals.</div>
+              </div>
+            </span>
+          </div>
           <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
         </div>
         <div class="carousel">
           <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
           <div class="carousel-track">
-            <div class="nf-card"><div class="nf-card-img c6" style="aspect-ratio:2/3;font-size:48px"><span>⚔️</span></div></div>
-            <div class="nf-card"><div class="nf-card-img c4" style="aspect-ratio:2/3;font-size:48px"><span>🐉</span></div></div>
-            <div class="nf-card"><div class="nf-card-img c7" style="aspect-ratio:2/3;font-size:48px"><span>🌊</span></div></div>
-            <div class="nf-card"><div class="nf-card-img c8" style="aspect-ratio:2/3;font-size:48px"><span>🔮</span></div></div>
-            <div class="nf-card"><div class="nf-card-img c1" style="aspect-ratio:2/3;font-size:48px"><span>🌲</span></div></div>
-            <div class="nf-card"><div class="nf-card-img c2" style="aspect-ratio:2/3;font-size:48px"><span>🛸</span></div></div>
-            <div class="nf-card"><div class="nf-card-img c3" style="aspect-ratio:2/3;font-size:48px"><span>🎭</span></div></div>
-            <div class="nf-card"><div class="nf-card-img c5" style="aspect-ratio:2/3;font-size:48px"><span>🤖</span></div></div>
+            <div class="portrait-card"><div class="portrait-card-img c6"><span>⚔️</span></div></div>
+            <div class="portrait-card"><div class="portrait-card-img c4"><span>🐉</span></div></div>
+            <div class="portrait-card"><div class="portrait-card-img c7"><span>🌊</span></div></div>
+            <div class="portrait-card"><div class="portrait-card-img c8"><span>🔮</span></div></div>
+            <div class="portrait-card"><div class="portrait-card-img c1"><span>🌲</span></div></div>
+            <div class="portrait-card"><div class="portrait-card-img c2"><span>🛸</span></div></div>
+            <div class="portrait-card"><div class="portrait-card-img c3"><span>🎭</span></div></div>
+            <div class="portrait-card"><div class="portrait-card-img c5"><span>🤖</span></div></div>
+            <div class="portrait-card"><div class="portrait-card-img c9"><span>🦊</span></div></div>
+            <div class="portrait-card"><div class="portrait-card-img c10"><span>🧿</span></div></div>
+          </div>
+          <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+      </div>
+
+      <!-- ─── LIVE NOW ─── -->
+      <div class="section">
+        <div class="section-head">
+          <div class="section-title">
+            <span class="live-badge"><span class="live-dot"></span>Live Now</span>
+            <span class="rank-info-btn" data-tooltip="live">i
+              <div class="rank-tooltip" id="tt-live">
+                <div class="tooltip-title">📊 Ranking Logic</div>
+                <div class="tooltip-row"><span class="tooltip-label">Viewers now</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:100%"></div></div><span class="tooltip-pct">100%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Chat activity</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:60%"></div></div><span class="tooltip-pct">60%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Peak viewer %</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:30%"></div></div><span class="tooltip-pct">30%</span></div>
+                <div class="tooltip-note">Real-time ranking based on concurrent viewers. Updates every 60 seconds. Chat messages-per-minute is a secondary engagement signal.</div>
+              </div>
+            </span>
+          </div>
+          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+        <div class="carousel">
+          <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <div class="carousel-track">
+            <div class="nf-card" style="width:220px">
+              <div class="nf-card-img c3" style="position:relative"><span>🏟️</span><div style="position:absolute;top:7px;left:7px;"><span class="live-badge" style="font-size:9px;padding:2px 6px"><span class="live-dot"></span>LIVE</span></div><div style="position:absolute;bottom:7px;right:7px;background:rgba(0,0,0,.8);color:#fff;font-size:10px;padding:2px 6px;border-radius:3px">🔴 284K watching</div></div>
+              <div style="padding:7px 8px;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500">Champions League Final</div><div style="font-size:10.5px;color:var(--text3)">NetTube Sports</div></div>
+            </div>
+            <div class="nf-card" style="width:220px">
+              <div class="nf-card-img c2" style="position:relative"><span>🎮</span><div style="position:absolute;top:7px;left:7px;"><span class="live-badge" style="font-size:9px;padding:2px 6px"><span class="live-dot"></span>LIVE</span></div><div style="position:absolute;bottom:7px;right:7px;background:rgba(0,0,0,.8);color:#fff;font-size:10px;padding:2px 6px;border-radius:3px">🔴 92K watching</div></div>
+              <div style="padding:7px 8px;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500">World Gaming Championship</div><div style="font-size:10.5px;color:var(--text3)">ESports Central</div></div>
+            </div>
+            <div class="nf-card" style="width:220px">
+              <div class="nf-card-img c5" style="position:relative"><span>🎵</span><div style="position:absolute;top:7px;left:7px;"><span class="live-badge" style="font-size:9px;padding:2px 6px"><span class="live-dot"></span>LIVE</span></div><div style="position:absolute;bottom:7px;right:7px;background:rgba(0,0,0,.8);color:#fff;font-size:10px;padding:2px 6px;border-radius:3px">🔴 451K watching</div></div>
+              <div style="padding:7px 8px;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500">Coachella 2024 — Day 2</div><div style="font-size:10.5px;color:var(--text3)">Music World Live</div></div>
+            </div>
+            <div class="nf-card" style="width:220px">
+              <div class="nf-card-img c6" style="position:relative"><span>🏀</span><div style="position:absolute;top:7px;left:7px;"><span class="live-badge" style="font-size:9px;padding:2px 6px"><span class="live-dot"></span>LIVE</span></div><div style="position:absolute;bottom:7px;right:7px;background:rgba(0,0,0,.8);color:#fff;font-size:10px;padding:2px 6px;border-radius:3px">🔴 178K watching</div></div>
+              <div style="padding:7px 8px;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500">NBA Playoff Game 7</div><div style="font-size:10.5px;color:var(--text3)">NetTube Sports</div></div>
+            </div>
           </div>
           <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
         </div>
@@ -716,159 +588,91 @@
 
       <div class="divider"></div>
 
-      <!-- ─── YOUTUBE GRID: TRENDING VIDEOS ─── -->
-      <div class="section" style="padding-top:20px">
+      <!-- ─── TRENDING VIDEOS (YT Grid) ─── -->
+      <div class="section" style="padding-top:18px">
         <div class="section-head">
           <div class="section-title">
-            <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:var(--red)"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.97C18.88 4 12 4 12 4s-6.88 0-8.59.47a2.78 2.78 0 00-1.95 1.97A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20.07 12 20.07 12 20.07s6.88 0 8.59-.47a2.78 2.78 0 001.95-1.97A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#fff"/></svg>
+            <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:var(--red)"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.97C18.88 4 12 4 12 4s-6.88 0-8.59.47a2.78 2.78 0 00-1.95 1.97A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20.07 12 20.07 12 20.07s6.88 0 8.59-.47a2.78 2.78 0 001.95-1.97A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#fff"/></svg>
             Trending on NetTube
+            <span class="rank-info-btn" data-tooltip="trending">i
+              <div class="rank-tooltip" id="tt-trending">
+                <div class="tooltip-title">📊 Ranking Logic</div>
+                <div class="tooltip-row"><span class="tooltip-label">Views (24h)</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:85%"></div></div><span class="tooltip-pct">85%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Engagement rate</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:75%"></div></div><span class="tooltip-pct">75%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Velocity</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:70%"></div></div><span class="tooltip-pct">70%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Comments</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:45%"></div></div><span class="tooltip-pct">45%</span></div>
+                <div class="tooltip-note">Trending score measures velocity — how fast a video is gaining views relative to its age. A 6-hour-old video with 1M views beats a week-old video with 5M views.</div>
+              </div>
+            </span>
           </div>
           <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
         </div>
         <div class="yt-grid">
+          <div class="yt-card"><div class="yt-thumb c3"><span>🏟️</span><div class="yt-thumb-live">🔴 LIVE</div></div><div class="yt-info"><div class="yt-avatar a1">N</div><div class="yt-details"><div class="yt-title">Champions League Final 2024 — Full Match Live Stream</div><div class="yt-channel">NetTube Sports<span class="verified"></span></div><div class="yt-stats">284K watching now</div></div></div></div>
+          <div class="yt-card"><div class="yt-thumb c2"><span>🤖</span><div class="yt-thumb-duration">24:08</div></div><div class="yt-info"><div class="yt-avatar a2">T</div><div class="yt-details"><div class="yt-title">I Built an AI That Watches Movies and Writes Reviews</div><div class="yt-channel">TechWanderer<span class="verified"></span></div><div class="yt-stats">2.1M views · 3 days ago</div></div></div></div>
+          <div class="yt-card"><div class="yt-thumb c1"><span>🌍</span><div class="yt-thumb-duration">48:22</div></div><div class="yt-info"><div class="yt-avatar a3">V</div><div class="yt-details"><div class="yt-title">Secret Villages Hidden in the Amazon — Full Documentary</div><div class="yt-channel">Veritasium Films<span class="verified"></span></div><div class="yt-stats">5.8M views · 1 week ago</div></div></div></div>
+          <div class="yt-card"><div class="yt-thumb c4"><span>🎮</span><div class="yt-thumb-duration">3:14:50</div></div><div class="yt-info"><div class="yt-avatar a4">G</div><div class="yt-details"><div class="yt-title">I Played Minecraft for 1000 Days Straight — Final Episode</div><div class="yt-channel">GameVault<span class="verified"></span></div><div class="yt-stats">18.4M views · 2 days ago</div></div></div></div>
+          <div class="yt-card"><div class="yt-thumb c6"><span>👨‍🍳</span><div class="yt-thumb-duration">18:55</div></div><div class="yt-info"><div class="yt-avatar a5">C</div><div class="yt-details"><div class="yt-title">Gordon Ramsay Reacts to My Homemade Beef Wellington</div><div class="yt-channel">ChefCentral<span class="verified"></span></div><div class="yt-stats">892K views · 5 days ago</div></div></div></div>
+          <div class="yt-card"><div class="yt-thumb c5"><span>🎵</span><div class="yt-thumb-duration">4:22</div></div><div class="yt-info"><div class="yt-avatar a6">M</div><div class="yt-details"><div class="yt-title">AURORA — "The Phantom Heart" (Official Music Video)</div><div class="yt-channel">MusicWorld Official<span class="verified"></span></div><div class="yt-stats">31M views · 2 weeks ago</div></div></div></div>
+          <div class="yt-card"><div class="yt-thumb c7"><span>🔭</span><div class="yt-thumb-duration">1:02:14</div></div><div class="yt-info"><div class="yt-avatar a2">S</div><div class="yt-details"><div class="yt-title">James Webb Telescope: What We Found Beyond the Milky Way</div><div class="yt-channel">SpaceX Official<span class="verified"></span></div><div class="yt-stats">12.2M views · 4 days ago</div></div></div></div>
+          <div class="yt-card"><div class="yt-thumb c8"><span>🏋️</span><div class="yt-thumb-duration">22:40</div></div><div class="yt-info"><div class="yt-avatar a1">F</div><div class="yt-details"><div class="yt-title">30-Day Transformation: I Trained Like an Olympian</div><div class="yt-channel">FitForm Pro<span class="verified"></span></div><div class="yt-stats">4.4M views · 1 week ago</div></div></div></div>
+          <div class="yt-card"><div class="yt-thumb c9"><span>💰</span><div class="yt-thumb-duration">31:07</div></div><div class="yt-info"><div class="yt-avatar a3">F</div><div class="yt-details"><div class="yt-title">How to Build Passive Income in 2025 (Realistic Guide)</div><div class="yt-channel">FinanceUnlocked<span class="verified"></span></div><div class="yt-stats">7.9M views · 3 days ago</div></div></div></div>
+          <div class="yt-card"><div class="yt-thumb c10"><span>🦁</span><div class="yt-thumb-duration">58:12</div></div><div class="yt-info"><div class="yt-avatar a7">N</div><div class="yt-details"><div class="yt-title">Africa's Last Wild Places — Full Nature Documentary 4K</div><div class="yt-channel">NatureVault<span class="verified"></span></div><div class="yt-stats">9.1M views · 6 days ago</div></div></div></div>
+          <div class="yt-card"><div class="yt-thumb c3"><span>🧘</span><div class="yt-thumb-duration">42:10</div></div><div class="yt-info"><div class="yt-avatar a8">W</div><div class="yt-details"><div class="yt-title">This Simple Morning Routine Changed My Life Forever</div><div class="yt-channel">WellnessHub<span class="verified"></span></div><div class="yt-stats">3.3M views · 4 days ago</div></div></div></div>
+          <div class="yt-card"><div class="yt-thumb c2"><span>🚗</span><div class="yt-thumb-duration">15:44</div></div><div class="yt-info"><div class="yt-avatar a9">D</div><div class="yt-details"><div class="yt-title">We Drove the World's Fastest Electric Car at 300 km/h</div><div class="yt-channel">DriveZone<span class="verified"></span></div><div class="yt-stats">6.7M views · 2 days ago</div></div></div></div>
+        </div>
+      </div>
 
-          <!-- Card 1 - Live -->
-          <div class="yt-card">
-            <div class="yt-thumb c3">
-              <span>🏟️</span>
-              <div class="yt-thumb-live">🔴 LIVE</div>
-            </div>
-            <div class="yt-info">
-              <div class="yt-avatar a1">N</div>
-              <div class="yt-details">
-                <div class="yt-title">Champions League Final 2024 — Full Match Live Stream</div>
-                <div class="yt-channel">NetTube Sports<span class="verified"></span></div>
-                <div class="yt-stats">284K watching now</div>
-              </div>
-            </div>
-          </div>
+      <div class="divider"></div>
 
-          <!-- Card 2 -->
-          <div class="yt-card">
-            <div class="yt-thumb c2"><span>🤖</span>
-              <div class="yt-thumb-duration">24:08</div>
-            </div>
-            <div class="yt-info">
-              <div class="yt-avatar a2">T</div>
-              <div class="yt-details">
-                <div class="yt-title">I Built an AI That Watches Movies and Writes Reviews</div>
-                <div class="yt-channel">TechWanderer<span class="verified"></span></div>
-                <div class="yt-stats">2.1M views · 3 days ago</div>
+      <!-- ─── ANIME ─── -->
+      <div class="section" style="padding-top:16px">
+        <div class="section-head">
+          <div class="section-title">
+            🎌 Anime
+            <span class="tag" style="background:#9b59b6">Popular</span>
+            <span class="rank-info-btn" data-tooltip="anime">i
+              <div class="rank-tooltip" id="tt-anime">
+                <div class="tooltip-title">📊 Ranking Logic</div>
+                <div class="tooltip-row"><span class="tooltip-label">Community votes</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:85%"></div></div><span class="tooltip-pct">85%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Completion rate</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:78%"></div></div><span class="tooltip-pct">78%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Rewatch rate</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:55%"></div></div><span class="tooltip-pct">55%</span></div>
+                <div class="tooltip-note">Anime is ranked by episode completion rate and community ratings. Series where 70%+ of starters finish the season rank highest.</div>
               </div>
-            </div>
+            </span>
           </div>
-
-          <!-- Card 3 -->
-          <div class="yt-card">
-            <div class="yt-thumb c1"><span>🌍</span>
-              <div class="yt-thumb-duration">48:22</div>
-            </div>
-            <div class="yt-info">
-              <div class="yt-avatar a3">V</div>
-              <div class="yt-details">
-                <div class="yt-title">Secret Villages Hidden in the Amazon — Full Documentary</div>
-                <div class="yt-channel">Veritasium Films<span class="verified"></span></div>
-                <div class="yt-stats">5.8M views · 1 week ago</div>
-              </div>
-            </div>
+          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+        <div class="carousel">
+          <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <div class="carousel-track">
+            <div class="nf-card"><div class="nf-card-img" style="background:linear-gradient(135deg,#2a0a3a,#1a0a2a);font-size:34px"><span>⚔️</span></div><div style="padding:6px 8px;background:var(--bg3);font-size:12px;font-weight:500">Demon Slayer S4</div></div>
+            <div class="nf-card"><div class="nf-card-img" style="background:linear-gradient(135deg,#0a1a3a,#0a0a2a);font-size:34px"><span>🌊</span></div><div style="padding:6px 8px;background:var(--bg3);font-size:12px;font-weight:500">Blue Exorcist</div></div>
+            <div class="nf-card"><div class="nf-card-img" style="background:linear-gradient(135deg,#2a1a0a,#1a0a0a);font-size:34px"><span>🔥</span></div><div style="padding:6px 8px;background:var(--bg3);font-size:12px;font-weight:500">Jujutsu Kaisen S3</div></div>
+            <div class="nf-card"><div class="nf-card-img" style="background:linear-gradient(135deg,#0a2a1a,#0a1a0a);font-size:34px"><span>🌸</span></div><div style="padding:6px 8px;background:var(--bg3);font-size:12px;font-weight:500">Spy × Family</div></div>
+            <div class="nf-card"><div class="nf-card-img" style="background:linear-gradient(135deg,#1a0a2a,#0a0a1a);font-size:34px"><span>👁️</span></div><div style="padding:6px 8px;background:var(--bg3);font-size:12px;font-weight:500">Chainsaw Man</div></div>
+            <div class="nf-card"><div class="nf-card-img" style="background:linear-gradient(135deg,#2a2a0a,#1a1a0a);font-size:34px"><span>⚡</span></div><div style="padding:6px 8px;background:var(--bg3);font-size:12px;font-weight:500">My Hero Academia</div></div>
+            <div class="nf-card"><div class="nf-card-img" style="background:linear-gradient(135deg,#3a0a0a,#2a0a0a);font-size:34px"><span>🗡️</span></div><div style="padding:6px 8px;background:var(--bg3);font-size:12px;font-weight:500">Vinland Saga S3</div></div>
           </div>
-
-          <!-- Card 4 -->
-          <div class="yt-card">
-            <div class="yt-thumb c4"><span>🎮</span>
-              <div class="yt-thumb-duration">3:14:50</div>
-            </div>
-            <div class="yt-info">
-              <div class="yt-avatar a4">G</div>
-              <div class="yt-details">
-                <div class="yt-title">I Played Minecraft for 1000 Days Straight — Final Episode</div>
-                <div class="yt-channel">GameVault<span class="verified"></span></div>
-                <div class="yt-stats">18.4M views · 2 days ago</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 5 -->
-          <div class="yt-card">
-            <div class="yt-thumb c6"><span>👨‍🍳</span>
-              <div class="yt-thumb-duration">18:55</div>
-            </div>
-            <div class="yt-info">
-              <div class="yt-avatar a5">C</div>
-              <div class="yt-details">
-                <div class="yt-title">Gordon Ramsay Reacts to My Homemade Beef Wellington</div>
-                <div class="yt-channel">ChefCentral<span class="verified"></span></div>
-                <div class="yt-stats">892K views · 5 days ago</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 6 -->
-          <div class="yt-card">
-            <div class="yt-thumb c5"><span>🎵</span>
-              <div class="yt-thumb-duration">4:22</div>
-            </div>
-            <div class="yt-info">
-              <div class="yt-avatar a6">M</div>
-              <div class="yt-details">
-                <div class="yt-title">AURORA — "The Phantom Heart" (Official Music Video)</div>
-                <div class="yt-channel">MusicWorld Official<span class="verified"></span></div>
-                <div class="yt-stats">31M views · 2 weeks ago</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 7 -->
-          <div class="yt-card">
-            <div class="yt-thumb c7"><span>🔭</span>
-              <div class="yt-thumb-duration">1:02:14</div>
-            </div>
-            <div class="yt-info">
-              <div class="yt-avatar a2">S</div>
-              <div class="yt-details">
-                <div class="yt-title">James Webb Telescope: What We Found Beyond the Milky Way</div>
-                <div class="yt-channel">SpaceX Official<span class="verified"></span></div>
-                <div class="yt-stats">12.2M views · 4 days ago</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 8 -->
-          <div class="yt-card">
-            <div class="yt-thumb c8"><span>🏋️</span>
-              <div class="yt-thumb-duration">22:40</div>
-            </div>
-            <div class="yt-info">
-              <div class="yt-avatar a1">F</div>
-              <div class="yt-details">
-                <div class="yt-title">30-Day Transformation: I Trained Like an Olympian</div>
-                <div class="yt-channel">FitForm Pro<span class="verified"></span></div>
-                <div class="yt-stats">4.4M views · 1 week ago</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 9 -->
-          <div class="yt-card">
-            <div class="yt-thumb c2"><span>💰</span>
-              <div class="yt-thumb-duration">31:07</div>
-            </div>
-            <div class="yt-info">
-              <div class="yt-avatar a3">F</div>
-              <div class="yt-details">
-                <div class="yt-title">How to Build Passive Income in 2025 (Realistic Guide)</div>
-                <div class="yt-channel">FinanceUnlocked<span class="verified"></span></div>
-                <div class="yt-stats">7.9M views · 3 days ago</div>
-              </div>
-            </div>
-          </div>
+          <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
         </div>
       </div>
 
       <!-- ─── BECAUSE YOU WATCHED ─── -->
       <div class="section">
         <div class="section-head">
-          <div class="section-title">Because you watched <em style="font-style:italic;color:var(--text2);font-size:16px">Interstellar</em></div>
+          <div class="section-title">Because you watched <em style="color:var(--text2);font-size:14px"> Interstellar</em>
+            <span class="rank-info-btn" data-tooltip="byw">i
+              <div class="rank-tooltip" id="tt-byw">
+                <div class="tooltip-title">📊 Ranking Logic</div>
+                <div class="tooltip-row"><span class="tooltip-label">Genre match</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:88%"></div></div><span class="tooltip-pct">88%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Co-watch pairs</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:72%"></div></div><span class="tooltip-pct">72%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Director/Cast</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:60%"></div></div><span class="tooltip-pct">60%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">User rating sim.</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:50%"></div></div><span class="tooltip-pct">50%</span></div>
+                <div class="tooltip-note">Collaborative filtering: "Users who watched this also watched…" combined with content-based signals (genre, theme, cast similarity).</div>
+              </div>
+            </span>
+          </div>
           <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
         </div>
         <div class="carousel">
@@ -881,6 +685,114 @@
             <div class="nf-card"><div class="nf-card-img c4"><span>🌠</span></div></div>
             <div class="nf-card"><div class="nf-card-img c7"><span>🔭</span></div></div>
             <div class="nf-card"><div class="nf-card-img c6"><span>💫</span></div></div>
+            <div class="nf-card"><div class="nf-card-img c8"><span>🌙</span></div></div>
+          </div>
+          <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+      </div>
+
+      <!-- ─── DOCUMENTARIES ─── -->
+      <div class="section">
+        <div class="section-head">
+          <div class="section-title">
+            🎥 Documentaries
+            <span class="rank-info-btn" data-tooltip="docs">i
+              <div class="rank-tooltip" id="tt-docs">
+                <div class="tooltip-title">📊 Ranking Logic</div>
+                <div class="tooltip-row"><span class="tooltip-label">Completion rate</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:92%"></div></div><span class="tooltip-pct">92%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Critic score</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:68%"></div></div><span class="tooltip-pct">68%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">User rating</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:60%"></div></div><span class="tooltip-pct">60%</span></div>
+                <div class="tooltip-note">Documentary ranking prioritizes full-watch completion — the clearest signal of genuine interest in non-fiction. Awards and critic consensus are secondary.</div>
+              </div>
+            </span>
+          </div>
+          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+        <div class="carousel">
+          <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <div class="carousel-track">
+            <div class="nf-card" style="width:230px"><div class="nf-card-img c1" style="font-size:36px"><span>🦁</span></div><div style="padding:7px 8px;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500">Planet Earth III</div><div style="font-size:11px;color:var(--text3)">BBC · 8 Episodes</div></div></div>
+            <div class="nf-card" style="width:230px"><div class="nf-card-img c7" style="font-size:36px"><span>🌊</span></div><div style="padding:7px 8px;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500">Our Ocean</div><div style="font-size:11px;color:var(--text3)">Netflix · 6 Episodes</div></div></div>
+            <div class="nf-card" style="width:230px"><div class="nf-card-img c2" style="font-size:36px"><span>🚀</span></div><div style="padding:7px 8px;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500">Return to Space</div><div style="font-size:11px;color:var(--text3)">Film · 2h 09m</div></div></div>
+            <div class="nf-card" style="width:230px"><div class="nf-card-img c6" style="font-size:36px"><span>💡</span></div><div style="padding:7px 8px;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500">The Mind, Explained</div><div style="font-size:11px;color:var(--text3)">S2 · 5 Episodes</div></div></div>
+            <div class="nf-card" style="width:230px"><div class="nf-card-img c9" style="font-size:36px"><span>🌿</span></div><div style="padding:7px 8px;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500">Living with Wolves</div><div style="font-size:11px;color:var(--text3)">Film · 1h 44m</div></div></div>
+          </div>
+          <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+      </div>
+
+      <!-- ─── MUSIC VIDEOS ─── -->
+      <div class="section">
+        <div class="section-head">
+          <div class="section-title">
+            🎵 Music & Concerts
+            <span class="rank-info-btn" data-tooltip="music">i
+              <div class="rank-tooltip" id="tt-music">
+                <div class="tooltip-title">📊 Ranking Logic</div>
+                <div class="tooltip-row"><span class="tooltip-label">Streams (7d)</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:90%"></div></div><span class="tooltip-pct">90%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Repeats/user</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:80%"></div></div><span class="tooltip-pct">80%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Playlist adds</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:65%"></div></div><span class="tooltip-pct">65%</span></div>
+                <div class="tooltip-note">Music is ranked heavily on repeat plays — a song replayed 3× by 100k users outranks one played once by 500k. Playlist-add rate confirms durable appeal.</div>
+              </div>
+            </span>
+          </div>
+          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+        <div class="yt-grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr))">
+          <div class="yt-card"><div class="yt-thumb c5"><span>🎵</span><div class="yt-thumb-duration">4:22</div></div><div class="yt-info"><div class="yt-avatar a6">A</div><div class="yt-details"><div class="yt-title">AURORA — "The Phantom Heart"</div><div class="yt-channel">AURORA Official</div><div class="yt-stats">31M views · 2 weeks ago</div></div></div></div>
+          <div class="yt-card"><div class="yt-thumb c4"><span>🎹</span><div class="yt-thumb-duration">5:51</div></div><div class="yt-info"><div class="yt-avatar a4">B</div><div class="yt-details"><div class="yt-title">Billie Eilish — "Ghost in the Machine" (Live at MSG)</div><div class="yt-channel">Billie Eilish Official</div><div class="yt-stats">18M views · 3 days ago</div></div></div></div>
+          <div class="yt-card"><div class="yt-thumb c3"><span>🥁</span><div class="yt-thumb-duration">3:38</div></div><div class="yt-info"><div class="yt-avatar a1">T</div><div class="yt-details"><div class="yt-title">Twenty One Pilots — "Overcompensate" (Official)</div><div class="yt-channel">Fueled By Ramen</div><div class="yt-stats">24M views · 1 week ago</div></div></div></div>
+          <div class="yt-card"><div class="yt-thumb c2"><span>🎸</span><div class="yt-thumb-duration">2:02:14</div></div><div class="yt-info"><div class="yt-avatar a2">C</div><div class="yt-details"><div class="yt-title">Coldplay: Music of the Spheres World Tour — Full Concert</div><div class="yt-channel">Coldplay Official</div><div class="yt-stats">41M views · 5 days ago</div></div></div></div>
+        </div>
+      </div>
+
+      <!-- ─── TOP CHANNELS ─── -->
+      <div class="section">
+        <div class="section-head">
+          <div class="section-title">
+            Top Channels to Follow
+            <span class="rank-info-btn" data-tooltip="channels">i
+              <div class="rank-tooltip" id="tt-channels">
+                <div class="tooltip-title">📊 Ranking Logic</div>
+                <div class="tooltip-row"><span class="tooltip-label">Subscriber growth</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:88%"></div></div><span class="tooltip-pct">88%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Upload consistency</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:70%"></div></div><span class="tooltip-pct">70%</span></div>
+                <div class="tooltip-row"><span class="tooltip-label">Avg. view duration</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:60%"></div></div><span class="tooltip-pct">60%</span></div>
+                <div class="tooltip-note">Channel recommendations are personalized using your watch history genres + subscriber growth rate in the last 30 days. Consistent uploaders are boosted.</div>
+              </div>
+            </span>
+          </div>
+          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+        <div class="carousel">
+          <div class="carousel-track">
+            <div class="channel-card"><div class="channel-avatar a1">N</div><div class="channel-name">NatureVault</div><div class="channel-subs">12.4M subs</div><button class="sub-btn">Subscribe</button></div>
+            <div class="channel-card"><div class="channel-avatar a2">T</div><div class="channel-name">TechWanderer</div><div class="channel-subs">8.1M subs</div><button class="sub-btn">Subscribe</button></div>
+            <div class="channel-card"><div class="channel-avatar a3">V</div><div class="channel-name">Veritasium Films</div><div class="channel-subs">18.9M subs</div><button class="sub-btn">Subscribe</button></div>
+            <div class="channel-card"><div class="channel-avatar a4">G</div><div class="channel-name">GameVault</div><div class="channel-subs">22.5M subs</div><button class="sub-btn">Subscribe</button></div>
+            <div class="channel-card"><div class="channel-avatar a5">C</div><div class="channel-name">ChefCentral</div><div class="channel-subs">6.8M subs</div><button class="sub-btn">Subscribe</button></div>
+            <div class="channel-card"><div class="channel-avatar a6">M</div><div class="channel-name">MusicWorld</div><div class="channel-subs">31.2M subs</div><button class="sub-btn">Subscribe</button></div>
+            <div class="channel-card"><div class="channel-avatar a7">F</div><div class="channel-name">FitForm Pro</div><div class="channel-subs">5.3M subs</div><button class="sub-btn">Subscribe</button></div>
+            <div class="channel-card"><div class="channel-avatar a8">S</div><div class="channel-name">SpaceX Official</div><div class="channel-subs">9.7M subs</div><button class="sub-btn">Subscribe</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── KIDS & FAMILY ─── -->
+      <div class="section">
+        <div class="section-head">
+          <div class="section-title">☀️ Kids &amp; Family</div>
+          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+        <div class="carousel">
+          <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <div class="carousel-track">
+            <div class="portrait-card"><div class="portrait-card-img" style="background:linear-gradient(135deg,#ff6b6b,#ff8e53)"><span>🦕</span></div></div>
+            <div class="portrait-card"><div class="portrait-card-img" style="background:linear-gradient(135deg,#a8edea,#fed6e3)"><span>🐠</span></div></div>
+            <div class="portrait-card"><div class="portrait-card-img" style="background:linear-gradient(135deg,#f7971e,#ffd200)"><span>🦊</span></div></div>
+            <div class="portrait-card"><div class="portrait-card-img" style="background:linear-gradient(135deg,#6a11cb,#2575fc)"><span>🌈</span></div></div>
+            <div class="portrait-card"><div class="portrait-card-img" style="background:linear-gradient(135deg,#11998e,#38ef7d)"><span>🐢</span></div></div>
+            <div class="portrait-card"><div class="portrait-card-img" style="background:linear-gradient(135deg,#ee0979,#ff6a00)"><span>🚀</span></div></div>
+            <div class="portrait-card"><div class="portrait-card-img" style="background:linear-gradient(135deg,#4776e6,#8e54e9)"><span>⭐</span></div></div>
           </div>
           <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
         </div>
@@ -892,50 +804,80 @@
 </div><!-- /shell -->
 
 <script>
-  // Filter pills
-  document.querySelectorAll('.pill').forEach(p=>{
-    p.addEventListener('click',()=>{
-      document.querySelectorAll('.pill').forEach(x=>x.classList.remove('active'));
-      p.classList.add('active');
-    });
-  });
+// ─── Sidebar toggle (mobile) ───
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('sidebarOverlay');
+const hamburger = document.getElementById('hamburger');
+function openSidebar(){sidebar.classList.add('open');overlay.classList.add('show')}
+function closeSidebar(){sidebar.classList.remove('open');overlay.classList.remove('show')}
+hamburger.addEventListener('click',openSidebar);
+overlay.addEventListener('click',closeSidebar);
 
-  // Nav items
-  document.querySelectorAll('.nav-item').forEach(n=>{
-    n.addEventListener('click',()=>{
-      document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
-      n.classList.add('active');
-    });
+// ─── Nav items ───
+document.querySelectorAll('.nav-item').forEach(n=>{
+  n.addEventListener('click',()=>{
+    document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
+    n.classList.add('active');
+    if(window.innerWidth<=768) closeSidebar();
   });
+});
 
-  // Hero indicators auto-cycle
-  const indicators = document.querySelectorAll('.indicator');
-  const heroEmojis = ['🌌','🔥','🦁','🧠'];
-  const heroTitles = ['BEYOND\nTHE COSMOS','INFERNO\nRISING','PLANET\nEARTH IV','MIND\nSCAPE'];
-  let hIdx = 0;
-  setInterval(()=>{
-    indicators[hIdx].classList.remove('active');
-    hIdx = (hIdx+1) % indicators.length;
-    indicators[hIdx].classList.add('active');
-  }, 3500);
-
-  indicators.forEach((ind,i)=>{
-    ind.addEventListener('click',()=>{
-      indicators[hIdx].classList.remove('active');
-      hIdx = i;
-      ind.classList.add('active');
-    });
+// ─── Filter pills ───
+document.querySelectorAll('.pill').forEach(p=>{
+  p.addEventListener('click',()=>{
+    document.querySelectorAll('.pill').forEach(x=>x.classList.remove('active'));
+    p.classList.add('active');
   });
+});
 
-  // Carousel scroll arrows
-  document.querySelectorAll('.carousel').forEach(c=>{
-    const track = c.querySelector('.carousel-track');
-    const left = c.querySelector('.carousel-arrow.left');
-    const right = c.querySelector('.carousel-arrow.right');
-    if(!track) return;
-    if(right) right.addEventListener('click',()=>track.scrollBy({left:400,behavior:'smooth'}));
-    if(left) left.addEventListener('click',()=>track.scrollBy({left:-400,behavior:'smooth'}));
+// ─── Hero auto-cycle ───
+const indicators = document.querySelectorAll('.indicator');
+const heroEmoji = document.getElementById('heroEmoji');
+const heroTitle = document.getElementById('heroTitle');
+const heroes = [
+  {emoji:'🌌',title:'BEYOND<br>THE COSMOS'},
+  {emoji:'🔥',title:'INFERNO<br>RISING'},
+  {emoji:'🦁',title:'PLANET<br>EARTH IV'},
+  {emoji:'🧠',title:'MIND<br>SCAPE'},
+  {emoji:'⚔️',title:'DRAGON<br>SOVEREIGN'},
+];
+let hIdx=0;
+function setHero(i){
+  indicators[hIdx].classList.remove('active');
+  hIdx=i;
+  indicators[hIdx].classList.add('active');
+  heroEmoji.textContent=heroes[hIdx].emoji;
+  heroTitle.innerHTML=heroes[hIdx].title;
+}
+const heroTimer=setInterval(()=>setHero((hIdx+1)%heroes.length),3500);
+indicators.forEach((ind,i)=>ind.addEventListener('click',()=>{clearInterval(heroTimer);setHero(i)}));
+
+// ─── Carousel arrows ───
+document.querySelectorAll('.carousel').forEach(c=>{
+  const track=c.querySelector('.carousel-track');
+  const left=c.querySelector('.carousel-arrow.left');
+  const right=c.querySelector('.carousel-arrow.right');
+  if(!track) return;
+  if(right) right.addEventListener('click',()=>track.scrollBy({left:420,behavior:'smooth'}));
+  if(left) left.addEventListener('click',()=>track.scrollBy({left:-420,behavior:'smooth'}));
+});
+
+// ─── Ranking logic tooltips ───
+document.querySelectorAll('.rank-info-btn').forEach(btn=>{
+  const tooltip=btn.querySelector('.rank-tooltip');
+  if(!tooltip) return;
+  let closeTimer;
+  btn.addEventListener('click',(e)=>{
+    e.stopPropagation();
+    // Close all others
+    document.querySelectorAll('.rank-tooltip.open').forEach(t=>{if(t!==tooltip)t.classList.remove('open')});
+    tooltip.classList.toggle('open');
   });
+  // Allow hover on tooltip without closing
+  tooltip.addEventListener('mouseenter',()=>clearTimeout(closeTimer));
+  tooltip.addEventListener('click',(e)=>e.stopPropagation());
+});
+document.addEventListener('click',()=>document.querySelectorAll('.rank-tooltip.open').forEach(t=>t.classList.remove('open')));
 </script>
 </body>
 </html>
