@@ -10,35 +10,31 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --red:#E50914;--red-dim:#b8070f;
+  --purple:#7c3aed;--purple-2:#a855f7;--purple-3:#e879f9;
   --bg:#0a0a0a;--bg2:#111111;--bg3:#1a1a1a;--bg4:#222222;
   --surface:#181818;--border:#2a2a2a;
   --text:#ffffff;--text2:#b3b3b3;--text3:#666666;
   --sidebar:220px;--topbar:60px;
-  --card-w:190px;--card-w-sm:150px;
+  --card-w:190px;
 }
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden}
 a{text-decoration:none;color:inherit}
-
-/* ── Shell ── */
 .shell{display:flex;height:100vh;overflow:hidden}
 
 /* ── Sidebar ── */
 .sidebar{
   width:var(--sidebar);flex-shrink:0;
   background:var(--bg2);border-right:1px solid var(--border);
-  display:flex;flex-direction:column;
-  overflow-y:auto;overflow-x:hidden;position:relative;z-index:20;
-  transition:transform .3s ease,width .3s ease;
+  display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;
+  position:relative;z-index:20;transition:transform .3s ease;
 }
 .sidebar::-webkit-scrollbar{width:3px}
 .sidebar::-webkit-scrollbar-thumb{background:var(--bg4)}
-
 .logo{padding:18px 16px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);flex-shrink:0}
 .logo-mark{width:34px;height:34px;background:var(--red);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .logo-mark svg{width:18px;height:18px;fill:#fff}
 .logo-text{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:1px}
 .logo-text span{color:var(--red)}
-
 .nav-section{padding:10px 0}
 .nav-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);padding:8px 16px 4px;font-weight:600}
 .nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;font-size:13.5px;font-weight:400;color:var(--text2);cursor:pointer;border-left:3px solid transparent;transition:background .15s,color .15s}
@@ -46,15 +42,8 @@ a{text-decoration:none;color:inherit}
 .nav-item.active{color:var(--text);background:var(--bg3);border-left-color:var(--red)}
 .nav-item svg{width:17px;height:17px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.8}
 .nav-badge{margin-left:auto;font-size:10px;font-weight:700;background:var(--red);color:#fff;padding:2px 6px;border-radius:10px}
-
-.sidebar-thumb{margin:0 10px;border-radius:8px;overflow:hidden;background:var(--bg4);cursor:pointer;transition:opacity .15s}
-.sidebar-thumb:hover{opacity:.8}
-.thumb-img{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:24px;position:relative;overflow:hidden}
-.thumb-info{padding:7px 9px}
-.thumb-title{font-size:11.5px;font-weight:500;line-height:1.3;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.thumb-meta{font-size:10.5px;color:var(--text3)}
-
-/* ── Overlay for mobile sidebar ── */
+.nav-badge.purple{background:linear-gradient(135deg,var(--purple),var(--purple-2))}
+.nav-badge.green{background:#16a34a}
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:19}
 
 /* ── Main ── */
@@ -64,8 +53,8 @@ a{text-decoration:none;color:inherit}
 .topbar{height:var(--topbar);flex-shrink:0;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;padding:0 16px;position:sticky;top:0;z-index:9}
 .hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;color:var(--text2)}
 .hamburger svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2}
-.search-wrap{flex:1;max-width:480px;display:flex;align-items:center;background:var(--bg3);border:1px solid var(--border);border-radius:24px;overflow:hidden}
-.search-wrap:focus-within{border-color:var(--text3)}
+.search-wrap{flex:1;max-width:480px;display:flex;align-items:center;background:var(--bg3);border:1px solid var(--border);border-radius:24px;overflow:hidden;transition:border-color .2s}
+.search-wrap:focus-within{border-color:#555}
 .search-wrap input{flex:1;background:none;border:none;outline:none;padding:9px 14px;color:var(--text);font-size:13.5px;font-family:inherit}
 .search-wrap input::placeholder{color:var(--text3)}
 .search-btn{background:var(--bg4);border:none;border-left:1px solid var(--border);padding:9px 14px;cursor:pointer;color:var(--text2);display:flex;align-items:center;transition:background .15s}
@@ -76,19 +65,26 @@ a{text-decoration:none;color:inherit}
 .icon-btn:hover{background:var(--bg4);color:var(--text)}
 .icon-btn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8}
 .notif-dot{position:absolute;top:5px;right:5px;width:7px;height:7px;background:var(--red);border-radius:50%;border:2px solid var(--bg2)}
-.avatar{width:34px;height:34px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;cursor:pointer;flex-shrink:0}
+.blink-btn{display:flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--purple),var(--purple-2));color:#fff;border:none;cursor:pointer;padding:7px 14px;border-radius:20px;font-size:12.5px;font-weight:700;letter-spacing:.5px;font-family:inherit;transition:opacity .2s,transform .2s;flex-shrink:0;white-space:nowrap}
+.blink-btn:hover{opacity:.85;transform:scale(1.03)}
+.blink-btn svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2}
 
-/* ── Filter Pills ── */
-.pills-bar{padding:10px 16px;background:var(--bg2);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;display:flex;gap:7px;flex-shrink:0}
+/* ── Pills ── */
+.pills-bar{padding:10px 16px;background:var(--bg2);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;display:flex;gap:7px;flex-shrink:0;position:sticky;top:60px;z-index:8}
 .pills-bar::-webkit-scrollbar{display:none}
-.pill{white-space:nowrap;padding:5px 13px;border-radius:20px;font-size:12.5px;font-weight:500;cursor:pointer;background:var(--bg4);color:var(--text2);border:1px solid var(--border);transition:all .15s;flex-shrink:0}
+.pill{white-space:nowrap;padding:5px 13px;border-radius:20px;font-size:12.5px;font-weight:500;cursor:pointer;background:var(--bg4);color:var(--text2);border:1px solid var(--border);transition:all .18s;flex-shrink:0}
 .pill:hover{background:var(--bg3);color:var(--text)}
-.pill.active{background:var(--text);color:#000}
+.pill.active{background:var(--text);color:#000;border-color:var(--text)}
+.pill.live-pill{border-color:var(--red);color:#ff6b6b}
+.pill.live-pill.active{background:var(--red);color:#fff;border-color:var(--red)}
 
 /* ── Content ── */
 .content{flex:1;overflow-y:auto;overflow-x:hidden}
 .content::-webkit-scrollbar{width:5px}
 .content::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
+.tab-page{display:none;animation:fadeIn .25s ease}
+.tab-page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── Hero ── */
 .hero{position:relative;height:480px;overflow:hidden;margin-bottom:4px}
@@ -97,7 +93,6 @@ a{text-decoration:none;color:inherit}
 .hero-visual{width:60%;height:100%;background:linear-gradient(160deg,#1a2a3a 0%,#2d1515 60%,#0a0a0a 100%);display:flex;align-items:center;justify-content:center;font-size:80px;position:relative;clip-path:polygon(10% 0,100% 0,100% 100%,0% 100%)}
 .hero-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 0%,transparent 40%,transparent 70%,rgba(10,10,10,.5) 100%)}
 .hero-badge{position:absolute;top:20px;left:20px;background:var(--red);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 9px;border-radius:4px}
-.hero-rank{position:absolute;bottom:20px;left:20px;font-family:'Bebas Neue',sans-serif;font-size:90px;line-height:1;color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.12)}
 .hero-content{position:absolute;left:0;bottom:0;top:0;width:52%;display:flex;flex-direction:column;justify-content:center;padding:40px 32px}
 .hero-category{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:10px}
 .hero-title{font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:.95;color:#fff;margin-bottom:14px;letter-spacing:1px}
@@ -117,42 +112,21 @@ a{text-decoration:none;color:inherit}
 .indicator{width:22px;height:3px;background:rgba(255,255,255,.25);border-radius:2px;cursor:pointer;transition:all .2s}
 .indicator.active{width:30px;background:var(--red)}
 
-/* ── Section ── */
+/* ── Section & Cards ── */
 .section{padding:6px 0 14px}
 .section-head{display:flex;align-items:center;justify-content:space-between;padding:0 16px;margin-bottom:10px}
-.section-title{font-size:16px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px}
+.section-title{font-size:16px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .section-title .tag{font-size:10px;font-weight:700;letter-spacing:.5px;padding:2px 7px;border-radius:4px;background:var(--red);color:#fff;text-transform:uppercase}
-.see-all{font-size:12.5px;color:var(--text3);cursor:pointer;transition:color .15s;display:flex;align-items:center;gap:3px;flex-shrink:0}
+.see-all{font-size:12.5px;color:var(--text3);cursor:pointer;transition:color .15s;display:flex;align-items:center;gap:3px;flex-shrink:0;white-space:nowrap}
 .see-all:hover{color:var(--red)}
 .see-all svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2}
 
-/* ── Ranking Logic Info Button ── */
-.rank-info-btn{
-  width:20px;height:20px;border-radius:50%;
-  background:var(--bg4);border:1px solid var(--border);
-  display:inline-flex;align-items:center;justify-content:center;
-  cursor:pointer;color:var(--text3);font-size:11px;font-weight:700;
-  transition:all .2s;flex-shrink:0;position:relative;margin-left:6px;
-  font-style:italic;font-family:Georgia,serif;
-}
-.rank-info-btn:hover{background:var(--bg3);color:var(--text);border-color:var(--text3)}
-.rank-tooltip{
-  position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);
-  width:260px;background:var(--bg3);border:1px solid var(--border);
-  border-radius:10px;padding:14px;z-index:100;
-  box-shadow:0 8px 32px rgba(0,0,0,.6);
-  display:none;
-  pointer-events:none;
-}
-.rank-tooltip.open{display:block}
-.rank-tooltip::before{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:10px;height:10px;background:var(--bg3);border-top:1px solid var(--border);border-left:1px solid var(--border);transform:translateX(-50%) rotate(45deg)}
-.tooltip-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.tooltip-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
-.tooltip-bar-wrap{flex:1;height:4px;background:var(--bg4);border-radius:2px;overflow:hidden}
-.tooltip-bar{height:100%;border-radius:2px;background:var(--red)}
-.tooltip-label{font-size:11px;color:var(--text2);width:70px;flex-shrink:0}
-.tooltip-pct{font-size:11px;color:var(--text3);width:30px;text-align:right;flex-shrink:0}
-.tooltip-note{font-size:10.5px;color:var(--text3);margin-top:8px;line-height:1.4;border-top:1px solid var(--border);padding-top:8px}
+/* ── Sub-filters ── */
+.sub-filters{display:flex;gap:7px;padding:4px 16px 12px;overflow-x:auto;scrollbar-width:none}
+.sub-filters::-webkit-scrollbar{display:none}
+.sub-pill{white-space:nowrap;padding:4px 11px;border-radius:14px;font-size:12px;font-weight:500;cursor:pointer;background:transparent;color:var(--text3);border:1px solid var(--border);transition:all .15s;flex-shrink:0}
+.sub-pill:hover{color:var(--text2);border-color:#555}
+.sub-pill.active{color:var(--text);border-color:var(--text2)}
 
 /* ── Carousel ── */
 .carousel{position:relative}
@@ -171,7 +145,8 @@ a{text-decoration:none;color:inherit}
 .nf-card-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.88) 0%,transparent 60%);opacity:0;transition:opacity .25s;display:flex;flex-direction:column;justify-content:flex-end;padding:8px}
 .nf-card:hover .nf-card-overlay{opacity:1}
 .nf-card-actions{display:flex;gap:5px;margin-bottom:5px}
-.mini-btn{width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(255,255,255,.6);background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.mini-btn{width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(255,255,255,.6);background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s}
+.mini-btn:hover{transform:scale(1.1)}
 .mini-btn svg{width:12px;height:12px;stroke:#fff;fill:none;stroke-width:2}
 .mini-btn.play-mini{background:rgba(255,255,255,.9)}
 .mini-btn.play-mini svg{stroke:#000}
@@ -185,10 +160,25 @@ a{text-decoration:none;color:inherit}
 .portrait-card-img{width:100%;aspect-ratio:2/3;display:flex;align-items:center;justify-content:center;font-size:40px}
 
 /* ── Top 10 ── */
-.top10-card{flex-shrink:0;width:240px;cursor:pointer;display:flex;align-items:flex-end;gap:0;scroll-snap-align:start;transition:transform .2s}
+.top10-card{flex-shrink:0;width:240px;cursor:pointer;display:flex;align-items:flex-end;scroll-snap-align:start;transition:transform .2s}
 .top10-card:hover{transform:scale(1.04)}
 .top10-num{font-family:'Bebas Neue',sans-serif;font-size:110px;line-height:1;margin-right:-18px;color:transparent;-webkit-text-stroke:3px var(--bg4);flex-shrink:0}
 .top10-img{flex:1;aspect-ratio:2/3;border-radius:6px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:36px;overflow:hidden}
+
+/* ── YouTube Wide Cards ── */
+.yt-wide-feed{display:flex;flex-direction:column;gap:0;padding:0 0 8px}
+.yt-wide-card{display:flex;flex-direction:column;cursor:pointer;transition:opacity .2s;background:transparent}
+.yt-wide-card:hover{opacity:.88}
+.yt-wide-thumb{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:52px}
+.yt-wide-duration{position:absolute;bottom:6px;right:8px;background:rgba(0,0,0,.85);color:#fff;font-size:11px;font-weight:600;padding:2px 6px;border-radius:3px}
+.yt-wide-live{position:absolute;top:8px;left:8px;background:var(--red);color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:2px 7px;border-radius:3px}
+.yt-wide-info{display:flex;gap:10px;padding:10px 14px 14px}
+.yt-wide-avatar{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+.yt-wide-details{flex:1;min-width:0}
+.yt-wide-title{font-size:14px;font-weight:500;line-height:1.4;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.yt-wide-channel{font-size:12px;color:var(--text2);margin-bottom:2px}
+.yt-wide-stats{font-size:12px;color:var(--text3)}
+.yt-wide-sep{height:1px;background:var(--border);margin:0}
 
 /* ── YouTube Grid ── */
 .yt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;padding:6px 16px 20px}
@@ -196,7 +186,8 @@ a{text-decoration:none;color:inherit}
 .yt-card:hover{transform:translateY(-2px)}
 .yt-thumb{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:38px;position:relative;overflow:hidden;border-radius:8px;background:var(--bg3)}
 .yt-thumb-duration{position:absolute;bottom:5px;right:7px;background:rgba(0,0,0,.85);color:#fff;font-size:10.5px;font-weight:600;padding:2px 5px;border-radius:3px}
-.yt-thumb-live{position:absolute;top:7px;left:7px;background:var(--red);color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:2px 6px;border-radius:3px}
+.yt-thumb-live{position:absolute;top:7px;left:7px;background:var(--red);color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:2px 6px;border-radius:3px;display:flex;align-items:center;gap:3px}
+.live-dot-sm{width:5px;height:5px;border-radius:50%;background:#fff;animation:pulse 1.2s infinite}
 .yt-info{display:flex;gap:9px;padding:9px 2px 0}
 .yt-avatar{width:34px;height:34px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
 .yt-details{flex:1;min-width:0}
@@ -206,27 +197,113 @@ a{text-decoration:none;color:inherit}
 .verified{display:inline-block;width:11px;height:11px;background:var(--text3);border-radius:50%;margin-left:3px;vertical-align:-2px;position:relative}
 .verified::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:7px;color:var(--bg)}
 
-/* ── Live Badge ── */
-.live-badge{display:inline-flex;align-items:center;gap:4px;background:var(--red);color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:2px 7px;border-radius:3px}
-.live-dot{width:6px;height:6px;border-radius:50%;background:#fff;animation:pulse 1.2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+/* ── Pose Section ── */
+.pose-section{background:linear-gradient(180deg,#060010 0%,#0d0020 50%,#080018 100%);border-top:1px solid rgba(124,58,237,.25);border-bottom:1px solid rgba(124,58,237,.25);padding:18px 0 22px;position:relative;overflow:hidden}
+.pose-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(124,58,237,.18) 0%,transparent 65%);pointer-events:none}
+.pose-section-head{display:flex;align-items:center;justify-content:space-between;padding:0 16px;margin-bottom:14px;position:relative}
+.pose-branding{display:flex;align-items:center;gap:10px}
+.pose-logo-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#5b21b6,#7c3aed,#a855f7);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;box-shadow:0 0 16px rgba(124,58,237,.5)}
+.pose-brand-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2.5px;background:linear-gradient(90deg,#a855f7,#e879f9,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pose-brand-sub{font-size:10.5px;color:rgba(168,85,247,.7);letter-spacing:1px;margin-top:-2px}
+.pose-live-pill{display:inline-flex;align-items:center;gap:5px;background:rgba(124,58,237,.2);border:1px solid rgba(124,58,237,.4);color:#c084fc;font-size:9.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:3px 9px;border-radius:12px}
+.pose-live-dot{width:6px;height:6px;border-radius:50%;background:#a855f7;animation:ppulse 1.2s infinite}
+@keyframes ppulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+.pose-see-all{font-size:12.5px;color:rgba(168,85,247,.7);cursor:pointer;display:flex;align-items:center;gap:3px;transition:color .15s}
+.pose-see-all:hover{color:#a855f7}
+.pose-see-all svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2}
+.pose-card{flex-shrink:0;width:220px;border-radius:10px;overflow:hidden;cursor:pointer;scroll-snap-align:start;transition:transform .2s;position:relative;background:linear-gradient(160deg,#1a0035,#0d0020);border:1px solid rgba(124,58,237,.2)}
+.pose-card:hover{transform:scale(1.05);border-color:rgba(168,85,247,.5);box-shadow:0 0 24px rgba(124,58,237,.3)}
+.pose-card-thumb{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:38px;position:relative;overflow:hidden}
+.pose-card-glow{position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,0,30,.9) 0%,transparent 60%)}
+.pose-card-viewers{position:absolute;bottom:8px;right:8px;background:rgba(124,58,237,.6);backdrop-filter:blur(4px);border:1px solid rgba(168,85,247,.3);color:#e9d5ff;font-size:10px;padding:2px 7px;border-radius:12px}
+.pose-card-info{padding:10px 11px;background:rgba(13,0,32,.8)}
+.pose-card-title{font-size:13px;font-weight:600;color:#e9d5ff;margin-bottom:3px}
+.pose-card-meta{font-size:11px;color:rgba(168,85,247,.7)}
+.pose-card-tag{display:inline-block;background:rgba(124,58,237,.25);border:1px solid rgba(124,58,237,.3);color:#c084fc;font-size:9px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;padding:1px 6px;border-radius:4px;margin-bottom:4px}
+.pose-verified{display:inline-block;background:linear-gradient(135deg,var(--purple),var(--purple-2));width:12px;height:12px;border-radius:50%;margin-left:4px;vertical-align:-2px;position:relative}
+.pose-verified::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:7.5px;color:#fff;font-weight:700}
 
 /* ── Channel Card ── */
-.channel-card{flex-shrink:0;width:140px;display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 10px;background:var(--bg3);border-radius:10px;cursor:pointer;transition:background .2s;scroll-snap-align:start;flex-shrink:0}
+.channel-card{flex-shrink:0;width:140px;display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 10px;background:var(--bg3);border-radius:10px;cursor:pointer;transition:background .2s;scroll-snap-align:start}
 .channel-card:hover{background:var(--bg4)}
 .channel-avatar{width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;border:2px solid var(--border)}
 .channel-name{font-size:12.5px;font-weight:500;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
 .channel-subs{font-size:11px;color:var(--text3)}
 .sub-btn{font-size:11px;font-weight:600;padding:4px 12px;border-radius:14px;background:var(--text);color:#000;border:none;cursor:pointer;transition:opacity .15s}
 .sub-btn:hover{opacity:.85}
+.sub-btn.subscribed{background:var(--bg4);color:var(--text2);border:1px solid var(--border)}
 
-/* ── Divider ── */
-.divider{height:1px;background:var(--border);margin:6px 16px}
+/* ── Live Section ── */
+.live-section{background:linear-gradient(180deg,#0a0000 0%,#1a0000 100%);border-top:1px solid rgba(229,9,20,.2);border-bottom:1px solid rgba(229,9,20,.2);padding:18px 0 22px;position:relative}
+.live-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(229,9,20,.1) 0%,transparent 60%);pointer-events:none}
+.live-header{display:flex;align-items:center;gap:10px;padding:0 16px;margin-bottom:14px}
+.live-badge-big{display:flex;align-items:center;gap:6px;background:var(--red);color:#fff;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:6px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#fff;animation:pulse 1.2s infinite;flex-shrink:0}
+.live-card{flex-shrink:0;width:280px;border-radius:10px;overflow:hidden;cursor:pointer;scroll-snap-align:start;transition:transform .2s;position:relative;background:var(--bg3);border:1px solid var(--border)}
+.live-card:hover{transform:scale(1.04);border-color:#555}
+.live-card-thumb{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:44px;position:relative;overflow:hidden}
+.live-viewers{position:absolute;bottom:8px;left:8px;background:rgba(0,0,0,.8);color:#fff;font-size:10px;padding:2px 7px;border-radius:10px;display:flex;align-items:center;gap:4px}
+.live-badge-sm{position:absolute;top:8px;right:8px;background:var(--red);color:#fff;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:2px 6px;border-radius:3px}
+.live-card-info{padding:10px 12px}
+.live-card-title{font-size:13px;font-weight:600;margin-bottom:3px}
+.live-card-meta{font-size:11px;color:var(--text3)}
 
-/* ── Category Label Row ── */
-.cat-label-row{display:flex;align-items:center;gap:8px;padding:0 16px 10px}
-.cat-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:500;background:var(--bg3);border:1px solid var(--border);color:var(--text2);cursor:pointer;transition:all .15s}
-.cat-chip:hover,.cat-chip.active{background:var(--red);border-color:var(--red);color:#fff}
+/* ── News Layout ── */
+.news-grid{display:grid;grid-template-columns:1fr;gap:0;padding:0 0 16px}
+.news-card{display:flex;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
+.news-card:hover{background:var(--bg2)}
+.news-thumb{width:120px;height:68px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:28px;overflow:hidden}
+.news-details{flex:1;min-width:0}
+.news-category{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--red);margin-bottom:4px}
+.news-title{font-size:14px;font-weight:500;line-height:1.4;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.news-meta{font-size:11px;color:var(--text3)}
+
+/* ── Playlist Card ── */
+.playlist-card{flex-shrink:0;width:220px;border-radius:8px;overflow:hidden;cursor:pointer;scroll-snap-align:start;transition:transform .2s;background:var(--bg3)}
+.playlist-card:hover{transform:translateY(-3px)}
+.playlist-thumb{width:100%;aspect-ratio:16/9;position:relative;display:flex;align-items:center;justify-content:center;font-size:40px;overflow:hidden}
+.playlist-count{position:absolute;right:0;top:0;bottom:0;width:40%;background:rgba(0,0,0,.75);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.playlist-count-num{font-family:'Bebas Neue',sans-serif;font-size:24px;line-height:1}
+.playlist-count-label{font-size:9px;color:var(--text2)}
+.playlist-info{padding:9px 10px}
+.playlist-title{font-size:12.5px;font-weight:500;margin-bottom:2px}
+.playlist-sub{font-size:11px;color:var(--text3)}
+
+/* ── AD Banner ── */
+.pt-ad-banner{background:linear-gradient(135deg,#0d0018 0%,#1a0030 40%,#0d0020 100%);border-top:1px solid rgba(124,58,237,.3);border-bottom:1px solid rgba(124,58,237,.3);padding:12px 16px;position:relative;overflow:hidden}
+.pt-ad-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(168,85,247,.12) 0%,transparent 60%);pointer-events:none}
+.pt-ad-inner{display:flex;align-items:center;gap:12px;position:relative}
+.pt-ad-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--purple),var(--purple-2));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.pt-ad-text{flex:1;min-width:0}
+.pt-ad-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px}
+.pt-ad-sub{font-size:11px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pt-ad-cta{background:linear-gradient(135deg,var(--purple),var(--purple-2));color:#fff;border:none;cursor:pointer;padding:8px 16px;border-radius:20px;font-size:12px;font-weight:700;font-family:inherit;white-space:nowrap;transition:opacity .2s;flex-shrink:0}
+.pt-ad-cta:hover{opacity:.85}
+
+/* ── Empty / Search ── */
+.search-results-wrap{padding:16px}
+.search-header{font-size:20px;font-weight:600;margin-bottom:4px}
+.search-sub{font-size:13px;color:var(--text3);margin-bottom:20px}
+.no-results{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;text-align:center}
+.no-results-icon{font-size:64px;margin-bottom:16px;opacity:.4}
+.no-results h3{font-size:20px;font-weight:600;margin-bottom:8px;color:var(--text2)}
+.no-results p{font-size:14px;color:var(--text3)}
+
+/* ── Modal ── */
+.see-all-modal{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:200;display:none;flex-direction:column;overflow:hidden}
+.see-all-modal.open{display:flex}
+.modal-topbar{display:flex;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0}
+.modal-back{background:none;border:none;color:var(--text2);cursor:pointer;display:flex;align-items:center;gap:6px;font-size:14px;font-family:inherit;padding:6px 10px;border-radius:6px;transition:background .15s}
+.modal-back:hover{background:var(--bg3);color:var(--text)}
+.modal-back svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2}
+.modal-title{font-size:18px;font-weight:600;color:var(--text)}
+.modal-body{flex:1;overflow-y:auto;padding:20px}
+.modal-body::-webkit-scrollbar{width:5px}
+.modal-body::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
+.modal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.modal-wide-grid{display:flex;flex-direction:column;gap:0;max-width:700px;margin:0 auto}
+.modal-portrait-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
 
 /* ── Color palettes ── */
 .c1{background:linear-gradient(135deg,#1a3a2a,#0d2a1a)}
@@ -242,49 +319,75 @@ a{text-decoration:none;color:inherit}
 .a1{background:#e74c3c}.a2{background:#3498db}.a3{background:#9b59b6}
 .a4{background:#1abc9c}.a5{background:#e67e22}.a6{background:#e91e63}
 .a7{background:#2ecc71}.a8{background:#f39c12}.a9{background:#1565c0}
+.a10{background:#00bcd4}.a11{background:#ff5722}.a12{background:#4caf50}
+.p1{background:linear-gradient(135deg,#1a0035,#2d0060)}
+.p2{background:linear-gradient(135deg,#0a0025,#1a003a)}
+.p3{background:linear-gradient(135deg,#20003d,#100028)}
+.p4{background:linear-gradient(135deg,#150030,#0d0020)}
+.p5{background:linear-gradient(135deg,#1e0040,#0a0018)}
+.p6{background:linear-gradient(135deg,#12002a,#200040)}
+.divider{height:1px;background:var(--border);margin:6px 16px}
 
-/* ── Mobile Responsive ── */
+/* ── Toast ── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:10px 20px;border-radius:24px;font-size:13px;font-weight:500;z-index:999;transition:transform .3s ease;pointer-events:none;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ── Mobile ── */
 @media(max-width:768px){
-  :root{--card-w:160px;--card-w-sm:130px}
+  :root{--card-w:160px}
   .sidebar{position:fixed;top:0;left:0;height:100%;transform:translateX(-100%);z-index:25;width:240px}
   .sidebar.open{transform:translateX(0)}
   .sidebar-overlay.show{display:block}
   .hamburger{display:flex}
-  .hero{height:360px}
+  .hero{height:340px}
   .hero-visual{width:100%;clip-path:none}
   .hero-visual::after{background:linear-gradient(0deg,var(--bg) 0%,rgba(10,10,10,.7) 50%,rgba(10,10,10,.3) 100%)}
-  .hero-content{width:100%;padding:24px 16px;background:linear-gradient(0deg,rgba(10,10,10,1) 0%,transparent 100%);justify-content:flex-end}
-  .hero-title{font-size:40px}
+  .hero-content{width:100%;padding:24px 16px;justify-content:flex-end}
+  .hero-title{font-size:38px}
   .hero-desc{display:none}
   .hero-indicators{right:16px;bottom:16px}
   .yt-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;padding:6px 12px 16px}
   .section-head{padding:0 12px}
   .carousel-track{padding:4px 12px 8px}
   .pills-bar{padding:8px 12px}
-  .top10-num{font-size:90px}
   .top10-card{width:190px}
-  .rank-tooltip{width:220px;left:0;transform:none}
-  .rank-tooltip::before{left:18px;transform:rotate(45deg)}
+  .news-thumb{width:90px;height:54px}
 }
-
+@media(min-width:640px){
+  .yt-wide-feed{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:0 16px 16px}
+  .yt-wide-card{border-radius:8px;overflow:hidden}
+  .yt-wide-sep{display:none}
+  .news-grid{grid-template-columns:1fr 1fr}
+  .news-card{border-radius:8px;border:1px solid var(--border)}
+}
+@media(min-width:1100px){
+  .yt-wide-feed{grid-template-columns:repeat(3,1fr)}
+}
 @media(max-width:480px){
   :root{--card-w:140px}
-  .hero{height:300px}
-  .hero-title{font-size:32px}
+  .hero{height:280px}
+  .hero-title{font-size:30px}
   .btn-play,.btn-info{padding:9px 14px;font-size:13px}
-  .topbar{padding:0 10px;gap:8px}
-  .icon-btn{width:30px;height:30px}
-  .avatar{width:30px;height:30px;font-size:11px}
-  .section-title{font-size:14.5px}
   .yt-grid{grid-template-columns:1fr 1fr;gap:8px}
-  .channel-card{width:120px}
-  .portrait-card{width:110px}
+  .blink-btn{padding:6px 11px;font-size:11.5px}
 }
 </style>
 </head>
 <body>
 
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="toast" id="toast"></div>
+
+<!-- Modal -->
+<div class="see-all-modal" id="seeAllModal">
+  <div class="modal-topbar">
+    <button class="modal-back" id="modalBack">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back
+    </button>
+    <div class="modal-title" id="modalTitle">All Videos</div>
+  </div>
+  <div class="modal-body" id="modalBody"></div>
+</div>
 
 <div class="shell">
   <!-- ═══ SIDEBAR ═══ -->
@@ -294,547 +397,1262 @@ a{text-decoration:none;color:inherit}
       <span class="logo-text">Net<span>Tube</span></span>
     </div>
     <div class="nav-section">
-      <div class="nav-item active">
-        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home
+      <div class="nav-item active" data-tab="all">
+        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Feed <span class="nav-badge">Hot</span>
       </div>
-      <div class="nav-item">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Explore
+      <div class="nav-item" data-tab="live">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+        Live Now <span class="nav-badge" style="background:var(--red)">Live</span>
       </div>
-      <div class="nav-item">
-        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Trending
-        <span class="nav-badge">Hot</span>
+      <div class="nav-item" data-tab="pose">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>
+        Pose Channel <span class="nav-badge purple">On Air</span>
       </div>
-      <div class="nav-item">
-        <svg viewBox="0 0 24 24"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>Originals
-      </div>
-      <div class="nav-item">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Live Now
-        <span class="nav-badge" style="background:#46d369">Live</span>
+      <div class="nav-item" data-tab="trending">
+        <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        Trending
       </div>
     </div>
     <div class="nav-section" style="border-top:1px solid var(--border)">
       <div class="nav-label">Categories</div>
-      <div class="nav-item"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>Movies</div>
-      <div class="nav-item"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg>TV Shows</div>
-      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Anime</div>
-      <div class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>Documentaries</div>
-      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Music</div>
-      <div class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M2 12h3M19 12h3M12 2v3M12 19v3M5.64 5.64l2.12 2.12M16.24 16.24l2.12 2.12M5.64 18.36l2.12-2.12M16.24 7.76l2.12-2.12"/></svg>Kids & Family</div>
-      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>Sports</div>
+      <div class="nav-item" data-tab="movies"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>Movies</div>
+      <div class="nav-item" data-tab="tvshows"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg>TV Shows</div>
+      <div class="nav-item" data-tab="anime"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Anime</div>
+      <div class="nav-item" data-tab="documentaries"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>Documentaries</div>
+      <div class="nav-item" data-tab="music"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Music</div>
+      <div class="nav-item" data-tab="kids"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M2 12h3M19 12h3M12 2v3M12 19v3M5.64 5.64l2.12 2.12M16.24 16.24l2.12 2.12M5.64 18.36l2.12-2.12M16.24 7.76l2.12-2.12"/></svg>Kids &amp; Family</div>
+      <div class="nav-item" data-tab="sports"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>Sports</div>
+      <div class="nav-item" data-tab="nollywood"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="8" height="8" rx="1"/><rect x="14" y="2" width="8" height="8" rx="1"/><rect x="14" y="14" width="8" height="8" rx="1"/><rect x="2" y="14" width="8" height="8" rx="1"/></svg>Nollywood <span class="nav-badge green">🇳🇬</span></div>
+      <div class="nav-item" data-tab="funny"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>Funny Videos</div>
+      <div class="nav-item" data-tab="gaming"><svg viewBox="0 0 24 24"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="11" x2="15.01" y2="11"/><line x1="18" y1="13" x2="18.01" y2="13"/><rect x="2" y="6" width="20" height="12" rx="2"/></svg>Gaming</div>
+      <div class="nav-item" data-tab="education"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>Education</div>
+      <div class="nav-item" data-tab="news"><svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 002-2V4a2 2 0 00-2-2H8a2 2 0 00-2 2v16a2 2 0 01-2 2zm0 0a2 2 0 01-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6z"/></svg>News</div>
+      <div class="nav-item" data-tab="food"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>Food &amp; Travel</div>
+      <div class="nav-item" data-tab="health"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Health</div>
+      <div class="nav-item" data-tab="romance"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>Romance</div>
+      <div class="nav-item" data-tab="thriller"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Thriller</div>
+      <div class="nav-item" data-tab="scifi"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>Sci-Fi</div>
     </div>
     <div class="nav-section" style="border-top:1px solid var(--border)">
       <div class="nav-label">Library</div>
-      <div class="nav-item"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Watch Later</div>
-      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>Liked Videos</div>
-      <div class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>My Lists</div>
-      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>Subscriptions</div>
+      <div class="nav-item" data-tab="watchlater"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Watch Later</div>
+      <div class="nav-item" data-tab="liked"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>Liked Videos</div>
+      <div class="nav-item" data-tab="subscriptions"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>Subscriptions</div>
     </div>
-    <div class="nav-section" style="border-top:1px solid var(--border)">
-      <div class="nav-label">Up Next</div>
-      <div style="display:flex;flex-direction:column;gap:7px;padding:4px 10px">
-        <div class="sidebar-thumb"><div class="thumb-img c3"><span>🌌</span></div><div class="thumb-info"><div class="thumb-title">Interstellar: Director's Cut</div><div class="thumb-meta">2:49:14 remaining</div></div></div>
-        <div class="sidebar-thumb"><div class="thumb-img c1"><span>🦁</span></div><div class="thumb-info"><div class="thumb-title">Planet Earth III – Ep 4</div><div class="thumb-meta">44:20 remaining</div></div></div>
-        <div class="sidebar-thumb"><div class="thumb-img c2"><span>🚀</span></div><div class="thumb-info"><div class="thumb-title">Mars: First Colony</div><div class="thumb-meta">1:12:08 remaining</div></div></div>
-      </div>
-    </div>
-    <div style="margin-top:auto;padding:14px 16px;border-top:1px solid var(--border)">
-      <div class="nav-item" style="padding:8px 0"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93A10 10 0 105 19.07"/></svg>Settings</div>
-      <div class="nav-item" style="padding:8px 0"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Help</div>
-    </div>
+    <div style="height:24px"></div>
   </aside>
 
   <!-- ═══ MAIN ═══ -->
   <div class="main">
-    <!-- Topbar -->
     <div class="topbar">
-      <button class="hamburger" id="hamburger" aria-label="Menu">
+      <button class="hamburger" id="hamburger">
         <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
       <div class="search-wrap">
-        <input type="text" placeholder="Search movies, shows, creators…"/>
-        <button class="search-btn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+        <input type="text" id="searchInput" placeholder="Search movies, shows, creators…"/>
+        <button class="search-btn" id="searchBtn">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
       </div>
       <div class="topbar-actions">
-        <button class="icon-btn">
+        <button class="icon-btn" id="notifBtn">
           <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
           <div class="notif-dot"></div>
         </button>
-        <button class="icon-btn" style="display:none" class="desktop-only">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        <button class="blink-btn" id="blinkBtn">
+          <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          Blink
         </button>
-        <div class="avatar">A</div>
       </div>
     </div>
 
-    <!-- Pills Bar -->
-    <div class="pills-bar">
-      <div class="pill active">All</div>
-      <div class="pill">Movies</div>
-      <div class="pill">TV Shows</div>
-      <div class="pill">Anime</div>
-      <div class="pill">Documentaries</div>
-      <div class="pill">Music</div>
-      <div class="pill">Sports</div>
-      <div class="pill">Gaming</div>
-      <div class="pill">Kids</div>
-      <div class="pill">News</div>
-      <div class="pill">Live</div>
+    <!-- Pills -->
+    <div class="pills-bar" id="pillsBar">
+      <div class="pill active" data-tab="all">All</div>
+      <div class="pill live-pill" data-tab="live">🔴 Live</div>
+      <div class="pill" data-tab="trending">🔥 Trending</div>
+      <div class="pill" data-tab="nollywood">🎬 Nollywood</div>
+      <div class="pill" data-tab="movies">🎥 Movies</div>
+      <div class="pill" data-tab="tvshows">📺 TV Shows</div>
+      <div class="pill" data-tab="funny">😂 Funny</div>
+      <div class="pill" data-tab="sports">⚽ Sports</div>
+      <div class="pill" data-tab="anime">🎌 Anime</div>
+      <div class="pill" data-tab="music">🎵 Music</div>
+      <div class="pill" data-tab="gaming">🎮 Gaming</div>
+      <div class="pill" data-tab="education">📚 Education</div>
+      <div class="pill" data-tab="documentaries">🌍 Docs</div>
+      <div class="pill" data-tab="news">📰 News</div>
+      <div class="pill" data-tab="food">🍜 Food</div>
+      <div class="pill" data-tab="health">🧘 Health</div>
+      <div class="pill" data-tab="romance">💕 Romance</div>
+      <div class="pill" data-tab="thriller">👁️ Thriller</div>
+      <div class="pill" data-tab="scifi">🌌 Sci-Fi</div>
+      <div class="pill" data-tab="kids">☀️ Kids</div>
+      <div class="pill" data-tab="pose">✦ Pose</div>
     </div>
 
-    <!-- Content -->
     <div class="content">
-
-      <!-- ─── HERO ─── -->
-      <div class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-scene">
-          <div class="hero-visual">
-            <span style="position:relative;z-index:1;font-size:90px" id="heroEmoji">🌌</span>
-            <div class="hero-badge">NetTube Original</div>
-            <div class="hero-rank">1</div>
-          </div>
-        </div>
-        <div class="hero-content">
-          <div class="hero-category">⚡ #1 in Streaming Today</div>
-          <div class="hero-title" id="heroTitle">BEYOND<br>THE COSMOS</div>
-          <div class="hero-meta">
-            <span class="match">97% Match</span>
-            <div class="dot"></div>
-            <span>2024</span>
-            <div class="dot"></div>
-            <span style="border:1px solid var(--text3);padding:1px 5px;border-radius:3px;font-size:10.5px">HD</span>
-            <div class="dot"></div>
-            <span>2h 38m</span>
-          </div>
-          <div class="hero-desc">When humanity's last probe discovers an anomaly beyond Neptune, astronaut Dr. Kira Solano must journey farther than any human has gone — and confront what truly lies at the edge of existence.</div>
-          <div class="hero-actions">
-            <button class="btn-play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg>Play Now</button>
-            <button class="btn-info"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>More Info</button>
-          </div>
-        </div>
-        <div class="hero-indicators" id="heroIndicators">
-          <div class="indicator active"></div>
-          <div class="indicator"></div>
-          <div class="indicator"></div>
-          <div class="indicator"></div>
-          <div class="indicator"></div>
+      <!-- ══ SEARCH RESULTS ══ -->
+      <div class="tab-page" id="tab-search">
+        <div class="search-results-wrap">
+          <div class="search-header" id="searchHeader">Results for ""</div>
+          <div class="search-sub" id="searchSub">Showing matching content across all categories</div>
+          <div class="yt-grid" id="searchGrid"></div>
         </div>
       </div>
 
-      <!-- ─── CONTINUE WATCHING ─── -->
-      <div class="section">
-        <div class="section-head">
-          <div class="section-title">
-            Continue Watching
-            <span class="rank-info-btn" data-tooltip="continue">i
-              <div class="rank-tooltip" id="tt-continue">
-                <div class="tooltip-title">📊 Ranking Logic</div>
-                <div class="tooltip-row"><span class="tooltip-label">Recency</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:80%"></div></div><span class="tooltip-pct">80%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">% Watched</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:60%"></div></div><span class="tooltip-pct">60%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">Session freq</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:40%"></div></div><span class="tooltip-pct">40%</span></div>
-                <div class="tooltip-note">Sorted by your last watch session. Content you started recently appears first. Items &gt;90% watched are deprioritized.</div>
-              </div>
-            </span>
-          </div>
-          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-        </div>
-        <div class="carousel">
-          <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-          <div class="carousel-track">
-            <div class="nf-card" style="width:210px">
-              <div class="nf-card-img c3"><span>🔥</span></div>
-              <div class="nf-card-overlay"><div class="nf-card-actions"><div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div><div class="mini-btn"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div></div><div class="nf-card-label">S3 E6 · 42m left</div></div>
-              <div style="padding:7px 0 0;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500;padding:0 8px 4px;color:var(--text)">Inferno Rising</div><div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:68%"></div></div></div>
-            </div>
-            <div class="nf-card" style="width:210px">
-              <div class="nf-card-img c1"><span>🌊</span></div>
-              <div class="nf-card-overlay"><div class="nf-card-actions"><div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div></div><div class="nf-card-label">Episode 3 · 28m left</div></div>
-              <div style="padding:7px 0 0;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500;padding:0 8px 4px;color:var(--text)">Blue Depths</div><div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:30%"></div></div></div>
-            </div>
-            <div class="nf-card" style="width:210px">
-              <div class="nf-card-img c2"><span>🚀</span></div>
-              <div class="nf-card-overlay"><div class="nf-card-actions"><div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div></div><div class="nf-card-label">Film · 1h 12m left</div></div>
-              <div style="padding:7px 0 0;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500;padding:0 8px 4px;color:var(--text)">Mars: First Colony</div><div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:15%"></div></div></div>
-            </div>
-            <div class="nf-card" style="width:210px">
-              <div class="nf-card-img c5"><span>🧠</span></div>
-              <div class="nf-card-overlay"><div class="nf-card-actions"><div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div></div><div class="nf-card-label">S1 E9 · 55m left</div></div>
-              <div style="padding:7px 0 0;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500;padding:0 8px 4px;color:var(--text)">Mindscape</div><div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:45%"></div></div></div>
-            </div>
-            <div class="nf-card" style="width:210px">
-              <div class="nf-card-img c8"><span>🐉</span></div>
-              <div class="nf-card-overlay"><div class="nf-card-actions"><div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div></div><div class="nf-card-label">S2 E1 · 1h 3m left</div></div>
-              <div style="padding:7px 0 0;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500;padding:0 8px 4px;color:var(--text)">Dragon Sovereign</div><div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:8%"></div></div></div>
-            </div>
-            <div class="nf-card" style="width:210px">
-              <div class="nf-card-img c7"><span>🔮</span></div>
-              <div class="nf-card-overlay"><div class="nf-card-actions"><div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div></div><div class="nf-card-label">Film · 38m left</div></div>
-              <div style="padding:7px 0 0;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500;padding:0 8px 4px;color:var(--text)">The Watcher</div><div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:75%"></div></div></div>
+      <!-- ══ ALL TAB ══ -->
+      <div class="tab-page active" id="tab-all">
+        <!-- Hero -->
+        <div class="hero">
+          <div class="hero-bg"></div>
+          <div class="hero-scene">
+            <div class="hero-visual">
+              <span style="position:relative;z-index:1;font-size:90px" id="heroEmoji">🌌</span>
+              <div class="hero-badge">NetTube Original</div>
             </div>
           </div>
-          <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
-        </div>
-      </div>
-
-      <!-- ─── TOP 10 ─── -->
-      <div class="section">
-        <div class="section-head">
-          <div class="section-title">
-            Top 10
-            <span class="tag">This Week</span>
-            <span class="rank-info-btn" data-tooltip="top10">i
-              <div class="rank-tooltip" id="tt-top10">
-                <div class="tooltip-title">📊 Ranking Logic</div>
-                <div class="tooltip-row"><span class="tooltip-label">Views (7d)</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:90%"></div></div><span class="tooltip-pct">90%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">Likes</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:70%"></div></div><span class="tooltip-pct">70%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">Watch time</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:65%"></div></div><span class="tooltip-pct">65%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">Shares</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:50%"></div></div><span class="tooltip-pct">50%</span></div>
-                <div class="tooltip-note">Rankings refresh every 24h. Score = 0.4×views + 0.3×watch_time + 0.2×likes + 0.1×shares, all normalized within the 7-day window.</div>
-              </div>
-            </span>
-          </div>
-          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-        </div>
-        <div class="carousel">
-          <div class="carousel-track">
-            <div class="top10-card"><div class="top10-num">1</div><div class="top10-img c3"><span>🔥</span></div></div>
-            <div class="top10-card"><div class="top10-num">2</div><div class="top10-img c2"><span>🌌</span></div></div>
-            <div class="top10-card"><div class="top10-num">3</div><div class="top10-img c1"><span>🦁</span></div></div>
-            <div class="top10-card"><div class="top10-num">4</div><div class="top10-img c4"><span>🐉</span></div></div>
-            <div class="top10-card"><div class="top10-num">5</div><div class="top10-img c5"><span>🕵️</span></div></div>
-            <div class="top10-card"><div class="top10-num">6</div><div class="top10-img c6"><span>⚔️</span></div></div>
-            <div class="top10-card"><div class="top10-num">7</div><div class="top10-img c7"><span>🌊</span></div></div>
-            <div class="top10-card"><div class="top10-num">8</div><div class="top10-img c8"><span>🚀</span></div></div>
-            <div class="top10-card"><div class="top10-num">9</div><div class="top10-img c9"><span>🧠</span></div></div>
-            <div class="top10-card"><div class="top10-num" style="font-size:82px">10</div><div class="top10-img c10"><span>🎭</span></div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ─── NEW RELEASES ─── -->
-      <div class="section">
-        <div class="section-head">
-          <div class="section-title">New Releases <span class="tag">New</span>
-            <span class="rank-info-btn" data-tooltip="newrel">i
-              <div class="rank-tooltip" id="tt-newrel">
-                <div class="tooltip-title">📊 Ranking Logic</div>
-                <div class="tooltip-row"><span class="tooltip-label">Release date</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:95%"></div></div><span class="tooltip-pct">95%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">Early ratings</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:55%"></div></div><span class="tooltip-pct">55%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">Buzz score</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:40%"></div></div><span class="tooltip-pct">40%</span></div>
-                <div class="tooltip-note">Content released within the last 30 days. Ordered primarily by release date, then by early audience rating signals.</div>
-              </div>
-            </span>
-          </div>
-          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-        </div>
-        <div class="carousel">
-          <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-          <div class="carousel-track">
-            <div class="portrait-card"><div class="portrait-card-img c6"><span>⚔️</span></div></div>
-            <div class="portrait-card"><div class="portrait-card-img c4"><span>🐉</span></div></div>
-            <div class="portrait-card"><div class="portrait-card-img c7"><span>🌊</span></div></div>
-            <div class="portrait-card"><div class="portrait-card-img c8"><span>🔮</span></div></div>
-            <div class="portrait-card"><div class="portrait-card-img c1"><span>🌲</span></div></div>
-            <div class="portrait-card"><div class="portrait-card-img c2"><span>🛸</span></div></div>
-            <div class="portrait-card"><div class="portrait-card-img c3"><span>🎭</span></div></div>
-            <div class="portrait-card"><div class="portrait-card-img c5"><span>🤖</span></div></div>
-            <div class="portrait-card"><div class="portrait-card-img c9"><span>🦊</span></div></div>
-            <div class="portrait-card"><div class="portrait-card-img c10"><span>🧿</span></div></div>
-          </div>
-          <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
-        </div>
-      </div>
-
-      <!-- ─── LIVE NOW ─── -->
-      <div class="section">
-        <div class="section-head">
-          <div class="section-title">
-            <span class="live-badge"><span class="live-dot"></span>Live Now</span>
-            <span class="rank-info-btn" data-tooltip="live">i
-              <div class="rank-tooltip" id="tt-live">
-                <div class="tooltip-title">📊 Ranking Logic</div>
-                <div class="tooltip-row"><span class="tooltip-label">Viewers now</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:100%"></div></div><span class="tooltip-pct">100%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">Chat activity</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:60%"></div></div><span class="tooltip-pct">60%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">Peak viewer %</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:30%"></div></div><span class="tooltip-pct">30%</span></div>
-                <div class="tooltip-note">Real-time ranking based on concurrent viewers. Updates every 60 seconds. Chat messages-per-minute is a secondary engagement signal.</div>
-              </div>
-            </span>
-          </div>
-          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-        </div>
-        <div class="carousel">
-          <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-          <div class="carousel-track">
-            <div class="nf-card" style="width:220px">
-              <div class="nf-card-img c3" style="position:relative"><span>🏟️</span><div style="position:absolute;top:7px;left:7px;"><span class="live-badge" style="font-size:9px;padding:2px 6px"><span class="live-dot"></span>LIVE</span></div><div style="position:absolute;bottom:7px;right:7px;background:rgba(0,0,0,.8);color:#fff;font-size:10px;padding:2px 6px;border-radius:3px">🔴 284K watching</div></div>
-              <div style="padding:7px 8px;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500">Champions League Final</div><div style="font-size:10.5px;color:var(--text3)">NetTube Sports</div></div>
+          <div class="hero-content">
+            <div class="hero-category">⚡ #1 in Streaming Today</div>
+            <div class="hero-title" id="heroTitle">BEYOND<br>THE COSMOS</div>
+            <div class="hero-meta">
+              <span class="match">97% Match</span><div class="dot"></div>
+              <span>2024</span><div class="dot"></div>
+              <span style="border:1px solid var(--text3);padding:1px 5px;border-radius:3px;font-size:10.5px">HD</span>
+              <div class="dot"></div><span>2h 38m</span>
             </div>
-            <div class="nf-card" style="width:220px">
-              <div class="nf-card-img c2" style="position:relative"><span>🎮</span><div style="position:absolute;top:7px;left:7px;"><span class="live-badge" style="font-size:9px;padding:2px 6px"><span class="live-dot"></span>LIVE</span></div><div style="position:absolute;bottom:7px;right:7px;background:rgba(0,0,0,.8);color:#fff;font-size:10px;padding:2px 6px;border-radius:3px">🔴 92K watching</div></div>
-              <div style="padding:7px 8px;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500">World Gaming Championship</div><div style="font-size:10.5px;color:var(--text3)">ESports Central</div></div>
-            </div>
-            <div class="nf-card" style="width:220px">
-              <div class="nf-card-img c5" style="position:relative"><span>🎵</span><div style="position:absolute;top:7px;left:7px;"><span class="live-badge" style="font-size:9px;padding:2px 6px"><span class="live-dot"></span>LIVE</span></div><div style="position:absolute;bottom:7px;right:7px;background:rgba(0,0,0,.8);color:#fff;font-size:10px;padding:2px 6px;border-radius:3px">🔴 451K watching</div></div>
-              <div style="padding:7px 8px;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500">Coachella 2024 — Day 2</div><div style="font-size:10.5px;color:var(--text3)">Music World Live</div></div>
-            </div>
-            <div class="nf-card" style="width:220px">
-              <div class="nf-card-img c6" style="position:relative"><span>🏀</span><div style="position:absolute;top:7px;left:7px;"><span class="live-badge" style="font-size:9px;padding:2px 6px"><span class="live-dot"></span>LIVE</span></div><div style="position:absolute;bottom:7px;right:7px;background:rgba(0,0,0,.8);color:#fff;font-size:10px;padding:2px 6px;border-radius:3px">🔴 178K watching</div></div>
-              <div style="padding:7px 8px;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500">NBA Playoff Game 7</div><div style="font-size:10.5px;color:var(--text3)">NetTube Sports</div></div>
+            <div class="hero-desc">When humanity's last probe discovers an anomaly beyond Neptune, astronaut Dr. Kira Solano must journey farther than any human has gone — and confront what truly lies at the edge of existence.</div>
+            <div class="hero-actions">
+              <button class="btn-play" onclick="showToast('▶ Playing Beyond the Cosmos...')"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg>Play Now</button>
+              <button class="btn-info" onclick="openModal('Beyond the Cosmos','netflix')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>More Info</button>
             </div>
           </div>
-          <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+          <div class="hero-indicators" id="heroIndicators">
+            <div class="indicator active"></div><div class="indicator"></div><div class="indicator"></div><div class="indicator"></div><div class="indicator"></div>
+          </div>
         </div>
-      </div>
 
-      <div class="divider"></div>
+        <!-- AD Banner -->
+        <div class="pt-ad-banner">
+          <div class="pt-ad-inner">
+            <div class="pt-ad-icon">📢</div>
+            <div class="pt-ad-text">
+              <div class="pt-ad-title">PremiumFlex — Stream Everything</div>
+              <div class="pt-ad-sub">Unlimited access to 50,000+ videos · Cancel anytime</div>
+            </div>
+            <button class="pt-ad-cta" onclick="showToast('🎉 Redirecting to PremiumFlex...')">Get Started</button>
+          </div>
+        </div>
 
-      <!-- ─── TRENDING VIDEOS (YT Grid) ─── -->
-      <div class="section" style="padding-top:18px">
-        <div class="section-head">
-          <div class="section-title">
-            <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:var(--red)"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.97C18.88 4 12 4 12 4s-6.88 0-8.59.47a2.78 2.78 0 00-1.95 1.97A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20.07 12 20.07 12 20.07s6.88 0 8.59-.47a2.78 2.78 0 001.95-1.97A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#fff"/></svg>
-            Trending on NetTube
-            <span class="rank-info-btn" data-tooltip="trending">i
-              <div class="rank-tooltip" id="tt-trending">
-                <div class="tooltip-title">📊 Ranking Logic</div>
-                <div class="tooltip-row"><span class="tooltip-label">Views (24h)</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:85%"></div></div><span class="tooltip-pct">85%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">Engagement rate</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:75%"></div></div><span class="tooltip-pct">75%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">Velocity</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:70%"></div></div><span class="tooltip-pct">70%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">Comments</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:45%"></div></div><span class="tooltip-pct">45%</span></div>
-                <div class="tooltip-note">Trending score measures velocity — how fast a video is gaining views relative to its age. A 6-hour-old video with 1M views beats a week-old video with 5M views.</div>
+        <!-- Continue Watching -->
+        <div class="section">
+          <div class="section-head">
+            <div class="section-title">Continue Watching</div>
+            <div class="see-all" onclick="openModal('Continue Watching','continue')">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </div>
+          <div class="carousel">
+            <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <div class="carousel-track" id="continueTrack"></div>
+            <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
+        </div>
+
+        <!-- Pose Channel -->
+        <div class="pose-section">
+          <div class="pose-section-head">
+            <div class="pose-branding">
+              <div class="pose-logo-icon">✦</div>
+              <div>
+                <div class="pose-brand-name">Pose Channel</div>
+                <div class="pose-brand-sub">Fashion · Lifestyle · Culture</div>
               </div>
-            </span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span class="pose-live-pill"><span class="pose-live-dot"></span>On Air</span>
+              <div class="pose-see-all" onclick="switchTab('pose')">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+            </div>
           </div>
-          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+          <div class="carousel">
+            <button class="carousel-arrow left" style="background:rgba(13,0,32,.85)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <div class="carousel-track" id="poseTrackAll"></div>
+            <button class="carousel-arrow right" style="background:rgba(13,0,32,.85)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
         </div>
-        <div class="yt-grid">
-          <div class="yt-card"><div class="yt-thumb c3"><span>🏟️</span><div class="yt-thumb-live">🔴 LIVE</div></div><div class="yt-info"><div class="yt-avatar a1">N</div><div class="yt-details"><div class="yt-title">Champions League Final 2024 — Full Match Live Stream</div><div class="yt-channel">NetTube Sports<span class="verified"></span></div><div class="yt-stats">284K watching now</div></div></div></div>
-          <div class="yt-card"><div class="yt-thumb c2"><span>🤖</span><div class="yt-thumb-duration">24:08</div></div><div class="yt-info"><div class="yt-avatar a2">T</div><div class="yt-details"><div class="yt-title">I Built an AI That Watches Movies and Writes Reviews</div><div class="yt-channel">TechWanderer<span class="verified"></span></div><div class="yt-stats">2.1M views · 3 days ago</div></div></div></div>
-          <div class="yt-card"><div class="yt-thumb c1"><span>🌍</span><div class="yt-thumb-duration">48:22</div></div><div class="yt-info"><div class="yt-avatar a3">V</div><div class="yt-details"><div class="yt-title">Secret Villages Hidden in the Amazon — Full Documentary</div><div class="yt-channel">Veritasium Films<span class="verified"></span></div><div class="yt-stats">5.8M views · 1 week ago</div></div></div></div>
-          <div class="yt-card"><div class="yt-thumb c4"><span>🎮</span><div class="yt-thumb-duration">3:14:50</div></div><div class="yt-info"><div class="yt-avatar a4">G</div><div class="yt-details"><div class="yt-title">I Played Minecraft for 1000 Days Straight — Final Episode</div><div class="yt-channel">GameVault<span class="verified"></span></div><div class="yt-stats">18.4M views · 2 days ago</div></div></div></div>
-          <div class="yt-card"><div class="yt-thumb c6"><span>👨‍🍳</span><div class="yt-thumb-duration">18:55</div></div><div class="yt-info"><div class="yt-avatar a5">C</div><div class="yt-details"><div class="yt-title">Gordon Ramsay Reacts to My Homemade Beef Wellington</div><div class="yt-channel">ChefCentral<span class="verified"></span></div><div class="yt-stats">892K views · 5 days ago</div></div></div></div>
-          <div class="yt-card"><div class="yt-thumb c5"><span>🎵</span><div class="yt-thumb-duration">4:22</div></div><div class="yt-info"><div class="yt-avatar a6">M</div><div class="yt-details"><div class="yt-title">AURORA — "The Phantom Heart" (Official Music Video)</div><div class="yt-channel">MusicWorld Official<span class="verified"></span></div><div class="yt-stats">31M views · 2 weeks ago</div></div></div></div>
-          <div class="yt-card"><div class="yt-thumb c7"><span>🔭</span><div class="yt-thumb-duration">1:02:14</div></div><div class="yt-info"><div class="yt-avatar a2">S</div><div class="yt-details"><div class="yt-title">James Webb Telescope: What We Found Beyond the Milky Way</div><div class="yt-channel">SpaceX Official<span class="verified"></span></div><div class="yt-stats">12.2M views · 4 days ago</div></div></div></div>
-          <div class="yt-card"><div class="yt-thumb c8"><span>🏋️</span><div class="yt-thumb-duration">22:40</div></div><div class="yt-info"><div class="yt-avatar a1">F</div><div class="yt-details"><div class="yt-title">30-Day Transformation: I Trained Like an Olympian</div><div class="yt-channel">FitForm Pro<span class="verified"></span></div><div class="yt-stats">4.4M views · 1 week ago</div></div></div></div>
-          <div class="yt-card"><div class="yt-thumb c9"><span>💰</span><div class="yt-thumb-duration">31:07</div></div><div class="yt-info"><div class="yt-avatar a3">F</div><div class="yt-details"><div class="yt-title">How to Build Passive Income in 2025 (Realistic Guide)</div><div class="yt-channel">FinanceUnlocked<span class="verified"></span></div><div class="yt-stats">7.9M views · 3 days ago</div></div></div></div>
-          <div class="yt-card"><div class="yt-thumb c10"><span>🦁</span><div class="yt-thumb-duration">58:12</div></div><div class="yt-info"><div class="yt-avatar a7">N</div><div class="yt-details"><div class="yt-title">Africa's Last Wild Places — Full Nature Documentary 4K</div><div class="yt-channel">NatureVault<span class="verified"></span></div><div class="yt-stats">9.1M views · 6 days ago</div></div></div></div>
-          <div class="yt-card"><div class="yt-thumb c3"><span>🧘</span><div class="yt-thumb-duration">42:10</div></div><div class="yt-info"><div class="yt-avatar a8">W</div><div class="yt-details"><div class="yt-title">This Simple Morning Routine Changed My Life Forever</div><div class="yt-channel">WellnessHub<span class="verified"></span></div><div class="yt-stats">3.3M views · 4 days ago</div></div></div></div>
-          <div class="yt-card"><div class="yt-thumb c2"><span>🚗</span><div class="yt-thumb-duration">15:44</div></div><div class="yt-info"><div class="yt-avatar a9">D</div><div class="yt-details"><div class="yt-title">We Drove the World's Fastest Electric Car at 300 km/h</div><div class="yt-channel">DriveZone<span class="verified"></span></div><div class="yt-stats">6.7M views · 2 days ago</div></div></div></div>
+
+        <!-- Top 10 -->
+        <div class="section">
+          <div class="section-head">
+            <div class="section-title">Top 10 <span class="tag">This Week</span></div>
+            <div class="see-all" onclick="openModal('Top 10 This Week','top10')">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </div>
+          <div class="carousel">
+            <div class="carousel-track" id="top10Track"></div>
+          </div>
         </div>
+
+        <div class="divider"></div>
+
+        <!-- New Videos -->
+        <div class="section" style="padding-top:16px">
+          <div class="section-head">
+            <div class="section-title">🆕 New Videos <span class="tag">Fresh</span></div>
+            <div class="see-all" onclick="switchTab('trending')">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </div>
+          <div class="yt-wide-feed" id="newVideosGrid"></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Nollywood -->
+        <div class="section" style="padding-top:16px">
+          <div class="section-head">
+            <div class="section-title">🎬 Nollywood <span class="tag" style="background:#16a34a">🇳🇬 Top</span></div>
+            <div class="see-all" onclick="switchTab('nollywood')">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </div>
+          <div class="carousel">
+            <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <div class="carousel-track" id="nollywoodTrackAll"></div>
+            <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
+        </div>
+
+        <!-- Trending Grid -->
+        <div class="section" style="padding-top:16px">
+          <div class="section-head">
+            <div class="section-title">🔥 Trending Now</div>
+            <div class="see-all" onclick="switchTab('trending')">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </div>
+          <div class="yt-grid" id="trendingGridAll"></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Action Movies -->
+        <div class="section" style="padding-top:16px">
+          <div class="section-head">
+            <div class="section-title">💥 Action Movies</div>
+            <div class="see-all" onclick="switchTab('movies')">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </div>
+          <div class="carousel">
+            <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <div class="carousel-track" id="actionTrack"></div>
+            <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
+        </div>
+
+        <!-- Funny Videos -->
+        <div class="section">
+          <div class="section-head">
+            <div class="section-title">😂 Funny Videos</div>
+            <div class="see-all" onclick="switchTab('funny')">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </div>
+          <div class="yt-wide-feed" id="funnyGridAll"></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Sports -->
+        <div class="section" style="padding-top:16px">
+          <div class="section-head">
+            <div class="section-title">⚽ Sports Highlights</div>
+            <div class="see-all" onclick="switchTab('sports')">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </div>
+          <div class="yt-wide-feed" id="sportsGridAll"></div>
+        </div>
+
+        <!-- Top Channels -->
+        <div class="section">
+          <div class="section-head">
+            <div class="section-title">Top Channels to Follow</div>
+            <div class="see-all" onclick="openModal('Top Channels','channels')">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </div>
+          <div class="carousel">
+            <div class="carousel-track" id="channelsTrack"></div>
+          </div>
+        </div>
+        <div style="height:40px"></div>
       </div>
 
-      <div class="divider"></div>
-
-      <!-- ─── ANIME ─── -->
-      <div class="section" style="padding-top:16px">
-        <div class="section-head">
-          <div class="section-title">
-            🎌 Anime
-            <span class="tag" style="background:#9b59b6">Popular</span>
-            <span class="rank-info-btn" data-tooltip="anime">i
-              <div class="rank-tooltip" id="tt-anime">
-                <div class="tooltip-title">📊 Ranking Logic</div>
-                <div class="tooltip-row"><span class="tooltip-label">Community votes</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:85%"></div></div><span class="tooltip-pct">85%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">Completion rate</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:78%"></div></div><span class="tooltip-pct">78%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">Rewatch rate</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:55%"></div></div><span class="tooltip-pct">55%</span></div>
-                <div class="tooltip-note">Anime is ranked by episode completion rate and community ratings. Series where 70%+ of starters finish the season rank highest.</div>
-              </div>
-            </span>
+      <!-- ══ LIVE TAB ══ -->
+      <div class="tab-page" id="tab-live">
+        <div class="live-section">
+          <div class="live-header">
+            <div class="live-badge-big"><div class="live-dot"></div>LIVE NOW</div>
+            <span style="font-size:13px;color:var(--text3);margin-left:8px">24 streams active</span>
           </div>
-          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-        </div>
-        <div class="carousel">
-          <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-          <div class="carousel-track">
-            <div class="nf-card"><div class="nf-card-img" style="background:linear-gradient(135deg,#2a0a3a,#1a0a2a);font-size:34px"><span>⚔️</span></div><div style="padding:6px 8px;background:var(--bg3);font-size:12px;font-weight:500">Demon Slayer S4</div></div>
-            <div class="nf-card"><div class="nf-card-img" style="background:linear-gradient(135deg,#0a1a3a,#0a0a2a);font-size:34px"><span>🌊</span></div><div style="padding:6px 8px;background:var(--bg3);font-size:12px;font-weight:500">Blue Exorcist</div></div>
-            <div class="nf-card"><div class="nf-card-img" style="background:linear-gradient(135deg,#2a1a0a,#1a0a0a);font-size:34px"><span>🔥</span></div><div style="padding:6px 8px;background:var(--bg3);font-size:12px;font-weight:500">Jujutsu Kaisen S3</div></div>
-            <div class="nf-card"><div class="nf-card-img" style="background:linear-gradient(135deg,#0a2a1a,#0a1a0a);font-size:34px"><span>🌸</span></div><div style="padding:6px 8px;background:var(--bg3);font-size:12px;font-weight:500">Spy × Family</div></div>
-            <div class="nf-card"><div class="nf-card-img" style="background:linear-gradient(135deg,#1a0a2a,#0a0a1a);font-size:34px"><span>👁️</span></div><div style="padding:6px 8px;background:var(--bg3);font-size:12px;font-weight:500">Chainsaw Man</div></div>
-            <div class="nf-card"><div class="nf-card-img" style="background:linear-gradient(135deg,#2a2a0a,#1a1a0a);font-size:34px"><span>⚡</span></div><div style="padding:6px 8px;background:var(--bg3);font-size:12px;font-weight:500">My Hero Academia</div></div>
-            <div class="nf-card"><div class="nf-card-img" style="background:linear-gradient(135deg,#3a0a0a,#2a0a0a);font-size:34px"><span>🗡️</span></div><div style="padding:6px 8px;background:var(--bg3);font-size:12px;font-weight:500">Vinland Saga S3</div></div>
+          <div class="carousel">
+            <div class="carousel-track" id="liveMainTrack"></div>
           </div>
-          <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
         </div>
+        <div class="section" style="padding-top:20px">
+          <div class="section-head"><div class="section-title">⚽ Sports Live</div></div>
+          <div class="yt-wide-feed" id="liveSportsGrid"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section" style="padding-top:16px">
+          <div class="section-head"><div class="section-title">🎤 Events & Concerts Live</div></div>
+          <div class="yt-wide-feed" id="liveEventsGrid"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section" style="padding-top:16px">
+          <div class="section-head"><div class="section-title">📰 News Live</div></div>
+          <div class="yt-grid" id="liveNewsGrid"></div>
+        </div>
+        <div style="height:40px"></div>
       </div>
 
-      <!-- ─── BECAUSE YOU WATCHED ─── -->
-      <div class="section">
-        <div class="section-head">
-          <div class="section-title">Because you watched <em style="color:var(--text2);font-size:14px"> Interstellar</em>
-            <span class="rank-info-btn" data-tooltip="byw">i
-              <div class="rank-tooltip" id="tt-byw">
-                <div class="tooltip-title">📊 Ranking Logic</div>
-                <div class="tooltip-row"><span class="tooltip-label">Genre match</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:88%"></div></div><span class="tooltip-pct">88%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">Co-watch pairs</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:72%"></div></div><span class="tooltip-pct">72%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">Director/Cast</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:60%"></div></div><span class="tooltip-pct">60%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">User rating sim.</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:50%"></div></div><span class="tooltip-pct">50%</span></div>
-                <div class="tooltip-note">Collaborative filtering: "Users who watched this also watched…" combined with content-based signals (genre, theme, cast similarity).</div>
-              </div>
-            </span>
+      <!-- ══ TRENDING TAB ══ -->
+      <div class="tab-page" id="tab-trending">
+        <div class="section" style="padding-top:18px">
+          <div class="section-head"><div class="section-title">🔥 Trending Now <span class="tag">Hot</span></div></div>
+          <div class="sub-filters">
+            <div class="sub-pill active">All</div><div class="sub-pill">Today</div><div class="sub-pill">This Week</div><div class="sub-pill">This Month</div><div class="sub-pill">Nigeria</div><div class="sub-pill">Africa</div><div class="sub-pill">Global</div>
           </div>
-          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+          <div class="yt-grid" id="trendingGridFull"></div>
         </div>
-        <div class="carousel">
-          <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-          <div class="carousel-track">
-            <div class="nf-card"><div class="nf-card-img c2"><span>🌌</span></div></div>
-            <div class="nf-card"><div class="nf-card-img c1"><span>🪐</span></div></div>
-            <div class="nf-card"><div class="nf-card-img c5"><span>🛸</span></div></div>
-            <div class="nf-card"><div class="nf-card-img c3"><span>⚡</span></div></div>
-            <div class="nf-card"><div class="nf-card-img c4"><span>🌠</span></div></div>
-            <div class="nf-card"><div class="nf-card-img c7"><span>🔭</span></div></div>
-            <div class="nf-card"><div class="nf-card-img c6"><span>💫</span></div></div>
-            <div class="nf-card"><div class="nf-card-img c8"><span>🌙</span></div></div>
-          </div>
-          <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+        <div class="divider"></div>
+        <div class="section" style="padding-top:16px">
+          <div class="section-head"><div class="section-title">📈 Rising Fast</div></div>
+          <div class="yt-wide-feed" id="risingGrid"></div>
         </div>
+        <div style="height:40px"></div>
       </div>
 
-      <!-- ─── DOCUMENTARIES ─── -->
-      <div class="section">
-        <div class="section-head">
-          <div class="section-title">
-            🎥 Documentaries
-            <span class="rank-info-btn" data-tooltip="docs">i
-              <div class="rank-tooltip" id="tt-docs">
-                <div class="tooltip-title">📊 Ranking Logic</div>
-                <div class="tooltip-row"><span class="tooltip-label">Completion rate</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:92%"></div></div><span class="tooltip-pct">92%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">Critic score</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:68%"></div></div><span class="tooltip-pct">68%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">User rating</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:60%"></div></div><span class="tooltip-pct">60%</span></div>
-                <div class="tooltip-note">Documentary ranking prioritizes full-watch completion — the clearest signal of genuine interest in non-fiction. Awards and critic consensus are secondary.</div>
-              </div>
-            </span>
+      <!-- ══ POSE TAB ══ -->
+      <div class="tab-page" id="tab-pose">
+        <div class="pose-section" style="padding-bottom:28px">
+          <div class="pose-section-head">
+            <div class="pose-branding">
+              <div class="pose-logo-icon">✦</div>
+              <div><div class="pose-brand-name">Pose Channel</div><div class="pose-brand-sub">Fashion · Lifestyle · Culture · Beauty</div></div>
+            </div>
+            <span class="pose-live-pill"><span class="pose-live-dot"></span>On Air · 6 streams</span>
           </div>
-          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-        </div>
-        <div class="carousel">
-          <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-          <div class="carousel-track">
-            <div class="nf-card" style="width:230px"><div class="nf-card-img c1" style="font-size:36px"><span>🦁</span></div><div style="padding:7px 8px;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500">Planet Earth III</div><div style="font-size:11px;color:var(--text3)">BBC · 8 Episodes</div></div></div>
-            <div class="nf-card" style="width:230px"><div class="nf-card-img c7" style="font-size:36px"><span>🌊</span></div><div style="padding:7px 8px;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500">Our Ocean</div><div style="font-size:11px;color:var(--text3)">Netflix · 6 Episodes</div></div></div>
-            <div class="nf-card" style="width:230px"><div class="nf-card-img c2" style="font-size:36px"><span>🚀</span></div><div style="padding:7px 8px;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500">Return to Space</div><div style="font-size:11px;color:var(--text3)">Film · 2h 09m</div></div></div>
-            <div class="nf-card" style="width:230px"><div class="nf-card-img c6" style="font-size:36px"><span>💡</span></div><div style="padding:7px 8px;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500">The Mind, Explained</div><div style="font-size:11px;color:var(--text3)">S2 · 5 Episodes</div></div></div>
-            <div class="nf-card" style="width:230px"><div class="nf-card-img c9" style="font-size:36px"><span>🌿</span></div><div style="padding:7px 8px;background:var(--bg3)"><div style="font-size:12.5px;font-weight:500">Living with Wolves</div><div style="font-size:11px;color:var(--text3)">Film · 1h 44m</div></div></div>
+          <div class="carousel">
+            <button class="carousel-arrow left" style="background:rgba(13,0,32,.85)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <div class="carousel-track" id="poseLiveTrack"></div>
+            <button class="carousel-arrow right" style="background:rgba(13,0,32,.85)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
           </div>
-          <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
         </div>
+        <div class="section" style="padding-top:18px">
+          <div class="section-head"><div class="section-title" style="color:#c084fc">✨ Latest Episodes</div></div>
+          <div class="sub-filters">
+            <div class="sub-pill active">All</div><div class="sub-pill">Fashion</div><div class="sub-pill">Beauty</div><div class="sub-pill">Lifestyle</div><div class="sub-pill">Culture</div><div class="sub-pill">Music</div>
+          </div>
+          <div class="yt-wide-feed" id="poseEpisodes"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section" style="padding-top:16px">
+          <div class="section-head"><div class="section-title" style="color:#c084fc">🎬 Pose Originals</div></div>
+          <div class="yt-grid" id="poseOriginalsGrid"></div>
+        </div>
+        <div style="height:40px"></div>
       </div>
 
-      <!-- ─── MUSIC VIDEOS ─── -->
-      <div class="section">
-        <div class="section-head">
-          <div class="section-title">
-            🎵 Music & Concerts
-            <span class="rank-info-btn" data-tooltip="music">i
-              <div class="rank-tooltip" id="tt-music">
-                <div class="tooltip-title">📊 Ranking Logic</div>
-                <div class="tooltip-row"><span class="tooltip-label">Streams (7d)</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:90%"></div></div><span class="tooltip-pct">90%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">Repeats/user</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:80%"></div></div><span class="tooltip-pct">80%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">Playlist adds</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:65%"></div></div><span class="tooltip-pct">65%</span></div>
-                <div class="tooltip-note">Music is ranked heavily on repeat plays — a song replayed 3× by 100k users outranks one played once by 500k. Playlist-add rate confirms durable appeal.</div>
-              </div>
-            </span>
+      <!-- ══ MOVIES TAB ══ -->
+      <div class="tab-page" id="tab-movies">
+        <div class="section" style="padding-top:18px">
+          <div class="section-head"><div class="section-title">🎥 All Movies</div></div>
+          <div class="sub-filters">
+            <div class="sub-pill active">All</div><div class="sub-pill">Action</div><div class="sub-pill">Drama</div><div class="sub-pill">Comedy</div><div class="sub-pill">Sci-Fi</div><div class="sub-pill">Thriller</div><div class="sub-pill">Romance</div><div class="sub-pill">Horror</div><div class="sub-pill">Nollywood</div><div class="sub-pill">New Releases</div>
           </div>
-          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+          <div class="yt-grid" id="moviesGrid"></div>
         </div>
-        <div class="yt-grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr))">
-          <div class="yt-card"><div class="yt-thumb c5"><span>🎵</span><div class="yt-thumb-duration">4:22</div></div><div class="yt-info"><div class="yt-avatar a6">A</div><div class="yt-details"><div class="yt-title">AURORA — "The Phantom Heart"</div><div class="yt-channel">AURORA Official</div><div class="yt-stats">31M views · 2 weeks ago</div></div></div></div>
-          <div class="yt-card"><div class="yt-thumb c4"><span>🎹</span><div class="yt-thumb-duration">5:51</div></div><div class="yt-info"><div class="yt-avatar a4">B</div><div class="yt-details"><div class="yt-title">Billie Eilish — "Ghost in the Machine" (Live at MSG)</div><div class="yt-channel">Billie Eilish Official</div><div class="yt-stats">18M views · 3 days ago</div></div></div></div>
-          <div class="yt-card"><div class="yt-thumb c3"><span>🥁</span><div class="yt-thumb-duration">3:38</div></div><div class="yt-info"><div class="yt-avatar a1">T</div><div class="yt-details"><div class="yt-title">Twenty One Pilots — "Overcompensate" (Official)</div><div class="yt-channel">Fueled By Ramen</div><div class="yt-stats">24M views · 1 week ago</div></div></div></div>
-          <div class="yt-card"><div class="yt-thumb c2"><span>🎸</span><div class="yt-thumb-duration">2:02:14</div></div><div class="yt-info"><div class="yt-avatar a2">C</div><div class="yt-details"><div class="yt-title">Coldplay: Music of the Spheres World Tour — Full Concert</div><div class="yt-channel">Coldplay Official</div><div class="yt-stats">41M views · 5 days ago</div></div></div></div>
+        <div class="divider"></div>
+        <div class="section" style="padding-top:16px">
+          <div class="section-head"><div class="section-title">🏆 Award Winners</div></div>
+          <div class="carousel">
+            <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <div class="carousel-track" id="awardsTrack"></div>
+            <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
         </div>
+        <div style="height:40px"></div>
       </div>
 
-      <!-- ─── TOP CHANNELS ─── -->
-      <div class="section">
-        <div class="section-head">
-          <div class="section-title">
-            Top Channels to Follow
-            <span class="rank-info-btn" data-tooltip="channels">i
-              <div class="rank-tooltip" id="tt-channels">
-                <div class="tooltip-title">📊 Ranking Logic</div>
-                <div class="tooltip-row"><span class="tooltip-label">Subscriber growth</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:88%"></div></div><span class="tooltip-pct">88%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">Upload consistency</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:70%"></div></div><span class="tooltip-pct">70%</span></div>
-                <div class="tooltip-row"><span class="tooltip-label">Avg. view duration</span><div class="tooltip-bar-wrap"><div class="tooltip-bar" style="width:60%"></div></div><span class="tooltip-pct">60%</span></div>
-                <div class="tooltip-note">Channel recommendations are personalized using your watch history genres + subscriber growth rate in the last 30 days. Consistent uploaders are boosted.</div>
-              </div>
-            </span>
+      <!-- ══ TV SHOWS TAB ══ -->
+      <div class="tab-page" id="tab-tvshows">
+        <div class="section" style="padding-top:18px">
+          <div class="section-head"><div class="section-title">📺 TV Shows</div></div>
+          <div class="sub-filters">
+            <div class="sub-pill active">All</div><div class="sub-pill">Drama</div><div class="sub-pill">Comedy</div><div class="sub-pill">Reality</div><div class="sub-pill">Crime</div><div class="sub-pill">Fantasy</div><div class="sub-pill">Soap Opera</div><div class="sub-pill">New Season</div>
           </div>
-          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-        </div>
-        <div class="carousel">
-          <div class="carousel-track">
-            <div class="channel-card"><div class="channel-avatar a1">N</div><div class="channel-name">NatureVault</div><div class="channel-subs">12.4M subs</div><button class="sub-btn">Subscribe</button></div>
-            <div class="channel-card"><div class="channel-avatar a2">T</div><div class="channel-name">TechWanderer</div><div class="channel-subs">8.1M subs</div><button class="sub-btn">Subscribe</button></div>
-            <div class="channel-card"><div class="channel-avatar a3">V</div><div class="channel-name">Veritasium Films</div><div class="channel-subs">18.9M subs</div><button class="sub-btn">Subscribe</button></div>
-            <div class="channel-card"><div class="channel-avatar a4">G</div><div class="channel-name">GameVault</div><div class="channel-subs">22.5M subs</div><button class="sub-btn">Subscribe</button></div>
-            <div class="channel-card"><div class="channel-avatar a5">C</div><div class="channel-name">ChefCentral</div><div class="channel-subs">6.8M subs</div><button class="sub-btn">Subscribe</button></div>
-            <div class="channel-card"><div class="channel-avatar a6">M</div><div class="channel-name">MusicWorld</div><div class="channel-subs">31.2M subs</div><button class="sub-btn">Subscribe</button></div>
-            <div class="channel-card"><div class="channel-avatar a7">F</div><div class="channel-name">FitForm Pro</div><div class="channel-subs">5.3M subs</div><button class="sub-btn">Subscribe</button></div>
-            <div class="channel-card"><div class="channel-avatar a8">S</div><div class="channel-name">SpaceX Official</div><div class="channel-subs">9.7M subs</div><button class="sub-btn">Subscribe</button></div>
+          <div class="carousel">
+            <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <div class="carousel-track" id="tvShowsCarousel"></div>
+            <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
           </div>
         </div>
+        <div class="section">
+          <div class="section-head"><div class="section-title">🎭 Reality TV <span class="tag">Hot</span></div></div>
+          <div class="yt-grid" id="realityGrid"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section" style="padding-top:16px">
+          <div class="section-head"><div class="section-title">📅 New Episodes This Week</div></div>
+          <div class="yt-wide-feed" id="newEpisodesGrid"></div>
+        </div>
+        <div style="height:40px"></div>
       </div>
 
-      <!-- ─── KIDS & FAMILY ─── -->
-      <div class="section">
-        <div class="section-head">
-          <div class="section-title">☀️ Kids &amp; Family</div>
-          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-        </div>
-        <div class="carousel">
-          <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-          <div class="carousel-track">
-            <div class="portrait-card"><div class="portrait-card-img" style="background:linear-gradient(135deg,#ff6b6b,#ff8e53)"><span>🦕</span></div></div>
-            <div class="portrait-card"><div class="portrait-card-img" style="background:linear-gradient(135deg,#a8edea,#fed6e3)"><span>🐠</span></div></div>
-            <div class="portrait-card"><div class="portrait-card-img" style="background:linear-gradient(135deg,#f7971e,#ffd200)"><span>🦊</span></div></div>
-            <div class="portrait-card"><div class="portrait-card-img" style="background:linear-gradient(135deg,#6a11cb,#2575fc)"><span>🌈</span></div></div>
-            <div class="portrait-card"><div class="portrait-card-img" style="background:linear-gradient(135deg,#11998e,#38ef7d)"><span>🐢</span></div></div>
-            <div class="portrait-card"><div class="portrait-card-img" style="background:linear-gradient(135deg,#ee0979,#ff6a00)"><span>🚀</span></div></div>
-            <div class="portrait-card"><div class="portrait-card-img" style="background:linear-gradient(135deg,#4776e6,#8e54e9)"><span>⭐</span></div></div>
+      <!-- ══ NOLLYWOOD TAB ══ -->
+      <div class="tab-page" id="tab-nollywood">
+        <div class="section" style="padding-top:18px">
+          <div class="section-head"><div class="section-title">🎬 Nollywood <span class="tag" style="background:#16a34a">🇳🇬</span></div></div>
+          <div class="sub-filters">
+            <div class="sub-pill active">All</div><div class="sub-pill">Latest</div><div class="sub-pill">Movies</div><div class="sub-pill">TV Series</div><div class="sub-pill">Skits</div><div class="sub-pill">Yoruba</div><div class="sub-pill">Igbo</div><div class="sub-pill">Hausa</div><div class="sub-pill">Pidgin</div><div class="sub-pill">Classics</div>
           </div>
-          <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+          <div class="yt-grid" id="nollywoodGrid"></div>
         </div>
+        <div class="divider"></div>
+        <div class="section" style="padding-top:16px">
+          <div class="section-head"><div class="section-title">🌟 Fan Favourites</div></div>
+          <div class="carousel">
+            <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <div class="carousel-track" id="nollywoodFavTrack"></div>
+            <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
+        </div>
+        <div style="height:40px"></div>
       </div>
 
-      <div style="height:40px"></div>
+      <!-- ══ FUNNY TAB ══ -->
+      <div class="tab-page" id="tab-funny">
+        <div class="section" style="padding-top:18px">
+          <div class="section-head"><div class="section-title">😂 Funny Videos <span class="tag">Viral</span></div></div>
+          <div class="sub-filters">
+            <div class="sub-pill active">All</div><div class="sub-pill">Skits</div><div class="sub-pill">Stand-Up</div><div class="sub-pill">Reactions</div><div class="sub-pill">Pranks</div><div class="sub-pill">Memes</div><div class="sub-pill">Naija Comedy</div>
+          </div>
+          <div class="yt-wide-feed" id="funnyGrid"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section" style="padding-top:16px">
+          <div class="section-head"><div class="section-title">🎤 Stand-Up Specials</div></div>
+          <div class="yt-grid" id="standupGrid"></div>
+        </div>
+        <div style="height:40px"></div>
+      </div>
+
+      <!-- ══ SPORTS TAB ══ -->
+      <div class="tab-page" id="tab-sports">
+        <div class="section" style="padding-top:18px">
+          <div class="section-head"><div class="section-title">⚽ Sports <span class="tag">Live & Highlights</span></div></div>
+          <div class="sub-filters">
+            <div class="sub-pill active">All</div><div class="sub-pill">⚽ Football</div><div class="sub-pill">🏀 Basketball</div><div class="sub-pill">🥊 Boxing</div><div class="sub-pill">🏃 Athletics</div><div class="sub-pill">🏊 Swimming</div><div class="sub-pill">🎾 Tennis</div><div class="sub-pill">🏈 NFL</div><div class="sub-pill">CAF</div><div class="sub-pill">EPL</div>
+          </div>
+          <div class="yt-wide-feed" id="sportsGrid"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section" style="padding-top:16px">
+          <div class="section-head"><div class="section-title">🏆 Documentaries & Analysis</div></div>
+          <div class="yt-grid" id="sportsDocsGrid"></div>
+        </div>
+        <div style="height:40px"></div>
+      </div>
+
+      <!-- ══ ANIME TAB ══ -->
+      <div class="tab-page" id="tab-anime">
+        <div class="section" style="padding-top:18px">
+          <div class="section-head"><div class="section-title">🎌 Anime <span class="tag" style="background:#9b59b6">Popular</span></div></div>
+          <div class="sub-filters">
+            <div class="sub-pill active">All</div><div class="sub-pill">Shonen</div><div class="sub-pill">Shojo</div><div class="sub-pill">Isekai</div><div class="sub-pill">Action</div><div class="sub-pill">Romance</div><div class="sub-pill">Horror</div><div class="sub-pill">New Season</div><div class="sub-pill">Classics</div>
+          </div>
+          <div class="yt-grid" id="animeGrid"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section" style="padding-top:16px">
+          <div class="section-head"><div class="section-title">🗓️ Currently Airing</div></div>
+          <div class="carousel">
+            <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <div class="carousel-track" id="animeAiringTrack"></div>
+            <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
+        </div>
+        <div style="height:40px"></div>
+      </div>
+
+      <!-- ══ MUSIC TAB ══ -->
+      <div class="tab-page" id="tab-music">
+        <div class="section" style="padding-top:18px">
+          <div class="section-head"><div class="section-title">🎵 Music & Concerts</div></div>
+          <div class="sub-filters">
+            <div class="sub-pill active">All</div><div class="sub-pill">Afrobeats</div><div class="sub-pill">Afropop</div><div class="sub-pill">Highlife</div><div class="sub-pill">Hip-Hop</div><div class="sub-pill">R&B</div><div class="sub-pill">Gospel</div><div class="sub-pill">Amapiano</div><div class="sub-pill">Reggae</div><div class="sub-pill">Pop</div>
+          </div>
+          <div class="yt-grid" id="musicGrid"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section" style="padding-top:16px">
+          <div class="section-head"><div class="section-title">🎤 Concerts & Live Shows</div></div>
+          <div class="yt-wide-feed" id="concertsGrid"></div>
+        </div>
+        <div style="height:40px"></div>
+      </div>
+
+      <!-- ══ GAMING TAB ══ -->
+      <div class="tab-page" id="tab-gaming">
+        <div class="section" style="padding-top:18px">
+          <div class="section-head"><div class="section-title">🎮 Gaming</div></div>
+          <div class="sub-filters">
+            <div class="sub-pill active">All</div><div class="sub-pill">Let's Play</div><div class="sub-pill">Reviews</div><div class="sub-pill">Esports</div><div class="sub-pill">Tutorials</div><div class="sub-pill">News</div><div class="sub-pill">Mobile</div><div class="sub-pill">PC</div><div class="sub-pill">Console</div>
+          </div>
+          <div class="yt-grid" id="gamingGrid"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section" style="padding-top:16px">
+          <div class="section-head"><div class="section-title">🏆 Esports Highlights</div></div>
+          <div class="yt-wide-feed" id="esportsGrid"></div>
+        </div>
+        <div style="height:40px"></div>
+      </div>
+
+      <!-- ══ EDUCATION TAB ══ -->
+      <div class="tab-page" id="tab-education">
+        <div class="section" style="padding-top:18px">
+          <div class="section-head"><div class="section-title">📚 Education</div></div>
+          <div class="sub-filters">
+            <div class="sub-pill active">All</div><div class="sub-pill">WAEC/JAMB</div><div class="sub-pill">University</div><div class="sub-pill">Tech Skills</div><div class="sub-pill">Finance</div><div class="sub-pill">History</div><div class="sub-pill">Science</div><div class="sub-pill">Languages</div><div class="sub-pill">Personal Dev</div>
+          </div>
+          <div class="yt-wide-feed" id="educationGrid"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section" style="padding-top:16px">
+          <div class="section-head"><div class="section-title">📝 Playlists & Courses</div></div>
+          <div class="carousel">
+            <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <div class="carousel-track" id="coursesTrack"></div>
+            <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
+        </div>
+        <div style="height:40px"></div>
+      </div>
+
+      <!-- ══ DOCUMENTARIES TAB ══ -->
+      <div class="tab-page" id="tab-documentaries">
+        <div class="section" style="padding-top:18px">
+          <div class="section-head"><div class="section-title">🌍 Documentaries</div></div>
+          <div class="sub-filters">
+            <div class="sub-pill active">All</div><div class="sub-pill">Nature</div><div class="sub-pill">History</div><div class="sub-pill">Crime</div><div class="sub-pill">Science</div><div class="sub-pill">Society</div><div class="sub-pill">Africa</div><div class="sub-pill">Biography</div><div class="sub-pill">Space</div>
+          </div>
+          <div class="yt-grid" id="docsGrid"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section" style="padding-top:16px">
+          <div class="section-head"><div class="section-title">🎬 Featured Series</div></div>
+          <div class="carousel">
+            <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <div class="carousel-track" id="docSeriesTrack"></div>
+            <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
+        </div>
+        <div style="height:40px"></div>
+      </div>
+
+      <!-- ══ NEWS TAB ══ -->
+      <div class="tab-page" id="tab-news">
+        <div class="section" style="padding-top:18px">
+          <div class="section-head"><div class="section-title">📰 Latest News</div></div>
+          <div class="sub-filters">
+            <div class="sub-pill active">All</div><div class="sub-pill">Nigeria</div><div class="sub-pill">Africa</div><div class="sub-pill">World</div><div class="sub-pill">Politics</div><div class="sub-pill">Business</div><div class="sub-pill">Technology</div><div class="sub-pill">Sports</div><div class="sub-pill">Entertainment</div>
+          </div>
+          <div class="news-grid" id="newsGrid"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section" style="padding-top:16px">
+          <div class="section-head"><div class="section-title">🔴 Live News Channels</div></div>
+          <div class="yt-grid" id="liveNewsChannels"></div>
+        </div>
+        <div style="height:40px"></div>
+      </div>
+
+      <!-- ══ FOOD TAB ══ -->
+      <div class="tab-page" id="tab-food">
+        <div class="section" style="padding-top:18px">
+          <div class="section-head"><div class="section-title">🍜 Food &amp; Travel</div></div>
+          <div class="sub-filters">
+            <div class="sub-pill active">All</div><div class="sub-pill">Nigerian Cuisine</div><div class="sub-pill">West African</div><div class="sub-pill">Street Food</div><div class="sub-pill">Recipes</div><div class="sub-pill">Restaurants</div><div class="sub-pill">Travel</div><div class="sub-pill">Vlog</div>
+          </div>
+          <div class="yt-wide-feed" id="foodGrid"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section" style="padding-top:16px">
+          <div class="section-head"><div class="section-title">✈️ Travel Destinations</div></div>
+          <div class="yt-grid" id="travelGrid"></div>
+        </div>
+        <div style="height:40px"></div>
+      </div>
+
+      <!-- ══ HEALTH TAB ══ -->
+      <div class="tab-page" id="tab-health">
+        <div class="section" style="padding-top:18px">
+          <div class="section-head"><div class="section-title">🧘 Health &amp; Wellness</div></div>
+          <div class="sub-filters">
+            <div class="sub-pill active">All</div><div class="sub-pill">Fitness</div><div class="sub-pill">Nutrition</div><div class="sub-pill">Mental Health</div><div class="sub-pill">Yoga</div><div class="sub-pill">Medical</div><div class="sub-pill">Sleep</div><div class="sub-pill">Skincare</div>
+          </div>
+          <div class="yt-wide-feed" id="healthGrid"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section" style="padding-top:16px">
+          <div class="section-head"><div class="section-title">💪 Workout Programs</div></div>
+          <div class="yt-grid" id="workoutGrid"></div>
+        </div>
+        <div style="height:40px"></div>
+      </div>
+
+      <!-- ══ ROMANCE TAB ══ -->
+      <div class="tab-page" id="tab-romance">
+        <div class="section" style="padding-top:18px">
+          <div class="section-head"><div class="section-title">💕 Romance</div></div>
+          <div class="sub-filters">
+            <div class="sub-pill active">All</div><div class="sub-pill">Movies</div><div class="sub-pill">TV Series</div><div class="sub-pill">K-Drama</div><div class="sub-pill">Nollywood</div><div class="sub-pill">Short Films</div>
+          </div>
+          <div class="carousel">
+            <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <div class="carousel-track" id="romanceTrack"></div>
+            <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-head"><div class="section-title">💘 Fan Favourites</div></div>
+          <div class="yt-grid" id="romanceGrid"></div>
+        </div>
+        <div style="height:40px"></div>
+      </div>
+
+      <!-- ══ THRILLER TAB ══ -->
+      <div class="tab-page" id="tab-thriller">
+        <div class="section" style="padding-top:18px">
+          <div class="section-head"><div class="section-title">👁️ Thriller &amp; Horror</div></div>
+          <div class="sub-filters">
+            <div class="sub-pill active">All</div><div class="sub-pill">Psychological</div><div class="sub-pill">Horror</div><div class="sub-pill">Crime Thriller</div><div class="sub-pill">Supernatural</div><div class="sub-pill">Action Thriller</div><div class="sub-pill">Mystery</div>
+          </div>
+          <div class="yt-grid" id="thrillerGrid"></div>
+        </div>
+        <div class="section" style="padding-top:16px">
+          <div class="section-head"><div class="section-title">😱 Most Watched Horror</div></div>
+          <div class="carousel">
+            <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <div class="carousel-track" id="horrorTrack"></div>
+            <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
+        </div>
+        <div style="height:40px"></div>
+      </div>
+
+      <!-- ══ SCI-FI TAB ══ -->
+      <div class="tab-page" id="tab-scifi">
+        <div class="section" style="padding-top:18px">
+          <div class="section-head"><div class="section-title">🌌 Sci-Fi &amp; Fantasy</div></div>
+          <div class="sub-filters">
+            <div class="sub-pill active">All</div><div class="sub-pill">Space Opera</div><div class="sub-pill">Cyberpunk</div><div class="sub-pill">Time Travel</div><div class="sub-pill">Fantasy</div><div class="sub-pill">Dystopia</div><div class="sub-pill">AI & Robots</div>
+          </div>
+          <div class="yt-grid" id="scifiGrid"></div>
+        </div>
+        <div class="section" style="padding-top:16px">
+          <div class="section-head"><div class="section-title">🚀 Coming Soon</div></div>
+          <div class="carousel">
+            <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <div class="carousel-track" id="scifiComingTrack"></div>
+            <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
+        </div>
+        <div style="height:40px"></div>
+      </div>
+
+      <!-- ══ KIDS TAB ══ -->
+      <div class="tab-page" id="tab-kids">
+        <div class="section" style="padding-top:18px">
+          <div class="section-head"><div class="section-title">☀️ Kids &amp; Family</div></div>
+          <div class="sub-filters">
+            <div class="sub-pill active">All</div><div class="sub-pill">Ages 2-5</div><div class="sub-pill">Ages 6-10</div><div class="sub-pill">Ages 11-14</div><div class="sub-pill">Cartoons</div><div class="sub-pill">Educational</div><div class="sub-pill">Movies</div><div class="sub-pill">African Stories</div>
+          </div>
+          <div class="carousel">
+            <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <div class="carousel-track" id="kidsCarousel"></div>
+            <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-head"><div class="section-title">🌟 Most Loved by Kids</div></div>
+          <div class="yt-grid" id="kidsGrid"></div>
+        </div>
+        <div style="height:40px"></div>
+      </div>
+
+      <!-- ══ LIBRARY TABS ══ -->
+      <div class="tab-page" id="tab-watchlater">
+        <div class="section" style="padding-top:28px">
+          <div class="section-head"><div class="section-title">🕐 Watch Later</div><span style="font-size:12px;color:var(--text3)">8 videos</span></div>
+          <div class="yt-grid" id="watchLaterGrid"></div>
+        </div>
+      </div>
+      <div class="tab-page" id="tab-liked">
+        <div class="section" style="padding-top:28px">
+          <div class="section-head"><div class="section-title">❤️ Liked Videos</div><span style="font-size:12px;color:var(--text3)">24 videos</span></div>
+          <div class="yt-grid" id="likedGrid"></div>
+        </div>
+      </div>
+      <div class="tab-page" id="tab-subscriptions">
+        <div class="section" style="padding-top:28px">
+          <div class="section-head"><div class="section-title">🔔 Subscriptions</div></div>
+          <div class="yt-wide-feed" id="subsGrid"></div>
+        </div>
+      </div>
     </div><!-- /content -->
   </div><!-- /main -->
-</div><!-- /shell -->
+</div>
 
 <script>
-// ─── Sidebar toggle (mobile) ───
-const sidebar = document.getElementById('sidebar');
-const overlay = document.getElementById('sidebarOverlay');
-const hamburger = document.getElementById('hamburger');
+// ═══════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════
+const G=['c1','c2','c3','c4','c5','c6','c7','c8','c9','c10'];
+const P=['p1','p2','p3','p4','p5','p6'];
+const AV=['a1','a2','a3','a4','a5','a6','a7','a8','a9','a10','a11','a12'];
+const EMOJIS=['🔥','🌌','🦁','🐉','🕵️','⚔️','🌊','🚀','🧠','🎭','🌟','💫','🎬','🏆','🌺','🎯','💥','🛸','🔮','🌠','🎪','🦋','🌈','⚡','🎆','💎','🏔️','🌋'];
+const g=()=>G[Math.floor(Math.random()*G.length)];
+const p=()=>P[Math.floor(Math.random()*P.length)];
+const av=()=>AV[Math.floor(Math.random()*AV.length)];
+const em=()=>EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
+const rnd=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+const dur=()=>`${rnd(3,60)}:${String(rnd(0,59)).padStart(2,'0')}`;
+const views=()=>{const v=(Math.random()*20+0.1).toFixed(1);return v>1?`${v}M`:v*10>1?`${(v*1000).toFixed(0)}K`:'999';};
+const ago=()=>[`${rnd(1,59)} minutes ago`,`${rnd(1,23)} hours ago`,`${rnd(1,6)} days ago`,`${rnd(1,3)} weeks ago`][rnd(0,3)];
+
+const CHANNELS=['TechWanderer','GameVault','NatureVault','ChefCentral','FitForm Pro','MusicWorld','EduNaija','NijaExplore','HistoryAfrica','WellnessHub','SkitMasterNG','CinemaVault','BasketballZone','FightWorld','AfriSport','SpaceX Official','ProsperNation','CodeCraft'];
+const ch=()=>CHANNELS[rnd(0,CHANNELS.length-1)];
+
+const CONTENT={
+  continueWatching:[
+    {emoji:'🔥',color:'c3',title:'Inferno Rising',meta:'S3 E6 · 42m left',progress:68},
+    {emoji:'🌊',color:'c1',title:'Blue Depths',meta:'Episode 3 · 28m left',progress:30},
+    {emoji:'🚀',color:'c2',title:'Mars: First Colony',meta:'Film · 1h 12m left',progress:15},
+    {emoji:'🧠',color:'c5',title:'Mindscape',meta:'S1 E9 · 55m left',progress:45},
+    {emoji:'🐉',color:'c8',title:'Dragon Sovereign',meta:'S2 E1 · 1h 3m left',progress:8},
+    {emoji:'🔮',color:'c7',title:'The Watcher',meta:'Film · 38m left',progress:75},
+    {emoji:'👑',color:'c4',title:'King of Boys 3',meta:'Film · 1h left',progress:20},
+  ],
+  pose:[
+    {emoji:'👗',color:'p1',title:'Lagos Fashion Week 2024',tag:'Live Now',meta:'PoseTV · Fashion',viewers:'142K watching'},
+    {emoji:'💅',color:'p2',title:'The Glow Up Show S2',tag:'Trending',meta:'StyleHub · Beauty',viewers:'32K watching'},
+    {emoji:'🎨',color:'p3',title:'Culture Coded — EP.9',tag:'New Episode',meta:'Pose Originals',viewers:'78K watching'},
+    {emoji:'🕺',color:'p4',title:'Afrobeats Dance Battle',tag:'Live',meta:'PoseStage · Music',viewers:'61K watching'},
+    {emoji:'🌍',color:'p5',title:'Africa Rising — Documentary',tag:'Exclusive',meta:'PoseFilms',viewers:'24K watching'},
+    {emoji:'✨',color:'p6',title:'Nite Out with Adaeze',tag:'Live',meta:'Pose Originals',viewers:'91K watching'},
+  ],
+  top10:[
+    {emoji:'🔥',color:'c3'},{emoji:'🌌',color:'c2'},{emoji:'🦁',color:'c1'},{emoji:'🐉',color:'c4'},
+    {emoji:'🕵️',color:'c5'},{emoji:'⚔️',color:'c6'},{emoji:'🌊',color:'c7'},{emoji:'🚀',color:'c8'},
+    {emoji:'🧠',color:'c9'},{emoji:'🎭',color:'c10'},
+  ],
+  newVideos:[
+    {emoji:'🤖',color:'c2',title:'I Gave Claude Full Control of My PC for 24 Hours',channel:'TechWanderer',stats:'1.2M views · 4 hours ago',dur:'18:44'},
+    {emoji:'🎙️',color:'c5',title:'Podcast: What Nobody Tells You About Building Wealth',channel:'ProsperNation',stats:'342K views · 2 hours ago',dur:'52:10'},
+    {emoji:'🌍',color:'c1',title:'Lagos Street Food Tour — 10 Must-Try Spots in Surulere',channel:'NijaExplore',stats:'88K views · 1 hour ago',dur:'34:22'},
+    {emoji:'🏋️',color:'c8',title:'Zero Equipment Full Body Burn — Apartment Workout',channel:'FitForm Pro',stats:'498K views · 3 hours ago',dur:'22:05'},
+    {emoji:'🎓',color:'c3',title:'How JAMB Actually Works — What Students Are Never Told',channel:'EduNaija',stats:'220K views · 5 hours ago',dur:'41:18'},
+    {emoji:'🎬',color:'c4',title:'FULL MOVIE: The Last Kingdom of Oyo (2024)',channel:'CinemaVault Africa',stats:'1.8M views · 30 minutes ago',dur:'1:28:44'},
+  ],
+  nollywood:[
+    {emoji:'🌿',color:'c1',title:'Nneka the Pretty Serpent',year:'2023',genre:'Drama'},
+    {emoji:'👑',color:'c6',title:'King of Boys 3',year:'2024',genre:'Crime'},
+    {emoji:'🎭',color:'c2',title:'A Tribe Called Judah',year:'2023',genre:'Drama'},
+    {emoji:'💔',color:'c8',title:'Merry Men 3',year:'2024',genre:'Comedy'},
+    {emoji:'🔥',color:'c4',title:'Gangs of Lagos II',year:'2024',genre:'Action'},
+    {emoji:'🌺',color:'c6',title:'The Wedding Party 3',year:'2024',genre:'Romance'},
+    {emoji:'⚡',color:'c7',title:'Juju Stories',year:'2022',genre:'Horror'},
+    {emoji:'🛡️',color:'c9',title:'Isoken 2',year:'2023',genre:'Romance'},
+    {emoji:'🎪',color:'c3',title:'Far from Home',year:'2023',genre:'Drama'},
+    {emoji:'🌟',color:'c5',title:'Citation',year:'2020',genre:'Drama'},
+    {emoji:'🔮',color:'c4',title:'Ile Owo',year:'2024',genre:'Thriller'},
+    {emoji:'🎬',color:'c1',title:'Breath of Life',year:'2024',genre:'Drama'},
+  ],
+  trending:[
+    {emoji:'🏟️',color:'c3',title:'Champions League Final 2024 — Full Match Live Stream',channel:'NetTube Sports',stats:'284K watching now',live:true},
+    {emoji:'🤖',color:'c2',title:'I Built an AI That Watches Movies and Writes Reviews',channel:'TechWanderer',stats:'2.1M views · 3 days ago',dur:'24:08'},
+    {emoji:'🌍',color:'c1',title:'Secret Villages Hidden in the Amazon — Full Documentary',channel:'Veritasium Films',stats:'5.8M views · 1 week ago',dur:'48:22'},
+    {emoji:'🎮',color:'c4',title:'I Played Minecraft for 1000 Days Straight — Final Episode',channel:'GameVault',stats:'18.4M views · 2 days ago',dur:'3:14:50'},
+    {emoji:'👨‍🍳',color:'c6',title:'Gordon Ramsay Reacts to My Homemade Beef Wellington',channel:'ChefCentral',stats:'892K views · 5 days ago',dur:'18:55'},
+    {emoji:'🎵',color:'c5',title:'Burna Boy — "Tested, Approved & Trusted" (Official Video)',channel:'MusicWorld Official',stats:'31M views · 2 weeks ago',dur:'4:22'},
+    {emoji:'🔭',color:'c7',title:'James Webb Telescope: What We Found Beyond the Milky Way',channel:'SpaceX Official',stats:'12.2M views · 4 days ago',dur:'1:02:14'},
+    {emoji:'🏋️',color:'c8',title:'30-Day Transformation: I Trained Like an Olympian',channel:'FitForm Pro',stats:'4.4M views · 1 week ago',dur:'22:40'},
+  ],
+  channels:[
+    {name:'NatureVault',subs:'12.4M',color:'a1'},{name:'TechWanderer',subs:'8.1M',color:'a2'},
+    {name:'Veritasium Films',subs:'18.9M',color:'a3'},{name:'GameVault',subs:'22.5M',color:'a4'},
+    {name:'ChefCentral',subs:'6.8M',color:'a5'},{name:'MusicWorld',subs:'31.2M',color:'a6'},
+    {name:'FitForm Pro',subs:'5.3M',color:'a7'},{name:'SpaceX Official',subs:'9.7M',color:'a8'},
+    {name:'EduNaija',subs:'4.1M',color:'a9'},{name:'NijaExplore',subs:'3.8M',color:'a10'},
+  ],
+  action:[
+    {emoji:'💣',color:'c3',title:'Black Thunder',meta:'2024 · Action · 94% Match',dur:'2h 12m'},
+    {emoji:'⚔️',color:'c6',title:'Blade Protocol',meta:'2023 · Action · 91% Match',dur:'1h 58m'},
+    {emoji:'🔫',color:'c8',title:'Ghost Protocol II',meta:'2024 · Action Thriller',dur:'2h 04m'},
+    {emoji:'🚁',color:'c5',title:'Sky Strike',meta:'2023 · Military Action',dur:'1h 47m'},
+    {emoji:'🥊',color:'c10',title:'Last Fighter',meta:'2024 · Martial Arts',dur:'2h 18m'},
+    {emoji:'🏎️',color:'c2',title:'Velocity X',meta:'2024 · Action Chase',dur:'1h 54m'},
+    {emoji:'💥',color:'c4',title:'Storm Break',meta:'2023 · Action',dur:'1h 40m'},
+  ],
+  funny:[
+    {emoji:'😂',color:'c6',title:'Nigerian Parents React to Gen-Z Slang — This is Priceless 😭',channel:'SkitMasterNG',stats:'4.7M views · 1 day ago',dur:'8:22'},
+    {emoji:'🤣',color:'c10',title:'When Your Landlord Meets Your Budget 💀',channel:'ComedyCentral Africa',stats:'2.1M views · 3 days ago',dur:'12:04'},
+    {emoji:'😆',color:'c3',title:'Bovi LIVE: Stand-Up Special — No Chill Edition',channel:'BrightLaughs',stats:'8.9M views · 5 days ago',dur:'6:55'},
+    {emoji:'🎭',color:'c7',title:'Office Life Skits Vol.12 — Every Meeting Ever',channel:'JokesterTV',stats:'3.3M views · 2 days ago',dur:'9:31'},
+    {emoji:'😝',color:'c2',title:'Oga at the Top: Season Finale — We Were Not Ready',channel:'SkitMasterNG',stats:'5.2M views · 1 week ago',dur:'15:40'},
+    {emoji:'🙈',color:'c5',title:'African Moms Be Like... The Ultimate Compilation',channel:'FunnyAfrica',stats:'12.1M views · 2 weeks ago',dur:'22:10'},
+  ],
+  sports:[
+    {emoji:'🏟️',color:'c3',title:'UCL Final: All Goals & Extended Highlights 2024',channel:'NetTube Sports',stats:'6.2M views · Today',live:true},
+    {emoji:'🏀',color:'c1',title:'NBA Playoffs Game 7 — Every Big Play + OT Thriller',channel:'BasketballZone',stats:'4.4M views · 1 day ago',dur:'22:18'},
+    {emoji:'🥊',color:'c6',title:'Fight Night Highlights: KO of the Year Contender',channel:'FightWorld',stats:'9.1M views · 2 days ago',dur:'18:44'},
+    {emoji:'🏊',color:'c9',title:'African Swimming Championship — Best Moments',channel:'AfriSport Official',stats:'1.1M views · 3 days ago',dur:'14:30'},
+    {emoji:'⚽',color:'c5',title:'AFCON Qualifiers: Nigeria vs Ghana — Full Highlights',channel:'NetTube Sports',stats:'3.4M views · Today',dur:'28:00'},
+    {emoji:'🎾',color:'c2',title:'Wimbledon 2024 — Top 10 Most Incredible Rallies',channel:'TennisPro',stats:'2.2M views · 1 week ago',dur:'16:12'},
+  ],
+  news:[
+    {emoji:'🏛️',color:'c5',category:'Politics',title:'National Assembly Passes New Economic Reform Bill — What It Means for Nigerians',source:'NTA News',time:'2 hours ago'},
+    {emoji:'💹',color:'c1',category:'Business',title:'Naira Gains Ground as CBN Announces New Forex Policy',source:'Channels TV',time:'4 hours ago'},
+    {emoji:'🌍',color:'c3',category:'Africa',title:'AU Summit: African Leaders Agree on Free Trade Expansion Deal',source:'Al Jazeera Africa',time:'1 hour ago'},
+    {emoji:'📱',color:'c2',category:'Technology',title:'Nigeria\'s Fintech Sector Raises $800M in Q1 2024 — Record High',source:'TechCabal',time:'3 hours ago'},
+    {emoji:'⚽',color:'c6',category:'Sports',title:'Super Eagles Coach Reveals World Cup 2026 Qualification Strategy',source:'SportsCentral NG',time:'30 minutes ago'},
+    {emoji:'🎬',color:'c4',category:'Entertainment',title:'Burna Boy Announces Africa Tour — Dates & Venues Revealed',source:'NetTube Entertainment',time:'5 hours ago'},
+    {emoji:'🏥',color:'c7',category:'Health',title:'Federal Gov\'t Launches Free Primary Healthcare Initiative Nationwide',source:'NTA News',time:'6 hours ago'},
+    {emoji:'🌿',color:'c9',category:'Environment',title:'Lagos State Unveils ₦50B Urban Greening & Climate Action Plan',source:'Channels TV',time:'8 hours ago'},
+  ],
+};
+
+// ═══════════════════════════════════════
+// BUILDERS
+// ═══════════════════════════════════════
+function buildContinueCard(d){
+  return `<div class="nf-card" style="width:210px;flex-shrink:0" onclick="showToast('▶ Resuming ${d.title}...')">
+    <div class="nf-card-img ${d.color}"><span>${d.emoji}</span></div>
+    <div class="nf-card-overlay">
+      <div class="nf-card-actions">
+        <div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div>
+        <div class="mini-btn" onclick="event.stopPropagation();showToast('❤️ Added to Liked')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+      </div>
+      <div class="nf-card-label">${d.meta}</div>
+    </div>
+    <div style="padding:7px 0 0;background:var(--bg3)">
+      <div style="font-size:12.5px;font-weight:500;padding:0 8px 4px;color:var(--text)">${d.title}</div>
+      <div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:${d.progress}%"></div></div>
+    </div>
+  </div>`;
+}
+
+function buildPoseCard(d){
+  return `<div class="pose-card" onclick="showToast('▶ Opening ${d.title}...')">
+    <div class="pose-card-thumb ${d.color}">
+      <span style="position:relative;z-index:1;font-size:38px">${d.emoji}</span>
+      <div class="pose-card-glow"></div>
+      <div class="pose-card-viewers">👁 ${d.viewers}</div>
+    </div>
+    <div class="pose-card-info">
+      <div class="pose-card-tag">${d.tag}</div>
+      <div class="pose-card-title">${d.title}</div>
+      <div class="pose-card-meta">${d.meta}<span class="pose-verified"></span></div>
+    </div>
+  </div>`;
+}
+
+function buildTop10(){
+  return CONTENT.top10.map((d,i)=>`
+    <div class="top10-card" onclick="showToast('▶ Playing #${i+1}...')">
+      <div class="top10-num" style="${i===9?'font-size:82px':''}">${i+1}</div>
+      <div class="top10-img ${d.color}"><span>${d.emoji}</span></div>
+    </div>`).join('');
+}
+
+function buildWideCard(d,i){
+  const av2=AV[i%AV.length];
+  return `<div class="yt-wide-card" onclick="showToast('▶ Playing: ${d.title.substring(0,30)}...')">
+    <div class="yt-wide-thumb ${d.color}">
+      <span>${d.emoji}</span>
+      ${d.live?'<div class="yt-wide-live">🔴 LIVE</div>':''}
+      ${!d.live?`<div class="yt-wide-duration">${d.dur}</div>`:''}
+    </div>
+    <div class="yt-wide-info">
+      <div class="yt-wide-avatar ${av2}">${d.channel[0]}</div>
+      <div class="yt-wide-details">
+        <div class="yt-wide-title">${d.title}</div>
+        <div class="yt-wide-channel">${d.channel}</div>
+        <div class="yt-wide-stats">${d.stats}</div>
+      </div>
+    </div>
+  </div><div class="yt-wide-sep"></div>`;
+}
+
+function buildGridCard(d,i){
+  const av2=AV[i%AV.length];
+  return `<div class="yt-card" onclick="showToast('▶ Playing: ${d.title.substring(0,30)}...')">
+    <div class="yt-thumb ${d.color}">
+      <span>${d.emoji}</span>
+      ${d.live?`<div class="yt-thumb-live"><div class="live-dot-sm"></div>LIVE</div>`:''}
+      ${!d.live?`<div class="yt-thumb-duration">${d.dur||dur()}</div>`:''}
+    </div>
+    <div class="yt-info">
+      <div class="yt-avatar ${av2}">${d.channel[0]}</div>
+      <div class="yt-details">
+        <div class="yt-title">${d.title}</div>
+        <div class="yt-channel">${d.channel}<span class="verified"></span></div>
+        <div class="yt-stats">${d.stats||views()+' views · '+ago()}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function buildChannelCard(d){
+  return `<div class="channel-card">
+    <div class="channel-avatar ${d.color}">${d.name[0]}</div>
+    <div class="channel-name">${d.name}</div>
+    <div class="channel-subs">${d.subs} subs</div>
+    <button class="sub-btn" onclick="event.stopPropagation();this.textContent='✓ Subscribed';this.classList.add('subscribed');showToast('🔔 Subscribed to ${d.name}')">Subscribe</button>
+  </div>`;
+}
+
+function buildNfCard(d,wide){
+  const w=wide?'width:230px;':'';
+  return `<div class="nf-card" style="${w}flex-shrink:0" onclick="showToast('▶ Playing: ${d.title}...')">
+    <div class="nf-card-img ${d.color}" style="font-size:36px"><span>${d.emoji}</span></div>
+    <div class="nf-card-overlay">
+      <div class="nf-card-actions">
+        <div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div>
+        <div class="mini-btn" onclick="event.stopPropagation();showToast('➕ Added to Watch Later')"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+      </div>
+      <div class="nf-card-label">${d.dur||'Film'}</div>
+    </div>
+    <div style="padding:7px 8px;background:var(--bg3)">
+      <div style="font-size:12.5px;font-weight:500">${d.title}</div>
+      <div style="font-size:11px;color:var(--text3)">${d.meta||d.year+' · '+d.genre}</div>
+    </div>
+  </div>`;
+}
+
+function buildPortraitCard(d){
+  return `<div class="portrait-card" style="flex-shrink:0" onclick="showToast('▶ Playing: ${d.title}...')">
+    <div class="portrait-card-img ${d.color}"><span>${d.emoji}</span></div>
+    <div style="padding:5px 6px;background:var(--bg3);font-size:11px;font-weight:500">${d.title}</div>
+  </div>`;
+}
+
+function buildNewsCard(d){
+  return `<div class="news-card" onclick="showToast('📰 Opening: ${d.title.substring(0,30)}...')">
+    <div class="news-thumb ${d.color}"><span>${d.emoji}</span></div>
+    <div class="news-details">
+      <div class="news-category">${d.category}</div>
+      <div class="news-title">${d.title}</div>
+      <div class="news-meta">${d.source} · ${d.time}</div>
+    </div>
+  </div>`;
+}
+
+function buildLiveCard(d){
+  return `<div class="live-card" onclick="showToast('🔴 Joining live stream...')">
+    <div class="live-card-thumb ${d.color}">
+      <span>${d.emoji}</span>
+      <div class="live-badge-sm">LIVE</div>
+      <div class="live-viewers"><div class="live-dot" style="background:#ff4444;animation:pulse 1.2s infinite"></div>${d.viewers}</div>
+    </div>
+    <div class="live-card-info">
+      <div class="live-card-title">${d.title}</div>
+      <div class="live-card-meta">${d.channel}</div>
+    </div>
+  </div>`;
+}
+
+function buildPlaylistCard(d){
+  return `<div class="playlist-card" onclick="showToast('▶ Opening playlist...')">
+    <div class="playlist-thumb ${d.color}">
+      <span>${d.emoji}</span>
+      <div class="playlist-count">
+        <div class="playlist-count-num">${d.count}</div>
+        <div class="playlist-count-label">videos</div>
+      </div>
+    </div>
+    <div class="playlist-info">
+      <div class="playlist-title">${d.title}</div>
+      <div class="playlist-sub">${d.sub}</div>
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════════════════════
+// GENERATE RANDOM DATA
+// ═══════════════════════════════════════
+function genWideCards(count,titles,channels2){
+  return Array.from({length:count},(_,i)=>({
+    emoji:em(),color:g(),
+    title:titles?titles[i%titles.length]:'Featured Video '+i,
+    channel:channels2?channels2[i%channels2.length]:ch(),
+    stats:views()+' views · '+ago(),
+    dur:dur()
+  }));
+}
+function genGridCards(count,titles,channels2){
+  return Array.from({length:count},(_,i)=>({
+    emoji:em(),color:g(),
+    title:titles?titles[i%titles.length]:'Video '+i,
+    channel:channels2?channels2[i%channels2.length]:ch(),
+    stats:views()+' views · '+ago(),
+    dur:dur()
+  }));
+}
+
+const MOVIE_TITLES=['Extraction Point','Night Protocol','Shadow Kingdom','Red Horizon','The Last Signal','Desert Storm','Urban Legend','Code Black','Final Hour','Thunder Road','Breach Point','Dark River','Iron Mask','Ghost Signal','The Override'];
+const TV_TITLES=['Inferno Rising S4','Mindscape S2','Dragon Sovereign S3','Dark Signal S5','Blue Depths S2','The Watcher S3','Kingdom Fall S2','Synthetic S4','Stage & Shadow S2','Office Wahala S3','Flatmates S2','Hustle Hard S2'];
+const ANIME_TITLES=['Demon Slayer S4','Blue Exorcist','Jujutsu Kaisen S3','Spy × Family S3','Chainsaw Man S2','My Hero Academia S7','Vinland Saga S3','Frieren','Dungeon Meshi','Solo Leveling','Attack on Titan Final','One Piece: Egghead'];
+const MUSIC_TITLES=['Burna Boy - "Tested" Official Video','Wizkid Live at O2 Arena','Asake - "Yoga" Extended','Tems World Tour Full Set','Davido - "Feel" Lyrics Video','Ayra Starr Live Concert','Fireboy DML feat. Ed Sheeran','Ckay - Love Nwantiti Acoustic'];
+const FUNNY_TITLES=['Nigerian Parents React to Gen-Z Slang 😭','When Your Landlord Meets Your Budget 💀','Bovi LIVE: No Chill Edition','Office Life Skits Vol.12','Oga at the Top: Season Finale','African Moms Be Like...','Lagos Traffic Comedy Compilation','NEPA Wahala — The Musical'];
+const SPORT_TITLES=['UCL Final: All Goals 2024','NBA Game 7 OT Thriller','KO of the Year Contender','AFCON Qualifiers: Nigeria vs Ghana','Wimbledon Top 10 Rallies','Super Eagles Match Day 6','African Athletics Championships','FIFA World Cup 2026 Preview'];
+const GAMING_TITLES=['GTA 7 Leaked Gameplay — Full Analysis','I Built a Gaming PC for ₦200k','World Gaming Championship Finals','GPT-5 Plays GTA V — Mind Blown','Top 10 African Gamers 2024','Minecraft 1000 Days: Africa Edition','FC24 African Cup Tournament','Best Mobile Games Nigeria 2024'];
+const EDU_TITLES=['WAEC Maths 2024 — Every Likely Question','Learn Python in One Hour — Complete Bootcamp','Real History of the Benin Empire','How to Build Passive Income in 2025','JAMB CBT Ultimate Prep Guide','Nigerian Stock Exchange Explained','Scholarship Guide for Nigerian Students','10 High-Income Tech Skills in Africa'];
+const FOOD_TITLES=['Making Authentic Egusi Soup from Scratch','48 Hours in Accra, Ghana','Africa\'s Best Street Food — $1 Meal Challenge','Jollof Wars: Nigeria vs Ghana','Suya Recipe Perfected at Home','Lagos Fine Dining Guide 2024','Exploring Abuja\'s Food Scene','West African Breakfast Recipes Vol.2'];
+const DOC_TITLES=['Planet Earth III — Full Series','Our Ocean: 6-Part Documentary','Return to Space — SpaceX Story','The Mind, Explained S2','Living with Wolves','The Great Migration 4K','Lagos: City of Dreams','Nollywood: An Untold Story'];
+const HEALTH_TITLES=['30-Day Transformation: I Trained Like Olympian','This Simple Morning Routine Changed My Life','What I Eat in a Week — Anti-Inflammation Diet','Sleep Science: Why You\'re Always Tired','5-Minute Meditation for Busy Nigerians','How to Lose Weight Without a Gym','Managing Diabetes Naturally','Mental Health in Africa: Breaking the Silence'];
+const ROMANCE_TITLES=['Always & Forever','Lagos Love Story','Letters to You','Falling Slowly','Red String Theory','The Garden of Us','Love in Transit','Season of Love','A Second Chance','My Nigerian Romance','Sweet Surrender','Forever After'];
+const THRILLER_TITLES=['The Blackout','Phantom Signal','Echo Chamber','Static Minds','Cold Meridian','Glass Cage','Undercurrent','The Override','Apex Hour','Shadow Protocol','Neon Dreams','Last Frontier'];
+const SCIFI_TITLES=['Beyond the Cosmos','Mars: First Colony','AI Uprising','The Last Signal','Quantum Break','Edge of Infinity','Synthetic Minds','The Override','Dark Matter','Void Station','Nebula Rising','Echo Protocol'];
+const KIDS_TITLES=['Dino Adventures S3','The Little Mermaid: Africa','Rainbow Kingdom','Jungle Pals S2','Space Kids Academy','African Folktales Animated','Super Chidera','Anansi & Friends','The Savannah Tales','Wonder Kids Nigeria'];
+const NEWS_TITLES=['National Assembly Passes New Economic Reform Bill','Naira Gains Ground as CBN Announces Forex Policy','AU Summit: African Leaders Agree on Free Trade Deal','Nigeria\'s Fintech Sector Raises $800M Record High','Super Eagles Coach Reveals World Cup Strategy','Burna Boy Announces Africa Tour Dates','Federal Gov\'t Launches Free Healthcare Initiative','Lagos State Unveils ₦50B Climate Action Plan'];
+const NOLLYWOOD_TITLES=['Nneka the Pretty Serpent','King of Boys 3','A Tribe Called Judah','Merry Men 3','Gangs of Lagos II','The Wedding Party 3','Juju Stories','Isoken 2','Far from Home','Breath of Life','Ile Owo','Citation','Elevator Baby','Chief Daddy 3','The Set Up 2'];
+const RISING_TITLES=['This Video About Lagos Traffic Changed My Life','Naija Hustle: From ₦0 to ₦10M in 6 Months','The Real Reason Nigerians Don\'t Trust Banks','I Moved Back to Nigeria After 10 Years Abroad','Eko Atlantic: Living in Nigeria\'s Most Expensive City','How I Got Scholarship to Harvard as a Nigerian'];
+
+const LIVE_STREAMS=[
+  {emoji:'🏟️',color:'c3',title:'UCL Final 2024 — LIVE',channel:'NetTube Sports',viewers:'284K watching'},
+  {emoji:'👗',color:'p1',title:'Lagos Fashion Week LIVE',channel:'Pose Channel',viewers:'142K watching'},
+  {emoji:'🎤',color:'c5',title:'Davido Live Concert',channel:'MusicWorld',viewers:'98K watching'},
+  {emoji:'📺',color:'c2',title:'Big Brother Africa Live',channel:'BBAfricaTV',viewers:'211K watching'},
+  {emoji:'⚽',color:'c1',title:'AFCON Qualifiers LIVE',channel:'NetTube Sports',viewers:'176K watching'},
+  {emoji:'🎙️',color:'c6',title:'Parliament Session LIVE',channel:'NTA News',viewers:'44K watching'},
+];
+
+// ═══════════════════════════════════════
+// INIT ALL TABS
+// ═══════════════════════════════════════
+function initAll(){
+  // Continue Watching
+  document.getElementById('continueTrack').innerHTML=CONTENT.continueWatching.map(buildContinueCard).join('');
+  // Pose
+  ['poseTrackAll','poseLiveTrack'].forEach(id=>document.getElementById(id).innerHTML=CONTENT.pose.map(buildPoseCard).join(''));
+  // Top 10
+  document.getElementById('top10Track').innerHTML=buildTop10();
+  // New Videos (All tab)
+  document.getElementById('newVideosGrid').innerHTML=CONTENT.newVideos.map(buildWideCard).join('');
+  // Nollywood (All tab)
+  document.getElementById('nollywoodTrackAll').innerHTML=CONTENT.nollywood.slice(0,8).map(buildPortraitCard).join('');
+  // Trending (All tab - grid)
+  document.getElementById('trendingGridAll').innerHTML=CONTENT.trending.slice(0,4).map(buildGridCard).join('');
+  // Action
+  document.getElementById('actionTrack').innerHTML=CONTENT.action.map(d=>buildNfCard(d,true)).join('');
+  // Funny (all tab)
+  document.getElementById('funnyGridAll').innerHTML=CONTENT.funny.slice(0,4).map(buildWideCard).join('');
+  // Sports (all tab)
+  document.getElementById('sportsGridAll').innerHTML=CONTENT.sports.slice(0,4).map(buildWideCard).join('');
+  // Channels
+  document.getElementById('channelsTrack').innerHTML=CONTENT.channels.map(buildChannelCard).join('');
+
+  // LIVE TAB
+  document.getElementById('liveMainTrack').innerHTML=LIVE_STREAMS.map(buildLiveCard).join('');
+  document.getElementById('liveSportsGrid').innerHTML=genWideCards(4,['UCL Final LIVE','AFCON Qualifiers LIVE','NBA Playoffs LIVE','Boxing World Title Fight LIVE'],['NetTube Sports']).map((d,i)=>({...d,live:true,stats:rnd(10,500)+'K watching now'})).map(buildWideCard).join('');
+  document.getElementById('liveEventsGrid').innerHTML=genWideCards(4,['Davido Live Concert','Burna Boy Africa Tour LIVE','Lagos Fashion Week LIVE','TEDx Lagos LIVE'],['MusicWorld','Pose Channel','EventsNG']).map((d,i)=>({...d,live:true,stats:rnd(5,200)+'K watching now'})).map(buildWideCard).join('');
+  document.getElementById('liveNewsGrid').innerHTML=genGridCards(4,['NTA News LIVE','Channels TV Breaking News','CNN Africa LIVE','BBC Africa LIVE'],['NTA News','Channels TV','CNN Africa','BBC Africa']).map((d,i)=>({...d,live:true,stats:rnd(1,50)+'K watching'})).map(buildGridCard).join('');
+
+  // TRENDING TAB
+  document.getElementById('trendingGridFull').innerHTML=CONTENT.trending.map(buildGridCard).join('');
+  document.getElementById('risingGrid').innerHTML=genWideCards(6,RISING_TITLES,['NijaExplore','TechWanderer','ProsperNation']).map(buildWideCard).join('');
+
+  // MOVIES TAB
+  document.getElementById('moviesGrid').innerHTML=genGridCards(12,MOVIE_TITLES).map(buildGridCard).join('');
+  document.getElementById('awardsTrack').innerHTML=genGridCards(8,['Aftersun','Everything Everywhere','The Zone of Interest','Past Lives','Oppenheimer','Poor Things','Anatomy of a Fall','Killers of the Flower Moon']).map(d=>buildNfCard({...d,meta:'Award Winner',dur:'Film'},true)).join('');
+
+  // TV SHOWS TAB
+  document.getElementById('tvShowsCarousel').innerHTML=TV_TITLES.map((title,i)=>buildPortraitCard({emoji:em(),color:G[i%G.length],title})).join('');
+  document.getElementById('realityGrid').innerHTML=genGridCards(8,['Big Brother Africa S18','Love Island Africa','MasterChef West Africa','The Voice Nigeria S4','Survivor: Sahara','Nigerian Idol S9','Project Fame Africa','Celebrity Big Brother']).map(buildGridCard).join('');
+  document.getElementById('newEpisodesGrid').innerHTML=genWideCards(6,['Inferno Rising S4 E2','Mindscape S2 E5','Dragon Sovereign S3 E1','Office Wahala S3 E10','Dark Signal S5 E3','Blue Depths S2 E7'],['NetTube Originals','NetTube Originals']).map(buildWideCard).join('');
+
+  // NOLLYWOOD TAB
+  document.getElementById('nollywoodGrid').innerHTML=CONTENT.nollywood.map(d=>buildGridCard({...d,channel:'Nollywood',stats:views()+' views · '+ago(),dur:dur()})).join('');
+  document.getElementById('nollywoodFavTrack').innerHTML=NOLLYWOOD_TITLES.slice(0,10).map((title,i)=>buildPortraitCard({emoji:em(),color:G[i%G.length],title})).join('');
+
+  // FUNNY TAB
+  document.getElementById('funnyGrid').innerHTML=CONTENT.funny.map(buildWideCard).join('');
+  document.getElementById('standupGrid').innerHTML=genGridCards(8,['Bovi: No Chill Edition','AY: Can I Say Something?','Night of a Thousand Laughs 2024','Basketmouth: Uncensored','Seyi Law: Funny Bone Special','Josh2Funny Stand-Up','Funnybone: Lagos Laughter Tour','AY Live in London'],['NetTube Comedy']).map(buildGridCard).join('');
+
+  // SPORTS TAB
+  document.getElementById('sportsGrid').innerHTML=CONTENT.sports.map(buildWideCard).join('');
+  document.getElementById('sportsDocsGrid').innerHTML=genGridCards(8,['Pelé: The Documentary','Mane: A Story of Sacrifice','Super Eagles: Road to Glory','Africa\'s Greatest Athletes','The Last Tackle','Champions: African Football Story','Boxing: Blood & Glory','Cricket in Africa'],['NetTube Sports','ESPN Africa']).map(buildGridCard).join('');
+
+  // ANIME TAB
+  document.getElementById('animeGrid').innerHTML=ANIME_TITLES.map((title,i)=>buildGridCard({emoji:em(),color:G[i%G.length],title,channel:'NetTube Anime',stats:views()+' views',dur:dur()})).join('');
+  document.getElementById('animeAiringTrack').innerHTML=ANIME_TITLES.slice(0,8).map((title,i)=>buildPortraitCard({emoji:em(),color:G[i%G.length],title})).join('');
+
+  // MUSIC TAB
+  document.getElementById('musicGrid').innerHTML=MUSIC_TITLES.map((title,i)=>buildGridCard({emoji:em(),color:G[i%G.length],title,channel:['Burna Boy Official','Wizkid Official','YBNL Nation','Def Jam Africa','Mavin Records'][i%5],stats:views()+' views · '+ago(),dur:dur()})).join('');
+  document.getElementById('concertsGrid').innerHTML=genWideCards(6,['Burna Boy: Love Damini World Tour LIVE','Wizkid: More Love Less Ego Tour','Davido: Timeless Concert Lagos','Afrobeats Festival 2024 LIVE','Tems: Born in the Wild LIVE','Ayra Starr: 19 & Dangerous Tour'],['MusicWorld']).map(buildWideCard).join('');
+
+  // GAMING TAB
+  document.getElementById('gamingGrid').innerHTML=GAMING_TITLES.map((title,i)=>buildGridCard({emoji:em(),color:G[i%G.length],title,channel:['TechWanderer','GameVault','CodeCraft Nigeria','ESports Central'][i%4],stats:views()+' views · '+ago(),dur:dur()})).join('');
+  document.getElementById('esportsGrid').innerHTML=genWideCards(4,['World Gaming Championship Finals','African Esports League 2024','COD Tournament: Grand Final','FIFA Africa Cup Highlights'],['ESports Central','GameVault']).map(buildWideCard).join('');
+
+  // EDUCATION TAB
+  document.getElementById('educationGrid').innerHTML=EDU_TITLES.map((title,i)=>buildWideCard({emoji:em(),color:G[i%G.length],title,channel:['EduNaija','TechWanderer','FinanceUnlocked','HistoryAfrica'][i%4],stats:views()+' views · '+ago(),dur:dur()},i)).join('');
+  document.getElementById('coursesTrack').innerHTML=[
+    {emoji:'💻',color:'c2',title:'Complete Python Bootcamp 2024',count:42,sub:'TechWanderer · 8h total'},
+    {emoji:'📐',color:'c5',title:'WAEC Maths Masterclass',count:28,sub:'EduNaija · 6h total'},
+    {emoji:'💰',color:'c6',title:'Financial Freedom in Africa',count:18,sub:'ProsperNation · 4h total'},
+    {emoji:'🎬',color:'c3',title:'Filmmaking for Beginners',count:22,sub:'CinemaVault · 5h total'},
+    {emoji:'📊',color:'c1',title:'Data Science for Nigerians',count:35,sub:'CodeCraft · 7h total'},
+    {emoji:'🌍',color:'c4',title:'African History Deep Dive',count:15,sub:'HistoryAfrica · 3h total'},
+  ].map(buildPlaylistCard).join('');
+
+  // DOCUMENTARIES TAB
+  document.getElementById('docsGrid').innerHTML=DOC_TITLES.map((title,i)=>buildGridCard({emoji:em(),color:G[i%G.length],title,channel:['BBC Earth','National Geographic','Al Jazeera Docs','NetTube Docs'][i%4],stats:views()+' views · '+ago(),dur:dur()})).join('');
+  document.getElementById('docSeriesTrack').innerHTML=DOC_TITLES.map((title,i)=>buildNfCard({emoji:em(),color:G[i%G.length],title,meta:'Documentary Series',dur:'Multiple Episodes'},true)).join('');
+
+  // NEWS TAB
+  document.getElementById('newsGrid').innerHTML=CONTENT.news.map(buildNewsCard).join('');
+  document.getElementById('liveNewsChannels').innerHTML=genGridCards(4,['NTA News 24 — LIVE','Channels Television LIVE','Arise News LIVE','TVC News Nigeria LIVE'],['NTA','Channels TV','Arise News','TVC']).map((d,i)=>({...d,live:true,stats:'Live News 24/7'})).map(buildGridCard).join('');
+
+  // FOOD TAB
+  document.getElementById('foodGrid').innerHTML=FOOD_TITLES.map((title,i)=>buildWideCard({emoji:em(),color:G[i%G.length],title,channel:['ChefCentral','NijaExplore','FoodQuest Africa','KitchenNG'][i%4],stats:views()+' views · '+ago(),dur:dur()},i)).join('');
+  document.getElementById('travelGrid').innerHTML=genGridCards(8,['Lagos: Best Kept Secrets','Abuja Weekend Guide','Accra, Ghana in 48 Hours','Cape Town Budget Travel Guide','Nairobi Street Food Tour','Zanzibar: Beach Paradise','Victoria Falls Adventure','Cairo Through Local Eyes'],['NijaExplore']).map(buildGridCard).join('');
+
+  // HEALTH TAB
+  document.getElementById('healthGrid').innerHTML=HEALTH_TITLES.map((title,i)=>buildWideCard({emoji:em(),color:G[i%G.length],title,channel:['FitForm Pro','WellnessHub','HealthFirst','SleepDoc'][i%4],stats:views()+' views · '+ago(),dur:dur()},i)).join('');
+  document.getElementById('workoutGrid').innerHTML=genGridCards(8,['HIIT for Beginners — No Equipment','Yoga Flow: Morning Routine','Weight Training at Home','5K Running Plan for Beginners','Zumba Dance Fitness Party','Pilates Core Strength 30 Days','Boxing Fitness — Beginner Friendly','Cycling & Cardio Full Workout'],['FitForm Pro','WellnessHub']).map(buildGridCard).join('');
+
+  // ROMANCE TAB
+  document.getElementById('romanceTrack').innerHTML=ROMANCE_TITLES.map((title,i)=>buildNfCard({emoji:em(),color:G[i%G.length],title,meta:'Romance · '+rnd(2020,2024),dur:'Film'},true)).join('');
+  document.getElementById('romanceGrid').innerHTML=genGridCards(8,ROMANCE_TITLES.slice(0,8),['NetTube Romance','CinemaVault']).map(buildGridCard).join('');
+
+  // THRILLER TAB
+  document.getElementById('thrillerGrid').innerHTML=THRILLER_TITLES.map((title,i)=>buildGridCard({emoji:em(),color:G[i%G.length],title,channel:['NetTube Thriller','CinemaVault'][i%2],stats:views()+' views · '+ago(),dur:dur()})).join('');
+  document.getElementById('horrorTrack').innerHTML=THRILLER_TITLES.map((title,i)=>buildPortraitCard({emoji:em(),color:G[i%G.length],title})).join('');
+
+  // SCI-FI TAB
+  document.getElementById('scifiGrid').innerHTML=SCIFI_TITLES.map((title,i)=>buildGridCard({emoji:em(),color:G[i%G.length],title,channel:'NetTube Sci-Fi',stats:views()+' views · '+ago(),dur:dur()})).join('');
+  document.getElementById('scifiComingTrack').innerHTML=SCIFI_TITLES.slice(0,8).map((title,i)=>buildNfCard({emoji:em(),color:G[i%G.length],title,meta:'Coming Soon · 2025',dur:'Film'},true)).join('');
+
+  // KIDS TAB
+  document.getElementById('kidsCarousel').innerHTML=KIDS_TITLES.map((title,i)=>buildPortraitCard({emoji:em(),color:G[i%G.length],title})).join('');
+  document.getElementById('kidsGrid').innerHTML=genGridCards(8,KIDS_TITLES,['NetTube Kids']).map(buildGridCard).join('');
+
+  // LIBRARY TABS
+  document.getElementById('watchLaterGrid').innerHTML=genGridCards(8,MOVIE_TITLES.slice(0,8)).map(buildGridCard).join('');
+  document.getElementById('likedGrid').innerHTML=CONTENT.trending.concat(genGridCards(16)).slice(0,12).map(buildGridCard).join('');
+  document.getElementById('subsGrid').innerHTML=CONTENT.newVideos.concat(genWideCards(6)).slice(0,8).map(buildWideCard).join('');
+
+  // SEARCH tab initial state hidden — handled by search
+}
+
+// ═══════════════════════════════════════
+// TAB SWITCHING
+// ═══════════════════════════════════════
+let currentTab='all';
+function switchTab(tabId){
+  document.querySelectorAll('.tab-page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+tabId)?.classList.add('active');
+  // Pills
+  document.querySelectorAll('.pill').forEach(p=>{
+    p.classList.toggle('active',p.getAttribute('data-tab')===tabId);
+  });
+  // Nav items
+  document.querySelectorAll('.nav-item[data-tab]').forEach(n=>{
+    n.classList.toggle('active',n.getAttribute('data-tab')===tabId);
+  });
+  currentTab=tabId;
+  // Scroll content to top
+  document.querySelector('.content').scrollTo(0,0);
+  if(window.innerWidth<=768) closeSidebar();
+}
+
+// ═══════════════════════════════════════
+// SEARCH
+// ═══════════════════════════════════════
+const ALL_CONTENT_FLAT=[
+  ...CONTENT.trending,...genGridCards(20,MOVIE_TITLES),
+  ...genGridCards(12,NOLLYWOOD_TITLES,['Nollywood']),
+  ...genGridCards(8,FUNNY_TITLES,['SkitMasterNG']),
+  ...genGridCards(8,SPORT_TITLES,['NetTube Sports']),
+  ...genGridCards(8,ANIME_TITLES,['NetTube Anime']),
+  ...genGridCards(8,MUSIC_TITLES,['MusicWorld']),
+  ...genGridCards(8,EDU_TITLES,['EduNaija']),
+  ...genGridCards(8,DOC_TITLES,['NetTube Docs']),
+  ...genGridCards(8,GAMING_TITLES,['GameVault']),
+];
+
+const searchInput=document.getElementById('searchInput');
+const searchBtn=document.getElementById('searchBtn');
+let searchTimer;
+
+function doSearch(q){
+  q=q.trim().toLowerCase();
+  if(!q){
+    if(currentTab==='search') switchTab('all');
+    return;
+  }
+  const results=ALL_CONTENT_FLAT.filter(d=>(d.title||'').toLowerCase().includes(q)||(d.channel||'').toLowerCase().includes(q));
+  document.getElementById('searchHeader').textContent=`Results for "${q}"`;
+  document.getElementById('searchSub').textContent=`${results.length} results across all categories`;
+  const grid=document.getElementById('searchGrid');
+  if(results.length===0){
+    grid.innerHTML=`<div style="grid-column:1/-1"><div class="no-results"><div class="no-results-icon">🔍</div><h3>No results found</h3><p>Try different keywords or browse a category</p></div></div>`;
+  } else {
+    grid.innerHTML=results.slice(0,20).map(buildGridCard).join('');
+  }
+  switchTab('search');
+}
+
+searchInput.addEventListener('input',()=>{
+  clearTimeout(searchTimer);
+  searchTimer=setTimeout(()=>doSearch(searchInput.value),400);
+});
+searchBtn.addEventListener('click',()=>doSearch(searchInput.value));
+searchInput.addEventListener('keydown',e=>{if(e.key==='Enter')doSearch(searchInput.value)});
+
+// ═══════════════════════════════════════
+// PILL & NAV CLICK
+// ═══════════════════════════════════════
+document.querySelectorAll('.pill[data-tab]').forEach(p=>{
+  p.addEventListener('click',()=>{
+    searchInput.value='';
+    switchTab(p.getAttribute('data-tab'));
+  });
+});
+document.querySelectorAll('.nav-item[data-tab]').forEach(n=>{
+  n.addEventListener('click',()=>{
+    searchInput.value='';
+    switchTab(n.getAttribute('data-tab'));
+  });
+});
+
+// Sub-filters
+document.querySelectorAll('.sub-filters').forEach(sf=>{
+  sf.querySelectorAll('.sub-pill').forEach(pill=>{
+    pill.addEventListener('click',()=>{
+      sf.querySelectorAll('.sub-pill').forEach(p=>p.classList.remove('active'));
+      pill.classList.add('active');
+      showToast('🔍 Filtering: '+pill.textContent.trim());
+    });
+  });
+});
+
+// ═══════════════════════════════════════
+// SIDEBAR
+// ═══════════════════════════════════════
+const sidebar=document.getElementById('sidebar');
+const overlay=document.getElementById('sidebarOverlay');
+const hamburger=document.getElementById('hamburger');
 function openSidebar(){sidebar.classList.add('open');overlay.classList.add('show')}
 function closeSidebar(){sidebar.classList.remove('open');overlay.classList.remove('show')}
 hamburger.addEventListener('click',openSidebar);
 overlay.addEventListener('click',closeSidebar);
 
-// ─── Nav items ───
-document.querySelectorAll('.nav-item').forEach(n=>{
-  n.addEventListener('click',()=>{
-    document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
-    n.classList.add('active');
-    if(window.innerWidth<=768) closeSidebar();
-  });
-});
-
-// ─── Filter pills ───
-document.querySelectorAll('.pill').forEach(p=>{
-  p.addEventListener('click',()=>{
-    document.querySelectorAll('.pill').forEach(x=>x.classList.remove('active'));
-    p.classList.add('active');
-  });
-});
-
-// ─── Hero auto-cycle ───
-const indicators = document.querySelectorAll('.indicator');
-const heroEmoji = document.getElementById('heroEmoji');
-const heroTitle = document.getElementById('heroTitle');
-const heroes = [
+// ═══════════════════════════════════════
+// HERO
+// ═══════════════════════════════════════
+const heroes=[
   {emoji:'🌌',title:'BEYOND<br>THE COSMOS'},
   {emoji:'🔥',title:'INFERNO<br>RISING'},
   {emoji:'🦁',title:'PLANET<br>EARTH IV'},
@@ -842,17 +1660,20 @@ const heroes = [
   {emoji:'⚔️',title:'DRAGON<br>SOVEREIGN'},
 ];
 let hIdx=0;
+const indicators=document.querySelectorAll('.indicator');
 function setHero(i){
   indicators[hIdx].classList.remove('active');
   hIdx=i;
   indicators[hIdx].classList.add('active');
-  heroEmoji.textContent=heroes[hIdx].emoji;
-  heroTitle.innerHTML=heroes[hIdx].title;
+  document.getElementById('heroEmoji').textContent=heroes[hIdx].emoji;
+  document.getElementById('heroTitle').innerHTML=heroes[hIdx].title;
 }
-const heroTimer=setInterval(()=>setHero((hIdx+1)%heroes.length),3500);
+let heroTimer=setInterval(()=>setHero((hIdx+1)%heroes.length),4000);
 indicators.forEach((ind,i)=>ind.addEventListener('click',()=>{clearInterval(heroTimer);setHero(i)}));
 
-// ─── Carousel arrows ───
+// ═══════════════════════════════════════
+// CAROUSELS
+// ═══════════════════════════════════════
 document.querySelectorAll('.carousel').forEach(c=>{
   const track=c.querySelector('.carousel-track');
   const left=c.querySelector('.carousel-arrow.left');
@@ -862,22 +1683,55 @@ document.querySelectorAll('.carousel').forEach(c=>{
   if(left) left.addEventListener('click',()=>track.scrollBy({left:-420,behavior:'smooth'}));
 });
 
-// ─── Ranking logic tooltips ───
-document.querySelectorAll('.rank-info-btn').forEach(btn=>{
-  const tooltip=btn.querySelector('.rank-tooltip');
-  if(!tooltip) return;
-  let closeTimer;
-  btn.addEventListener('click',(e)=>{
-    e.stopPropagation();
-    // Close all others
-    document.querySelectorAll('.rank-tooltip.open').forEach(t=>{if(t!==tooltip)t.classList.remove('open')});
-    tooltip.classList.toggle('open');
-  });
-  // Allow hover on tooltip without closing
-  tooltip.addEventListener('mouseenter',()=>clearTimeout(closeTimer));
-  tooltip.addEventListener('click',(e)=>e.stopPropagation());
-});
-document.addEventListener('click',()=>document.querySelectorAll('.rank-tooltip.open').forEach(t=>t.classList.remove('open')));
+// ═══════════════════════════════════════
+// MODAL
+// ═══════════════════════════════════════
+const modal=document.getElementById('seeAllModal');
+const modalTitle=document.getElementById('modalTitle');
+const modalBody=document.getElementById('modalBody');
+
+function openModal(title,type){
+  modalTitle.textContent=title;
+  let html='';
+  if(type==='continue'){
+    html='<div class="modal-grid">'+CONTENT.continueWatching.concat(genGridCards(8)).slice(0,12).map(d=>`<div class="nf-card" style="width:100%;cursor:pointer" onclick="showToast('▶ Resuming...')"><div class="nf-card-img ${d.color||g()}" style="aspect-ratio:2/3"><span style="font-size:40px">${d.emoji||em()}</span></div><div style="padding:7px 8px;background:var(--bg3)"><div style="font-size:12px;font-weight:500">${d.title||'Video'}</div>${d.progress?`<div class="progress-bar" style="margin-top:5px"><div class="progress-fill" style="width:${d.progress}%"></div></div>`:''}</div></div>`).join('')+'</div>';
+  } else if(type==='netflix'){
+    html='<div class="modal-grid">'+Array.from({length:20},(_,i)=>`<div class="nf-card" style="width:100%;cursor:pointer" onclick="showToast('▶ Playing...')"><div class="nf-card-img ${g()}" style="aspect-ratio:2/3"><span style="font-size:40px">${em()}</span></div><div style="padding:7px 8px;background:var(--bg3)"><div style="font-size:12px;font-weight:500">${MOVIE_TITLES[i%MOVIE_TITLES.length]}</div><div style="font-size:10.5px;color:var(--text3)">${rnd(2021,2024)} · Film</div></div></div>`).join('')+'</div>';
+  } else if(type==='top10'){
+    html='<div class="modal-grid">'+CONTENT.top10.map((d,i)=>`<div class="nf-card" style="width:100%;cursor:pointer" onclick="showToast('▶ Playing #${i+1}...')"><div class="nf-card-img ${d.color}" style="aspect-ratio:2/3"><span style="font-size:40px">${d.emoji}</span><div style="position:absolute;bottom:0;right:0;font-family:'Bebas Neue',sans-serif;font-size:60px;color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.15);line-height:1">${i+1}</div></div></div>`).join('')+'</div>';
+  } else if(type==='channels'){
+    html='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px">'+CONTENT.channels.concat([{name:'Pose Channel',subs:'4.2M',color:'a3'},{name:'SkitMasterNG',subs:'6.1M',color:'a11'},{name:'EduNaija',subs:'4.1M',color:'a9'}]).map(d=>`<div class="channel-card"><div class="channel-avatar ${d.color}">${d.name[0]}</div><div class="channel-name">${d.name}</div><div class="channel-subs">${d.subs} subs</div><button class="sub-btn" onclick="this.textContent='✓ Done';this.classList.add('subscribed');showToast('🔔 Subscribed!')">Subscribe</button></div>`).join('')+'</div>';
+  } else {
+    html='<div class="modal-grid">'+Array.from({length:16},(_,i)=>`<div class="nf-card" style="width:100%;cursor:pointer" onclick="showToast('▶ Playing...')"><div class="nf-card-img ${g()}" style="aspect-ratio:2/3"><span style="font-size:40px">${em()}</span></div><div style="padding:7px 8px;background:var(--bg3)"><div style="font-size:12px;font-weight:500">Content Item ${i+1}</div></div></div>`).join('')+'</div>';
+  }
+  modalBody.innerHTML=html;
+  modal.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+document.getElementById('modalBack').addEventListener('click',()=>{modal.classList.remove('open');document.body.style.overflow=''});
+modal.addEventListener('click',e=>{if(e.target===modal){modal.classList.remove('open');document.body.style.overflow=''}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){modal.classList.remove('open');document.body.style.overflow=''}});
+
+// ═══════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════
+let toastTimer;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+// BLINK & NOTIF
+document.getElementById('blinkBtn').addEventListener('click',()=>showToast('👁️ Blink Mode activated!'));
+document.getElementById('notifBtn').addEventListener('click',()=>showToast('🔔 3 new notifications'));
+
+// ═══════════════════════════════════════
+// BOOT
+// ═══════════════════════════════════════
+initAll();
 </script>
 </body>
 </html>
