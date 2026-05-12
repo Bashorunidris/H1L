@@ -1,3801 +1,941 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FLASH100 - FASA LASU Academic Support Hub</title>
-
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Playfair+Display:wght@700;900&family=Fira+Code:wght@400;500&display=swap"
-        rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        :root {
-            /* Color Palette */
-            --primary: #ff8c00;
-            --primary-dark: #e67700;
-            --primary-light: #ffb84d;
-            --secondary: #667eea;
-            --accent: #51cf66;
-            --danger: #ff6b6b;
-            --dark: #1a1a2e;
-            --dark-light: #16213e;
-            --dark-lighter: #0f3460;
-
-            /* Typography */
-            --font-display: 'Playfair Display', serif;
-            --font-body: 'Montserrat', sans-serif;
-            --font-code: 'Fira Code', monospace;
-
-            /* Spacing */
-            --space-xs: 0.5rem;
-            --space-sm: 1rem;
-            --space-md: 1.5rem;
-            --space-lg: 2rem;
-            --space-xl: 3rem;
-            --space-2xl: 4rem;
-
-            /* Borders */
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 24px;
-
-            /* Shadows */
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
-            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
-            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3);
-            --shadow-glow: 0 0 20px rgba(255, 140, 0, 0.3);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: var(--font-body);
-            background: var(--dark);
-            min-height: 100vh;
-            color: #fff;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Animated Background */
-        .animated-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-        }
-
-        .animated-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background:
-                radial-gradient(circle at 20% 50%, rgba(255, 140, 0, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(102, 126, 234, 0.1) 0%, transparent 50%);
-            animation: bgPulse 10s ease-in-out infinite;
-        }
-
-        @keyframes bgPulse {
-
-            0%,
-            100% {
-                opacity: 0.5;
-            }
-
-            50% {
-                opacity: 1;
-            }
-        }
-
-        /* ==================== AUTH SECTION ==================== */
-        .split-container {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .left-section {
-            flex: 1;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            padding: clamp(2rem, 5vw, 4rem);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .left-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-            animation: rotate 30s linear infinite;
-        }
-
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .branding {
-            position: relative;
-            z-index: 1;
-        }
-
-        .branding h1 {
-            font-family: var(--font-display);
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            margin-bottom: var(--space-md);
-            font-weight: 900;
-            letter-spacing: -2px;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
-            animation: slideInLeft 0.8s ease-out;
-        }
-
-        .branding p {
-            font-size: clamp(1rem, 2vw, 1.3rem);
-            line-height: 1.8;
-            margin-bottom: var(--space-sm);
-            opacity: 0.95;
-            font-weight: 500;
-            animation: slideInLeft 0.8s ease-out 0.2s backwards;
-        }
-
-        .branding .tagline {
-            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-            margin-top: var(--space-lg);
-            opacity: 0.9;
-            line-height: 1.7;
-            font-style: italic;
-            border-left: 4px solid rgba(255, 255, 255, 0.4);
-            padding-left: var(--space-md);
-            animation: slideInLeft 0.8s ease-out 0.4s backwards;
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .right-section {
-            flex: 1;
-            padding: clamp(2rem, 5vw, 4rem);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--dark);
-        }
-
-        .form-wrapper {
-            width: 100%;
-            max-width: 500px;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .tabs {
-            display: flex;
-            gap: 0;
-            margin-bottom: var(--space-xl);
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: var(--radius-md);
-            padding: 8px;
-        }
-
-        .tab {
-            flex: 1;
-            padding: 14px 20px;
-            background: none;
-            border: none;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: clamp(0.9rem, 1.5vw, 1rem);
-            cursor: pointer;
-            position: relative;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-weight: 600;
-            border-radius: var(--radius-sm);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-family: var(--font-body);
-        }
-
-        .tab:hover {
-            color: rgba(255, 255, 255, 0.9);
-            transform: translateY(-2px);
-        }
-
-        .tab.active {
-            color: #fff;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .form-content {
-            display: none;
-        }
-
-        .form-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .form-group {
-            margin-bottom: var(--space-md);
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: var(--space-sm);
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 16px 18px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 2px solid rgba(255, 140, 0, 0.2);
-            color: #fff;
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: var(--radius-md);
-            font-family: var(--font-body);
-        }
-
-        .form-group input:hover {
-            border-color: rgba(255, 140, 0, 0.4);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .form-group input:focus {
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 20px rgba(255, 140, 0, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .form-group input::placeholder {
-            color: rgba(255, 255, 255, 0.35);
-        }
-
-        .btn {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border: none;
-            color: #fff;
-            font-size: 1.05rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            margin-top: var(--space-md);
-            border-radius: var(--radius-md);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: var(--shadow-md);
-            font-family: var(--font-body);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn:hover {
-            background: linear-gradient(135deg, #ff9d1a 0%, #f07d00 100%);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 140, 0, 0.4);
-        }
-
-        .btn:active {
-            transform: translateY(-1px);
-        }
-
-        .message {
-            padding: 16px 20px;
-            margin-bottom: var(--space-lg);
-            border-left: 4px solid var(--primary);
-            background: rgba(255, 140, 0, 0.12);
-            color: var(--primary-light);
-            display: none;
-            border-radius: var(--radius-sm);
-            font-weight: 500;
-            animation: slideDown 0.3s ease;
-        }
-
-        .message.show {
-            display: block;
-        }
-
-        .message.error {
-            border-left-color: var(--danger);
-            background: rgba(255, 107, 107, 0.12);
-            color: #ff8787;
-        }
-
-        .message.success {
-            border-left-color: var(--accent);
-            background: rgba(81, 207, 102, 0.12);
-            color: #69db7c;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ==================== DASHBOARD ==================== */
-        .dashboard {
-            display: none;
-            min-height: 100vh;
-            background: transparent;
-        }
-
-        .dashboard.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .dashboard-header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            padding: clamp(1rem, 3vw, 1.5rem) clamp(1.5rem, 5vw, 3rem);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: var(--shadow-lg);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-        }
-
-        .dashboard-header h2 {
-            font-family: var(--font-display);
-            font-size: clamp(1.3rem, 4vw, 2rem);
-            font-weight: 900;
-        }
-
-        .logout-btn,
-        .action-btn {
-            padding: 12px 28px;
-            background: var(--dark);
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: clamp(0.9rem, 1.5vw, 1rem);
-            font-weight: 600;
-            border-radius: var(--radius-sm);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-family: var(--font-body);
-        }
-
-        .logout-btn:hover,
-        .action-btn:hover {
-            background: var(--dark-lighter);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .dashboard-content {
-            padding: clamp(1.5rem, 4vw, 3rem);
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        /* ==================== NAVIGATION TABS ==================== */
-        .nav-tabs {
-            display: flex;
-            gap: var(--space-sm);
-            margin-bottom: var(--space-xl);
-            overflow-x: auto;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary) rgba(255, 255, 255, 0.1);
-            padding-bottom: var(--space-sm);
-        }
-
-        .nav-tabs::-webkit-scrollbar {
-            height: 6px;
-        }
-
-        .nav-tabs::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-        }
-
-        .nav-tabs::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 10px;
-        }
-
-        .nav-tab {
-            padding: 14px 24px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 140, 0, 0.2);
-            color: rgba(255, 255, 255, 0.7);
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-weight: 600;
-            white-space: nowrap;
-            font-family: var(--font-body);
-            display: flex;
-            align-items: center;
-            gap: var(--space-xs);
-        }
-
-        .nav-tab:hover {
-            border-color: var(--primary);
-            color: #fff;
-            transform: translateY(-2px);
-        }
-
-        .nav-tab.active {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border-color: var(--primary);
-            color: #fff;
-            box-shadow: var(--shadow-glow);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        /* ==================== CARDS ==================== */
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 140, 0, 0.2);
-            border-radius: var(--radius-lg);
-            padding: var(--space-lg);
-            margin-bottom: var(--space-lg);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(10px);
-        }
-
-        .card:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: var(--space-md);
-            padding-bottom: var(--space-md);
-            border-bottom: 2px solid rgba(255, 140, 0, 0.2);
-        }
-
-        .card-title {
-            font-family: var(--font-display);
-            color: var(--primary);
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            font-weight: 700;
-        }
-
-        /* ==================== STUDY TIMER ==================== */
-        .timer-container {
-            text-align: center;
-            padding: var(--space-xl);
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(255, 140, 0, 0.1) 100%);
-            border-radius: var(--radius-xl);
-            margin-bottom: var(--space-xl);
-        }
-
-        .timer-display {
-            font-family: var(--font-code);
-            font-size: clamp(3rem, 10vw, 6rem);
-            font-weight: 700;
-            color: var(--primary);
-            text-shadow: 0 0 30px rgba(255, 140, 0, 0.5);
-            margin: var(--space-lg) 0;
-            letter-spacing: 0.1em;
-        }
-
-        .timer-controls {
-            display: flex;
-            gap: var(--space-md);
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .timer-btn {
-            padding: 16px 32px;
-            background: linear-gradient(135deg, var(--secondary) 0%, #764ba2 100%);
-            color: #fff;
-            border: none;
-            border-radius: var(--radius-md);
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-family: var(--font-body);
-        }
-
-        .timer-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        .timer-btn.danger {
-            background: linear-gradient(135deg, var(--danger) 0%, #c92a2a 100%);
-        }
-
-        /* ==================== AI CHAT ==================== */
-        .ai-chat-container {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 140, 0, 0.2);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            height: 600px;
-        }
-
-        .ai-chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: var(--space-lg);
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-md);
-        }
-
-        .ai-message {
-            padding: var(--space-md);
-            border-radius: var(--radius-md);
-            max-width: 80%;
-            animation: messageSlideIn 0.3s ease;
-        }
-
-        @keyframes messageSlideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .ai-message.user {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            align-self: flex-end;
-            margin-left: auto;
-        }
-
-        .ai-message.assistant {
-            background: rgba(255, 255, 255, 0.1);
-            align-self: flex-start;
-            border-left: 4px solid var(--secondary);
-        }
-
-        .ai-chat-input-container {
-            padding: var(--space-md);
-            background: rgba(0, 0, 0, 0.2);
-            border-top: 1px solid rgba(255, 140, 0, 0.2);
-            display: flex;
-            gap: var(--space-sm);
-        }
-
-        .ai-chat-input {
-            flex: 1;
-            padding: 14px 18px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 140, 0, 0.2);
-            color: #fff;
-            border-radius: var(--radius-md);
-            font-family: var(--font-body);
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .ai-chat-input:focus {
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .ai-send-btn {
-            padding: 14px 28px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: #fff;
-            border: none;
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            font-family: var(--font-body);
-        }
-
-        .ai-send-btn:hover {
-            transform: scale(1.05);
-            box-shadow: var(--shadow-glow);
-        }
-
-        /* ==================== COMMUNITY ==================== */
-        .community-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: var(--space-lg);
-            margin-top: var(--space-lg);
-        }
-
-        .community-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 140, 0, 0.2);
-            border-radius: var(--radius-lg);
-            padding: var(--space-lg);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-        }
-
-        .community-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .community-icon {
-            font-size: 3rem;
-            margin-bottom: var(--space-md);
-            display: block;
-        }
-
-        .community-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: var(--space-sm);
-            font-family: var(--font-display);
-        }
-
-        .community-stats {
-            display: flex;
-            gap: var(--space-md);
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        /* ==================== POSTS ==================== */
-        .post {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 140, 0, 0.2);
-            border-radius: var(--radius-lg);
-            padding: var(--space-lg);
-            margin-bottom: var(--space-lg);
-            transition: all 0.3s;
-        }
-
-        .post:hover {
-            border-color: var(--primary);
-            box-shadow: var(--shadow-md);
-        }
-
-        .post-header {
-            display: flex;
-            align-items: center;
-            gap: var(--space-md);
-            margin-bottom: var(--space-md);
-        }
-
-        .post-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        .post-meta {
-            flex: 1;
-        }
-
-        .post-author {
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        .post-time {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .post-content {
-            margin-bottom: var(--space-md);
-            line-height: 1.8;
-        }
-
-        .post-actions {
-            display: flex;
-            gap: var(--space-md);
-        }
-
-        .post-action-btn {
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 140, 0, 0.2);
-            color: rgba(255, 255, 255, 0.7);
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: var(--font-body);
-            display: flex;
-            align-items: center;
-            gap: var(--space-xs);
-        }
-
-        .post-action-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--primary);
-            border-color: var(--primary);
-        }
-
-        /* ==================== COURSE OUTLINE ==================== */
-        .outline-item {
-            background: rgba(255, 255, 255, 0.03);
-            border-left: 4px solid var(--primary);
-            padding: var(--space-md);
-            margin-bottom: var(--space-md);
-            border-radius: var(--radius-sm);
-            transition: all 0.3s;
-        }
-
-        .outline-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateX(5px);
-        }
-
-        .outline-week {
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: var(--space-xs);
-            font-family: var(--font-display);
-        }
-
-        .outline-topics {
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
-        }
-
-        /* ==================== MODALS ==================== */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            overflow-y: auto;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: var(--space-lg);
-        }
-
-        .modal-content {
-            background: var(--dark);
-            border: 1px solid rgba(255, 140, 0, 0.3);
-            border-radius: var(--radius-xl);
-            max-width: 900px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: var(--shadow-lg);
-            animation: modalSlideIn 0.3s ease;
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-50px) scale(0.9);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .modal-header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            padding: var(--space-lg) var(--space-xl);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        .modal-header h3 {
-            font-family: var(--font-display);
-            font-size: clamp(1.3rem, 3vw, 2rem);
-            margin: 0;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 2.5rem;
-            cursor: pointer;
-            padding: 0;
-            width: 50px;
-            height: 50px;
-            line-height: 1;
-            transition: all 0.3s;
-            border-radius: 50%;
-        }
-
-        .close-btn:hover {
-            background: rgba(0, 0, 0, 0.2);
-            transform: rotate(90deg);
-        }
-
-        .modal-body {
-            padding: var(--space-xl);
-        }
-
-        /* ==================== RESPONSIVE BREAKPOINTS ==================== */
-        @media (max-width: 1024px) {
-            .split-container {
-                flex-direction: column;
-            }
-
-            .left-section {
-                min-height: 40vh;
-            }
-        }
-
-        @media (max-width: 768px) {
-            :root {
-                --space-xs: 0.4rem;
-                --space-sm: 0.8rem;
-                --space-md: 1.2rem;
-                --space-lg: 1.6rem;
-                --space-xl: 2rem;
-            }
-
-            .dashboard-header {
-                flex-direction: column;
-                gap: var(--space-md);
-                align-items: stretch;
-            }
-
-            .community-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
-
-            .timer-display {
-                font-size: clamp(2rem, 8vw, 4rem);
-            }
-
-            .ai-chat-container {
-                height: 500px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .modal-content {
-                border-radius: var(--radius-md);
-                max-height: 95vh;
-            }
-
-            .community-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .post-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-
-        /* ==================== UTILITY CLASSES ==================== */
-        .text-center {
-            text-align: center;
-        }
-
-        .mb-1 {
-            margin-bottom: var(--space-xs);
-        }
-
-        .mb-2 {
-            margin-bottom: var(--space-sm);
-        }
-
-        .mb-3 {
-            margin-bottom: var(--space-md);
-        }
-
-        .mb-4 {
-            margin-bottom: var(--space-lg);
-        }
-
-        .mt-1 {
-            margin-top: var(--space-xs);
-        }
-
-        .mt-2 {
-            margin-top: var(--space-sm);
-        }
-
-        .mt-3 {
-            margin-top: var(--space-md);
-        }
-
-        .mt-4 {
-            margin-top: var(--space-lg);
-        }
-
-        .flex {
-            display: flex;
-        }
-
-        .flex-center {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .flex-between {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .flex-wrap {
-            flex-wrap: wrap;
-        }
-
-        .gap-1 {
-            gap: var(--space-xs);
-        }
-
-        .gap-2 {
-            gap: var(--space-sm);
-        }
-
-        .gap-3 {
-            gap: var(--space-md);
-        }
-
-        /* Loading Animation */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--primary);
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-dark);
-        }
-
-        /* Department Tab Styling */
-        .dept-tab:hover {
-            background: rgba(255, 140, 0, 0.4) !important;
-            border-color: var(--primary) !important;
-        }
-
-        .dept-tab.active {
-            background: var(--primary) !important;
-            color: var(--dark) !important;
-            border-color: var(--primary) !important;
-        }
-
-        /* Resource Tab Styling */
-        .resource-tab.active {
-            color: var(--primary) !important;
-            background: rgba(255, 140, 0, 0.05);
-        }
-
-        .resource-tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--primary);
-        }
-
-        .resource-tab:hover {
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-
-
-        .resource-item:hover {
-            background: rgba(255, 140, 0, 0.1);
-            transform: translateX(5px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .resource-item {
-            background: rgba(255, 140, 0, 0.05);
-            border: 1px solid rgba(255, 140, 0, 0.3);
-            padding: clamp(15px, 3vw, 25px);
-            border-left: 4px solid var(--primary);
-            border-radius: var(--radius-md);
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-
-        .resource-item h4 {
-            font-size: clamp(1rem, 2.5vw, 1.3rem);
-            word-break: break-word;
-        }
-
-        .resource-btn {
-            padding: clamp(8px, 1.5vw, 10px) clamp(12px, 2.5vw, 20px);
-            font-size: clamp(0.8rem, 1.5vw, 0.95rem);
-        }
-
-        .resource-item p {
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 10px;
-            line-height: 1.6;
-        }
-
-        .resource-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-
-        .resource-btn {
-            padding: 10px 20px;
-            background: var(--primary);
-            color: #fff;
-            border: none;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            font-family: var(--font-body);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .resource-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .resource-btn.secondary {
-            background: var(--secondary);
-        }
-
-        .resource-btn.secondary:hover {
-            background: #5568d3;
-        }
-
-        .category-badge {
-            display: inline-block;
-            padding: 6px 14px;
-            background: rgba(255, 140, 0, 0.2);
-            color: var(--primary);
-            font-size: 0.85rem;
-            border-radius: var(--radius-sm);
-            margin-right: 10px;
-            margin-top: 10px;
-            font-weight: 600;
-        }
-
-        /* ==================== FILE VIEWER MODAL - FULLY RESPONSIVE ==================== */
-
-        .file-viewer-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 3000;
-            overflow: hidden;
-        }
-
-        .file-viewer-modal.active {
-            display: flex;
-            flex-direction: column;
-            animation: fadeIn 0.3s ease;
-        }
-
-        /* Header Section */
-        .file-viewer-header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            padding: clamp(12px, 2vw, 20px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: clamp(8px, 2vw, 15px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .file-viewer-title {
-            color: #fff;
-            font-size: clamp(0.95rem, 2.5vw, 1.4rem);
-            font-weight: 700;
-            font-family: var(--font-display);
-            flex: 1 1 200px;
-            min-width: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            margin: 0;
-        }
-
-        /* Controls Container */
-        .file-viewer-controls {
-            display: flex;
-            gap: clamp(6px, 1.5vw, 12px);
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        /* Font Control Groups */
-        .font-control {
-            display: flex;
-            align-items: center;
-            gap: clamp(6px, 1vw, 10px);
-            background: rgba(255, 255, 255, 0.15);
-            padding: clamp(6px, 1.5vw, 10px) clamp(8px, 2vw, 14px);
-            border-radius: 8px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .font-control label {
-            color: #fff;
-            font-size: clamp(0.75rem, 1.5vw, 0.95rem);
-            font-weight: 600;
-            white-space: nowrap;
-            margin: 0;
-        }
-
-        .font-control select,
-        .font-control input {
-            background: rgba(255, 255, 255, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: #fff;
-            padding: clamp(4px, 1vw, 8px) clamp(6px, 1.5vw, 12px);
-            border-radius: 6px;
-            font-family: var(--font-body);
-            font-size: clamp(0.75rem, 1.5vw, 0.9rem);
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .font-control select:focus,
-        .font-control input:focus {
-            background: rgba(255, 255, 255, 0.35);
-            border-color: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-        }
-
-        .font-control select option {
-            background: var(--dark);
-            color: #fff;
-        }
-
-        .font-control input[type="number"] {
-            width: clamp(50px, 10vw, 70px);
-            text-align: center;
-        }
-
-        /* Close Button */
-        .close-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: #fff;
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
-            cursor: pointer;
-            padding: 0;
-            width: clamp(35px, 8vw, 50px);
-            height: clamp(35px, 8vw, 50px);
-            line-height: 1;
-            transition: all 0.3s;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .close-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: rotate(90deg) scale(1.1);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-        }
-
-        .close-btn:active {
-            transform: rotate(90deg) scale(0.95);
-        }
-
-        /* Body Section */
-        .file-viewer-body {
-            flex: 1;
-            overflow-y: auto;
-            overflow-x: hidden;
-            padding: clamp(10px, 3vw, 25px);
-            background: var(--dark);
-        }
-
-        /* Scrollbar Styling */
-        .file-viewer-body::-webkit-scrollbar {
-            width: clamp(8px, 1.5vw, 12px);
-        }
-
-        .file-viewer-body::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .file-viewer-body::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 10px;
-        }
-
-        .file-viewer-body::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-dark);
-        }
-
-        /* File Content Display */
-        .file-content {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 140, 0, 0.3);
-            border-radius: clamp(8px, 2vw, 16px);
-            padding: clamp(15px, 4vw, 35px);
-            color: rgba(255, 255, 255, 0.95);
-            line-height: 1.8;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            font-family: 'Georgia', serif;
-            font-size: 16px;
-            max-width: 1000px;
-            margin: 0 auto;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            min-height: 200px;
-        }
-
-        /* Loading Spinner */
-        .loading-spinner {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: clamp(40px, 8vw, 80px) clamp(15px, 3vw, 30px);
-            color: var(--primary);
-        }
-
-        .loading-spinner .spinner {
-            width: clamp(40px, 8vw, 60px);
-            height: clamp(40px, 8vw, 60px);
-            border: 4px solid rgba(255, 140, 0, 0.2);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        .loading-spinner p {
-            margin-top: clamp(15px, 3vw, 25px);
-            font-size: clamp(0.95rem, 2vw, 1.2rem);
-            font-weight: 600;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* ==================== RESPONSIVE BREAKPOINTS ==================== */
-
-        /* Tablet (Portrait) */
-        @media (max-width: 768px) {
-            .file-viewer-header {
-                padding: 15px 12px;
-            }
-
-            .file-viewer-title {
-                flex: 1 1 100%;
-                margin-bottom: 8px;
-                text-align: center;
-            }
-
-            .file-viewer-controls {
-                flex: 1 1 100%;
-                justify-content: center;
-            }
-
-            .font-control {
-                flex: 1 1 auto;
-                min-width: 120px;
-            }
-
-            .font-control label {
-                font-size: 0.8rem;
-            }
-
-            .file-content {
-                padding: 20px 15px;
-                font-size: 15px;
-            }
-        }
-
-        /* Mobile (Portrait) */
-        @media (max-width: 480px) {
-            .file-viewer-header {
-                padding: 12px 10px;
-            }
-
-            .file-viewer-title {
-                font-size: 1rem;
-                order: 1;
-            }
-
-            .close-btn {
-                order: 3;
-                width: 40px;
-                height: 40px;
-                font-size: 2rem;
-            }
-
-            .file-viewer-controls {
-                order: 2;
-                width: 100%;
-                justify-content: space-between;
-            }
-
-            .font-control {
-                flex: 1 1 calc(50% - 5px);
-                min-width: 0;
-                padding: 8px;
-            }
-
-            .font-control label {
-                font-size: 0.75rem;
-            }
-
-            .font-control select,
-            .font-control input {
-                font-size: 0.8rem;
-                padding: 6px 8px;
-            }
-
-            .file-viewer-body {
-                padding: 15px 10px;
-            }
-
-            .file-content {
-                padding: 15px 12px;
-                font-size: 14px;
-                line-height: 1.7;
-                border-radius: 10px;
-            }
-
-            .loading-spinner {
-                padding: 50px 15px;
-            }
-
-            .loading-spinner .spinner {
-                width: 45px;
-                height: 45px;
-            }
-
-            .loading-spinner p {
-                font-size: 1rem;
-            }
-        }
-
-        /* Extra Small Mobile */
-        @media (max-width: 360px) {
-            .file-content {
-                padding: 12px 10px;
-                font-size: 13px;
-            }
-
-            .font-control {
-                padding: 6px;
-            }
-
-            .font-control label {
-                display: none;
-                /* Hide labels on very small screens */
-            }
-
-            .font-control select,
-            .font-control input {
-                width: 100%;
-            }
-        }
-
-        /* Landscape Mode for Mobile */
-        @media (max-height: 500px) and (orientation: landscape) {
-            .file-viewer-header {
-                padding: 8px 12px;
-            }
-
-            .file-viewer-body {
-                padding: 10px 15px;
-            }
-
-            .file-content {
-                padding: 15px;
-            }
-        }
-
-        /* Dark Mode Support (Optional) */
-        @media (prefers-color-scheme: dark) {
-            .file-content {
-                background: rgba(255, 255, 255, 0.06);
-                border-color: rgba(255, 140, 0, 0.4);
-                color: rgba(255, 255, 255, 0.98);
-            }
-        }
-
-        /* Print Styles */
-        @media print {
-
-            .file-viewer-header,
-            .file-viewer-controls,
-            .close-btn {
-                display: none !important;
-            }
-
-            .file-viewer-modal {
-                background: white;
-            }
-
-            .file-content {
-                background: white;
-                color: black;
-                border: none;
-                box-shadow: none;
-                padding: 20px;
-            }
-        }
-    </style>
-
-    <!-- Firebase Scripts -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NetTube — Stream Everything</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --red:#E50914;
+    --red-dim:#b8070f;
+    --bg:#0a0a0a;
+    --bg2:#111111;
+    --bg3:#1a1a1a;
+    --bg4:#222222;
+    --surface:#181818;
+    --border:#2a2a2a;
+    --text:#ffffff;
+    --text2:#b3b3b3;
+    --text3:#666666;
+    --accent:#E50914;
+    --sidebar:240px;
+    --topbar:64px;
+  }
+  html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+  a{text-decoration:none;color:inherit}
+
+  /* ─── Layout Shell ─── */
+  .shell{display:flex;height:100vh;overflow:hidden}
+
+  /* ─── Sidebar ─── */
+  .sidebar{
+    width:var(--sidebar);flex-shrink:0;
+    background:var(--bg2);
+    border-right:1px solid var(--border);
+    display:flex;flex-direction:column;
+    overflow-y:auto;overflow-x:hidden;
+    position:relative;z-index:10;
+  }
+  .sidebar::-webkit-scrollbar{width:3px}
+  .sidebar::-webkit-scrollbar-thumb{background:var(--bg4)}
+  .logo{
+    padding:20px 20px 16px;
+    display:flex;align-items:center;gap:8px;
+    border-bottom:1px solid var(--border);
+  }
+  .logo-mark{
+    width:36px;height:36px;background:var(--red);
+    border-radius:8px;display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .logo-mark svg{width:20px;height:20px;fill:#fff}
+  .logo-text{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px}
+  .logo-text span{color:var(--red)}
+
+  .nav-section{padding:12px 0}
+  .nav-label{
+    font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+    color:var(--text3);padding:8px 20px 4px;font-weight:600;
+  }
+  .nav-item{
+    display:flex;align-items:center;gap:12px;
+    padding:10px 20px;font-size:14px;font-weight:400;
+    color:var(--text2);cursor:pointer;border-radius:0;
+    transition:background .15s,color .15s;
+    border-left:3px solid transparent;
+  }
+  .nav-item:hover{background:var(--bg3);color:var(--text)}
+  .nav-item.active{
+    color:var(--text);background:var(--bg3);
+    border-left-color:var(--red);
+  }
+  .nav-item svg{width:18px;height:18px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.8}
+  .nav-badge{
+    margin-left:auto;font-size:10px;font-weight:600;
+    background:var(--red);color:#fff;
+    padding:2px 6px;border-radius:10px;
+  }
+  .sidebar-thumb{
+    margin:0 12px;border-radius:8px;overflow:hidden;
+    background:var(--bg4);cursor:pointer;
+    transition:opacity .15s;
+  }
+  .sidebar-thumb:hover{opacity:.8}
+  .thumb-img{
+    width:100%;aspect-ratio:16/9;
+    background:linear-gradient(135deg,var(--bg4) 0%,var(--bg3) 100%);
+    display:flex;align-items:center;justify-content:center;
+    font-size:28px;position:relative;overflow:hidden;
+  }
+  .thumb-img .play-icon{
+    position:absolute;width:36px;height:36px;
+    background:rgba(0,0,0,.7);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;transition:opacity .15s;
+  }
+  .sidebar-thumb:hover .play-icon{opacity:1}
+  .thumb-info{padding:8px 10px}
+  .thumb-title{font-size:12px;font-weight:500;line-height:1.3;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .thumb-meta{font-size:11px;color:var(--text3)}
+
+  /* ─── Main ─── */
+  .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+
+  /* ─── Top Bar ─── */
+  .topbar{
+    height:var(--topbar);flex-shrink:0;
+    background:var(--bg2);border-bottom:1px solid var(--border);
+    display:flex;align-items:center;gap:16px;padding:0 24px;
+    position:sticky;top:0;z-index:9;
+  }
+  .search-wrap{
+    flex:1;max-width:600px;
+    display:flex;align-items:center;
+    background:var(--bg3);border:1px solid var(--border);
+    border-radius:24px;overflow:hidden;
+  }
+  .search-wrap:focus-within{border-color:var(--text3)}
+  .search-wrap input{
+    flex:1;background:none;border:none;outline:none;
+    padding:10px 16px;color:var(--text);font-size:14px;font-family:inherit;
+  }
+  .search-wrap input::placeholder{color:var(--text3)}
+  .search-btn{
+    background:var(--bg4);border:none;border-left:1px solid var(--border);
+    padding:10px 18px;cursor:pointer;color:var(--text2);
+    display:flex;align-items:center;transition:background .15s;
+  }
+  .search-btn:hover{background:var(--bg3);color:var(--text)}
+  .search-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2}
+
+  .topbar-actions{display:flex;align-items:center;gap:10px;margin-left:auto}
+  .icon-btn{
+    width:36px;height:36px;border-radius:50%;
+    background:var(--bg3);border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--text2);transition:background .15s,color .15s;position:relative;
+  }
+  .icon-btn:hover{background:var(--bg4);color:var(--text)}
+  .icon-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8}
+  .notif-dot{
+    position:absolute;top:5px;right:5px;
+    width:8px;height:8px;background:var(--red);border-radius:50%;
+    border:2px solid var(--bg2);
+  }
+  .avatar{
+    width:36px;height:36px;border-radius:50%;
+    background:var(--red);display:flex;align-items:center;justify-content:center;
+    font-size:14px;font-weight:600;cursor:pointer;flex-shrink:0;
+  }
+  .filter-pills{
+    display:flex;align-items:center;gap:8px;margin-left:8px;
+    overflow-x:auto;scrollbar-width:none;
+  }
+  .filter-pills::-webkit-scrollbar{display:none}
+  .pill{
+    white-space:nowrap;padding:6px 14px;border-radius:20px;
+    font-size:13px;font-weight:500;cursor:pointer;
+    background:var(--bg4);color:var(--text2);border:1px solid var(--border);
+    transition:all .15s;flex-shrink:0;
+  }
+  .pill:hover{background:var(--bg3);color:var(--text)}
+  .pill.active{background:var(--text);color:#000}
+
+  /* ─── Content Area ─── */
+  .content{flex:1;overflow-y:auto;overflow-x:hidden}
+  .content::-webkit-scrollbar{width:6px}
+  .content::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
+
+  /* ─── Hero Banner (Netflix style) ─── */
+  .hero{
+    position:relative;height:520px;overflow:hidden;
+    margin-bottom:4px;
+  }
+  .hero-bg{
+    position:absolute;inset:0;
+    background:linear-gradient(105deg,#0d1b2a 0%,#1a0a0a 50%,#0a0a0a 100%);
+  }
+  .hero-scene{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end;
+  }
+  .hero-visual{
+    width:62%;height:100%;
+    background:linear-gradient(160deg,#1a2a3a 0%,#2d1515 60%,#0a0a0a 100%);
+    display:flex;align-items:center;justify-content:center;
+    font-size:80px;position:relative;
+    clip-path:polygon(10% 0,100% 0,100% 100%,0% 100%);
+  }
+  .hero-visual::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(90deg,var(--bg) 0%,transparent 40%,transparent 70%,rgba(10,10,10,.5) 100%);
+  }
+  .hero-badge{
+    position:absolute;top:24px;left:24px;
+    background:var(--red);color:#fff;
+    font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+    padding:4px 10px;border-radius:4px;
+  }
+  .hero-rank{
+    position:absolute;bottom:24px;left:24px;
+    font-family:'Bebas Neue',sans-serif;font-size:100px;line-height:1;
+    color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.15);
+  }
+  .hero-content{
+    position:absolute;left:0;bottom:0;top:0;
+    width:50%;display:flex;flex-direction:column;
+    justify-content:center;padding:48px 40px;
+  }
+  .hero-category{
+    font-size:11px;letter-spacing:2px;text-transform:uppercase;
+    color:var(--red);font-weight:600;margin-bottom:12px;
+  }
+  .hero-title{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:62px;line-height:.95;
+    color:#fff;margin-bottom:16px;letter-spacing:1px;
+  }
+  .hero-meta{
+    display:flex;align-items:center;gap:12px;
+    margin-bottom:16px;
+  }
+  .hero-meta span{font-size:13px;color:var(--text2)}
+  .hero-meta .dot{width:4px;height:4px;background:var(--text3);border-radius:50%}
+  .match{color:#46d369;font-weight:600}
+  .hero-desc{
+    font-size:15px;line-height:1.6;color:var(--text2);
+    max-width:380px;margin-bottom:28px;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+  }
+  .hero-actions{display:flex;gap:12px;align-items:center}
+  .btn-play{
+    display:flex;align-items:center;gap:8px;
+    background:#fff;color:#000;
+    border:none;padding:12px 24px;border-radius:6px;
+    font-size:15px;font-weight:600;cursor:pointer;
+    font-family:inherit;transition:background .15s;
+  }
+  .btn-play:hover{background:#ddd}
+  .btn-play svg{width:20px;height:20px;fill:#000}
+  .btn-info{
+    display:flex;align-items:center;gap:8px;
+    background:rgba(109,109,110,.7);color:#fff;
+    border:none;padding:12px 20px;border-radius:6px;
+    font-size:15px;font-weight:500;cursor:pointer;
+    font-family:inherit;transition:background .15s;backdrop-filter:blur(4px);
+  }
+  .btn-info:hover{background:rgba(109,109,110,.5)}
+  .btn-info svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2}
+  .hero-indicators{
+    position:absolute;right:40px;bottom:36px;
+    display:flex;gap:6px;
+  }
+  .indicator{
+    width:24px;height:3px;background:rgba(255,255,255,.3);border-radius:2px;cursor:pointer;transition:all .2s;
+  }
+  .indicator.active{width:32px;background:var(--red)}
+
+  /* ─── Section ─── */
+  .section{padding:8px 0 16px}
+  .section-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 24px;margin-bottom:12px;
+  }
+  .section-title{
+    font-size:18px;font-weight:600;color:var(--text);
+    display:flex;align-items:center;gap:10px;
+  }
+  .section-title .tag{
+    font-size:11px;font-weight:600;letter-spacing:.5px;
+    padding:3px 8px;border-radius:4px;
+    background:var(--red);color:#fff;text-transform:uppercase;
+  }
+  .see-all{font-size:13px;color:var(--text3);cursor:pointer;transition:color .15s;display:flex;align-items:center;gap:4px}
+  .see-all:hover{color:var(--red)}
+  .see-all svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+
+  /* ─── Netflix Carousel ─── */
+  .carousel{position:relative}
+  .carousel-track{
+    display:flex;gap:8px;padding:4px 24px 8px;
+    overflow-x:auto;scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+  }
+  .carousel-track::-webkit-scrollbar{display:none}
+  .carousel-arrow{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:40px;height:72px;
+    background:rgba(0,0,0,.75);border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;z-index:5;transition:background .15s;
+  }
+  .carousel-arrow:hover{background:rgba(0,0,0,.9)}
+  .carousel-arrow svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2.5}
+  .carousel-arrow.left{left:0;border-radius:0 4px 4px 0}
+  .carousel-arrow.right{right:0;border-radius:4px 0 0 4px}
+
+  /* ─── Netflix Card ─── */
+  .nf-card{
+    flex-shrink:0;width:200px;border-radius:6px;overflow:hidden;
+    cursor:pointer;transition:transform .25s,z-index .25s;
+    scroll-snap-align:start;position:relative;
+  }
+  .nf-card:hover{transform:scale(1.08);z-index:10}
+  .nf-card-img{
+    width:100%;aspect-ratio:16/9;
+    display:flex;align-items:center;justify-content:center;
+    font-size:36px;position:relative;overflow:hidden;
+  }
+  .nf-card-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(0deg,rgba(0,0,0,.85) 0%,transparent 60%);
+    opacity:0;transition:opacity .25s;
+    display:flex;flex-direction:column;justify-content:flex-end;padding:10px;
+  }
+  .nf-card:hover .nf-card-overlay{opacity:1}
+  .nf-card-actions{display:flex;gap:6px;margin-bottom:6px}
+  .mini-btn{
+    width:28px;height:28px;border-radius:50%;
+    border:1.5px solid rgba(255,255,255,.7);
+    background:rgba(0,0,0,.5);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+  }
+  .mini-btn svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2}
+  .mini-btn.play-mini{background:rgba(255,255,255,.9)}
+  .mini-btn.play-mini svg{stroke:#000}
+  .nf-card-label{font-size:11px;color:var(--text2)}
+  .progress-bar{height:3px;background:var(--bg4);border-radius:2px;margin-top:4px}
+  .progress-fill{height:100%;background:var(--red);border-radius:2px}
+
+  /* ─── YouTube Grid ─── */
+  .yt-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:16px;padding:8px 24px 24px;
+  }
+  .yt-card{cursor:pointer;border-radius:8px;overflow:hidden;transition:transform .2s}
+  .yt-card:hover{transform:translateY(-2px)}
+  .yt-thumb{
+    width:100%;aspect-ratio:16/9;
+    display:flex;align-items:center;justify-content:center;
+    font-size:40px;position:relative;overflow:hidden;border-radius:8px;
+    background:var(--bg3);
+  }
+  .yt-thumb-duration{
+    position:absolute;bottom:6px;right:8px;
+    background:rgba(0,0,0,.85);color:#fff;
+    font-size:11px;font-weight:600;padding:2px 5px;border-radius:3px;
+  }
+  .yt-thumb-live{
+    position:absolute;top:8px;left:8px;
+    background:var(--red);color:#fff;
+    font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+    padding:2px 6px;border-radius:3px;
+  }
+  .yt-info{display:flex;gap:10px;padding:10px 2px 0}
+  .yt-avatar{
+    width:36px;height:36px;border-radius:50%;
+    flex-shrink:0;display:flex;align-items:center;justify-content:center;
+    font-size:14px;font-weight:700;
+  }
+  .yt-details{flex:1;min-width:0}
+  .yt-title{
+    font-size:14px;font-weight:500;line-height:1.35;
+    margin-bottom:4px;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  }
+  .yt-channel{font-size:12px;color:var(--text2);margin-bottom:2px}
+  .yt-stats{font-size:12px;color:var(--text3)}
+  .verified{display:inline-block;width:12px;height:12px;background:var(--text3);border-radius:50%;margin-left:3px;vertical-align:-2px;position:relative}
+  .verified::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--bg)}
+
+  /* ─── Divider ─── */
+  .divider{height:1px;background:var(--border);margin:8px 24px}
+
+  /* ─── Top 10 Row ─── */
+  .top10-card{
+    flex-shrink:0;width:260px;cursor:pointer;
+    display:flex;align-items:flex-end;gap:0;scroll-snap-align:start;
+    transition:transform .2s;
+  }
+  .top10-card:hover{transform:scale(1.04)}
+  .top10-num{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:120px;line-height:1;margin-right:-20px;
+    color:transparent;-webkit-text-stroke:3px var(--bg4);
+    flex-shrink:0;
+  }
+  .top10-img{
+    flex:1;aspect-ratio:2/3;border-radius:6px;
+    background:var(--bg3);display:flex;align-items:center;
+    justify-content:center;font-size:40px;overflow:hidden;
+  }
+
+  /* ─── Color palettes for cards ─── */
+  .c1{background:linear-gradient(135deg,#1a3a2a,#0d2a1a)}
+  .c2{background:linear-gradient(135deg,#1a1a3a,#0d0d2a)}
+  .c3{background:linear-gradient(135deg,#3a1a1a,#2a0d0d)}
+  .c4{background:linear-gradient(135deg,#2a1a3a,#1a0d2a)}
+  .c5{background:linear-gradient(135deg,#1a2a3a,#0d1a2a)}
+  .c6{background:linear-gradient(135deg,#3a2a1a,#2a1a0d)}
+  .c7{background:linear-gradient(135deg,#1a3a3a,#0d2a2a)}
+  .c8{background:linear-gradient(135deg,#3a1a2a,#2a0d1a)}
+  .a1{background:#e74c3c}
+  .a2{background:#3498db}
+  .a3{background:#9b59b6}
+  .a4{background:#1abc9c}
+  .a5{background:#e67e22}
+  .a6{background:#e91e63}
+</style>
 </head>
-
 <body>
-    <!-- Animated Background -->
-    <div class="animated-bg"></div>
+<div class="shell">
 
-    <!-- AUTH SECTION -->
-    <div class="split-container" id="authSection">
-        <div class="left-section">
-            <div class="branding">
-                <h1>FLASH100</h1>
-                <p>FASA LASU Academic Support Hub</p>
-                <p>Your gateway to academic excellence</p>
-                <p class="tagline">Empowering 100 Level students with resources, AI-powered learning, community support,
-                    and collaborative tools for success</p>
-            </div>
-        </div>
-
-        <div class="right-section">
-            <div class="form-wrapper">
-                <div class="tabs">
-                    <button class="tab active" onclick="switchTab('login')">Login</button>
-                    <button class="tab" onclick="switchTab('signup')">Sign Up</button>
-                </div>
-
-                <div id="message" class="message"></div>
-
-                <div id="loginForm" class="form-content active">
-                    <form onsubmit="handleLogin(event)">
-                        <div class="form-group">
-                            <label for="loginMatric">Matric Number / Email</label>
-                            <input type="text" id="loginMatric" placeholder="2024/1234567 or email" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="loginPassword">Password</label>
-                            <input type="password" id="loginPassword" placeholder="Enter your password" required>
-                        </div>
-
-                        <button type="submit" class="btn">Login</button>
-                    </form>
-                </div>
-
-                <div id="signupForm" class="form-content">
-                    <form onsubmit="handleSignup(event)">
-                        <div class="form-group">
-                            <label for="signupMatric">Matric Number</label>
-                            <input type="text" id="signupMatric" placeholder="2024/1234567" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="signupName">Full Name</label>
-                            <input type="text" id="signupName" placeholder="Enter your full name" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="signupEmail">Email Address</label>
-                            <input type="email" id="signupEmail" placeholder="yourname@example.com" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="signupDepartment">Department</label>
-                            <select id="signupDepartment" required
-                                style="width: 100%; padding: 16px 18px; background: rgba(255, 255, 255, 0.06); border: 2px solid rgba(255, 140, 0, 0.2); color: #fff; font-size: 1rem; outline: none; border-radius: var(--radius-md); font-family: var(--font-body);">
-                                <option value="">Select Department</option>
-                                <option value="history">History</option>
-                                <option value="iss">International Studies</option>
-                                <option value="french">French</option>
-                                <option value="portuguese">Portuguese</option>
-                                <option value="linguistics">Linguistics</option>
-                                <option value="philosophy">Philosophy</option>
-                                <option value="theatre-art">Theatre Art</option>
-                                <option value="gns">General Studies</option>
-                                <option value="english">English</option>
-                                <option value="peace-studies">Peace & Religious Studies</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="signupPassword">Password</label>
-                            <input type="password" id="signupPassword" placeholder="Create a password" required>
-                        </div>
-
-                        <button type="submit" class="btn">Create Account</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- File Viewer Modal -->
-    <div class="file-viewer-modal" id="fileViewerModal">
-        <div class="file-viewer-header">
-            <h3 class="file-viewer-title" id="fileViewerTitle">Document Viewer</h3>
-            <div class="file-viewer-controls">
-                <div class="font-control">
-                    <label>Font:</label>
-                    <select id="fontFamily" onchange="updateFileView()">
-                        <option value="Georgia, serif">Georgia</option>
-                        <option value="Arial, sans-serif">Arial</option>
-                        <option value="'Times New Roman', serif">Times</option>
-                        <option value="'Courier New', monospace">Courier</option>
-                    </select>
-                </div>
-                <div class="font-control">
-                    <label>Size:</label>
-                    <input type="number" id="fontSize" value="16" min="12" max="32" onchange="updateFileView()">
-                </div>
-                <button class="close-btn" onclick="closeFileViewer()">&times;</button>
-            </div>
-        </div>
-        <div class="file-viewer-body">
-            <div id="fileContentDisplay" class="file-content"></div>
-        </div>
-    </div>
-    <!-- STUDENT DASHBOARD -->
-    <div class="dashboard" id="studentDashboard">
-        <div class="dashboard-header">
-            <h2><i class="fas fa-graduation-cap"></i> FLASH100 Dashboard</h2>
-            <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
-        </div>
-
-        <div class="dashboard-content">
-            <h3 class="mb-2"
-                style="color: var(--primary); font-family: var(--font-display); font-size: clamp(1.5rem, 4vw, 2.5rem);">
-                Welcome, <span id="studentName"></span>! 👋
-            </h3>
-            <p class="mb-4" style="color: rgba(255, 255, 255, 0.6); font-size: 1.1rem;">
-                <span id="studentMatric"></span> | <span id="studentDepartment"></span>
-            </p>
-
-            <!-- Navigation Tabs -->
-            <div class="nav-tabs">
-                <button class="nav-tab active" onclick="switchNavTab('overview')">
-                    <i class="fas fa-home"></i> Overview
-                </button>
-                <button class="nav-tab" onclick="switchNavTab('resources')">
-                    <i class="fas fa-book"></i> Resources
-                </button>
-                
-            </div>
-
-            <!-- Overview Tab -->
-            <div id="overview-tab" class="tab-content active">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-bell"></i> Announcements</h3>
-                    </div>
-                    <div id="announcementsList"></div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-envelope"></i> Personal Messages</h3>
-                    </div>
-                    <div id="messagesList"></div>
-                </div>
-            </div>
-
-            <!-- Resources Tab -->
-            <div id="resources-tab" class="tab-content">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-book"></i> Available Courses & Resources</h3>
-                    </div>
-
-                    <!-- Department Filter Tabs -->
-                    <div class="dept-filter-tabs"
-                        style="display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; border-bottom: 2px solid rgba(255, 140, 0, 0.2); padding-bottom: 15px; overflow-x: auto;">
-                        <button class="dept-tab active" onclick="filterByDepartment('')"
-                            style="padding: 10px 20px; background: var(--primary); border: none; color: var(--dark); cursor: pointer; font-weight: 600; border-radius: 4px; white-space: nowrap; font-family: var(--font-body); transition: all 0.3s;">All</button>
-                        <button class="dept-tab" onclick="filterByDepartment('history')"
-                            style="padding: 10px 20px; background: rgba(255, 140, 0, 0.2); border: 1px solid rgba(255, 140, 0, 0.5); color: #fff; cursor: pointer; border-radius: 4px; white-space: nowrap; font-family: var(--font-body); transition: all 0.3s;">HIS</button>
-                        <button class="dept-tab" onclick="filterByDepartment('iss')"
-                            style="padding: 10px 20px; background: rgba(255, 140, 0, 0.2); border: 1px solid rgba(255, 140, 0, 0.5); color: #fff; cursor: pointer; border-radius: 4px; white-space: nowrap; font-family: var(--font-body); transition: all 0.3s;">ISS</button>
-                        <button class="dept-tab" onclick="filterByDepartment('french')"
-                            style="padding: 10px 20px; background: rgba(255, 140, 0, 0.2); border: 1px solid rgba(255, 140, 0, 0.5); color: #fff; cursor: pointer; border-radius: 4px; white-space: nowrap; font-family: var(--font-body); transition: all 0.3s;">French</button>
-                        <button class="dept-tab" onclick="filterByDepartment('portuguese')"
-                            style="padding: 10px 20px; background: rgba(255, 140, 0, 0.2); border: 1px solid rgba(255, 140, 0, 0.5); color: #fff; cursor: pointer; border-radius: 4px; white-space: nowrap; font-family: var(--font-body); transition: all 0.3s;">Portuguese</button>
-                        <button class="dept-tab" onclick="filterByDepartment('linguistics')"
-                            style="padding: 10px 20px; background: rgba(255, 140, 0, 0.2); border: 1px solid rgba(255, 140, 0, 0.5); color: #fff; cursor: pointer; border-radius: 4px; white-space: nowrap; font-family: var(--font-body); transition: all 0.3s;">Linguistics</button>
-                        <button class="dept-tab" onclick="filterByDepartment('philosophy')"
-                            style="padding: 10px 20px; background: rgba(255, 140, 0, 0.2); border: 1px solid rgba(255, 140, 0, 0.5); color: #fff; cursor: pointer; border-radius: 4px; white-space: nowrap; font-family: var(--font-body); transition: all 0.3s;">Philosophy</button>
-                        <button class="dept-tab" onclick="filterByDepartment('theatre-art')"
-                            style="padding: 10px 20px; background: rgba(255, 140, 0, 0.2); border: 1px solid rgba(255, 140, 0, 0.5); color: #fff; cursor: pointer; border-radius: 4px; white-space: nowrap; font-family: var(--font-body); transition: all 0.3s;">Theatre
-                            Art</button>
-                        <button class="dept-tab" onclick="filterByDepartment('gns')"
-                            style="padding: 10px 20px; background: rgba(255, 140, 0, 0.2); border: 1px solid rgba(255, 140, 0, 0.5); color: #fff; cursor: pointer; border-radius: 4px; white-space: nowrap; font-family: var(--font-body); transition: all 0.3s;">GNS</button>
-                        <button class="dept-tab" onclick="filterByDepartment('english')"
-                            style="padding: 10px 20px; background: rgba(255, 140, 0, 0.2); border: 1px solid rgba(255, 140, 0, 0.5); color: #fff; cursor: pointer; border-radius: 4px; white-space: nowrap; font-family: var(--font-body); transition: all 0.3s;">English</button>
-                        <button class="dept-tab" onclick="filterByDepartment('peace-studies')"
-                            style="padding: 10px 20px; background: rgba(255, 140, 0, 0.2); border: 1px solid rgba(255, 140, 0, 0.5); color: #fff; cursor: pointer; border-radius: 4px; white-space: nowrap; font-family: var(--font-body); transition: all 0.3s;">Peace
-                            & Religious Studies</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- AI Learn Tab -->
-            <div id="ai-learn-tab" class="tab-content">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-robot"></i> AI Learning Assistant</h3>
-                        <button class="action-btn" onclick="clearAIChat()">
-                            <i class="fas fa-trash"></i> Clear Chat
-                        </button>
-                    </div>
-                    <div class="ai-chat-container">
-                        <div class="ai-chat-messages" id="aiChatMessages"></div>
-                        <div class="ai-chat-input-container">
-                            <input type="text" class="ai-chat-input" id="aiChatInput"
-                                placeholder="Ask anything... (e.g., 'Explain quantum physics')"
-                                onkeypress="handleAIChatKeyPress(event)">
-                            <button class="ai-send-btn" onclick="sendAIMessage()">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p class="mt-3" style="color: rgba(255, 255, 255, 0.5); font-size: 0.9rem; text-align: center;">
-                        <i class="fas fa-info-circle"></i> Powered by free AI API - Your conversations are saved for
-                        reference
-                    </p>
-                </div>
-            </div>
-
-            <!-- Study Timer Tab -->
-            <div id="study-timer-tab" class="tab-content">
-                <div class="timer-container">
-                    <h3 style="font-family: var(--font-display); font-size: 2rem; margin-bottom: var(--space-md);">
-                        <i class="fas fa-stopwatch"></i> Pomodoro Study Timer
-                    </h3>
-                    <div class="timer-display" id="timerDisplay">25:00</div>
-                    <div class="timer-controls">
-                        <button class="timer-btn" onclick="startTimer()">
-                            <i class="fas fa-play"></i> Start
-                        </button>
-                        <button class="timer-btn" onclick="pauseTimer()">
-                            <i class="fas fa-pause"></i> Pause
-                        </button>
-                        <button class="timer-btn danger" onclick="resetTimer()">
-                            <i class="fas fa-redo"></i> Reset
-                        </button>
-                    </div>
-                    <p class="mt-3" style="color: rgba(255, 255, 255, 0.6);">
-                        Focus: 25 min | Break: 5 min | Sessions completed: <span id="sessionsCompleted">0</span>
-                    </p>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-chart-line"></i> Study Statistics</h3>
-                    </div>
-                    <div id="studyStats"></div>
-                </div>
-            </div>
-
-            <!-- Community Tab -->
-            <div id="community-tab" class="tab-content">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-comments"></i> Department Communities</h3>
-                    </div>
-                    <div class="community-grid" id="communityGrid"></div>
-                </div>
-
-                <div class="card mt-4">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-plus-circle"></i> Create Post</h3>
-                    </div>
-                    <textarea id="newPostContent" placeholder="Share your thoughts, questions, or resources..."
-                        style="width: 100%; padding: var(--space-md); background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 140, 0, 0.2); color: #fff; border-radius: var(--radius-md); min-height: 120px; font-family: var(--font-body); margin-bottom: var(--space-md);"></textarea>
-                    <button class="btn" onclick="createPost()" style="width: auto; padding: 12px 32px;">
-                        <i class="fas fa-paper-plane"></i> Post
-                    </button>
-                </div>
-
-                <div class="card mt-4">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-stream"></i> Community Feed</h3>
-                    </div>
-                    <div id="communityFeed"></div>
-                </div>
-            </div>
-
-            <!-- Course Outlines Tab -->
-            <div id="outlines-tab" class="tab-content">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-book-open"></i> Course Outlines - <span
-                                id="outlineDeptName"></span></h3>
-                    </div>
-                    <div id="outlinesList"></div>
-                </div>
-            </div>
-        </div>
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+      </div>
+      <span class="logo-text">Net<span>Tube</span></span>
     </div>
 
-    <!-- Department Resources Modal -->
-    <div class="modal" id="departmentModal">
-        <div class="modal-content" style="max-width: 1200px;">
-            <div class="modal-header">
-                <h3 id="deptModalTitle"><i class="fas fa-folder-open"></i> Department Resources</h3>
-                <button class="close-btn" onclick="closeDepartmentModal()">&times;</button>
-            </div>
-
-            <div class="modal-body">
-                <!-- Search Bar -->
-                <div style="margin-bottom: 30px;">
-                    <input type="text" id="deptSearchInput" placeholder="Search resources by title or description..."
-                        onkeyup="searchDepartmentResources()"
-                        style="width: 100%; padding: 15px 20px; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 140, 0, 0.3); color: #fff; border-radius: var(--radius-md); font-size: 1rem; font-family: var(--font-body);">
-                </div>
-
-                <!-- Resource Tabs -->
-                <div class="resource-tabs"
-                    style="display: flex; gap: 0; margin-bottom: 40px; border-bottom: 3px solid rgba(255, 140, 0, 0.2);">
-                    <button class="resource-tab active" onclick="switchResourceType('past-questions')"
-                        style="flex: 1; padding: 20px 40px; background: none; border: none; color: rgba(255, 255, 255, 0.5); font-size: 1.2rem; font-weight: 600; cursor: pointer; position: relative; transition: all 0.3s; text-align: center; font-family: var(--font-body);">
-                        <i class="fas fa-file-alt"></i> Past Questions
-                    </button>
-                    <button class="resource-tab" onclick="switchResourceType('other')"
-                        style="flex: 1; padding: 20px 40px; background: none; border: none; color: rgba(255, 255, 255, 0.5); font-size: 1.2rem; font-weight: 600; cursor: pointer; position: relative; transition: all 0.3s; text-align: center; font-family: var(--font-body);">
-                        <i class="fas fa-book"></i> Departmental Resources
-                    </button>
-                </div>
-
-                <!-- Past Questions Tab -->
-                <div id="pastQuestionsTab" class="form-content active">
-                    <div id="pastQuestionsList" style="display: grid; gap: 20px;"></div>
-                </div>
-
-                <!-- Other Resources Tab -->
-                <div id="otherResourcesTab" class="form-content">
-                    <div id="otherResourcesList" style="display: grid; gap: 20px;"></div>
-                </div>
-            </div>
-        </div>
+    <div class="nav-section">
+      <div class="nav-item active">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Home
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Explore
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Trending
+        <span class="nav-badge">Hot</span>
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+        Originals
+      </div>
     </div>
 
-    <!-- ADMIN DASHBOARD -->
-    <div class="dashboard" id="adminDashboard">
-        <div class="dashboard-header">
-            <h2><i class="fas fa-user-shield"></i> Admin Dashboard</h2>
-            <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
-        </div>
-
-        <div class="dashboard-content">
-            <h3 class="mb-4" style="color: var(--primary); font-family: var(--font-display); font-size: 2rem;">
-                Welcome, Admin! 🎯
-            </h3>
-
-            <!-- Admin Navigation -->
-            <div class="nav-tabs">
-                <button class="nav-tab active" onclick="switchAdminTab('overview')">
-                    <i class="fas fa-tachometer-alt"></i> Overview
-                </button>
-                <button class="nav-tab" onclick="switchAdminTab('upload')">
-                    <i class="fas fa-upload"></i> Upload Resources
-                </button>
-                
-                <button class="nav-tab" onclick="switchAdminTab('users')">
-                    <i class="fas fa-users"></i> Users
-                </button>
-                <button class="nav-tab" onclick="switchAdminTab('feedback')">
-                    <i class="fas fa-comments"></i> Feedback
-                </button>
-            </div>
-
-            <!-- Admin Overview -->
-            <div id="admin-overview-tab" class="tab-content active">
-                <div
-                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-lg); margin-bottom: var(--space-xl);">
-                    <div class="card" style="text-align: center;">
-                        <h3 style="color: var(--primary); font-size: 3rem;" id="totalUsers">0</h3>
-                        <p style="color: rgba(255, 255, 255, 0.7);">Total Users</p>
-                    </div>
-                    <div class="card" style="text-align: center;">
-                        <h3 style="color: var(--accent); font-size: 3rem;" id="totalResources">0</h3>
-                        <p style="color: rgba(255, 255, 255, 0.7);">Resources</p>
-                    </div>
-                    <div class="card" style="text-align: center;">
-                        <h3 style="color: var(--secondary); font-size: 3rem;" id="totalPosts">0</h3>
-                        <p style="color: rgba(255, 255, 255, 0.7);">Community Posts</p>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-bullhorn"></i> Send Announcement</h3>
-                    </div>
-                    <input type="text" id="announcementTitle" placeholder="Announcement Title"
-                        style="width: 100%; padding: var(--space-md); background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 140, 0, 0.2); color: #fff; border-radius: var(--radius-md); margin-bottom: var(--space-md); font-family: var(--font-body);">
-                    <textarea id="announcementContent" placeholder="Announcement content..."
-                        style="width: 100%; padding: var(--space-md); background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 140, 0, 0.2); color: #fff; border-radius: var(--radius-md); min-height: 120px; font-family: var(--font-body); margin-bottom: var(--space-md);"></textarea>
-                    <button class="btn" onclick="sendAnnouncement()" style="width: auto; padding: 12px 32px;">
-                        <i class="fas fa-paper-plane"></i> Send to All Students
-                    </button>
-                </div>
-            </div>
-
-            <!-- Admin Upload Tab -->
-            <div id="admin-upload-tab" class="tab-content">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-cloud-upload-alt"></i> Upload Resources</h3>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Department</label>
-                        <select id="uploadDepartment"
-                            style="width: 100%; padding: 16px; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 140, 0, 0.2); color: #fff; border-radius: var(--radius-md); font-family: var(--font-body);">
-                            <option value="">Select Department</option>
-                            <option value="history">History</option>
-                            <option value="iss">International Studies</option>
-                            <option value="french">French</option>
-                            <option value="portuguese">Portuguese</option>
-                            <option value="linguistics">Linguistics</option>
-                            <option value="philosophy">Philosophy</option>
-                            <option value="theatre-art">Theatre Art</option>
-                            <option value="gns">General Studies</option>
-                            <option value="english">English</option>
-                            <option value="peace-studies">Peace & Religious Studies</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Resource Title</label>
-                        <input type="text" id="uploadTitle" placeholder="e.g., Introduction to History">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea id="uploadDescription" placeholder="Describe the resource..."
-                            style="width: 100%; padding: var(--space-md); background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 140, 0, 0.2); color: #fff; border-radius: var(--radius-md); min-height: 100px; font-family: var(--font-body);"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Category</label>
-                        <select id="uploadCategory"
-                            style="width: 100%; padding: 16px; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 140, 0, 0.2); color: #fff; border-radius: var(--radius-md); font-family: var(--font-body);">
-                            <option value="past-questions">Past Questions</option>
-                            <option value="lecture-notes">Lecture Notes</option>
-                            <option value="textbooks">Textbooks</option>
-                            <option value="assignments">Assignments</option>
-                            <option value="tutorials">Tutorials</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>File</label>
-                        <input type="file" id="uploadFile"
-                            style="width: 100%; padding: var(--space-md); background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 140, 0, 0.2); color: #fff; border-radius: var(--radius-md); font-family: var(--font-body);">
-                    </div>
-
-                    <button class="btn" onclick="uploadResource()">
-                         <i class="fas fa-upload"></i> Upload Resource
-                     </button>
-                    </div>
-
-                    <div class="card mt-4">
-                     <div class="card-header">
-                         <h3 class="card-title"><i class="fas fa-list"></i> Uploaded Resources</h3>
-                     </div>
-                     <div id="uploadedResourcesList"></div>
-                    </div>
-                    </div>
-
-            <!-- Admin Course Outlines Tab -->
-            <div id="admin-outlines-admin-tab" class="tab-content">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-edit"></i> Add Course Outline</h3>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Department</label>
-                        <select id="adminoutlineDepartment"
-                            style="width: 100%; padding: 16px; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 140, 0, 0.2); color: #fff; border-radius: var(--radius-md); font-family: var(--font-body);">
-                            <option value="">Select Department</option>
-                            <option value="history">History</option>
-                            <option value="iss">International Studies</option>
-                            <option value="french">French</option>
-                            <option value="portuguese">Portuguese</option>
-                            <option value="linguistics">Linguistics</option>
-                            <option value="philosophy">Philosophy</option>
-                            <option value="theatre-art">Theatre Art</option>
-                            <option value="gns">General Studies</option>
-                            <option value="english">English</option>
-                            <option value="peace-studies">Peace & Religious Studies</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                         <label>Course Name</label>
-                         <input type="text" id="adminoutlineCourseName" placeholder="e.g., HIS 101 - Introduction to History" style="width: 100%; padding: 16px; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 140, 0, 0.2); color: #fff; border-radius: var(--radius-md); font-family: var(--font-body);">
-                     </div>
-
-                     <div class="form-group">
-                         <label>Course Outline (Auto-detects weeks)</label>
-                         <textarea id="adminoutlineContent" placeholder="Format:&#10;Week 1: Introduction to the course&#10;Week 2: Historical methods and sources&#10;Week 3: Ancient civilizations&#10;..." style="width: 100%; padding: var(--space-md); background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 140, 0, 0.2); color: #fff; border-radius: var(--radius-md); min-height: 200px; font-family: var(--font-body);"></textarea>
-                         <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; margin-top: 10px;">
-                             <i class="fas fa-info-circle"></i> Start each week with "Week X:" - the system will automatically parse and save each week separately
-                         </p>
-                     </div>
-
-                    <button class="btn" onclick="addCourseOutline()">
-                        <i class="fas fa-plus"></i> Add Outline
-                    </button>
-                </div>
-
-                <div class="card mt-4">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-list"></i> Existing Outlines</h3>
-                    </div>
-                    <div id="existingOutlines"></div>
-                </div>
-            </div>
-
-            <!-- Admin Users Tab -->
-            <div id="admin-users-tab" class="tab-content">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-user-friends"></i> Registered Users</h3>
-                    </div>
-                    <div id="usersList"></div>
-                </div>
-            </div>
-
-            <!-- Admin Feedback Tab -->
-            <div id="admin-feedback-tab" class="tab-content">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-comment-dots"></i> Student Feedback</h3>
-                    </div>
-                    <div id="feedbackList"></div>
-                </div>
-            </div>
-        </div>
+    <div class="nav-section" style="border-top:1px solid var(--border)">
+      <div class="nav-label">Library</div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Watch Later
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        Liked Videos
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        My Lists
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        Subscriptions
+      </div>
     </div>
 
-    <script>
-        // ==================== FIREBASE CONFIGURATION ====================
-        const firebaseConfig = {
-            apiKey: "AIzaSyDRedGhjpZA8cjd-aa-F4GEcwx9Y5Z3fjw",
-            authDomain: "uniuse.firebaseapp.com",
-            projectId: "uniuse",
-            storageBucket: "uniuse.firebasestorage.app",
-            messagingSenderId: "132594569463",
-            appId: "1:132594569463:web:b5e03aa73910f371c7c3f2",
-            measurementId: "G-9QTP9ZXN1M"
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-        const storage = firebase.storage();
-
-        const ADMIN_EMAIL = 'toluwanioloyede27@gmail.com';
-        const ADMIN_PASSWORD = '1234ABCD';
-        const CLOUDINARY_CLOUD_NAME = 'dzhdgxjhl';
-        const CLOUDINARY_UPLOAD_PRESET = 'posepreset';
-
-        // Current User Data
-        let currentUser = null;
-
-        // ==================== AUTH FUNCTIONS ====================
-        function switchTab(tab) {
-            const tabs = document.querySelectorAll('.tab');
-            const forms = document.querySelectorAll('.form-content');
-
-            tabs.forEach(t => t.classList.remove('active'));
-            forms.forEach(f => f.classList.remove('active'));
-
-            if (tab === 'login') {
-                tabs[0].classList.add('active');
-                document.getElementById('loginForm').classList.add('active');
-            } else {
-                tabs[1].classList.add('active');
-                document.getElementById('signupForm').classList.add('active');
-            }
-
-            hideMessage();
-        }
-
-        function showMessage(text, type = 'success') {
-            const msg = document.getElementById('message');
-            msg.textContent = text;
-            msg.className = 'message show ' + type;
-            setTimeout(() => hideMessage(), 4000);
-        }
-
-        function hideMessage() {
-            const msg = document.getElementById('message');
-            msg.classList.remove('show');
-        }
-
-        function handleSignup(e) {
-            e.preventDefault();
-
-            const matric = document.getElementById('signupMatric').value;
-            const name = document.getElementById('signupName').value;
-            const email = document.getElementById('signupEmail').value;
-            const department = document.getElementById('signupDepartment').value;
-            const password = document.getElementById('signupPassword').value;
-
-            if (!matric || !name || !email || !department || !password) {
-                showMessage('Please fill in all fields', 'error');
-                return;
-            }
-
-            // Check if matric already exists
-            db.collection('students').where('matric', '==', matric).get().then(snapshot => {
-                if (!snapshot.empty) {
-                    showMessage('This matric number is already registered!', 'error');
-                    return;
-                }
-
-                // Create user with Firebase Auth
-                auth.createUserWithEmailAndPassword(email, password).then(userCredential => {
-                    const firebaseUser = userCredential.user;
-
-                    // Save additional user data to Firestore
-                    db.collection('students').doc(firebaseUser.uid).set({
-                        uid: firebaseUser.uid,
-                        matric: matric,
-                        name: name,
-                        email: email,
-                        department: department,
-                        registeredDate: firebase.firestore.FieldValue.serverTimestamp()
-                    }).then(() => {
-                        showMessage('Account created successfully! You can now login.', 'success');
-
-                        setTimeout(() => {
-                            switchTab('login');
-                            document.getElementById('loginMatric').value = matric;
-                            e.target.reset();
-                            auth.signOut();
-                        }, 1500);
-                    }).catch(error => {
-                        console.error('Firestore error:', error);
-                        showMessage('Error saving user data: ' + error.message, 'error');
-                    });
-                }).catch(error => {
-                    console.error('Auth error:', error);
-                    if (error.code === 'auth/email-already-in-use') {
-                        showMessage('This email is already registered!', 'error');
-                    } else if (error.code === 'auth/weak-password') {
-                        showMessage('Password should be at least 6 characters!', 'error');
-                    } else {
-                        showMessage('Signup error: ' + error.message, 'error');
-                    }
-                });
-            }).catch(error => {
-                console.error('Error checking matric:', error);
-                showMessage('Error during signup: ' + error.message, 'error');
-            });
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-
-            const identifier = document.getElementById('loginMatric').value;
-            const password = document.getElementById('loginPassword').value;
-
-            if (!identifier || !password) {
-                showMessage('Please fill in all fields', 'error');
-                return;
-            }
-
-            // Check for admin login
-            if (identifier === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-                showMessage('Admin login successful!', 'success');
-                setTimeout(() => {
-                    showAdminDashboard();
-                    e.target.reset();
-                }, 1000);
-                return;
-            }
-
-            // Student login
-            db.collection('students').where('matric', '==', identifier).get().then(snapshot => {
-                if (snapshot.empty) {
-                    showMessage('Matric number not found. Please sign up first.', 'error');
-                    return;
-                }
-
-                const studentDoc = snapshot.docs[0];
-                const studentData = studentDoc.data();
-                const email = studentData.email;
-
-                auth.signInWithEmailAndPassword(email, password).then(userCredential => {
-                    showMessage(`Welcome back, ${studentData.name}!`, 'success');
-
-                    setTimeout(() => {
-                        showStudentDashboard(studentData);
-                        e.target.reset();
-                    }, 1500);
-                }).catch(error => {
-                    console.error('Firebase Auth error:', error);
-                    if (error.code === 'auth/wrong-password') {
-                        showMessage('Incorrect password. Please try again.', 'error');
-                    } else {
-                        showMessage('Login error: ' + error.message, 'error');
-                    }
-                });
-            }).catch(error => {
-                console.error('Firestore error:', error);
-                showMessage('Error during login: ' + error.message, 'error');
-            });
-        }
-
-        // Auto-login with Firebase Authentication
-        auth.onAuthStateChanged(function (user) {
-            if (user) {
-                db.collection('students').doc(user.uid).get().then(doc => {
-                    if (doc.exists) {
-                        const studentData = doc.data();
-                        showStudentDashboard(studentData);
-                    }
-                }).catch(error => {
-                    console.error('Auto-login error:', error);
-                });
-            }
-        });
-
-        function logout() {
-            auth.signOut().then(() => {
-                document.getElementById('authSection').style.display = 'flex';
-                document.getElementById('studentDashboard').classList.remove('active');
-                document.getElementById('adminDashboard').classList.remove('active');
-                currentUser = null;
-            });
-        }
-
-        // ==================== DASHBOARD FUNCTIONS ====================
-        function showStudentDashboard(userData) {
-            currentUser = userData;
-
-            document.getElementById('authSection').style.display = 'none';
-            document.getElementById('studentDashboard').classList.add('active');
-            document.getElementById('studentName').textContent = userData.name;
-            document.getElementById('studentMatric').textContent = userData.matric;
-            document.getElementById('studentDepartment').textContent = getDepartmentFullName(userData.department);
-            document.getElementById('outlineDeptName').textContent = getDepartmentFullName(userData.department);
-
-            // Load data
-            loadAnnouncements();
-            loadPersonalMessages();
-            loadCommunities();
-            loadCommunityFeed();
-            loadCourseOutlines();
-            loadAIConversations();
-            loadStudyStats();
-        }
-
-        function showAdminDashboard() {
-            document.getElementById('authSection').style.display = 'none';
-            document.getElementById('adminDashboard').classList.add('active');
-
-            loadAdminStats();
-            loadUsers();
-            loadFeedback();
-            loadExistingOutlines();
-        }
-
-        function getDepartmentFullName(dept) {
-            const deptMap = {
-                'history': 'History',
-                'iss': 'International Studies',
-                'french': 'French',
-                'portuguese': 'Portuguese',
-                'linguistics': 'Linguistics',
-                'philosophy': 'Philosophy',
-                'theatre-art': 'Theatre Art',
-                'gns': 'General Studies',
-                'english': 'English',
-                'peace-studies': 'Peace & Religious Studies'
-            };
-            return deptMap[dept] || dept;
-        }
-
-        // ==================== NAVIGATION ====================
-        function switchNavTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-
-            // Remove active from all nav tabs
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-
-            // Show selected tab
-            document.getElementById(tabName + '-tab').classList.add('active');
-
-            // Add active to clicked nav tab
-            event.target.classList.add('active');
-        }
-
-        function switchAdminTab(tabName) {
-            // Hide all admin tabs
-            document.querySelectorAll('#adminDashboard .tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-
-            // Remove active from all nav tabs
-            document.querySelectorAll('#adminDashboard .nav-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-
-            // Show selected tab
-            document.getElementById('admin-' + tabName + '-tab').classList.add('active');
-
-            // Add active to clicked nav tab
-            event.target.classList.add('active');
-
-            // Initialize admin features when those tabs are opened
-            if (tabName === 'upload') {
-                loadUploadedResources();
-            } else if (tabName === 'outlines-admin') {
-                loadExistingOutlines();
-            }
-        }
-
-        // ==================== ANNOUNCEMENTS ====================
-        function loadAnnouncements() {
-            const list = document.getElementById('announcementsList');
-            list.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); padding: 20px;">Loading...</p>';
-
-            db.collection('announcements').orderBy('sentDate', 'desc').limit(5).get().then(snapshot => {
-                if (snapshot.empty) {
-                    list.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); padding: 20px;">No announcements yet</p>';
-                } else {
-                    list.innerHTML = '';
-                    snapshot.forEach(doc => {
-                        const data = doc.data();
-                        const div = document.createElement('div');
-                        div.className = 'post';
-                        div.innerHTML = `
-                    <h4 style="color: var(--primary); margin-bottom: 10px;">${data.title}</h4>
-                    <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.6;">${data.content}</p>
-                    <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.5); margin-top: 10px;">
-                        ${data.sentDate ? new Date(data.sentDate.toDate()).toLocaleString() : 'Just now'}
-                    </p>
-                `;
-                        list.appendChild(div);
-                    });
-                }
-            });
-        }
-
-        function sendAnnouncement() {
-            const title = document.getElementById('announcementTitle').value;
-            const content = document.getElementById('announcementContent').value;
-
-            if (!title || !content) {
-                alert('Please fill in both title and content');
-                return;
-            }
-
-            db.collection('announcements').add({
-                title: title,
-                content: content,
-                sentDate: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
-                alert('✅ Announcement sent to all students!');
-                document.getElementById('announcementTitle').value = '';
-                document.getElementById('announcementContent').value = '';
-            }).catch(error => {
-                alert('Error: ' + error.message);
-            });
-        }
-
-        // ==================== MESSAGES ====================
-        function loadPersonalMessages() {
-            const list = document.getElementById('messagesList');
-            list.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); padding: 20px;">Loading...</p>';
-
-            db.collection('messages').where('recipientMatric', '==', currentUser.matric)
-                .orderBy('sentDate', 'desc').limit(5).get().then(snapshot => {
-                    if (snapshot.empty) {
-                        list.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); padding: 20px;">No messages yet</p>';
-                    } else {
-                        list.innerHTML = '';
-                        snapshot.forEach(doc => {
-                            const data = doc.data();
-                            const div = document.createElement('div');
-                            div.className = 'post';
-                            div.innerHTML = `
-                    <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.6;">${data.message}</p>
-                    <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.5); margin-top: 10px;">
-                        From Admin - ${data.sentDate ? new Date(data.sentDate.toDate()).toLocaleString() : 'Just now'}
-                    </p>
-                `;
-                            list.appendChild(div);
-                        });
-                    }
-                });
-        }
-
-        // ==================== RESOURCES ====================
-        let currentDepartmentFilter = '';
-
-        function filterByDepartment(department) {
-            // Update active tab styling
-            document.querySelectorAll('.dept-tab').forEach(tab => {
-                tab.classList.remove('active');
-                tab.style.background = 'rgba(255, 140, 0, 0.2)';
-                tab.style.color = '#fff';
-                tab.style.border = '1px solid rgba(255, 140, 0, 0.5)';
-            });
-
-            event.target.classList.add('active');
-            event.target.style.background = 'var(--primary)';
-            event.target.style.color = 'var(--dark)';
-            event.target.style.border = 'none';
-
-            currentDepartmentFilter = department;
-
-            // Get department name for modal title
-            const deptName = getDepartmentFullName(department) || 'All Departments';
-            document.getElementById('deptModalTitle').innerHTML = `<i class="fas fa-folder-open"></i> ${deptName} Resources`;
-
-            // Open modal and load resources
-            openDepartmentModal(department);
-        }
-
-        function openDepartmentModal(department) {
-            document.getElementById('departmentModal').classList.add('active');
-            currentDepartmentFilter = department;
-
-            // Load past questions by default
-            switchResourceType('past-questions');
-        }
-
-        function closeDepartmentModal() {
-            document.getElementById('departmentModal').classList.remove('active');
-            document.getElementById('deptSearchInput').value = '';
-        }
-
-        function switchResourceType(type) {
-            // Update tab styling
-            document.querySelectorAll('.resource-tab').forEach(tab => {
-                tab.classList.remove('active');
-                tab.style.color = 'rgba(255, 255, 255, 0.5)';
-                tab.style.background = 'none';
-            });
-
-            event.target.classList.add('active');
-            event.target.style.color = 'var(--primary)';
-
-            // Show/hide content tabs
-            if (type === 'past-questions') {
-                document.getElementById('pastQuestionsTab').classList.add('active');
-                document.getElementById('otherResourcesTab').classList.remove('active');
-            } else {
-                document.getElementById('pastQuestionsTab').classList.remove('active');
-                document.getElementById('otherResourcesTab').classList.add('active');
-            }
-
-            // Load resources
-            loadResourcesByType(type);
-        }
-
-        function loadResourcesByType(type) {
-            const listId = type === 'past-questions' ? 'pastQuestionsList' : 'otherResourcesList';
-            const list = document.getElementById(listId);
-
-            list.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); padding: 40px; text-align: center;">Loading resources...</p>';
-
-            // Use 'courses' collection like in original code
-            let query = db.collection('courses');
-
-            // Filter by department if specified
-            if (currentDepartmentFilter) {
-                query = query.where('department', '==', currentDepartmentFilter);
-            }
-
-            // Get all documents without ordering to avoid index requirement
-            query.get().then(snapshot => {
-                if (snapshot.empty) {
-                    list.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); padding: 40px; text-align: center;">No resources found</p>';
-                    return;
-                }
-
-                // Filter by type and sort manually
-                const resources = [];
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    if (type === 'past-questions' && data.category === 'past-questions') {
-                        resources.push({ id: doc.id, data: data });
-                    } else if (type === 'other' && data.category !== 'past-questions') {
-                        resources.push({ id: doc.id, data: data });
-                    }
-                });
-
-                if (resources.length === 0) {
-                    list.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); padding: 40px; text-align: center;">No resources found in this category</p>';
-                    return;
-                }
-
-                // Sort by uploadedDate manually (newest first)
-                resources.sort((a, b) => {
-                    const dateA = a.data.uploadedDate ? a.data.uploadedDate.toDate() : new Date(0);
-                    const dateB = b.data.uploadedDate ? b.data.uploadedDate.toDate() : new Date(0);
-                    return dateB - dateA;
-                });
-
-                // Display resources
-                list.innerHTML = '';
-                resources.forEach(resource => {
-                    const data = resource.data;
-                    const uploadedDate = data.uploadedDate ? new Date(data.uploadedDate.toDate()).toLocaleString() : 'N/A';
-
-                    // Use the file URL from Firebase Storage or Cloudinary
-                    const fileUrl = data.firebaseStorageUrl || data.cloudinaryUrl || '';
-                    const fileName = data.name || data.fileName || 'download';
-
-                    const div = document.createElement('div');
-                    div.className = 'resource-item';
-                    div.setAttribute('data-title', data.title.toLowerCase());
-                    div.setAttribute('data-description', (data.description || '').toLowerCase());
-                    div.innerHTML = `
-                <h4><i class="fas fa-file-alt"></i> ${data.title}</h4>
-                <p><strong>Department:</strong> ${getDepartmentFullName(data.department)}</p>
-                <p>${data.description || 'No description available'}</p>
-                <div>
-                    <span class="category-badge">${data.category.toUpperCase().replace('-', ' ')}</span>
-                    <span class="category-badge"><i class="fas fa-file"></i> ${fileName}</span>
-                    ${data.size ? `<span class="category-badge"><i class="fas fa-database"></i> ${data.size}</span>` : ''}
+    <div class="nav-section" style="border-top:1px solid var(--border)">
+      <div class="nav-label">Up Next</div>
+      <div style="display:flex;flex-direction:column;gap:8px;padding:4px 12px">
+        <div class="sidebar-thumb">
+          <div class="thumb-img c3"><span>🌌</span>
+            <div class="play-icon"><svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:#fff"><polygon points="5 3 19 12 5 21"/></svg></div>
+          </div>
+          <div class="thumb-info">
+            <div class="thumb-title">Interstellar: Director's Cut</div>
+            <div class="thumb-meta">2:49:14 remaining</div>
+          </div>
+        </div>
+        <div class="sidebar-thumb">
+          <div class="thumb-img c1"><span>🦁</span>
+            <div class="play-icon"><svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:#fff"><polygon points="5 3 19 12 5 21"/></svg></div>
+          </div>
+          <div class="thumb-info">
+            <div class="thumb-title">Planet Earth III – Ep 4</div>
+            <div class="thumb-meta">44:20 remaining</div>
+          </div>
+        </div>
+        <div class="sidebar-thumb">
+          <div class="thumb-img c2"><span>🚀</span>
+            <div class="play-icon"><svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:#fff"><polygon points="5 3 19 12 5 21"/></svg></div>
+          </div>
+          <div class="thumb-info">
+            <div class="thumb-title">Mars: First Colony</div>
+            <div class="thumb-meta">1:12:08 remaining</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:auto;padding:16px 20px;border-top:1px solid var(--border)">
+      <div class="nav-item" style="padding:8px 0">
+        <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93A10 10 0 105 19.07"/></svg>
+        Settings
+      </div>
+      <div class="nav-item" style="padding:8px 0">
+        <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Help
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN ═══ -->
+  <div class="main">
+
+    <!-- Top Bar -->
+    <div class="topbar">
+      <div class="search-wrap">
+        <input type="text" placeholder="Search movies, shows, creators…"/>
+        <button class="search-btn">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+      </div>
+      <div class="filter-pills">
+        <div class="pill active">All</div>
+        <div class="pill">Movies</div>
+        <div class="pill">TV Shows</div>
+        <div class="pill">Creators</div>
+        <div class="pill">Documentaries</div>
+        <div class="pill">Anime</div>
+        <div class="pill">Live</div>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn">
+          <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <div class="notif-dot"></div>
+        </button>
+        <button class="icon-btn">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </button>
+        <div class="avatar">A</div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+      <!-- ─── HERO ─── -->
+      <div class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-scene">
+          <div class="hero-visual">
+            <span style="position:relative;z-index:1;font-size:100px">🌌</span>
+            <div class="hero-badge">NetTube Original</div>
+            <div class="hero-rank">1</div>
+          </div>
+        </div>
+        <div class="hero-content">
+          <div class="hero-category">⚡ #1 in Streaming Today</div>
+          <div class="hero-title">BEYOND<br>THE COSMOS</div>
+          <div class="hero-meta">
+            <span class="match">97% Match</span>
+            <div class="dot"></div>
+            <span>2024</span>
+            <div class="dot"></div>
+            <span style="border:1px solid var(--text3);padding:1px 5px;border-radius:3px;font-size:11px">HD</span>
+            <div class="dot"></div>
+            <span>2h 38m</span>
+          </div>
+          <div class="hero-desc">
+            When humanity's last probe discovers an anomaly beyond Neptune, astronaut Dr. Kira Solano must journey farther than any human has gone — and confront what truly lies at the edge of existence.
+          </div>
+          <div class="hero-actions">
+            <button class="btn-play">
+              <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:#000"><polygon points="5 3 19 12 5 21"/></svg>
+              Play Now
+            </button>
+            <button class="btn-info">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              More Info
+            </button>
+          </div>
+        </div>
+        <div class="hero-indicators">
+          <div class="indicator active"></div>
+          <div class="indicator"></div>
+          <div class="indicator"></div>
+          <div class="indicator"></div>
+        </div>
+      </div>
+
+      <!-- ─── CONTINUE WATCHING ─── -->
+      <div class="section">
+        <div class="section-head">
+          <div class="section-title">Continue Watching</div>
+          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+        <div class="carousel">
+          <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <div class="carousel-track">
+            <!-- cards -->
+            <div class="nf-card" style="width:220px">
+              <div class="nf-card-img c3"><span>🔥</span></div>
+              <div class="nf-card-overlay">
+                <div class="nf-card-actions">
+                  <div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div>
+                  <div class="mini-btn"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+                  <div class="mini-btn"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
                 </div>
-                <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.5); margin-top: 10px;">
-                    <i class="fas fa-clock"></i> Posted: ${uploadedDate}
-                </p>
-                ${fileUrl ? `
-                    <div class="resource-actions">
-                        <button class="resource-btn" onclick="viewFile('${fileUrl.replace(/'/g, "\\'")}', '${fileName.replace(/'/g, "\\'")}')">
-                            <i class="fas fa-eye"></i> View
-                        </button>
-                        <button class="resource-btn" onclick="downloadFile('${fileUrl.replace(/'/g, "\\'")}', '${fileName.replace(/'/g, "\\'")}')">
-                            <i class="fas fa-download"></i> Download
-                        </button>
-                        <button class="resource-btn secondary" onclick="shareFile('${data.department}', '${fileName.replace(/'/g, "\\'")}', '${data.title.replace(/'/g, "\\'")}')">
-                            <i class="fas fa-share"></i> Share
-                        </button>
-                    </div>
-                ` : ''}
-            `;
-                    list.appendChild(div);
-                });
-            }).catch(error => {
-                console.error('Error loading resources:', error);
-                list.innerHTML = `<p style="color: #ff6666; padding: 40px; text-align: center;">Error loading resources: ${error.message}</p>`;
-            });
-        }
-
-        function searchDepartmentResources() {
-            const searchTerm = document.getElementById('deptSearchInput').value.toLowerCase();
-            const activeTab = document.querySelector('.resource-tab.active').textContent.includes('Past') ? 'past-questions' : 'other';
-            const listId = activeTab === 'past-questions' ? 'pastQuestionsList' : 'otherResourcesList';
-
-            const items = document.querySelectorAll(`#${listId} .resource-item`);
-
-            items.forEach(item => {
-                const title = item.getAttribute('data-title') || '';
-                const description = item.getAttribute('data-description') || '';
-
-                if (title.includes(searchTerm) || description.includes(searchTerm)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-        async function viewFile(fileUrl, fileName) {
-            const modal = document.getElementById('fileViewerModal');
-            const title = document.getElementById('fileViewerTitle');
-            const content = document.getElementById('fileContentDisplay');
-
-            title.textContent = fileName;
-            content.innerHTML = '<div class="loading-spinner"><div class="spinner"></div><p>Loading file...</p></div>';
-            modal.classList.add('active');
-
-            try {
-                const response = await fetch(fileUrl);
-                const text = await response.text();
-                content.textContent = text;
-                updateFileView();
-            } catch (error) {
-                content.innerHTML = `<p style="color: #ff6666;">Error loading file. <a href="${fileUrl}" target="_blank" style="color: var(--primary);">Open in new tab</a></p>`;
-            }
-        }
-
-        function closeFileViewer() {
-            document.getElementById('fileViewerModal').classList.remove('active');
-        }
-
-        function updateFileView() {
-            const content = document.getElementById('fileContentDisplay');
-            const fontFamily = document.getElementById('fontFamily').value;
-            const fontSize = document.getElementById('fontSize').value + 'px';
-
-            content.style.fontFamily = fontFamily;
-            content.style.fontSize = fontSize;
-        }
-
-        // ==================== FIXED TOAST NOTIFICATION SYSTEM ====================
-
-        let activeToasts = []; // Track all active toasts
-
-        function showToast(message, type = 'info', duration = 3000) {
-            // Create toast element
-            const toast = document.createElement('div');
-            toast.className = `toast toast-${type}`;
-            toast.textContent = message;
-
-            // Add to body
-            document.body.appendChild(toast);
-
-            // Add to active toasts array
-            activeToasts.push(toast);
-
-            // Trigger show animation
-            setTimeout(() => {
-                toast.classList.add('show');
-            }, 10);
-
-            // Auto-hide after duration
-            if (duration > 0) {
-                setTimeout(() => {
-                    hideToast(toast);
-                }, duration);
-            }
-
-            return toast;
-        }
-
-        function hideToast(toast) {
-            if (!toast || !toast.parentNode) return;
-
-            // Remove show class
-            toast.classList.remove('show');
-
-            // Remove from DOM after animation
-            setTimeout(() => {
-                if (toast.parentNode) {
-                    toast.parentNode.removeChild(toast);
-
-                    // Remove from active toasts array
-                    const index = activeToasts.indexOf(toast);
-                    if (index > -1) {
-                        activeToasts.splice(index, 1);
-                    }
-                }
-            }, 300);
-        }
-
-        // Clear all toasts
-        function clearAllToasts() {
-            activeToasts.forEach(toast => hideToast(toast));
-            activeToasts = [];
-        }
-
-        // ==================== ENHANCED DOWNLOAD FUNCTION (FIXED) ====================
-
-        async function downloadFile(fileUrl, fileName) {
-            let loadingToast = null;
-
-            try {
-                // Show loading indicator (auto-hide disabled)
-                loadingToast = showToast('📥 Preparing download...', 'info', 0);
-
-                // Fetch the file
-                const response = await fetch(fileUrl);
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch file');
-                }
-
-                // Get the blob
-                const blob = await response.blob();
-
-                // Create a temporary URL
-                const blobUrl = window.URL.createObjectURL(blob);
-
-                // Create a temporary anchor element
-                const link = document.createElement('a');
-                link.href = blobUrl;
-                link.download = fileName || 'download';
-                link.style.display = 'none';
-
-                // Append to body, click, and remove
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-
-                // Clean up the blob URL
-                setTimeout(() => {
-                    window.URL.revokeObjectURL(blobUrl);
-                }, 100);
-
-                // Hide loading toast
-                if (loadingToast) {
-                    hideToast(loadingToast);
-                }
-
-                // Show success toast (auto-hide after 3 seconds)
-                showToast(`✅ ${fileName} downloaded successfully!`, 'success', 3000);
-
-                // Track download in Firebase (optional)
-                trackDownload(fileName);
-
-            } catch (error) {
-                console.error('Download error:', error);
-
-                // Hide loading toast
-                if (loadingToast) {
-                    hideToast(loadingToast);
-                }
-
-                // Show error toast
-                showToast('❌ Download failed. Opening in new tab...', 'error', 3000);
-
-                // Fallback: Open in new tab
-                setTimeout(() => {
-                    window.open(fileUrl, '_blank');
-                }, 1500);
-            }
-        }
-
-        // ==================== ALTERNATIVE: SIMPLE DIRECT DOWNLOAD ====================
-
-        function downloadFileDirect(fileUrl, fileName) {
-            // Create a hidden anchor element
-            const link = document.createElement('a');
-            link.href = fileUrl;
-            link.download = fileName || 'download';
-            link.target = '_blank';
-            link.rel = 'noopener noreferrer';
-
-            // Trigger download
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            // Show toast (auto-hide after 3 seconds)
-            showToast(`📥 Download started: ${fileName}`, 'success', 3000);
-        }
-
-        // ==================== TRACK DOWNLOADS ====================
-
-        function trackDownload(fileName) {
-            if (!currentUser) return;
-
-            db.collection('downloads').add({
-                userId: currentUser.uid,
-                userName: currentUser.name,
-                fileName: fileName,
-                downloadedAt: firebase.firestore.FieldValue.serverTimestamp()
-            }).catch(error => {
-                console.error('Error tracking download:', error);
-            });
-        }
-
-        // ==================== ENHANCED SHARE FUNCTION ====================
-
-        function shareFile(department, fileName, fileTitle) {
-            const baseUrl = window.location.origin + window.location.pathname;
-            const shareUrl = `${baseUrl}?dept=${encodeURIComponent(department)}&file=${encodeURIComponent(fileName)}&title=${encodeURIComponent(fileTitle)}`;
-
-            const shareText = `📚 Check out this resource from FLASH100: ${fileTitle}`;
-
-            // Try native share API first (mobile)
-            if (navigator.share) {
-                navigator.share({
-                    title: fileTitle,
-                    text: shareText,
-                    url: shareUrl
-                }).then(() => {
-                    showToast('✅ Shared successfully!', 'success', 3000);
-                }).catch(err => {
-                    if (err.name !== 'AbortError') {
-                        copyToClipboardEnhanced(shareUrl, shareText);
-                    }
-                });
-            } else {
-                // Fallback to copy
-                copyToClipboardEnhanced(shareUrl, shareText);
-            }
-        }
-
-        function copyToClipboardEnhanced(url, message) {
-            const fullText = `${message}\n\n${url}`;
-
-            navigator.clipboard.writeText(fullText).then(() => {
-                showToast('✅ Link copied to clipboard!', 'success', 3000);
-            }).catch(() => {
-                // Fallback for older browsers
-                const textArea = document.createElement('textarea');
-                textArea.value = fullText;
-                textArea.style.position = 'fixed';
-                textArea.style.left = '-999999px';
-                document.body.appendChild(textArea);
-                textArea.select();
-
-                try {
-                    document.execCommand('copy');
-                    showToast('✅ Link copied to clipboard!', 'success', 3000);
-                } catch (err) {
-                    prompt('Copy this link:', fullText);
-                }
-
-                document.body.removeChild(textArea);
-            });
-        }
-
-        // ==================== INJECT TOAST STYLES ====================
-
-        const toastStyles = `
-/* Toast Notification Styles */
-.toast {
-    position: fixed;
-    bottom: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.95);
-    color: var(--dark);
-    padding: 15px 25px;
-    border-radius: 50px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-    font-weight: 600;
-    font-size: 0.95rem;
-    z-index: 10000;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 140, 0, 0.3);
-    max-width: 90%;
-    text-align: center;
-    pointer-events: none;
-}
-
-.toast.show {
-    bottom: 30px;
-    animation: toastSlideIn 0.3s ease-out;
-}
-
-@keyframes toastSlideIn {
-    from {
-        bottom: -100px;
-        opacity: 0;
-    }
-    to {
-        bottom: 30px;
-        opacity: 1;
-    }
-}
-
-
-.toast-error {
-background: linear-gradient(135deg, rgba(255, 107, 107, 0.95) 0%, rgba(255, 71, 87, 0.95) 100%);
-color: white;
-border-color: rgba(255, 107, 107, 0.5);
-}
-
-.toast-info {
-background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%);
-color: white;
-border-color: rgba(102, 126, 234, 0.5);
-}
-
-/* Multiple Toasts Stacking */ .toast:nth-child(2) { bottom: 90px; }
-
-.toast:nth-child(3) { bottom: 150px; }
-
-/* Mobile Responsive */
-@media (max-width: 480px) {
-.toast {
-font-size: 0.85rem;
-padding: 12px 20px;
-max-width: 85%;
-}
-
-.toast.show {
-    bottom: 20px;
-}
-
-.toast:nth-child(2) {
-    bottom: 80px;
-}
-
-.toast:nth-child(3) {
-    bottom: 140px;
-}
-}
-`;
-
-    // Inject styles on page load
-    (function injectToastStyles() {
-        if (!document.getElementById('toast-styles')) {
-            const style = document.createElement('style');
-            style.id = 'toast-styles';
-            style.textContent = toastStyles;
-            document.head.appendChild(style);
-        }
-    })();
-
-    // ==================== TESTING FUNCTIONS ====================
-
-    // Test toast notifications
-    function testToasts() {
-        showToast('This is an info message', 'info', 3000);
-        setTimeout(() => {
-            showToast('This is a success message!', 'success', 3000);
-        }, 500);
-        setTimeout(() => {
-            showToast('This is an error message!', 'error', 3000);
-        }, 1000);
-    }
-
-    // Call this to test: testToasts()
-
-    // ==================== FIXED ADMIN UPLOAD SECTION ====================
-
-    function uploadResource() {
-        const dept = document.getElementById('uploadDepartment').value;
-        const title = document.getElementById('uploadTitle').value;
-        const desc = document.getElementById('uploadDescription').value;
-        const category = document.getElementById('uploadCategory').value;
-        const fileInput = document.getElementById('uploadFile');
-
-        if (!dept || !title || !desc || !category || !fileInput.files[0]) {
-            showToast('Please fill in all fields and select a file', 'error', 3000);
-            return;
-        }
-
-        const file = fileInput.files[0];
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-
-        const originalFileName = file.name;
-        const fileSize = (file.size / 1024 / 1024).toFixed(2) + ' MB';
-
-        showToast('Uploading... Please wait', 'info', 0);
-
-        fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`, {
-            method: 'POST',
-            body: formData
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    throw new Error(data.error.message);
-                }
-
-                return db.collection('courses').add({
-                    department: dept,
-                    title: title,
-                    description: desc,
-                    category: category,
-                    name: originalFileName,
-                    fileName: originalFileName,
-                    size: fileSize,
-                    cloudinaryUrl: data.secure_url,
-                    uploadedDate: firebase.firestore.FieldValue.serverTimestamp(),
-                    uploadedBy: 'admin'
-                });
-            })
-            .then(() => {
-                clearAllToasts();
-                showToast('✅ Resource uploaded successfully!', 'success', 3000);
-                document.getElementById('uploadDepartment').value = '';
-                document.getElementById('uploadTitle').value = '';
-                document.getElementById('uploadDescription').value = '';
-                document.getElementById('uploadCategory').value = 'past-questions';
-                document.getElementById('uploadFile').value = '';
-                loadAdminStats();
-                loadUploadedResources();
-            })
-            .catch(error => {
-                clearAllToasts();
-                showToast('Error: ' + error.message, 'error', 4000);
-            });
-    }
-
-    // ==================== LOAD UPLOADED RESOURCES FOR ADMIN ====================
-
-    function loadUploadedResources() {
-        const container = document.getElementById('uploadedResourcesList');
-        if (!container) return;
-
-        container.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); padding: 20px;">Loading resources...</p>';
-
-        db.collection('courses')
-            .orderBy('uploadedDate', 'desc')
-            .get()
-            .then(snapshot => {
-                if (snapshot.empty) {
-                    container.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); padding: 20px;">No resources uploaded yet</p>';
-                    return;
-                }
-
-                container.innerHTML = '';
-
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    const docId = doc.id;
-                    const uploadedDate = data.uploadedDate ? new Date(data.uploadedDate.toDate()).toLocaleString() : 'N/A';
-
-                    const div = document.createElement('div');
-                    div.className = 'resource-item';
-                    div.style.cssText = 'margin-bottom: 20px; position: relative;';
-                    div.innerHTML = `
-                        <h4 style="color: var(--primary); margin-bottom: 10px;">
-                            <i class="fas fa-file-alt"></i> ${data.title}
-                        </h4>
-                        <p><strong>Department:</strong> ${getDepartmentFullName(data.department)}</p>
-                        <p><strong>Category:</strong> ${data.category.replace('-', ' ').toUpperCase()}</p>
-                        <p>${data.description || 'No description'}</p>
-                        <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.5); margin-top: 10px;">
-                            <i class="fas fa-clock"></i> Uploaded: ${uploadedDate}
-                        </p>
-                        <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
-                            <button class="resource-btn" onclick="editResource('${docId}', '${data.title.replace(/'/g, "\\'")}', '${(data.description || '').replace(/'/g, "\\'")}', '${data.department}', '${data.category}')">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="resource-btn" style="background: var(--danger);" onclick="deleteResource('${docId}', '${data.title.replace(/'/g, "\\'")}')">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                            <button class="resource-btn secondary" onclick="viewFile('${data.cloudinaryUrl}', '${data.fileName}')">
-                                <i class="fas fa-eye"></i> Preview
-                            </button>
-                        </div>
-                    `;
-                    container.appendChild(div);
-                });
-            })
-            .catch(error => {
-                console.error('Error loading resources:', error);
-                container.innerHTML = `<p style="color: #ff6666; padding: 20px;">Error: ${error.message}</p>`;
-            });
-    }
-
-    // ==================== EDIT RESOURCE ====================
-
-    function editResource(docId, currentTitle, currentDesc, currentDept, currentCategory) {
-        const newTitle = prompt('Edit Title:', currentTitle);
-        if (!newTitle || newTitle === currentTitle) {
-            const newDesc = prompt('Edit Description:', currentDesc);
-            if (!newDesc) return;
-
-            db.collection('courses').doc(docId).update({
-                description: newDesc,
-                lastModified: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
-                showToast('✅ Resource updated!', 'success', 3000);
-                loadUploadedResources();
-            }).catch(error => {
-                showToast('Error: ' + error.message, 'error', 3000);
-            });
-            return;
-        }
-
-        db.collection('courses').doc(docId).update({
-            title: newTitle,
-            lastModified: firebase.firestore.FieldValue.serverTimestamp()
-        }).then(() => {
-            showToast('✅ Resource updated!', 'success', 3000);
-            loadUploadedResources();
-        }).catch(error => {
-            showToast('Error: ' + error.message, 'error', 3000);
-        });
-    }
-
-    // ==================== DELETE RESOURCE ====================
-
-    function deleteResource(docId, title) {
-        if (!confirm(`Delete "${title}"? This cannot be undone!`)) return;
-
-        db.collection('courses').doc(docId).delete()
-            .then(() => {
-                showToast('✅ Resource deleted!', 'success', 3000);
-                loadUploadedResources();
-                loadAdminStats();
-            })
-            .catch(error => {
-                showToast('Error: ' + error.message, 'error', 3000);
-            });
-    }
-
-    // ==================== FIXED COURSE OUTLINE - NO WEEK INPUT ====================
-
-    function addCourseOutline() {
-        const dept = document.getElementById('adminOutlineDepartment').value;
-        const course = document.getElementById('adminOutlineCourseName').value;
-        const content = document.getElementById('adminOutlineContent').value;
-
-        if (!dept || !course || !content) {
-            showToast('Please fill in all fields', 'error', 2000);
-            return;
-        }
-
-        // Parse the content to extract weeks automatically
-        const weeks = parseOutlineContent(content);
-
-        if (weeks.length === 0) {
-            showToast('No weeks found. Format: Week 1: Topic...', 'error', 3000);
-            return;
-        }
-
-        // Save each week as a separate document
-        const batch = db.batch();
-
-        weeks.forEach(week => {
-            const docRef = db.collection('course_outlines').doc();
-            batch.set(docRef, {
-                department: dept,
-                courseName: course,
-                week: week.number,
-                topics: week.content,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            });
-        });
-
-        batch.commit()
-            .then(() => {
-                showToast(`✅ ${weeks.length} weeks added for ${course}!`, 'success', 3000);
-                document.getElementById('adminOutlineDepartment').value = '';
-                document.getElementById('adminOutlineCourseName').value = '';
-                document.getElementById('adminOutlineContent').value = '';
-                loadExistingOutlines();
-            })
-            .catch(error => {
-                showToast('Error: ' + error.message, 'error', 3000);
-            });
-    }
-
-    // ==================== PARSE OUTLINE CONTENT ====================
-
-    function parseOutlineContent(content) {
-        const weeks = [];
-
-        // Split by "Week" keyword
-        const lines = content.split(/Week\s+(\d+)/i);
-
-        for (let i = 1; i < lines.length; i += 2) {
-            const weekNumber = parseInt(lines[i]);
-            const weekContent = lines[i + 1] ? lines[i + 1].trim().replace(/^:\s*/, '') : '';
-
-            if (weekNumber && weekContent) {
-                weeks.push({
-                    number: weekNumber,
-                    content: weekContent
-                });
-            }
-        }
-
-        return weeks;
-    }
-
-    // ==================== LOAD EXISTING OUTLINES (FIXED) ====================
-
-    function loadExistingOutlines() {
-        const list = document.getElementById('existingOutlines');
-        if (!list) return;
-
-        list.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); padding: 20px;">Loading...</p>';
-
-        db.collection('course_outlines')
-            .orderBy('createdAt', 'desc')
-            .get()
-            .then(snapshot => {
-                if (snapshot.empty) {
-                    list.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); padding: 20px;">No outlines yet</p>';
-                    return;
-                }
-
-                // Group by course
-                const courses = {};
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    const key = `${data.department}_${data.courseName}`;
-
-                    if (!courses[key]) {
-                        courses[key] = {
-                            department: data.department,
-                            courseName: data.courseName,
-                            weeks: []
-                        };
-                    }
-
-                    courses[key].weeks.push({
-                        id: doc.id,
-                        week: data.week,
-                        topics: data.topics
-                    });
-                });
-
-                list.innerHTML = '';
-
-                Object.keys(courses).forEach(key => {
-                    const course = courses[key];
-
-                    // Sort weeks
-                    course.weeks.sort((a, b) => a.week - b.week);
-
-                    const courseDiv = document.createElement('div');
-                    courseDiv.style.cssText = 'margin-bottom: 30px; background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 12px; border: 1px solid rgba(255, 140, 0, 0.2);';
-
-                    let html = `
-                        <h3 style="color: var(--primary); margin-bottom: 15px; font-family: var(--font-display);">
-                            ${getDepartmentFullName(course.department)} - ${course.courseName}
-                        </h3>
-                        <button onclick="deleteCourseOutline('${course.department}', '${course.courseName}')"
-                            style="padding: 8px 16px; background: rgba(255, 107, 107, 0.2); color: #ff6b6b; border: 1px solid #ff6b6b; border-radius: 6px; cursor: pointer; margin-bottom: 15px;">
-                            <i class="fas fa-trash"></i> Delete All Weeks
-                        </button>
-                    `;
-
-                    course.weeks.forEach(week => {
-                        html += `
-                            <div class="outline-item" style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
-                                <div style="flex: 1;">
-                                    <div class="outline-week">Week ${week.week}</div>
-                                    <div class="outline-topics">${week.topics}</div>
-                                </div>
-                                <button onclick="deleteWeekOutline('${week.id}')"
-                                    style="padding: 6px 12px; background: rgba(255, 107, 107, 0.2); color: #ff6b6b; border: 1px solid #ff6b6b; border-radius: 4px; cursor: pointer; margin-left: 10px;">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        `;
-                    });
-
-                    courseDiv.innerHTML = html;
-                    list.appendChild(courseDiv);
-                });
-            })
-            .catch(error => {
-                console.error('Error loading outlines:', error);
-                list.innerHTML = `<p style="color: #ff6666; padding: 20px;">Error: ${error.message}</p>`;
-            });
-    }
-
-    // ==================== DELETE ENTIRE COURSE OUTLINE ====================
-
-    function deleteCourseOutline(department, courseName) {
-        if (!confirm(`Delete all weeks for ${courseName}? This cannot be undone!`)) return;
-
-        db.collection('course_outlines')
-            .where('department', '==', department)
-            .where('courseName', '==', courseName)
-            .get()
-            .then(snapshot => {
-                const batch = db.batch();
-                snapshot.forEach(doc => {
-                    batch.delete(doc.ref);
-                });
-                return batch.commit();
-            })
-            .then(() => {
-                showToast('✅ Course outline deleted!', 'success', 3000);
-                loadExistingOutlines();
-            })
-            .catch(error => {
-                showToast('Error: ' + error.message, 'error', 3000);
-            });
-    }
-
-    // ==================== DELETE SINGLE WEEK ====================
-
-    function deleteWeekOutline(docId) {
-        if (!confirm('Delete this week?')) return;
-
-        db.collection('course_outlines').doc(docId).delete()
-            .then(() => {
-                showToast('✅ Week deleted!', 'success', 3000);
-                loadExistingOutlines();
-            })
-            .catch(error => {
-                showToast('Error: ' + error.message, 'error', 3000);
-            });
-    }
-
-    // ==================== LOAD COURSE OUTLINES FOR STUDENTS (FIXED) ====================
-
-   function loadCourseOutlines() {
-            if (!currentUser) return;
-
-            const list = document.getElementById('outlinesList');
-            list.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); padding: 20px;">Loading...</p>';
-
-            db.collection('course_outlines')
-                .where('department', '==', currentUser.department)
-                .get()
-                .then(snapshot => {
-                    if (snapshot.empty) {
-                        list.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); padding: 20px;">No course outlines available yet</p>';
-                    } else {
-                        // Group by course
-                        const courses = {};
-                        snapshot.forEach(doc => {
-                            const data = doc.data();
-                            if (!courses[data.courseName]) {
-                                courses[data.courseName] = [];
-                            }
-                            courses[data.courseName].push(data);
-                        });
-
-                        list.innerHTML = '';
-
-                        // Display grouped outlines
-                        Object.keys(courses).forEach(courseName => {
-                            const courseDiv = document.createElement('div');
-                            courseDiv.style.cssText = 'margin-bottom: 30px;';
-
-                            const courseTitle = document.createElement('h3');
-                            courseTitle.style.cssText = 'color: var(--primary); font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 15px;';
-                            courseTitle.innerHTML = `<i class="fas fa-book"></i> ${courseName}`;
-                            courseDiv.appendChild(courseTitle);
-
-                            // Sort weeks
-                            courses[courseName].sort((a, b) => a.week - b.week);
-
-                            courses[courseName].forEach(outline => {
-                                const item = document.createElement('div');
-                                item.className = 'outline-item';
-                                item.innerHTML = `
-                            <div class="outline-week">Week ${outline.week}</div>
-                            <div class="outline-topics">${outline.topics}</div>
-                        `;
-                                courseDiv.appendChild(item);
-                            });
-
-                            list.appendChild(courseDiv);
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error('Error loading outlines:', error);
-                    list.innerHTML = `<p style="color: #ff6666; padding: 20px;">Error loading outlines: ${error.message}</p>`;
-                });
-        }
-               
-               
-    // ==================== INITIALIZE ADMIN DASHBOARD ====================
-
-    function initializeAdminDashboard() {
-        loadUploadedResources();
-        loadExistingOutlines();
-    }
-
-    // ==================== STUDY TIMER ====================
-    let timerInterval = null;
-    let timerSeconds = 25 * 60; // 25 minutes
-    let isBreak = false;
-    let sessionsCompleted = 0;
-
-    function updateTimerDisplay() {
-        const minutes = Math.floor(timerSeconds / 60);
-        const seconds = timerSeconds % 60;
-        document.getElementById('timerDisplay').textContent =
-            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    }
-
-    function startTimer() {
-        if (timerInterval) return; // Already running
-
-        timerInterval = setInterval(() => {
-            timerSeconds--;
-            updateTimerDisplay();
-
-            if (timerSeconds <= 0) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-
-                if (!isBreak) {
-                    // Focus session completed
-                    sessionsCompleted++;
-                    document.getElementById('sessionsCompleted').textContent = sessionsCompleted;
-
-                    // Save to Firebase
-                    saveStudySession();
-
-                    alert('🎉 Focus session complete! Time for a 5-minute break!');
-                    isBreak = true;
-                    timerSeconds = 5 * 60; // 5 minute break
-                } else {
-                    // Break completed
-                    alert('✅ Break time over! Ready for another focus session?');
-                    isBreak = false;
-                    timerSeconds = 25 * 60; // Back to 25 minutes
-                }
-
-                updateTimerDisplay();
-            }
-        }, 1000);
-    }
-
-    function pauseTimer() {
-        if (timerInterval) {
-            clearInterval(timerInterval);
-            timerInterval = null;
-        }
-    }
-
-    function resetTimer() {
-        pauseTimer();
-        isBreak = false;
-        timerSeconds = 25 * 60;
-        updateTimerDisplay();
-    }
-
-    function saveStudySession() {
-        if (!currentUser) return;
-
-        db.collection('study_sessions').add({
-            userId: currentUser.uid,
-            duration: 25, // minutes
-            completedAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-    }
-
-    function loadStudyStats() {
-        if (!currentUser) return;
-
-        const statsContainer = document.getElementById('studyStats');
-        statsContainer.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5);">Loading stats...</p>';
-
-        // Get sessions from last 7 days
-        const weekAgo = new Date();
-        weekAgo.setDate(weekAgo.getDate() - 7);
-
-        db.collection('study_sessions')
-            .where('userId', '==', currentUser.uid)
-            .where('completedAt', '>=', weekAgo)
-            .get()
-            .then(snapshot => {
-                const totalSessions = snapshot.size;
-                const totalMinutes = totalSessions * 25;
-                const totalHours = (totalMinutes / 60).toFixed(1);
-
-                statsContainer.innerHTML = `
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
-                <div style="text-align: center; padding: 20px; background: rgba(255, 140, 0, 0.1); border-radius: 12px;">
-                    <h3 style="font-size: 2.5rem; color: var(--primary); margin-bottom: 5px;">${totalSessions}</h3>
-                    <p style="color: rgba(255, 255, 255, 0.7);">Sessions This Week</p>
-                </div>
-                <div style="text-align: center; padding: 20px; background: rgba(102, 126, 234, 0.1); border-radius: 12px;">
-                    <h3 style="font-size: 2.5rem; color: var(--secondary); margin-bottom: 5px;">${totalHours}h</h3>
-                    <p style="color: rgba(255, 255, 255, 0.7);">Total Study Time</p>
-                </div>
-                <div style="text-align: center; padding: 20px; background: rgba(81, 207, 102, 0.1); border-radius: 12px;">
-                    <h3 style="font-size: 2.5rem; color: var(--accent); margin-bottom: 5px;">${Math.round(totalSessions / 7)}</h3>
-                    <p style="color: rgba(255, 255, 255, 0.7);">Daily Average</p>
-                </div>
+                <div class="nf-card-label">S3 E6 · 42m left</div>
+              </div>
+              <div style="padding:8px 0 0;background:var(--bg3)">
+                <div style="font-size:13px;font-weight:500;padding:0 8px 4px;color:var(--text)">Inferno Rising</div>
+                <div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:68%"></div></div>
+              </div>
             </div>
-        `;
-            });
-    }
-
-    // ==================== COMMUNITY ====================
-    function loadCommunities() {
-        const grid = document.getElementById('communityGrid');
-
-        const departments = [
-            { id: 'history', name: 'History', icon: '📜' },
-            { id: 'iss', name: 'International Studies', icon: '🌍' },
-            { id: 'french', name: 'French', icon: '🇫🇷' },
-            { id: 'portuguese', name: 'Portuguese', icon: '🇵🇹' },
-            { id: 'linguistics', name: 'Linguistics', icon: '🗣️' },
-            { id: 'philosophy', name: 'Philosophy', icon: '🤔' },
-            { id: 'theatre-art', name: 'Theatre Art', icon: '🎭' },
-            { id: 'gns', name: 'General Studies', icon: '📚' },
-            { id: 'english', name: 'English', icon: '📖' },
-            { id: 'peace-studies', name: 'Peace Studies', icon: '☮️' }
-        ];
-
-        grid.innerHTML = '';
-
-        departments.forEach(dept => {
-            // Count members
-            db.collection('students').where('department', '==', dept.id).get().then(snapshot => {
-                const memberCount = snapshot.size;
-
-                // Count posts
-                db.collection('community_posts').where('department', '==', dept.id).get().then(postSnapshot => {
-                    const postCount = postSnapshot.size;
-
-                    const card = document.createElement('div');
-                    card.className = 'community-card';
-                    card.onclick = () => switchToDepartmentCommunity(dept.id);
-                    card.innerHTML = `
-                <span class="community-icon">${dept.icon}</span>
-                <h4 class="community-name">${dept.name}</h4>
-                <div class="community-stats">
-                    <span><i class="fas fa-users"></i> ${memberCount} members</span>
-                    <span><i class="fas fa-comments"></i> ${postCount} posts</span>
+            <div class="nf-card" style="width:220px">
+              <div class="nf-card-img c1"><span>🌊</span></div>
+              <div class="nf-card-overlay">
+                <div class="nf-card-actions">
+                  <div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div>
+                  <div class="mini-btn"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
                 </div>
-            `;
-                    grid.appendChild(card);
-                });
-            });
-        });
-    }
-
-    function switchToDepartmentCommunity(deptId) {
-        // Filter community feed by department
-        loadCommunityFeed(deptId);
-
-        // Switch to community tab
-        switchNavTab('community');
-    }
-
-    function createPost() {
-        const content = document.getElementById('newPostContent').value.trim();
-
-        if (!content) {
-            alert('Please write something to post');
-            return;
-        }
-
-        db.collection('community_posts').add({
-            userId: currentUser.uid,
-            userName: currentUser.name,
-            userMatric: currentUser.matric,
-            department: currentUser.department,
-            content: content,
-            likes: 0,
-            comments: 0,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        }).then(() => {
-            document.getElementById('newPostContent').value = '';
-            loadCommunityFeed();
-            alert('✅ Post created successfully!');
-        }).catch(error => {
-            alert('Error: ' + error.message);
-        });
-    }
-
-    function loadCommunityFeed(filterDept = null) {
-        const feed = document.getElementById('communityFeed');
-        feed.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); padding: 20px;">Loading feed...</p>';
-
-        let query = db.collection('community_posts');
-
-        if (filterDept) {
-            query = query.where('department', '==', filterDept);
-        }
-
-        query.orderBy('createdAt', 'desc').limit(20).get().then(snapshot => {
-            if (snapshot.empty) {
-                feed.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); padding: 20px;">No posts yet. Be the first to post!</p>';
-            } else {
-                feed.innerHTML = '';
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    const postId = doc.id;
-
-                    const post = document.createElement('div');
-                    post.className = 'post';
-                    post.innerHTML = `
-                <div class="post-header">
-                    <div class="post-avatar">${data.userName.charAt(0).toUpperCase()}</div>
-                    <div class="post-meta">
-                        <div class="post-author">${data.userName}</div>
-                        <div class="post-time">
-                            ${getDepartmentFullName(data.department)} • 
-                            ${data.createdAt ? new Date(data.createdAt.toDate()).toLocaleString() : 'Just now'}
-                        </div>
-                    </div>
+                <div class="nf-card-label">Episode 3 · 28m left</div>
+              </div>
+              <div style="padding:8px 0 0;background:var(--bg3)">
+                <div style="font-size:13px;font-weight:500;padding:0 8px 4px;color:var(--text)">Blue Depths</div>
+                <div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:30%"></div></div>
+              </div>
+            </div>
+            <div class="nf-card" style="width:220px">
+              <div class="nf-card-img c2"><span>🚀</span></div>
+              <div class="nf-card-overlay">
+                <div class="nf-card-actions">
+                  <div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div>
                 </div>
-                <div class="post-content">${data.content}</div>
-                <div class="post-actions">
-                    <button class="post-action-btn" onclick="likePost('${postId}')">
-                        <i class="fas fa-heart"></i> ${data.likes || 0}
-                    </button>
-                    <button class="post-action-btn">
-                        <i class="fas fa-comment"></i> ${data.comments || 0}
-                    </button>
-                    <button class="post-action-btn">
-                        <i class="fas fa-share"></i> Share
-                    </button>
+                <div class="nf-card-label">Film · 1h 12m left</div>
+              </div>
+              <div style="padding:8px 0 0;background:var(--bg3)">
+                <div style="font-size:13px;font-weight:500;padding:0 8px 4px;color:var(--text)">Mars: First Colony</div>
+                <div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:15%"></div></div>
+              </div>
+            </div>
+            <div class="nf-card" style="width:220px">
+              <div class="nf-card-img c5"><span>🧠</span></div>
+              <div class="nf-card-overlay">
+                <div class="nf-card-actions">
+                  <div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div>
                 </div>
-            `;
-                    feed.appendChild(post);
-                });
-            }
-        });
-    }
-
-    function likePost(postId) {
-        db.collection('community_posts').doc(postId).update({
-            likes: firebase.firestore.FieldValue.increment(1)
-        }).then(() => {
-            loadCommunityFeed();
-        });
-    }
-
-    // ==================== ADMIN FUNCTIONS ====================
-    function loadAdminStats() {
-        // Total users
-        db.collection('students').get().then(snapshot => {
-            document.getElementById('totalUsers').textContent = snapshot.size;
-        });
-
-        // Total resources (using 'courses' collection)
-        db.collection('courses').get().then(snapshot => {
-            document.getElementById('totalResources').textContent = snapshot.size;
-        });
-
-        // Total posts
-        db.collection('community_posts').get().then(
-
-snapshot => {
-document.getElementById('totalPosts').textContent = snapshot.size;
-});
-}
-
-    function loadUsers() {
-        const list = document.getElementById('usersList');
-        list.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); padding: 20px;">Loading...</p>';
-
-        db.collection('students').orderBy('registeredDate', 'desc').get().then(snapshot => {
-            if (snapshot.empty) {
-                list.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); padding: 20px;">No users yet</p>';
-            } else {
-                list.innerHTML = '';
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    const div = document.createElement('div');
-                    div.className = 'post';
-                    div.innerHTML = `
-                <div style="display: flex; justify-content: space-between; align-items: start;">
-                    <div>
-                        <h4 style="color: var(--primary); margin-bottom: 5px;">${data.name}</h4>
-                        <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 5px;">
-                            <i class="fas fa-id-card"></i> ${data.matric} | 
-                            <i class="fas fa-envelope"></i> ${data.email}
-                        </p>
-                        <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">
-                            <i class="fas fa-building"></i> ${getDepartmentFullName(data.department)}
-                        </p>
-                    </div>
+                <div class="nf-card-label">S1 E9 · 55m left</div>
+              </div>
+              <div style="padding:8px 0 0;background:var(--bg3)">
+                <div style="font-size:13px;font-weight:500;padding:0 8px 4px;color:var(--text)">Mindscape</div>
+                <div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:45%"></div></div>
+              </div>
+            </div>
+            <div class="nf-card" style="width:220px">
+              <div class="nf-card-img c4"><span>👁️</span></div>
+              <div class="nf-card-overlay">
+                <div class="nf-card-actions">
+                  <div class="mini-btn play-mini"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="#000" stroke="none"/></svg></div>
                 </div>
-            `;
-                    list.appendChild(div);
-                });
-            }
-        });
-    }
+                <div class="nf-card-label">Film · 38m left</div>
+              </div>
+              <div style="padding:8px 0 0;background:var(--bg3)">
+                <div style="font-size:13px;font-weight:500;padding:0 8px 4px;color:var(--text)">The Watcher</div>
+                <div class="progress-bar" style="margin:0 8px 8px"><div class="progress-fill" style="width:75%"></div></div>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+      </div>
 
-    function loadFeedback() {
-        const list = document.getElementById('feedbackList');
-        list.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); padding: 20px;">Loading...</p>';
+      <!-- ─── TOP 10 ─── -->
+      <div class="section">
+        <div class="section-head">
+          <div class="section-title">Top 10 <span class="tag">This Week</span></div>
+          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+        <div class="carousel">
+          <div class="carousel-track">
+            <div class="top10-card"><div class="top10-num">1</div><div class="top10-img c3"><span>🔥</span></div></div>
+            <div class="top10-card"><div class="top10-num">2</div><div class="top10-img c2"><span>🌌</span></div></div>
+            <div class="top10-card"><div class="top10-num">3</div><div class="top10-img c1"><span>🦁</span></div></div>
+            <div class="top10-card"><div class="top10-num">4</div><div class="top10-img c4"><span>🐉</span></div></div>
+            <div class="top10-card"><div class="top10-num">5</div><div class="top10-img c5"><span>🕵️</span></div></div>
+            <div class="top10-card"><div class="top10-num">6</div><div class="top10-img c6"><span>⚔️</span></div></div>
+            <div class="top10-card"><div class="top10-num">7</div><div class="top10-img c7"><span>🌊</span></div></div>
+            <div class="top10-card"><div class="top10-num">8</div><div class="top10-img c8"><span>🚀</span></div></div>
+            <div class="top10-card"><div class="top10-num">9</div><div class="top10-img c2"><span>🧠</span></div></div>
+            <div class="top10-card"><div class="top10-num" style="font-size:90px">10</div><div class="top10-img c3"><span>👁️</span></div></div>
+          </div>
+        </div>
+      </div>
 
-        db.collection('feedback').orderBy('submittedAt', 'desc').get().then(snapshot => {
-            if (snapshot.empty) {
-                list.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); padding: 20px;">No feedback yet</p>';
-            } else {
-                list.innerHTML = '';
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    const div = document.createElement('div');
-                    div.className = 'post';
-                    div.innerHTML = `
-                <h4 style="color: var(--primary); margin-bottom: 10px;">${data.subject || 'Feedback'}</h4>
-                <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 10px; line-height: 1.6;">${data.message}</p>
-                <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.5);">
-                    From: ${data.userName} (${data.userMatric}) - 
-                    ${data.submittedAt ? new Date(data.submittedAt.toDate()).toLocaleString() : 'Just now'}
-                </p>
-            `;
-                    list.appendChild(div);
-                });
-            }
-        });
-    }
+      <!-- ─── NEW RELEASES ─── -->
+      <div class="section">
+        <div class="section-head">
+          <div class="section-title">New Releases <span class="tag">New</span></div>
+          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+        <div class="carousel">
+          <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <div class="carousel-track">
+            <div class="nf-card"><div class="nf-card-img c6" style="aspect-ratio:2/3;font-size:48px"><span>⚔️</span></div></div>
+            <div class="nf-card"><div class="nf-card-img c4" style="aspect-ratio:2/3;font-size:48px"><span>🐉</span></div></div>
+            <div class="nf-card"><div class="nf-card-img c7" style="aspect-ratio:2/3;font-size:48px"><span>🌊</span></div></div>
+            <div class="nf-card"><div class="nf-card-img c8" style="aspect-ratio:2/3;font-size:48px"><span>🔮</span></div></div>
+            <div class="nf-card"><div class="nf-card-img c1" style="aspect-ratio:2/3;font-size:48px"><span>🌲</span></div></div>
+            <div class="nf-card"><div class="nf-card-img c2" style="aspect-ratio:2/3;font-size:48px"><span>🛸</span></div></div>
+            <div class="nf-card"><div class="nf-card-img c3" style="aspect-ratio:2/3;font-size:48px"><span>🎭</span></div></div>
+            <div class="nf-card"><div class="nf-card-img c5" style="aspect-ratio:2/3;font-size:48px"><span>🤖</span></div></div>
+          </div>
+          <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+      </div>
 
-    // ==================== AI CHAT PLACEHOLDER FUNCTIONS ====================
-    function loadAIConversations() {
-        // Placeholder - AI chat feature can be implemented here
-    }
+      <div class="divider"></div>
 
-    function clearAIChat() {
-        const messagesContainer = document.getElementById('aiChatMessages');
-        if (messagesContainer) {
-            messagesContainer.innerHTML = '';
-        }
-    }
+      <!-- ─── YOUTUBE GRID: TRENDING VIDEOS ─── -->
+      <div class="section" style="padding-top:20px">
+        <div class="section-head">
+          <div class="section-title">
+            <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:var(--red)"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.97C18.88 4 12 4 12 4s-6.88 0-8.59.47a2.78 2.78 0 00-1.95 1.97A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20.07 12 20.07 12 20.07s6.88 0 8.59-.47a2.78 2.78 0 001.95-1.97A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#fff"/></svg>
+            Trending on NetTube
+          </div>
+          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+        <div class="yt-grid">
 
-    function sendAIMessage() {
-        // Placeholder - AI chat feature can be implemented here
-        const input = document.getElementById('aiChatInput');
-        if (input && input.value.trim()) {
-            alert('AI chat feature coming soon!');
-            input.value = '';
-        }
-    }
+          <!-- Card 1 - Live -->
+          <div class="yt-card">
+            <div class="yt-thumb c3">
+              <span>🏟️</span>
+              <div class="yt-thumb-live">🔴 LIVE</div>
+            </div>
+            <div class="yt-info">
+              <div class="yt-avatar a1">N</div>
+              <div class="yt-details">
+                <div class="yt-title">Champions League Final 2024 — Full Match Live Stream</div>
+                <div class="yt-channel">NetTube Sports<span class="verified"></span></div>
+                <div class="yt-stats">284K watching now</div>
+              </div>
+            </div>
+          </div>
 
-    function handleAIChatKeyPress(event) {
-        if (event.key === 'Enter') {
-            sendAIMessage();
-        }
-    }
+          <!-- Card 2 -->
+          <div class="yt-card">
+            <div class="yt-thumb c2"><span>🤖</span>
+              <div class="yt-thumb-duration">24:08</div>
+            </div>
+            <div class="yt-info">
+              <div class="yt-avatar a2">T</div>
+              <div class="yt-details">
+                <div class="yt-title">I Built an AI That Watches Movies and Writes Reviews</div>
+                <div class="yt-channel">TechWanderer<span class="verified"></span></div>
+                <div class="yt-stats">2.1M views · 3 days ago</div>
+              </div>
+            </div>
+          </div>
 
-    // Initialize timer display
-    updateTimerDisplay();
-    </script>
+          <!-- Card 3 -->
+          <div class="yt-card">
+            <div class="yt-thumb c1"><span>🌍</span>
+              <div class="yt-thumb-duration">48:22</div>
+            </div>
+            <div class="yt-info">
+              <div class="yt-avatar a3">V</div>
+              <div class="yt-details">
+                <div class="yt-title">Secret Villages Hidden in the Amazon — Full Documentary</div>
+                <div class="yt-channel">Veritasium Films<span class="verified"></span></div>
+                <div class="yt-stats">5.8M views · 1 week ago</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="yt-card">
+            <div class="yt-thumb c4"><span>🎮</span>
+              <div class="yt-thumb-duration">3:14:50</div>
+            </div>
+            <div class="yt-info">
+              <div class="yt-avatar a4">G</div>
+              <div class="yt-details">
+                <div class="yt-title">I Played Minecraft for 1000 Days Straight — Final Episode</div>
+                <div class="yt-channel">GameVault<span class="verified"></span></div>
+                <div class="yt-stats">18.4M views · 2 days ago</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="yt-card">
+            <div class="yt-thumb c6"><span>👨‍🍳</span>
+              <div class="yt-thumb-duration">18:55</div>
+            </div>
+            <div class="yt-info">
+              <div class="yt-avatar a5">C</div>
+              <div class="yt-details">
+                <div class="yt-title">Gordon Ramsay Reacts to My Homemade Beef Wellington</div>
+                <div class="yt-channel">ChefCentral<span class="verified"></span></div>
+                <div class="yt-stats">892K views · 5 days ago</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="yt-card">
+            <div class="yt-thumb c5"><span>🎵</span>
+              <div class="yt-thumb-duration">4:22</div>
+            </div>
+            <div class="yt-info">
+              <div class="yt-avatar a6">M</div>
+              <div class="yt-details">
+                <div class="yt-title">AURORA — "The Phantom Heart" (Official Music Video)</div>
+                <div class="yt-channel">MusicWorld Official<span class="verified"></span></div>
+                <div class="yt-stats">31M views · 2 weeks ago</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 7 -->
+          <div class="yt-card">
+            <div class="yt-thumb c7"><span>🔭</span>
+              <div class="yt-thumb-duration">1:02:14</div>
+            </div>
+            <div class="yt-info">
+              <div class="yt-avatar a2">S</div>
+              <div class="yt-details">
+                <div class="yt-title">James Webb Telescope: What We Found Beyond the Milky Way</div>
+                <div class="yt-channel">SpaceX Official<span class="verified"></span></div>
+                <div class="yt-stats">12.2M views · 4 days ago</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 8 -->
+          <div class="yt-card">
+            <div class="yt-thumb c8"><span>🏋️</span>
+              <div class="yt-thumb-duration">22:40</div>
+            </div>
+            <div class="yt-info">
+              <div class="yt-avatar a1">F</div>
+              <div class="yt-details">
+                <div class="yt-title">30-Day Transformation: I Trained Like an Olympian</div>
+                <div class="yt-channel">FitForm Pro<span class="verified"></span></div>
+                <div class="yt-stats">4.4M views · 1 week ago</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 9 -->
+          <div class="yt-card">
+            <div class="yt-thumb c2"><span>💰</span>
+              <div class="yt-thumb-duration">31:07</div>
+            </div>
+            <div class="yt-info">
+              <div class="yt-avatar a3">F</div>
+              <div class="yt-details">
+                <div class="yt-title">How to Build Passive Income in 2025 (Realistic Guide)</div>
+                <div class="yt-channel">FinanceUnlocked<span class="verified"></span></div>
+                <div class="yt-stats">7.9M views · 3 days ago</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── BECAUSE YOU WATCHED ─── -->
+      <div class="section">
+        <div class="section-head">
+          <div class="section-title">Because you watched <em style="font-style:italic;color:var(--text2);font-size:16px">Interstellar</em></div>
+          <div class="see-all">See all <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+        <div class="carousel">
+          <button class="carousel-arrow left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <div class="carousel-track">
+            <div class="nf-card"><div class="nf-card-img c2"><span>🌌</span></div></div>
+            <div class="nf-card"><div class="nf-card-img c1"><span>🪐</span></div></div>
+            <div class="nf-card"><div class="nf-card-img c5"><span>🛸</span></div></div>
+            <div class="nf-card"><div class="nf-card-img c3"><span>⚡</span></div></div>
+            <div class="nf-card"><div class="nf-card-img c4"><span>🌠</span></div></div>
+            <div class="nf-card"><div class="nf-card-img c7"><span>🔭</span></div></div>
+            <div class="nf-card"><div class="nf-card-img c6"><span>💫</span></div></div>
+          </div>
+          <button class="carousel-arrow right"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+      </div>
+
+      <div style="height:40px"></div>
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /shell -->
+
+<script>
+  // Filter pills
+  document.querySelectorAll('.pill').forEach(p=>{
+    p.addEventListener('click',()=>{
+      document.querySelectorAll('.pill').forEach(x=>x.classList.remove('active'));
+      p.classList.add('active');
+    });
+  });
+
+  // Nav items
+  document.querySelectorAll('.nav-item').forEach(n=>{
+    n.addEventListener('click',()=>{
+      document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
+      n.classList.add('active');
+    });
+  });
+
+  // Hero indicators auto-cycle
+  const indicators = document.querySelectorAll('.indicator');
+  const heroEmojis = ['🌌','🔥','🦁','🧠'];
+  const heroTitles = ['BEYOND\nTHE COSMOS','INFERNO\nRISING','PLANET\nEARTH IV','MIND\nSCAPE'];
+  let hIdx = 0;
+  setInterval(()=>{
+    indicators[hIdx].classList.remove('active');
+    hIdx = (hIdx+1) % indicators.length;
+    indicators[hIdx].classList.add('active');
+  }, 3500);
+
+  indicators.forEach((ind,i)=>{
+    ind.addEventListener('click',()=>{
+      indicators[hIdx].classList.remove('active');
+      hIdx = i;
+      ind.classList.add('active');
+    });
+  });
+
+  // Carousel scroll arrows
+  document.querySelectorAll('.carousel').forEach(c=>{
+    const track = c.querySelector('.carousel-track');
+    const left = c.querySelector('.carousel-arrow.left');
+    const right = c.querySelector('.carousel-arrow.right');
+    if(!track) return;
+    if(right) right.addEventListener('click',()=>track.scrollBy({left:400,behavior:'smooth'}));
+    if(left) left.addEventListener('click',()=>track.scrollBy({left:-400,behavior:'smooth'}));
+  });
+</script>
 </body>
 </html>
